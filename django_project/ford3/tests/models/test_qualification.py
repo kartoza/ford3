@@ -2,7 +2,7 @@ from django.test import TestCase
 from ford3.models.qualifications import Qualification
 
 
-class TestQualifications(TestCase):
+class TestQualification(TestCase):
     def setUp(self):
         Qualification.objects.create(
             id=10,
@@ -21,6 +21,6 @@ class TestQualifications(TestCase):
             estimated_annual_fee=100000,
             campus_id=55)
 
-    def test_qualificatoin_description(self):
+    def test_qualification_description(self):
         newQualification = Qualification.objects.get(id=10)
         self.assertEqual(newQualification.__str__(), 'Qualification Name')

@@ -1,7 +1,7 @@
 from django.db import models
 
 
-class Requirements(models.Model):
+class Requirement(models.Model):
   id = models.IntegerField(
     primary_key=True,
     blank=False,
