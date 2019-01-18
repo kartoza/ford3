@@ -3,7 +3,9 @@ from ford3.models.field_of_study import FieldOfStudy
 from ford3.models.occupation import Occupation
 
 class SubFieldOfStudy(models.Model):
-  field_of_study_id = models.ForeignKey(FieldOfStudy)
+  field_of_study_id = models.ForeignKey(
+    FieldOfStudy,
+    on_delete=models.PROTECT)
   occupation_id = models.ManyToManyField(Occupation)
 
   id = models.IntegerField(

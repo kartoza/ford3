@@ -3,15 +3,24 @@ from ford3.models.subject import Subject
 from ford3.models.campus import Campus
 from ford3.models.sub_field_of_study import SubFieldOfStudy
 from ford3.models.module import Module
+from ford3.models.occupation import Occupation
+
 
 
 class Qualification(models.Model):
   subjects = models.ManyToManyField(
     Subject,
-    through='QualificationEntranceRequirementsSubjects')
-  campus_id = models.ForeignKey(Campus)
-  sub_field_of_study_id = models.ForeignKey(SubFieldOfStudy)
+    through='QualificationEntranceRequirementSubject')
+  campus_id = models.ForeignKey(
+    Campus,
+    on_delete=models.PROTECT)
+  sub_field_of_study_id = models.ForeignKey(
+    SubFieldOfStudy,
+    on_delete=models.PROTECT)
   modules = models.ManyToManyField(Module)
+  occupation_id = models.ForeignKey(
+    Occupation,
+    on_delete=models.PROTECT)
 
   id = models.IntegerField(
     blank=False,
