@@ -1,32 +1,35 @@
 from django.db import models
 
 
-class QualificationEntranceRequirementSubject(models.Model):
+class Provider(models.Model):
   id = models.IntegerField(
     blank=False,
     null=False,
     unique=True,
     help_text='',
     primary_key=True)
-  qualification_id = models.CharField(
+
+  logo_url = models.CharField(
     blank=False,
     null=False,
     unique=False,
     help_text='',
     max_length=255)
-  subject_id = models.CharField(
+  email = models.CharField(
     blank=False,
     null=False,
     unique=False,
     help_text='',
     max_length=255)
-  minimum_score = models.IntegerField(
+  admissions_contact_no = models.CharField(
     blank=False,
     null=False,
     unique=False,
-    help_text='')
-  required = models.BooleanField(
+    help_text='',
+    max_length=255)
+  postal_address = models.CharField(
     blank=False,
     null=False,
     unique=False,
-    help_text='')
+    help_text='',
+    max_length=255)

@@ -3,11 +3,11 @@ from django.db import models
 
 class Qualification(models.Model):
   id = models.IntegerField(
-    primary_key=True,
     blank=False,
     null=False,
     unique=True,
-    help_text='Key of qualification')
+    help_text='Key of qualification',
+    primary_key=True)
   subfield_of_study_id = models.IntegerField(
     blank=False,
     null=False,
@@ -35,11 +35,12 @@ class Qualification(models.Model):
     unique=False,
     help_text='',
     max_length=255)
-  long_description = models.TextField(
+  long_description = models.CharField(
     blank=False,
     null=False,
     unique=False,
-    help_text='',)
+    help_text='',
+    max_length=255)
   NQF_level = models.IntegerField(
     blank=False,
     null=False,
@@ -80,7 +81,3 @@ class Qualification(models.Model):
     null=False,
     unique=False,
     help_text='')
-
-
-  def __str__(self):
-    return self.name
