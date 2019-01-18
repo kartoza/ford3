@@ -1,25 +1,19 @@
 from django.db import models
-
+from ford3.models.qualification import Qualification
+from ford3.models.subject import Subject
 
 class QualificationEntranceRequirementSubject(models.Model):
+  qualification_id = models.ForeignKey(
+    Qualification)
+  subject_id = models.ForeignKey(
+    Subject)
+
   id = models.IntegerField(
     blank=False,
     null=False,
     unique=True,
     help_text='',
     primary_key=True)
-  qualification_id = models.CharField(
-    blank=False,
-    null=False,
-    unique=False,
-    help_text='',
-    max_length=255)
-  subject_id = models.CharField(
-    blank=False,
-    null=False,
-    unique=False,
-    help_text='',
-    max_length=255)
   minimum_score = models.IntegerField(
     blank=False,
     null=False,

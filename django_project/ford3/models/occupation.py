@@ -1,7 +1,10 @@
 from django.db import models
+from ford3.models.qualification import Qualification
 
 
 class Occupation(models.Model):
+  qualification_id = models.ManyToManyField(Qualification)
+
   id = models.IntegerField(
     blank=False,
     null=False,
@@ -20,3 +23,5 @@ class Occupation(models.Model):
     unique=False,
     help_text='',
     max_length=255)
+
+  pass

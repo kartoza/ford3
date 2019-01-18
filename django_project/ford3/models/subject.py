@@ -1,7 +1,11 @@
 from django.db import models
+from ford3.models.secondary_institution_type  import SecondaryInstitutionType
 
 
 class Subject(models.Model):
+  secondary_institution_types = models.ManyToManyField(
+    SecondaryInstitutionType)
+
   id = models.IntegerField(
     blank=False,
     null=False,

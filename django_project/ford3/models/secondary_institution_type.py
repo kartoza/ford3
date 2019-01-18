@@ -14,3 +14,5 @@ class  SecondaryInstitutionType(models.Model):
     unique=False,
     help_text='',
     max_length=255)
+
+  pass

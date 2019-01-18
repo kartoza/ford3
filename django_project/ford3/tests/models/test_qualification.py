@@ -12,7 +12,7 @@ class TestQualification(TestCase):
             name='Qualification Name',
             short_description='Some short description',
             long_description='Some very long description that just goes on',
-            NQF_level=6,
+            nqf_level=6,
             duration_in_months=12,
             full_time=True,
             part_time=False,

@@ -8,7 +8,6 @@ class Provider(models.Model):
     unique=True,
     help_text='',
     primary_key=True)
-
   logo_url = models.CharField(
     blank=False,
     null=False,
@@ -33,3 +32,5 @@ class Provider(models.Model):
     unique=False,
     help_text='',
     max_length=255)
+
+  pass
