@@ -111,3 +111,6 @@ django_project/.pycharm_helpers/
 secret.py
 
 deployment/backups/
+
+.DS_Store/
+.sync
