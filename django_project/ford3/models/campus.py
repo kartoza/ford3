@@ -1,4 +1,6 @@
-from django.db import models
+
+from django.contrib.gis.db import models
+
 from ford3.models.provider import Provider
 
 class Campus(models.Model):
@@ -18,5 +20,9 @@ class Campus(models.Model):
     unique=False,
     help_text='',
     max_length=255)
+  location = models.PointField(
+    blank=True,
+    null=True,
+    help_text='The spatial point position of the campus')
 
   pass
