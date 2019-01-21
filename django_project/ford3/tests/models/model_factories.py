@@ -1,7 +1,6 @@
 # coding=utf-8
 """Factory for building model instances for testing."""
 
-import factory
 from ford3.models.campus import Campus
 from ford3.models.field_of_study import FieldOfStudy
 from ford3.models.module import Module
@@ -16,9 +15,9 @@ from ford3.models.subject import Subject
 
 class ModelFactories:
     @staticmethod
-    def get_qualification_test_object(newid=1):
+    def get_qualification_test_object(new_id=1):
         qualification_test_object_instance = Qualification.objects.create(
-            id=newid,
+            id=new_id,
             qualification_id=1,
             saqa_id=4,
             name='Object Test Name',
@@ -41,10 +40,10 @@ class ModelFactories:
         return qualification_test_object_instance
 
     @staticmethod
-    def get_requirement_test_object(newid=1):
+    def get_requirement_test_object(new_id=1):
         requirement_test_object_instance = Requirement.objects.create(
-            id=newid,
-            description='Requirement Description',
+            id=new_id,
+            description='Some long description that goes on...',
             qualification_id=ModelFactories.get_qualification_test_object(),
             assessment=True,
             interview=True,
@@ -54,19 +53,18 @@ class ModelFactories:
         return requirement_test_object_instance
 
     @staticmethod
-    def get_secondary_institution_type_test_object(newid=1):
+    def get_secondary_institution_type_test_object(new_id=1):
         secondary_institution_type_test_object_instance = \
             SecondaryInstitutionType.objects.create(
-                id=newid,
-                name='Object Test Name',
-                description='Some long description that goes on...'
+                id=new_id,
+                name='Object Test Name'
             )
         return secondary_institution_type_test_object_instance
 
     @staticmethod
-    def get_campus_test_object(newid=1):
+    def get_campus_test_object(new_id=1):
         campus_test_object_instance = Campus.objects.create(
-            id=newid,
+            id=new_id,
             provider_id=ModelFactories.get_provider_test_object(),
             name='Object Test Name',
         )
@@ -74,9 +72,9 @@ class ModelFactories:
         return campus_test_object_instance
 
     @staticmethod
-    def get_module_test_object(newid=1):
+    def get_module_test_object(new_id=1):
         module_test_object_instance = Module.objects.create(
-            id=newid,
+            id=new_id,
             name='Object Test Name',
             description='Some long description that goes on...'
         )
@@ -84,18 +82,18 @@ class ModelFactories:
         return module_test_object_instance
 
     @staticmethod
-    def get_field_of_study_test_object(newid=1):
+    def get_field_of_study_test_object(new_id=1):
         field_of_study_test_object_instance = FieldOfStudy.objects.create(
-            id=newid,
+            id=new_id,
             name='Object Test Name'
         )
 
         return field_of_study_test_object_instance
 
     @staticmethod
-    def get_occupation_test_object(newid=1):
+    def get_occupation_test_object(new_id=1):
         occupation_test_object_instance = Occupation.objects.create(
-            id=newid,
+            id=new_id,
             name='Object Test Name',
             description='Some long description that goes on...'
         )
@@ -103,9 +101,9 @@ class ModelFactories:
         return occupation_test_object_instance
 
     @staticmethod
-    def get_provider_test_object(newid=1):
+    def get_provider_test_object(new_id=1):
         provider_test_object_instance = Provider.objects.create(
-            id=newid,
+            id=new_id,
             name='Object Test Name',
             website='www.mytest.com',
             logo_url='http://sometestplaceholder/logo.png',
@@ -118,11 +116,13 @@ class ModelFactories:
 
     @staticmethod
     def get_sub_field_of_study_test_object(new_id=1):
-        sub_field_of_study_test_object_instance = SubFieldOfStudy.objects.create(
-            id=new_id,
-            name='Object Test Name',
-            field_of_study_id=ModelFactories.get_field_of_study_test_object(1),
-        )
+        sub_field_of_study_test_object_instance = (
+            SubFieldOfStudy.objects.create(
+                id=new_id,
+                name='Object Test Name',
+                field_of_study_id=(
+                    ModelFactories.get_field_of_study_test_object(1)),
+            ))
 
         return sub_field_of_study_test_object_instance
 
