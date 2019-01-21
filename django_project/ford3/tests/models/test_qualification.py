@@ -1,13 +1,13 @@
 from django.test import TestCase
-from ford3.models.qualifications import Qualification
-
+from ford3.models.qualification import Qualification
+import ford3.tests.models.model_factories
 
 class TestQualification(TestCase):
     def setUp(self):
         Qualification.objects.create(
             id=10,
             subfield_of_study_id=2,
-            qualification_id=3 ,
+            qualification_id=3,
             saqa_id=4,
             name='Qualification Name',
             short_description='Some short description',
@@ -22,5 +22,5 @@ class TestQualification(TestCase):
             campus_id=55)
 
     def test_qualification_description(self):
-        newQualification = Qualification.objects.get(id=10)
-        self.assertEqual(newQualification.__str__(), 'Qualification Name')
+        new_qualification = Qualification.objects.get(id=10)
+        self.assertEqual(new_qualification.__str__(), 'Qualification Name')

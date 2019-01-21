@@ -1,6 +1,7 @@
 from django.db import models
 from ford3.models.qualification import Qualification
 
+
 class Requirement(models.Model):
     qualification_id = models.ForeignKey(
         Qualification,

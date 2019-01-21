@@ -20,9 +20,9 @@ class Campus(models.Model):
     unique=False,
     help_text='',
     max_length=255)
-  location = models.PointField(
-    blank=True,
-    null=True,
-    help_text='The spatial point position of the campus')
+  # location = models.PointField(
+  #   blank=True,
+  #   null=True,
+  #   help_text='The spatial point position of the campus')
 
   pass
