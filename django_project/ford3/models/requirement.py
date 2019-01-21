@@ -39,3 +39,6 @@ class Requirement(models.Model):
         null=False,
         unique=False,
         help_text='')
+
+    def __str__(self):
+        return self.description
