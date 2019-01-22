@@ -114,3 +114,5 @@ deployment/backups/
 
 .DS_Store
 .sync
+
+deployment/media/
