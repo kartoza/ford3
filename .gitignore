@@ -113,3 +113,4 @@ secret.py
 .DS_Store
 .sync
 
+deployment/static
