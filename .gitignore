@@ -112,5 +112,5 @@ secret.py
 
 deployment/backups/
 
-.DS_Store/
+.DS_Store
 .sync
