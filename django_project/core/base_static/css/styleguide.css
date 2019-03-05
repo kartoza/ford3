@@ -1,0 +1,358 @@
+body {
+    --c-purple: #2C314F;
+    --c-blue: #7ACDCF;
+    --c-orange: #FCB53B;
+    --c-blue-d: #47B4B6;
+    --c-orange-d: #F99824;
+    --c-smoke: #EFEEE9;
+    --c-grey-l: #D5D5D5;
+    --c-grey: #AAAAAA;
+    --c-grey-d: #464646;
+    --c-purple-grey: #1B1D28;
+    --cg-blue-dblue: linear-gradient(to right, #7ACDCF, #47B4B6);
+    --cg-orange-dorange: linear-gradient(to right, #FCB53B, #F99824);
+}
+
+h1 {
+    Font-family: Lato;
+    Font-size: 70px;
+    Font-weight: bold;
+    color: var(--c-purple);
+}
+
+h2 {
+    Font-family: Lato;
+    Font-size: 55px;
+    Font-weight: bold;
+    color: var(--c-purple);
+}
+
+h3 {
+    Font-family: Lato;
+    Font-size: 40px;
+    Font-weight: bold;
+    color: var(--c-purple);
+}
+
+h4 {
+    Font-family: Lato;
+    Font-size: 24px;
+    Font-weight: bold;
+    color: var(--c-blue);
+}
+
+.edu-button {
+    height: 5rem;
+    width: 10rem;
+    border-radius: 4px;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    padding-left: 3rem;
+    padding-right: 3rem;
+    text-align: center;
+    align-items: center;
+    display: inline-grid;
+}
+
+.edu-button-blue {
+    color: white;
+    background-image: var(--cg-blue-dblue);
+    background-color: var(--c-blue);
+}
+
+.edu-button-blue:hover {
+    background-image: none;
+    background-color: var(--c-blue-d);
+}
+
+.edu-button-orange {
+    color: white;
+    background-image: var(--cg-orange-dorange);
+    background-color: var(--c-orange);
+}
+
+.edu-button-orange:hover {
+    background-image: none;
+    background-color: var(--c-orange-d);
+}
+
+.edu-button-grey {
+    color: black;
+    background-color: var(--c-smoke);
+}
+
+.edu-button-grey:hover {
+    background-color: var(--c-grey-l);
+}
+
+
+
+/*  ----------------------------- SWITCH CSS - modified https://www.w3schools.com/howto/howto_css_switch.asp  ----------------------------- */
+
+/* The switch - the box around the slider */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+/* The slider */
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--c-smoke);
+    -webkit-transition: .4s;
+    transition: .4s;
+    border-radius: 3px;
+    box-shadow: inset 0px 1px 5px rgba(0, 0, 0, 0.4);
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+    border-radius: 3px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.4);
+
+
+}
+
+input:checked+.slider {
+    background-color: var(--c-blue);
+    box-shadow: inset 1px 1px 6px rgba(0, 0, 0, 0.4);
+}
+
+input:focus+.slider {
+    box-shadow: 0 0 1px #2196F3;
+    box-shadow: inset 1px 1px 6px rgba(0, 0, 0, 0.4);
+}
+
+input:checked+.slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+}
+
+/* ------------------------------ END OF SWITCH CSS ----------------------------- */
+
+/* ------------------------------ CHECKBOX Based on: https://www.w3schools.com/howto/howto_css_custom_checkbox.asp ------------------------------ */
+
+/* The checkbox-container */
+.checkbox-container {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin: 0.25rem;
+    cursor: pointer;
+
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
+}
+
+/* Hide the browser's default checkbox */
+.checkbox-container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+    background-size: contain;
+    border-width: 1px;
+    border-color: transparent
+}
+
+/* Create a custom checkbox */
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 1.5rem;
+    width: 1.5rem;
+    background-color: var(--c-smoke);
+    background-image: none;
+    background-size: 80%;
+    border-radius: 3px;
+    box-shadow: inset 1px 1px 6px rgba(0, 0, 0, 0.4);
+}
+
+/* On mouse-over, add a grey background color */
+.checkbox-container:hover input~.checkmark {
+    border-color: var(--c-blue);
+    border-style: solid;
+    border-width: 1px;
+}
+
+/* When the checkbox is checked, add a blue background */
+.checkbox-container input:checked~.checkmark {
+    background-color: var(--c-blue);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='24' height='17' viewBox='0 0 24 17'%3E%3Cdefs%3E%3Cpath id='yrvda' d='M588.667 173l-14.896 15-6.771-6.818'/%3E%3C/defs%3E%3Cg%3E%3Cg transform='translate(-566 -172)'%3E%3Cuse fill='%23fff' fill-opacity='0' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-miterlimit='50' stroke-width='2' xlink:href='%23yrvda'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: center;
+
+
+}
+
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+
+}
+
+/* Show the checkmark when checked */
+.checkbox-container input:checked~.checkmark:after {
+    display: block;
+}
+
+
+/* Style the checkmark/indicator */
+.checkbox-container .checkmark:after {
+    background-image: none;
+    background-repeat: no-repeat;
+
+}
+
+
+
+/* ------------------------------ END OF CHECKBOX CSS ------------------------------ */
+ /* ------------------------------ RADIO BUTTONS (Dependant on checkbox CSS) ------------------------------ */
+
+    /* Customize the label (the container-radio-buttons) */
+    .container-radio-buttons {
+        display: block;
+        position: relative;
+        padding-left: 35px;
+        margin-bottom: 12px;
+        cursor: pointer;
+        font-size: 22px;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+
+    /* Hide the browser's default radio button */
+    .checkbox-container input {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+        height: 0;
+        width: 0;
+        background-size: contain;
+        border-width: 1px;
+        border-color: transparent;
+    }
+
+    /* Create a custom radio button */
+    .radio-dot {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 25px;
+        width: 25px;
+        background-color: var(--c-smoke);
+        border-radius: 50%;
+        box-shadow: inset 1px 1px 6px rgba(0, 0, 0, 0.4);
+    }
+
+    /* On mouse-over, add a grey background color */
+    .checkbox-container input~.radio-dot:hover {
+        border-color: var(--c-blue);
+        border-style: solid;
+        border-width: 0.5px;
+
+    }
+
+    /* When the radio button is checked, add a blue background */
+    .checkbox-container input:checked~.radio-dot {
+        background-color: var(--c-blue);
+        border-color: var(--c-blue);
+        border-style: solid;
+        border-width: 0.5px;
+    }
+
+    /* Create the indicator (the dot/circle - hidden when not checked) */
+    .radio-dot:after {
+        content: "";
+        position: absolute;
+        display: none;
+       
+    }
+    .checkbox-container input:checked~.radio-dot:hover{
+        background-color: var(--c-blue);
+    }
+
+
+    /* Show the indicator (dot/circle) when checked */
+    .checkbox-container input:checked~.radio-dot:after {
+        display: block;
+        background-color: white;
+        
+        
+    }
+
+    /* Style the indicator (dot/circle) */
+    .checkbox-container .radio-dot:after {
+        top: 8px;
+        left: 8px;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: white;
+        box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.4);
+    }
+
+    /* ----------------------------- END OF RADIO BUTTONS ----------------------------- */
+
+
+
+
+.round-block {
+    height: 10vw;
+    width: 10vw;
+    border-radius: 15%;
+    text-align: center;
+    color: grey;
+}
+
+.hide {
+    display: none;
+}
+
+
+/* ----------------------------- ICONS -------------- */
+.edu-icon {
+    position: inherit;
+    height: 1.5rem;
+    width: 1.5rem;
+    background-size: contain;
+    z-index: 2;
+}
+
+.edu-icon-checkmark-white {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='24' height='17' viewBox='0 0 24 17'%3E%3Cdefs%3E%3Cpath id='yrvda' d='M588.667 173l-14.896 15-6.771-6.818'/%3E%3C/defs%3E%3Cg%3E%3Cg transform='translate(-566 -172)'%3E%3Cuse fill='%23fff' fill-opacity='0' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-miterlimit='50' stroke-width='2' xlink:href='%23yrvda'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+}
