@@ -1,6 +1,6 @@
 # coding=utf-8
 """Factory for building model instances for testing."""
-
+import datetime
 from ford3.models.campus import Campus
 from ford3.models.field_of_study import FieldOfStudy
 from ford3.models.occupation import Occupation
@@ -11,7 +11,7 @@ from ford3.models.secondary_institution_type import SecondaryInstitutionType
 from ford3.models.sub_field_of_study import SubFieldOfStudy
 from ford3.models.subject import Subject
 from ford3.models.campus_event import CampusEvent
-import datetime
+from ford3.models.qualification_event import  QualificationEvent
 
 
 class ModelFactories:
@@ -144,3 +144,15 @@ class ModelFactories:
         )
 
         return subject_field_of_study_test_object
+
+    @staticmethod
+    def get_qualification_event_test_object(new_id=1):
+        qualification_event_test_object = QualificationEvent.objects.create(
+            id=new_id,
+            qualification_id=ModelFactories.get_qualification_test_object(),
+            name='Qualification Event Test Name',
+            date_start=datetime.date(2019, 3, 6),
+            date_end=datetime.date(2019, 8, 9),
+            http_link='http://www.google.com')
+
+        return qualification_event_test_object

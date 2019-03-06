@@ -1,17 +1,18 @@
 from django.db import models
 
-from ford3.models.campus import Campus
+from ford3.models.qualification import Qualification
 
-class CampusEvent(models.Model):
+
+class QualificationEvent(models.Model):
   id = models.IntegerField(
     blank=False,
     null=False,
     unique=True,
-    help_text='Key of campus event',
+    help_text='Key of qualification event',
     primary_key=True)
-  campus_id = models.ForeignKey(
-      Campus,
-      on_delete=models.CASCADE)
+  qualification_id = models.ForeignKey(
+    Qualification,
+    on_delete=models.CASCADE)
   name = models.CharField(
     blank=False,
     null=False,
