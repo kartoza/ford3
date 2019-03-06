@@ -52,7 +52,10 @@ class ModelFactories:
             assessment=True,
             interview=True,
             admission_point_score=24,
-            min_qualification=1234)
+            min_qualification=1234,
+            portfolio=False,
+            portfolio_comment='Optional if available',
+            aps_calculator_link='http://apscalculator.nr')
 
         return requirement_test_object_instance
 
