@@ -7,5 +7,4 @@ from ford3.models.occupation import *
 from ford3.models.field_of_study import *
 from ford3.models.sub_field_of_study import *
 from ford3.models.subject import *
-from ford3.models.module import *
 from ford3.models.secondary_institution_type import *

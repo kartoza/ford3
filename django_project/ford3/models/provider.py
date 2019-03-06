@@ -44,6 +44,24 @@ class Provider(models.Model):
         unique=False,
         help_text='',
         max_length=255)
+    physical_address = models.CharField(
+        blank = False,
+        null = False,
+        unique = False,
+        help_text ='',
+        max_length = 255)
+    telephone = models.IntegerField(
+        blank = False,
+        null = False,
+        unique = False,
+        help_text ='')
+    provider_type = models.CharField(
+        blank = False,
+        null = False,
+        unique = False,
+        help_text ='',
+        max_length = 255)
+
 
     pass
 

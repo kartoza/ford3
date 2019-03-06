@@ -3,7 +3,6 @@
 
 from ford3.models.campus import Campus
 from ford3.models.field_of_study import FieldOfStudy
-from ford3.models.module import Module
 from ford3.models.occupation import Occupation
 from ford3.models.provider import Provider
 from ford3.models.qualification import Qualification
@@ -34,8 +33,6 @@ class ModelFactories:
             campus_id=ModelFactories.get_campus_test_object(),
             sub_field_of_study_id=(
                 ModelFactories.get_sub_field_of_study_test_object()))
-        qualification_test_object_instance.modules.add(
-            ModelFactories.get_module_test_object(1))
 
         return qualification_test_object_instance
 
@@ -72,16 +69,6 @@ class ModelFactories:
         return campus_test_object_instance
 
     @staticmethod
-    def get_module_test_object(new_id=1):
-        module_test_object_instance = Module.objects.create(
-            id=new_id,
-            name='Object Test Name',
-            description='Some long description that goes on...'
-        )
-
-        return module_test_object_instance
-
-    @staticmethod
     def get_field_of_study_test_object(new_id=1):
         field_of_study_test_object_instance = FieldOfStudy.objects.create(
             id=new_id,
@@ -109,7 +96,10 @@ class ModelFactories:
             logo_url='http://sometestplaceholder/logo.png',
             email='Test@test.com',
             admissions_contact_no='0137527576',
-            postal_address='1200'
+            postal_address='1200',
+            physical_address='Some long physical address',
+            telephone='27821233322',
+            provider_type='Technicon',
         )
 
         return provider_test_object_instance

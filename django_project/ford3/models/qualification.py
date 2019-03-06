@@ -1,6 +1,5 @@
 from django.db import models
 from ford3.models.campus import Campus
-from ford3.models.module import Module
 from ford3.models.occupation import Occupation
 from ford3.models.sub_field_of_study import SubFieldOfStudy
 from ford3.models.subject import Subject
@@ -16,7 +15,6 @@ class Qualification(models.Model):
     sub_field_of_study_id = models.ForeignKey(
         SubFieldOfStudy,
         on_delete=models.PROTECT)
-    modules = models.ManyToManyField(Module)
     occupation_id = models.ForeignKey(
         Occupation,
         on_delete=models.PROTECT)
