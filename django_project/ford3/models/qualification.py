@@ -90,7 +90,8 @@ class Qualification(models.Model):
         blank=False,
         null=False,
         unique=False,
-        help_text='')
+        help_text='',
+        default=0)
     total_cost = models.IntegerField(
         blank=False,
         null=False,
@@ -98,7 +99,7 @@ class Qualification(models.Model):
         help_text='')
     total_cost_comment = models.CharField(
         blank=False,
-        null=False,
+        null=True,
         unique=False,
         help_text='',
         max_length=255)
@@ -106,17 +107,20 @@ class Qualification(models.Model):
         blank=False,
         null=False,
         unique=False,
-        help_text='')
+        help_text='',
+        default=False)
     green_occupation = models.BooleanField(
         blank=False,
         null=False,
         unique=False,
-        help_text='')
+        help_text='',
+        default=False)
     high_demand_occupation = models.BooleanField(
         blank=False,
         null=False,
         unique=False,
-        help_text='')
+        help_text='',
+        default=False)
 
 
 

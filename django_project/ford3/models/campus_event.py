@@ -30,7 +30,7 @@ class CampusEvent(models.Model):
     help_text='')
     http_link = models.CharField(
     blank=False,
-    null=False,
+    null=True,
     unique=False,
     help_text='',
     max_length=255)
