@@ -30,11 +30,16 @@ class ModelFactories:
             part_time=False,
             credits_after_completion=200,
             distance_learning=False,
-            estimated_annual_fee=100000,
+            total_cost=100000,
             occupation_id=ModelFactories.get_occupation_test_object(),
             campus_id=ModelFactories.get_campus_test_object(),
             sub_field_of_study_id=(
-                ModelFactories.get_sub_field_of_study_test_object()))
+                ModelFactories.get_sub_field_of_study_test_object()),
+            completion_rate=72,
+            total_cost_comment='Way too much',
+            critical_skill=False,
+            green_occupation=True,
+            high_demand_occupation=False)
 
         return qualification_test_object_instance
 

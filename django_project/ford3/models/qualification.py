@@ -83,11 +83,38 @@ class Qualification(models.Model):
         null=False,
         unique=False,
         help_text='')
-    estimated_annual_fee = models.IntegerField(
+    completion_rate = models.IntegerField(
         blank=False,
         null=False,
         unique=False,
         help_text='')
+    total_cost = models.IntegerField(
+        blank=False,
+        null=False,
+        unique=False,
+        help_text='')
+    total_cost_comment = models.CharField(
+        blank=False,
+        null=False,
+        unique=False,
+        help_text='',
+        max_length=255)
+    critical_skill = models.BooleanField(
+        blank=False,
+        null=False,
+        unique=False,
+        help_text='')
+    green_occupation = models.BooleanField(
+        blank=False,
+        null=False,
+        unique=False,
+        help_text='')
+    high_demand_occupation = models.BooleanField(
+        blank=False,
+        null=False,
+        unique=False,
+        help_text='')
+
 
     def __str__(self):
         return self.name
