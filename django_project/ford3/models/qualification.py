@@ -3,6 +3,7 @@ from ford3.models.campus import Campus
 from ford3.models.occupation import Occupation
 from ford3.models.sub_field_of_study import SubFieldOfStudy
 from ford3.models.subject import Subject
+from ford3.models.interest import Interest
 
 
 class Qualification(models.Model):
@@ -18,6 +19,8 @@ class Qualification(models.Model):
     occupation_id = models.ForeignKey(
         Occupation,
         on_delete=models.PROTECT)
+    interests = models.ManyToManyField(
+        Interest)
 
     id = models.IntegerField(
         blank=False,
@@ -114,6 +117,7 @@ class Qualification(models.Model):
         null=False,
         unique=False,
         help_text='')
+
 
 
     def __str__(self):
