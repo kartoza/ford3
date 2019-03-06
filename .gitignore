@@ -115,7 +115,7 @@ deployment/static
 
 # MacOS files
 .DS_Store
-*/.DS_Store
+
 # Database stuff
 backups
 *.dmp
