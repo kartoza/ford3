@@ -1,7 +1,7 @@
 from django.db import models
 
 
-class Occupation(models.Model):
+class Interest(models.Model):
     id = models.IntegerField(
         blank=False,
         null=False,
@@ -14,17 +14,8 @@ class Occupation(models.Model):
         unique=False,
         help_text='',
         max_length=255)
-    description = models.CharField(
-        blank=True,
-        null=True,
-        unique=False,
-        help_text='',
-        max_length=255)
 
     pass
 
     def __str__(self):
         return self.name
-
-    def get_description(self):
-        return self.description

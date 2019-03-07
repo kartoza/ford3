@@ -1,15 +1,8 @@
-# coding=utf-8
-
-"""Project level settings.
-
-Adjust these values as needed but don't commit passwords etc. to any public
-repository!
-"""
-
 import os  # noqa
 from django.utils.translation import ugettext_lazy as _
 from .utils import absolute_path
-from .contrib import *  # noqa
+from .contrib import *
+
 
 # Project apps
 INSTALLED_APPS += (
@@ -56,7 +49,7 @@ PIPELINE['JAVASCRIPT']['project'] = {
 
 # Project specific css files to be pipelined
 # For third party libs like bootstrap should go in contrib.py
-PIPELINE['STYLESHEETS']['project']  = {
+PIPELINE['STYLESHEETS']['project'] = {
     'source_filenames': (
         'css/ford3.css',
         'css/form.css',
@@ -66,4 +59,3 @@ PIPELINE['STYLESHEETS']['project']  = {
         'media': 'screen, projection',
     },
 }
-

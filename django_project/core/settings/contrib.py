@@ -1,8 +1,4 @@
-# coding=utf-8
-"""
-core.settings.contrib
-"""
-from .base import *  # noqa
+from .base import *
 
 # Extra installed apps - grapelli needs to be added before others
 INSTALLED_APPS = (
@@ -65,15 +61,13 @@ PIPELINE = {
     'JAVASCRIPT': {
         'contrib': {
             'source_filenames': (
-                #'js/.js',
+                # 'js/.js',
             ),
             'output_filename': 'js/contrib.js',
         }
     },
     'STYLESHEETS': {}
 }
-
-
 
 # Django-allauth related settings
 
