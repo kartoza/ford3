@@ -11,7 +11,7 @@ from ford3.models.secondary_institution_type import SecondaryInstitutionType
 from ford3.models.sub_field_of_study import SubFieldOfStudy
 from ford3.models.subject import Subject
 from ford3.models.campus_event import CampusEvent
-from ford3.models.qualification_event import  QualificationEvent
+from ford3.models.qualification_event import QualificationEvent
 from ford3.models.interest import Interest
 
 
@@ -42,9 +42,10 @@ class ModelFactories:
             green_occupation=True,
             high_demand_occupation=False,
             )
-        qualification_test_object_instance.interests.add(
-            ModelFactories.get_interest_test_object);
 
+
+        qualification_test_object_instance.interests.add(
+            ModelFactories.get_interest_test_object())
         return qualification_test_object_instance
 
     @staticmethod
@@ -91,7 +92,7 @@ class ModelFactories:
     def get_campus_event_test_object(new_id=1):
         campus_event_test_object_instance = CampusEvent.objects.create(
             id=new_id,
-            campus_id=ModelFactories.get_campus_event_test_object(),
+            campus_id=ModelFactories.get_campus_test_object(),
             name='Campus Event Test Name',
             date_start=datetime.date(2019, 3, 6),
             date_end=datetime.date(2019, 8, 9),
@@ -175,3 +176,5 @@ class ModelFactories:
             id=new_id,
             name='Interest name'
         )
+
+        return interest_test_object

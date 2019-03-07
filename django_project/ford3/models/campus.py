@@ -7,7 +7,6 @@ class Campus(models.Model):
     provider_id = models.ForeignKey(
         Provider,
         on_delete=models.CASCADE)
-
     id = models.IntegerField(
         blank=False,
         null=False,
@@ -30,11 +29,12 @@ class Campus(models.Model):
         unique=False,
         help_text='',
         max_length=255)
-    telephone = models.IntegerField(
+    telephone = models.CharField(
         blank=False,
         null=True,
         unique=False,
-        help_text='')
+        help_text='',
+        max_length=255)
     email = models.CharField(
         blank=False,
         null=True,

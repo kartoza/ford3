@@ -4,13 +4,10 @@
 
 from os.path import exists, dirname, join
 
-from .project import (
-    PIPELINE,
-    INSTALLED_APPS,
-    MIDDLEWARE_CLASSES
-)
+from .project import *  # noqa
+
 try:
-    from .secret import SENTRY_KEY
+    from .secret import *  # noqa
 except ImportError:
     SENTRY_KEY = None
 
