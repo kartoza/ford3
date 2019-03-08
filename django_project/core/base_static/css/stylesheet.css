@@ -503,13 +503,11 @@ input:checked + .slider:before {
 }
 
 .edu-button {
-    height: 5rem;
-    width: 10rem;
+    height: 2.5rem;
+    width: 100%;
     border-radius: 4px;
     margin-top: 0.5rem;
     margin-bottom: 0.5rem;
-    padding-left: 3rem;
-    padding-right: 3rem;
     text-align: center;
     align-items: center;
     display: inline-grid;
@@ -590,6 +588,9 @@ input[type='text']:hover::placeholder {
     color: grey;
 }
 
+.edu-underline {
+   border-bottom: 1px solid #d5d5d5
+}
 /* ----------------------------- ICONS ----------------------------- */
 
 .edu-icon {

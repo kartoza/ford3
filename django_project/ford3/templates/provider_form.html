@@ -1,19 +1,209 @@
 {% extends 'index.html' %}
 
 {% block title %}
-    Provider Form
+	Provider Form
 {% endblock %}
 
 {% block body_content %}
+	<div class="col-12">
+		<div class="container">
+			<div class="row">
+				<h1>Welcome, False Bay College </h1>
+			</div>
+			<div class="row">
+				Thank you for registering your provider on the edugateway
+				platform.
+				Please fill in your provider details below.
+			</div>
+		</div>
+		<br>
+		<div class="container">
+			<div class="row edu-underline">
+				<h4>Provider Details</h4>
+			</div>
+			<br>
+			<div class="row">
+				<div class="col-4 npl">Provider Logo</div>
+				<div class="col-8">
+					<div class="provider-form-photo">
 
-<div class="container">
-	<div class="row">
-		<h1>Welcome, False Bay College </h1>
-	</div>
-	<div class="row">
-		Thank you for registering your provider on the edugateway platform. Please fill in your provider details below.
+					</div>
+				</div>
+			</div>
+			<br>
+			<div class="row">
+				<div class="col-4 npl centerv">
+					Provider Type:
+				</div>
+				<div class="col-8">
+					<div class="btn-group">
+						<button type="button"
+								class="edu-button edu-dropdown-button dropdown-toggle"
+								data-toggle="dropdown">
+							Knock knock
+						</button>
+						<div class="dropdown-menu">
+							<a class="dropdown-item" href="#">Who</a>
+							<a class="dropdown-item" href="#">Is</a>
+							<a class="dropdown-item" href="#">There</a>
+							<div class="dropdown-divider"></div>
+							<a class="dropdown-item" href="#">?</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row edu-underline">
+				<h4>Central Office Contact Details</h4>
+			</div>
+			<div class="row mt1">
+				<div class="col-4 centerv npl">
+					Tel. Number:
+				</div>
+				<div class="col-8">
+					<input type="text" placeholder="••• ••• ••••"/>
+				</div>
+			</div>
+
+			<div class="row mt1">
+				<div class="col-4 centerv npl">
+					Email:
+				</div>
+				<div class="col-8">
+					<input type="text" placeholder="••• ••• ••••"/>
+				</div>
+			</div>
+
+			<div class="row mt1">
+				<div class="col-4 npl">
+					Physical Address
+				</div>
+				<div class="col-8">
+						<input type="text" placeholder="Address Line 1"/>
+						<input type="text" class="mt1" placeholder="Address Line 2"/>
+						<div class="row">
+							<div class="col-lg-7 col-sm-12 mt1">
+								<input type="text" placeholder="City"/></div>
+							<div class="col-lg-5 col-sm-12 mt1">
+								<input type="text" placeholder="Postal / ZIP Code"/>
+							</div>
+						</div>
+				</div>
+			</div>
+			<div class="row mt1">
+				<div class="col-4 centerv npl">
+					Confirm Address on Map:
+				</div>
+				<div class="col-8">
+					Insert Map here
+				</div>
+			</div>
+			<div class="row mt1 edu-underline">
+				<h4>Campuses</h4>
+			</div>
+			<div class="row mt1">
+				<div class="col-4 npl">
+					Number of Campuses
+				</div>
+				<div class="col-6" style="padding: 0.5rem; padding-left: 1rem;">
+					<input type="range" min="1" max="20" value="5" class="range-slider centerv" id="myRange">
+				</div>
+				<div class="col-2">
+					<div class="number-of-campuses">5</div>
+				</div>
+			</div>
+
+			<div class="row mt1">
+				<div class="col-4 centerv npl">
+					Name of Campus 1:
+				</div>
+				<div class="col-8">
+					<input type="text" placeholder="•••••••••••••••••"/>
+				</div>
+			</div>
+
+			<div class="row mt1">
+				<div class="col-4 centerv npl">
+					Name of Campus 2:
+				</div>
+				<div class="col-8">
+					<input type="text" placeholder="•••••••••••••••••"/>
+				</div>
+			</div>
+			<div class="row mt1">
+				<div class="col-4 centerv npl">
+					Name of Campus 3:
+				</div>
+				<div class="col-8">
+					<input type="text" placeholder="•••••••••••••••••"/>
+				</div>
+			</div>
+			<div class="row mt1">
+				<div class="col-4 centerv npl">
+					Name of Campus 4:
+				</div>
+				<div class="col-8">
+					<input type="text" placeholder="•••••••••••••••••"/>
+				</div>
+			</div>
+			<div class="row mt1">
+				<div class="col-4 centerv npl">
+					Name of Campus 5:
+				</div>
+				<div class="col-8">
+					<input type="text" placeholder="•••••••••••••••••"/>
+				</div>
+			</div>
+			<div class="row mt1">
+				<div class="col-4"></div>
+				<div class="col-3">
+					<button class="edu-button edu-button-blue">Submit</button>
+				</div>
+			</div>
+			<div class="row mt1">
+			</div>
+		</div>
 	</div>
 
-</div>
+	<style>
+		{#	npl = no padding left #}
+		.npl {
+			padding-left: 0;
+		}
+
+		.provider-form-photo {
+			background-color: #efeee9;
+			min-width: 225px;
+			margin-top: 0;
+			width: 225px;
+			margin-left: 0;
+			height: 225px;
+			margin-left: auto;
+			margin-right: auto;
+			border-radius: 50%;
+		}
+
+		{# Center vertically #}
+		.centerv {
+			margin-top: auto;
+			margin-bottom: auto;
+		}
+
+		.mt1 {
+			margin-top: 1rem;
+		}
+
+		.number-of-campuses {
+			border: 1px solid #aaaaaa;
+			border-radius: 4px;
+			padding: 0.5rem;
+			padding-left: 0;
+			padding-right: 0;
+    		text-align: center;
+			color: #aaaaaa;
+			width: 100%;
+		}
+	</style>
 
 {% endblock body_content %}
+
+
