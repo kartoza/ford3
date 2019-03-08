@@ -1,4 +1,4 @@
-{% extends 'index.html' %}
+{% extends 'index.html' %} {# ../../core/base_templates/index.html #}
 
 {% block title %}
 	Provider Form
@@ -78,22 +78,23 @@
 					Physical Address
 				</div>
 				<div class="col-8">
-						<input type="text" placeholder="Address Line 1"/>
-						<input type="text" class="mt1" placeholder="Address Line 2"/>
-						<div class="row">
-							<div class="col-lg-7 col-sm-12 mt1">
-								<input type="text" placeholder="City"/></div>
-							<div class="col-lg-5 col-sm-12 mt1">
-								<input type="text" placeholder="Postal / ZIP Code"/>
-							</div>
+					<input type="text" placeholder="Address Line 1"/>
+					<input type="text" class="mt1"
+						   placeholder="Address Line 2"/>
+					<div class="row">
+						<div class="col-lg-7 col-sm-12 mt1">
+							<input type="text" placeholder="City"/></div>
+						<div class="col-lg-5 col-sm-12 mt1">
+							<input type="text" placeholder="Postal / ZIP Code"/>
 						</div>
+					</div>
 				</div>
 			</div>
 			<div class="row mt1">
 				<div class="col-4 centerv npl">
 					Confirm Address on Map:
 				</div>
-				<div class="col-8">
+				<div class="col-8" id="map" class="map">
 					Insert Map here
 				</div>
 			</div>
@@ -105,7 +106,8 @@
 					Number of Campuses
 				</div>
 				<div class="col-6" style="padding: 0.5rem; padding-left: 1rem;">
-					<input type="range" min="1" max="20" value="5" class="range-slider centerv" id="myRange">
+					<input type="range" min="1" max="20" value="5"
+						   class="range-slider centerv" id="myRange">
 				</div>
 				<div class="col-2">
 					<div class="number-of-campuses">5</div>
@@ -198,12 +200,31 @@
 			padding: 0.5rem;
 			padding-left: 0;
 			padding-right: 0;
-    		text-align: center;
+			text-align: center;
 			color: #aaaaaa;
+			width: 100%;
+		}
+
+		.map {
+			height: 400px;
 			width: 100%;
 		}
 	</style>
 
+	<script type="text/javascript">
+        var map = new ol.Map({
+            target: 'map',
+            layers: [
+                new ol.layer.Tile({
+                    source: new ol.source.OSM()
+                })
+            ],
+            view: new ol.View({
+                center: ol.proj.fromLonLat([37.41, 8.82]),
+                zoom: 4
+            })
+        });
+	</script>
 {% endblock body_content %}
 
 
