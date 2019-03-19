@@ -2,6 +2,11 @@ from django.db import models
 
 
 class Provider(models.Model):
+    PROVIDER_TYPES = (
+        'University',
+        'TVET College',
+        'Private Tertiary College',)
+
     name = models.CharField(
         blank=True,
         null=False,
@@ -9,6 +14,19 @@ class Provider(models.Model):
         help_text='',
         default='',
         max_length=255)
+    provider_type = models.CharField(
+        blank = False,
+        null = False,
+        unique = False,
+        default='',
+        help_text ='',
+        max_length = 255)
+    telephone = models.CharField(
+        blank=False,
+        null=True,
+        unique=False,
+        help_text='',
+        max_length=12)
     website = models.CharField(
         blank=True,
         null=True,
@@ -45,19 +63,7 @@ class Provider(models.Model):
         unique = False,
         help_text ='',
         max_length = 255)
-    telephone = models.CharField(
-        blank = False,
-        null = True,
-        unique = False,
-        help_text ='',
-        max_length = 255)
-    provider_type = models.CharField(
-        blank = False,
-        null = False,
-        unique = False,
-        default='',
-        help_text ='',
-        max_length = 255)
+
 
 
     pass

@@ -6,6 +6,7 @@
 
 {% block body_content %}
 	<form action="/ProviderForm/" method="post">
+	{% csrf_token %}
 	<div class="col-12">
 		<div class="container">
 			<div class="row">
@@ -57,11 +58,12 @@
 				<h4>Central Office Contact Details</h4>
 			</div>
 			<div class="row mt1">
+				{{ form.sender.errors }}
 				<div class="col-4 centerv npl">
 					Tel. Number:
 				</div>
 				<div class="col-8">
-					<input name="provider_tel" value="{{  provider_tel }}" type="text" placeholder="••• ••• ••••"/>
+					{{ form.telephone }}
 				</div>
 			</div>
 

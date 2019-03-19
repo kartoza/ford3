@@ -1,7 +1,6 @@
 
 from selenium import webdriver
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities # noqa
-from selenium.common.exceptions import WebDriverException
 from django.test import TestCase
 
 
@@ -19,7 +18,7 @@ class TestProviderForm(TestCase):
         # User has created a basic account and now needs to add
         # provider form details and have been redirected to the provider form.
 
-        self.browser.get('http://10.0.0.6:80/ProviderForm/#')
+        self.browser.get('http://192.168.43.124:80/ProviderForm/#')
         html = self.browser.page_source
         self.assertTrue(html.startswith('<!DOCTYPE html'))
         self.assertIn('FORD3', self.browser.title)
@@ -31,14 +30,14 @@ class TestProviderForm(TestCase):
         # Chose their provider type
 
         # They are asked for their tel no.
-        inputbox = self.browser.find_element_by_name('provider_tel')
+        inputbox = self.browser.find_element_by_name('telephone')
         self.assertEqual(
             inputbox.get_attribute('placeholder'),
             '••• ••• ••••'
         )
 
         # Which they enter as
-        inputbox.send_keys('082 123 3444')
+        inputbox.send_keys('082 123 34441234')
 
         # They are asked for their email.
         inputbox = self.browser.find_element_by_name('provider_email')
@@ -53,3 +52,5 @@ class TestProviderForm(TestCase):
         # They submit their data by clicking on the submit button
         submit_button = self.browser.find_element_by_class_name('edu-button')
         submit_button.click()
+
+        # Since they entered too many digits the form returns an error message

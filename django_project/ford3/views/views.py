@@ -1,42 +1,21 @@
-from django.shortcuts import render # noqa
-from django.shortcuts import render_to_response
-
-# Create your views here.
+from django.shortcuts import render, redirect, render_to_response
 from ford3.models.provider import Provider
-
+from ford3.forms.provider_form import ProviderForm
 
 
 def provider_form(request):
     if request.method == 'POST':
-        new_provider = Provider()
-        provider_tel = request.POST['provider_tel']
-        new_provider.telephone = provider_tel
-        new_provider.save()
+        form = ProviderForm(request.POST)
+        if form.is_valid():
+            new_provider = Provider()
+            telephone = form.cleaned_data['telephone']
+            new_provider.telephone = telephone
+            new_provider.save()
+            return redirect('/')
     else:
-        provider_tel = ''
-    return render(request, 'provider_form.html', {
-        'provider_tel': provider_tel})
-
-        # provider_test_object_instance = Provider(
-        #     id=2,
-        #     name='Object Test Name',
-        #     website='www.mytest.com',
-        #     logo_url='http://sometestplaceholder/logo.png',
-        #     email='Test@test.com',
-        #     admissions_contact_no='0137527576',
-        #     postal_address='1200',
-        #     physical_address='Some long physical address',
-        #     telephone='27821233322',
-        #     provider_type='Technicon',
-        # )
+        form = ProviderForm()
+    return render(request, 'provider_form.html', {'form': form})
 
 
-        # return render(request, 'provider_form.html')
-        # if a GET (or any other method) we'll create a blank form
-
-    # else:
-    #     return render(request, 'provider_form.html')
-
-
-def test_widgets(request):
+def widget_examples(request):
     return render_to_response('test_widgets.html')
