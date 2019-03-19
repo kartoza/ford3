@@ -5,6 +5,7 @@
 {% endblock %}
 
 {% block body_content %}
+	<form action="/ProviderForm/" method="post">
 	<div class="col-12">
 		<div class="container">
 			<div class="row">
@@ -60,7 +61,7 @@
 					Tel. Number:
 				</div>
 				<div class="col-8">
-					<input type="text" placeholder="••• ••• ••••"/>
+					<input name="provider_tel" value="{{  provider_tel }}" type="text" placeholder="••• ••• ••••"/>
 				</div>
 			</div>
 
@@ -69,7 +70,7 @@
 					Email:
 				</div>
 				<div class="col-8">
-					<input type="text" placeholder="••• ••• ••••"/>
+					<input name="provider_email" type="text" placeholder="example@example.com"/>
 				</div>
 			</div>
 
@@ -78,14 +79,14 @@
 					Physical Address
 				</div>
 				<div class="col-8">
-					<input type="text" placeholder="Address Line 1"/>
-					<input type="text" class="mt1"
+					<input id="provider_address_line_1" type="text" placeholder="Address Line 1"/>
+					<input id="provider_address_line_2" type="text" class="mt1"
 						   placeholder="Address Line 2"/>
 					<div class="row">
 						<div class="col-lg-7 col-sm-12 mt1">
-							<input type="text" placeholder="City"/></div>
+							<input id="provider_address_city" type="text" placeholder="City"/></div>
 						<div class="col-lg-5 col-sm-12 mt1">
-							<input type="text" placeholder="Postal / ZIP Code"/>
+							<input id="provider_address_postal_code" type="text" placeholder="Postal / ZIP Code"/>
 						</div>
 					</div>
 				</div>
@@ -120,20 +121,21 @@
 						Name of Campus 1:
 					</div>
 					<div class="col-8">
-						<input type="text" placeholder="•••••••••••••••••"/>
+						<input name="campus_name_1" type="text" placeholder="•••••••••••••••••"/>
 					</div>
 				</div>
 			</div>
 			<div class="row mt1">
 				<div class="col-4"></div>
 				<div class="col-3">
-					<button class="edu-button edu-button-blue">Submit</button>
+					<button type="submit" class="edu-button edu-button-blue">Submit</button>
 				</div>
 			</div>
 			<div class="row mt1">
 			</div>
 		</div>
 	</div>
+	</form>
 
 	<style>
 		{#	npl = no padding left #}
@@ -280,7 +282,7 @@
 							Name of Campus ${i + 1}:
 						</div>
 						<div class="col-8">
-							<input id="campus_name_${i + 1}" type="text" placeholder="•••••••••••••••••"/>
+							<input name="campus_name_${i + 1}" id="campus_name_${i + 1}" type="text" placeholder="•••••••••••••••••"/>
 						</div>
 					</div>`
             }
