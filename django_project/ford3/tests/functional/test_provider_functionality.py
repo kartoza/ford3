@@ -1,10 +1,8 @@
 
-from django.template.loader import render_to_string
 from selenium import webdriver
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities # noqa
+from selenium.common.exceptions import WebDriverException
 from django.test import TestCase
-from ford3.views.views import provider_form
-
 
 
 class TestProviderForm(TestCase):
@@ -18,9 +16,8 @@ class TestProviderForm(TestCase):
 
     def runTest(self):
 
-        # User has created a basic account and now needs to add provider form details
-        # and have been redirected to the provider form.
-
+        # User has created a basic account and now needs to add
+        # provider form details and have been redirected to the provider form.
 
         self.browser.get('http://10.0.0.6:80/ProviderForm/#')
         html = self.browser.page_source
@@ -56,7 +53,3 @@ class TestProviderForm(TestCase):
         # They submit their data by clicking on the submit button
         submit_button = self.browser.find_element_by_class_name('edu-button')
         submit_button.click()
-
-        # 
-
-
