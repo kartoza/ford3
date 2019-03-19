@@ -8,6 +8,10 @@ from ford3.models.provider import Provider
 
 def provider_form(request):
     # if request.method == 'POST':
+    new_provider = Provider()
+    new_provider.telephone = request.POST.get('provider_tel', '')
+    new_provider.save()
+
     return render(request, 'provider_form.html', {
         'provider_tel': request.POST.get('provider_tel', '')})
 
@@ -35,5 +39,3 @@ def provider_form(request):
 
 def test_widgets(request):
     return render_to_response('test_widgets.html')
-
-
