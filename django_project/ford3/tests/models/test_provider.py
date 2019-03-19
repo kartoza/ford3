@@ -30,3 +30,7 @@ class TestProvider(TestCase):
         self.assertTemplateUsed(response, 'provider_form.html')
 
 
+    def test_only_saves_items_when_ncessary(self):
+        self.client.get('/ProviderForm/')
+        self.assertEqual(Provider.objects.count(), 0)
+

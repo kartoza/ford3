@@ -7,14 +7,15 @@ from ford3.models.provider import Provider
 
 
 def provider_form(request):
-    # if request.method == 'POST':
-    new_provider = Provider()
-    new_provider.telephone = request.POST.get('provider_tel', '')
-    new_provider.save()
-
+    if request.method == 'POST':
+        new_provider = Provider()
+        provider_tel = request.POST['provider_tel']
+        new_provider.telephone = provider_tel
+        new_provider.save()
+    else:
+        provider_tel = ''
     return render(request, 'provider_form.html', {
-        'provider_tel': request.POST.get('provider_tel', '')})
-
+        'provider_tel': provider_tel})
 
         # provider_test_object_instance = Provider(
         #     id=2,
