@@ -19,6 +19,9 @@ CACHES = {
 # Make sure static files storage is set to default
 STATIC_FILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
 
+if DEBUG:
+    STATICFILES_STORAGE = 'pipeline.storage.PipelineStorage'
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,

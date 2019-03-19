@@ -7,32 +7,30 @@ from ford3.models.provider import Provider
 
 
 def provider_form(request):
-    if request.method == 'POST':
+    # if request.method == 'POST':
+    return render(request, 'provider_form.html', {
+        'provider_tel': request.POST.get('provider_tel', '')})
 
-        # create a form instance and populate it with data from the request:
-        # form = provider_form(request.POST)
-        # check whether it's valid:
-        # if form.is_valid():
-            # process the data in form.cleaned_data as required
-            # ...
-            # redirect to a new URL:
-        provider_test_object_instance = Provider(
-            id=2,
-            name='Object Test Name',
-            website='www.mytest.com',
-            logo_url='http://sometestplaceholder/logo.png',
-            email='Test@test.com',
-            admissions_contact_no='0137527576',
-            postal_address='1200',
-            physical_address='Some long physical address',
-            telephone='27821233322',
-            provider_type='Technicon',
-        )
-        return render(request, 'provider_form.html')
+
+        # provider_test_object_instance = Provider(
+        #     id=2,
+        #     name='Object Test Name',
+        #     website='www.mytest.com',
+        #     logo_url='http://sometestplaceholder/logo.png',
+        #     email='Test@test.com',
+        #     admissions_contact_no='0137527576',
+        #     postal_address='1200',
+        #     physical_address='Some long physical address',
+        #     telephone='27821233322',
+        #     provider_type='Technicon',
+        # )
+
+
+        # return render(request, 'provider_form.html')
         # if a GET (or any other method) we'll create a blank form
 
-    else:
-        return render(request, 'provider_form.html')
+    # else:
+    #     return render(request, 'provider_form.html')
 
 
 def test_widgets(request):
