@@ -34,31 +34,17 @@
 			</div>
 			<br>
 			<div class="row">
+				{{ form.provider_type.errors }}
 				<div class="col-4 npl centerv">
 					Provider Type:
 				</div>
-				<div class="col-8">
-					<div class="btn-group">
-						<button type="button"
-								class="edu-button edu-dropdown-button dropdown-toggle"
-								data-toggle="dropdown">
-							Knock knock
-						</button>
-						<div class="dropdown-menu">
-							<a class="dropdown-item" href="#">Who</a>
-							<a class="dropdown-item" href="#">Is</a>
-							<a class="dropdown-item" href="#">There</a>
-							<div class="dropdown-divider"></div>
-							<a class="dropdown-item" href="#">?</a>
-						</div>
-					</div>
-				</div>
+				{{ form.provider_type }}
 			</div>
 			<div class="row edu-underline">
 				<h4>Central Office Contact Details</h4>
 			</div>
 			<div class="row mt1">
-				{{ form.sender.errors }}
+				{{ form.telephone.errors }}
 				<div class="col-4 centerv npl">
 					Tel. Number:
 				</div>
@@ -68,11 +54,13 @@
 			</div>
 
 			<div class="row mt1">
+				{{ form.email.errors }}
 				<div class="col-4 centerv npl">
 					Email:
 				</div>
 				<div class="col-8">
-					<input name="provider_email" type="text" placeholder="example@example.com"/>
+					{{ form.email }}
+{#					<input name="provider_email" type="text" />#}
 				</div>
 			</div>
 

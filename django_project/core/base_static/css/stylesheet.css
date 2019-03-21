@@ -580,6 +580,42 @@ input[type='text']:hover::placeholder {
 
 /* ----------------------------- END OF TEXT INPUTS ----------------------------- */
 
+/* ----------------------------- email INPUTS ----------------------------- */
+
+input[type='email'] {
+    padding: 0.5rem;
+    padding-left: 1.5rem;
+    border-radius: 4px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: var(--c-grey);
+    color: var(--c-grey-d);
+    width: 100%;
+    font-weight: 400;
+}
+
+input[type='email']::placeholder {
+    color: var(--c-grey-l);
+}
+
+input[type='email']:focus {
+    outline-color: var(--c-blue) !important;
+}
+
+input[type='email']:hover {
+    color: var(--c-grey-d);
+    border-color: var(--c-grey-d);
+}
+
+input[type='email']:hover::placeholder {
+    color: var(--c-grey);
+    border-color: var(--c-grey-d);
+
+}
+
+/* ----------------------------- END OF EMAIL INPUTS ----------------------------- */
+
+
 .round-block {
     height: 10vw;
     width: 10vw;

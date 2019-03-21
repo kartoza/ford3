@@ -3,8 +3,8 @@ from django.db import models
 
 class Provider(models.Model):
     PROVIDER_TYPES = (
-        'University',
         'TVET College',
+        'University',
         'Private Tertiary College',)
 
     name = models.CharField(
@@ -57,14 +57,24 @@ class Provider(models.Model):
         unique=False,
         help_text='',
         max_length=255)
-    physical_address = models.CharField(
+    physical_address_line_1 = models.CharField(
         blank = False,
         null = True,
         unique = False,
         help_text ='',
         max_length = 255)
-
-
+    physical_address_line_2 = models.CharField(
+        blank = False,
+        null = True,
+        unique = False,
+        help_text ='',
+        max_length = 255)
+    physical_address_city = models.CharField(
+        blank = False,
+        null = True,
+        unique = False,
+        help_text ='',
+        max_length = 255)
 
     pass
 

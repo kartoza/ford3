@@ -10,13 +10,42 @@ class ProviderForm(forms.models.ModelForm):
 
     class Meta:
         model = Provider
-        fields = ('telephone', 'email')
+        provider_types_list = []
+        for each_provider_type in Provider.PROVIDER_TYPES:
+            next_provider = (each_provider_type, each_provider_type)
+            provider_types_list.append(next_provider)
+        provider_types = tuple(provider_types_list)
+        fields = ('provider_type',
+                  'telephone',
+                  'email',
+                  'website',
+                  'physical_address_line_1',
+                  'physical_address_line_2',
+                  'physical_address_city',
+                  'postal_address'
+        )
         widgets = {
+
+            'provider_type' : forms.fields.Select(
+                choices=provider_types,
+                attrs={'class' : 'edu-button edu-dropdown-button'}),
             'telephone': forms.fields.TextInput(
-                attrs={'placeholder': '••• ••• ••••'}),
-            'email':  forms.fields.EmailInput()
+                attrs={'placeholder': '0•• ••• ••••'}),
+            'email':  forms.fields.EmailInput(
+                attrs={'placeholder': 'example@example.com'}),
+            'website': forms.fields.URLInput(
+                attrs={'placeholder': 'www.yourwebsitename.com'}),
+            'physical_address_line_1': forms.fields.TextInput(
+                attrs={'placeholder': 'Address Line 1'}),
+            'physical_address_line_2': forms.fields.TextInput(
+                attrs={'placeholder': 'Address Line 2'}),
+            'physical_address_city': forms.fields.TextInput(
+                attrs={'placeholder': 'City'}),
+            'postal_address': forms.fields.TextInput(
+                attrs={'placeholder': 'Postal/ZIP Code'})
         }
         error_messages = {
             'telephone': {'required': EMPTY_TEL_ERROR},
             'email' : {'required': EMPTY_EMAIL_ERROR}
         }
+

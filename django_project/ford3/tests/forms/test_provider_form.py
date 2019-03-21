@@ -29,3 +29,4 @@ class ProviderFormTest(TestCase):
                           str(form.errors['telephone'][0]))
         except KeyError:
             self.fail(msg='No error raised for telephone being long.')
+
