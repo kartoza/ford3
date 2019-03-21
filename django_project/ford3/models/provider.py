@@ -56,7 +56,7 @@ class Provider(models.Model):
         null=True,
         unique=False,
         help_text='',
-        max_length=255)
+        max_length=4)
     physical_address_line_1 = models.CharField(
         blank = False,
         null = True,

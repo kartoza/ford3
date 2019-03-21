@@ -38,7 +38,8 @@ class ProviderForm(forms.models.ModelForm):
             'physical_address_line_1': forms.fields.TextInput(
                 attrs={'placeholder': 'Address Line 1'}),
             'physical_address_line_2': forms.fields.TextInput(
-                attrs={'placeholder': 'Address Line 2'}),
+                attrs={'placeholder': 'Address Line 2',
+                       'class' : 'mt1'}),
             'physical_address_city': forms.fields.TextInput(
                 attrs={'placeholder': 'City'}),
             'postal_address': forms.fields.TextInput(

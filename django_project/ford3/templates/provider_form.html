@@ -60,7 +60,6 @@
 				</div>
 				<div class="col-8">
 					{{ form.email }}
-{#					<input name="provider_email" type="text" />#}
 				</div>
 			</div>
 
@@ -69,14 +68,26 @@
 					Physical Address
 				</div>
 				<div class="col-8">
-					<input id="provider_address_line_1" type="text" placeholder="Address Line 1"/>
-					<input id="provider_address_line_2" type="text" class="mt1"
-						   placeholder="Address Line 2"/>
+
+					{{ form.physical_address_line_1.errors }}
+					{{ form.physical_address_line_2.errors }}
+					{{ form.physical_address_line_1 }}
+
+					{{ form.physical_address_line_2 }}
+
+{#					<input id="provider_address_line_1" type="text" placeholder="Address Line 1"/>#}
+{#					<input id="provider_address_line_2" type="text" class="mt1"#}
+{#						   placeholder="Address Line 2"/>#}
 					<div class="row">
 						<div class="col-lg-7 col-sm-12 mt1">
-							<input id="provider_address_city" type="text" placeholder="City"/></div>
+							{{ form.physical_address_city.errors}}
+							{{ form.physical_address_city}}
+{#							<input id="provider_address_city" type="text" placeholder="City"/></div>#}
+						</div>
 						<div class="col-lg-5 col-sm-12 mt1">
-							<input id="provider_address_postal_code" type="text" placeholder="Postal / ZIP Code"/>
+							{{ form.postal_address.errors}}
+							{{ form.postal_address }}
+{#							<input id="provider_address_postal_code" type="text" placeholder="Postal / ZIP Code"/>#}
 						</div>
 					</div>
 				</div>
