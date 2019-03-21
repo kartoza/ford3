@@ -35,7 +35,7 @@ class Provider(models.Model):
         max_length=255)
     logo_url = models.CharField(
         blank=False,
-        null=False,
+        null=True,
         unique=False,
         help_text='',
         max_length=255)
@@ -47,7 +47,7 @@ class Provider(models.Model):
         max_length=255)
     admissions_contact_no = models.CharField(
         blank=False,
-        null=False,
+        null=True,
         unique=False,
         help_text='',
         max_length=255)
