@@ -40,8 +40,6 @@
 </nav>
 <div class="wrapper">
 
-<script src="{% static 'js/provider_form.js' %}"/>
-
 	{% block side_navbar %}
 		{% include 'side_navbar.html' %} <!-- side_navbar.html -->
 	{% endblock %}
@@ -55,8 +53,10 @@
     $(function () {
         $('[data-toggle="tooltip"]').tooltip()
     })
-
 </script>
-{% block page_scripts %} {% endblock %}
+
+{% block page_scripts %}
+
+{% endblock %}
 
 </html>

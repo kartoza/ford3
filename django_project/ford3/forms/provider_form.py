@@ -17,20 +17,22 @@ class ProviderForm(forms.models.ModelForm):
         provider_types = tuple(provider_types_list)
         fields = ('provider_type',
                   'telephone',
+                  'admissions_contact_no',
                   'email',
                   'website',
                   'physical_address_line_1',
                   'physical_address_line_2',
                   'physical_address_city',
-                  'postal_address'
+                  'postal_address',
         )
         widgets = {
-
             'provider_type' : forms.fields.Select(
                 choices=provider_types,
                 attrs={'class' : 'edu-button edu-dropdown-button'}),
             'telephone': forms.fields.TextInput(
-                attrs={'placeholder': '0•• ••• ••••'}),
+                attrs={'placeholder': 'Primary contact number'}),
+            'admissions_contact_no' : forms.fields.TextInput(
+                attrs={'placeholder': 'Admissions contact number'}),
             'email':  forms.fields.EmailInput(
                 attrs={'placeholder': 'example@example.com'}),
             'website': forms.fields.URLInput(

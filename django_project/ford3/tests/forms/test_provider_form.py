@@ -28,5 +28,5 @@ class ProviderFormTest(TestCase):
             self.assertIn('Ensure this value has at most 12 characters',
                           str(form.errors['telephone'][0]))
         except KeyError:
-            self.fail(msg='No error raised for telephone being long.')
-
+            self.fail(msg='No error raised for telephone field'
+                          ' being too long.')

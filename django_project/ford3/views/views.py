@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect, render_to_response
+from django.db import transaction
 from ford3.models.provider import Provider
 from ford3.forms.provider_form import ProviderForm
 
@@ -26,8 +27,12 @@ def provider_form(request):
             new_provider.postal_address = postal_address
             new_provider.admissions_contact_no = admissions_contact_no
 
+            number_of_campuses = request.POST['number-of-campuses']
+
             new_provider.save()
+
             return redirect('/')
+
     else:
         form = ProviderForm()
     return render(request, 'provider_form.html', {'form': form})
