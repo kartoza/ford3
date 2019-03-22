@@ -13,5 +13,5 @@ class TestHomepage(TestCase):
         self.browser.quit()
 
     def runTest(self):
-        self.browser.get('http://10.0.0.6:80')
+        self.browser.get('http://192.168.8.129:80')
         self.assertIn('FORD3', self.browser.title)

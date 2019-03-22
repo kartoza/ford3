@@ -6,9 +6,15 @@ class ProviderFormTest(TestCase):
 
     def test_form_validation_for_blank_items(self):
         form = ProviderForm(
-            data={
-                'telephone': '',
-                'email': '',
+            data={'provider_type' : '',
+                  'telephone' : '',
+                  'admissions_contact_no' : '',
+                  'email' : '',
+                  'website': '',
+                  'physical_address_line_1' : '',
+                  'physical_address_line_2' : '',
+                  'physical_address_city': '',
+                  'postal_address': 0,
             })
         self.assertFalse(form.is_valid())
         self.assertEqual(form.errors['telephone'], [EMPTY_TEL_ERROR])
@@ -24,6 +30,12 @@ class ProviderFormTest(TestCase):
                   'email': 'somestupidlylongemailaddressthatshouldntpass'
                                '@anytest.com'})
         self.assertFalse(form.is_valid())
+        try:
+            self.assertIn('Ensure this value has at most 12 characters',
+                          str(form.errors['telephone'][0]))
+        except KeyError:
+            self.fail(msg='No error raised for telephone field'
+                          ' being too long.')
         try:
             self.assertIn('Ensure this value has at most 12 characters',
                           str(form.errors['telephone'][0]))
