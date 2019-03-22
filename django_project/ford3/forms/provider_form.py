@@ -15,7 +15,8 @@ class ProviderForm(forms.models.ModelForm):
             next_provider = (each_provider_type, each_provider_type)
             provider_types_list.append(next_provider)
         provider_types = tuple(provider_types_list)
-        fields = ('provider_type',
+        fields = ('name',
+                  'provider_type',
                   'telephone',
                   'admissions_contact_no',
                   'email',
@@ -26,6 +27,7 @@ class ProviderForm(forms.models.ModelForm):
                   'postal_address',
         )
         widgets = {
+            'name' : forms.fields.HiddenInput(),
             'provider_type' : forms.fields.Select(
                 choices=provider_types,
                 attrs={'class' : 'edu-button edu-dropdown-button'}),

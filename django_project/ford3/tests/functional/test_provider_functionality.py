@@ -33,14 +33,66 @@ class TestProviderForm(TestCase):
         inputbox = self.browser.find_element_by_name('telephone')
         self.assertEqual(
             inputbox.get_attribute('placeholder'),
-            '••• ••• ••••'
+            'Primary Contact Number'
         )
 
         # Which they enter as
-        inputbox.send_keys('082 123 34441234')
+        inputbox.send_keys('0821233444')
+
+        # They are asked for their admission no.
+        inputbox = self.browser.find_element_by_name('admissions_contact_no')
+        self.assertEqual(
+            inputbox.get_attribute('placeholder'),
+            'Admissions contact number'
+        )
+
+        # Which they enter as
+        inputbox.send_keys('0137441422')
+
+        # They are asked for their admission no.
+        inputbox = self.browser.find_element_by_name('physical_address_line_1')
+        self.assertEqual(
+            inputbox.get_attribute('placeholder'),
+            'Address Line 1'
+        )
+
+        # Which they enter as
+        inputbox.send_keys('SomeStreet 28')
+
+        # They are asked for their admission no.
+        inputbox = self.browser.find_element_by_name('physical_address_line_2')
+        self.assertEqual(
+            inputbox.get_attribute('placeholder'),
+            'Address Line 1'
+        )
+
+        # Which they enter as
+        inputbox.send_keys('Extension 9')
+
+        # They are asked for their admission no.
+        inputbox = self.browser.find_element_by_name('physical_address_city')
+        self.assertEqual(
+            inputbox.get_attribute('placeholder'),
+            'City'
+        )
+
+        # Which they enter as
+        inputbox.send_keys('Nelspruit')
+
+        # They are asked for their admission no.
+        inputbox = self.browser.find_element_by_name('postal_address')
+        self.assertEqual(
+            inputbox.get_attribute('placeholder'),
+            'Postal/ZIP Code'
+        )
+
+        # Which they enter as
+        inputbox.send_keys('1200')
+
+
 
         # They are asked for their email.
-        inputbox = self.browser.find_element_by_name('provider_email')
+        inputbox = self.browser.find_element_by_name('email')
         self.assertEqual(
             inputbox.get_attribute('placeholder'),
             'example@example.com'
@@ -48,6 +100,9 @@ class TestProviderForm(TestCase):
 
         # Enter their Email Address
         inputbox.send_keys('provider_test@fakedomain.com')
+
+
+
 
         # They submit their data by clicking on the submit button
         submit_button = self.browser.find_element_by_class_name('edu-button')

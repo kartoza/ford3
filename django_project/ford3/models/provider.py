@@ -53,7 +53,7 @@ class Provider(models.Model):
         max_length=255)
     postal_address = models.CharField(
         blank=False,
-        null=True,
+        null=False,
         unique=False,
         help_text='',
         max_length=4)

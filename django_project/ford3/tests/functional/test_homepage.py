@@ -1,6 +1,6 @@
 from django.test import TestCase
 from selenium import webdriver
-from selenium.webdriver.common.desired_capabilities import DesiredCapabilities # noqa
+from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 
 
 class TestHomepage(TestCase):

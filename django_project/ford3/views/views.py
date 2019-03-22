@@ -1,5 +1,6 @@
 # coding=utf-8
 
+from django.conf import settings
 from django.shortcuts import render, redirect, render_to_response
 from django.db import transaction, IntegrityError
 from ford3.models.provider import Provider
@@ -41,14 +42,14 @@ def provider_form(request):
             try:
                 with transaction.atomic():
                     for idx in range(number_of_campuses):
-                        campus_name = request.POST(f'campus_name_{idx +  1}')
-                        Campus.objects.create(provider_id=Provider,
+                        campus_name = request.POST[f'campus_name_{idx +  1}']
+                        Campus.objects.create(provider_id=new_provider,
                                               name=campus_name)
             except IntegrityError:
                 return render(request, 'provider_form.html', {'form': form})
             return redirect('/')
     else:
-        form = ProviderForm()
+        form = ProviderForm(initial={'name': 'False Bay College'})
     return render(request, 'provider_form.html', {'form': form})
 
 
