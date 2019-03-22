@@ -1,5 +1,5 @@
 from django.test import TestCase
-from ford3.forms.provider_form import ProviderForm, EMPTY_TEL_ERROR, EMPTY_EMAIL_ERROR
+from ford3.forms.provider_form import ProviderForm, EMPTY_TEL_ERROR
 
 
 class ProviderFormTest(TestCase):
@@ -33,8 +33,8 @@ class ProviderFormTest(TestCase):
     def test_form_validation_for_max_length(self):
         form = ProviderForm(
             data={'telephone': '0821234123412341234',
-                  'email' : 'anemailwithouttheatsign',
-                  'postal_address' : '12345'})
+                  'email': 'anemailwithouttheatsign',
+                  'postal_address': '12345'})
         self.assertFalse(form.is_valid())
         try:
             self.assertIn('Ensure this value has at most 12 characters',

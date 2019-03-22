@@ -35,7 +35,7 @@ class ProviderForm(forms.models.ModelForm):
                 attrs={'placeholder': 'Primary contact number'}),
             'admissions_contact_no' : forms.fields.TextInput(
                 attrs={'placeholder': 'Admissions contact number'}),
-            'email':  forms.fields.EmailInput(
+            'email': forms.fields.EmailInput(
                 attrs={'placeholder': 'example@example.com'}),
             'website': forms.fields.URLInput(
                 attrs={'placeholder': 'www.yourwebsitename.com'}),
@@ -53,4 +53,3 @@ class ProviderForm(forms.models.ModelForm):
             'telephone': {'required': EMPTY_TEL_ERROR},
             'email' : {'required': EMPTY_EMAIL_ERROR}
         }
-
