@@ -18,7 +18,7 @@ class TestProviderForm(TestCase):
         # User has created a basic account and now needs to add
         # provider form details and have been redirected to the provider form.
 
-        self.browser.get('http://192.168.43.124:80/ProviderForm/#')
+        self.browser.get('http://192.168.8.129:80/ProviderForm/#')
         html = self.browser.page_source
         self.assertTrue(html.startswith('<!DOCTYPE html'))
         self.assertIn('FORD3', self.browser.title)
@@ -33,7 +33,7 @@ class TestProviderForm(TestCase):
         inputbox = self.browser.find_element_by_name('telephone')
         self.assertEqual(
             inputbox.get_attribute('placeholder'),
-            'Primary Contact Number'
+            'Primary contact number'
         )
 
         # Which they enter as
@@ -63,7 +63,7 @@ class TestProviderForm(TestCase):
         inputbox = self.browser.find_element_by_name('physical_address_line_2')
         self.assertEqual(
             inputbox.get_attribute('placeholder'),
-            'Address Line 1'
+            'Address Line 2'
         )
 
         # Which they enter as
