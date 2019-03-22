@@ -20,7 +20,6 @@ class ModelFactories:
     def get_qualification_test_object(new_id=1):
         qualification_test_object_instance = Qualification.objects.create(
             id=new_id,
-            qualification_id=1,
             saqa_id=4,
             name='Object Test Name',
             short_description='Some short description',
@@ -57,7 +56,7 @@ class ModelFactories:
             assessment=True,
             interview=True,
             admission_point_score=24,
-            min_qualification=1234,
+            min_nqf_level=1234,
             portfolio=False,
             portfolio_comment='Optional if available',
             aps_calculator_link='http://apscalculator.nr')
@@ -79,7 +78,7 @@ class ModelFactories:
             id=new_id,
             provider_id=ModelFactories.get_provider_test_object(),
             name='Object Test Name',
-            photo_url= 'Is this going to be base64 encoded?',
+            photo='campus/photo/12345.jpg',
             telephone='+27137441422',
             email='test@campus.com',
             max_students_per_year='42',

@@ -15,3 +15,4 @@ class TestHomepage(TestCase):
     def runTest(self):
         self.browser.get('http://192.168.8.129:80')
         self.assertIn('FORD3', self.browser.title)
+

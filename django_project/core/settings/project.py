@@ -1,4 +1,6 @@
 import os  # noqa
+from distutils.util import strtobool
+
 from django.utils.translation import ugettext_lazy as _
 from .contrib import *  # noqa
 
@@ -31,9 +33,9 @@ LANGUAGES = (
 LOCALE_PATHS = (absolute_path('locale'),)
 
 
-MIDDLEWARE_CLASSES = (
+MIDDLEWARE = [
     # Add any custome middleware classes here
-) + MIDDLEWARE_CLASSES
+] + MIDDLEWARE
 
 # Project specific javascript files to be pipelined
 # For third party libs like jquery should go in contrib.py
@@ -63,3 +65,14 @@ PIPELINE['STYLESHEETS']['project'] = {
 }
 
 STATIC_URL = '/static/'
+
+
+# Selenium test configuration
+# URL of selenium driver. example: http://hub.test:4444/wd/hub
+SELENIUM_DRIVER = os.environ.get('SELENIUM_DRIVER', '')
+
+SELENIUM_UNIT_TEST_FLAG = strtobool(
+    os.environ.get('SELENIUM_UNIT_TEST_FLAG', 'False'))
+
+SELENIUM_TEST_HOSTNAME = os.environ.get('SELENIUM_TEST_HOSTNAME', 'localhost')
+SELENIUM_TEST_PORT = int(os.environ.get('SELENIUM_TEST_PORT', '0'))

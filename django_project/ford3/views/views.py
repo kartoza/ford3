@@ -1,8 +1,15 @@
+# coding=utf-8
+
 from django.shortcuts import render, redirect, render_to_response
 from django.db import transaction, IntegrityError
 from ford3.models.provider import Provider
 from ford3.models.campus import Campus
 from ford3.forms.provider_form import ProviderForm
+from formtools.wizard.views import CookieWizardView
+
+class CampusWizard(CookieWizardView):
+
+    file_storage = settings.DEFAULT_FILE_STORAGE
 
 @transaction.atomic
 def provider_form(request):
