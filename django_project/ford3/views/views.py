@@ -1,9 +1,10 @@
 from django.shortcuts import render, redirect, render_to_response
-from django.db import transaction
+from django.db import transaction, IntegrityError
 from ford3.models.provider import Provider
+from ford3.models.campus import Campus
 from ford3.forms.provider_form import ProviderForm
 
-
+@transaction.atomic
 def provider_form(request):
     if request.method == 'POST':
         form = ProviderForm(request.POST)
@@ -27,12 +28,18 @@ def provider_form(request):
             new_provider.postal_address = postal_address
             new_provider.admissions_contact_no = admissions_contact_no
 
-            number_of_campuses = request.POST['number-of-campuses']
-
             new_provider.save()
 
+            number_of_campuses = int(request.POST['number-of-campuses'])
+            try:
+                with transaction.atomic():
+                    for idx in range(number_of_campuses):
+                        campus_name = request.POST(f'campus_name_{idx +  1}')
+                        Campus.objects.create(provider_id=Provider,
+                                              name=campus_name)
+            except IntegrityError:
+                return render(request, 'provider_form.html', {'form': form})
             return redirect('/')
-
     else:
         form = ProviderForm()
     return render(request, 'provider_form.html', {'form': form})
