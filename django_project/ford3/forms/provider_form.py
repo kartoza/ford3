@@ -47,7 +47,7 @@ class ProviderForm(forms.models.ModelForm):
             'physical_address_city': forms.fields.TextInput(
                 attrs={'placeholder': 'City'}),
             'postal_address': forms.fields.TextInput(
-                attrs={'placeholder': 'Postal/ZIP Code'})
+                attrs={'placeholder': 'Postal/ZIP Code'}),
         }
         error_messages = {
             'telephone': {'required': EMPTY_TEL_ERROR},
