@@ -1,4 +1,4 @@
-var map = new ol.Map({
+	var map = new ol.Map({
     target: 'map',
     layers: [
         new ol.layer.Tile({
@@ -13,11 +13,12 @@ var map = new ol.Map({
 
 var slider = document.getElementById('campus-count');
 var output = document.getElementById('number-of-campuses');
-output.innerHTML = slider.value; // Display the default slider value
-
+slider.value = 1;
+output.value = slider.value; // Display the default slider value
 // Update the current slider value (each time you drag the slider handle)
 slider.oninput = function () {
-    output.innerHTML = this.value;
+    output.value = this.value;
+
     createCampusNameInputs(this.value);
 }
 
