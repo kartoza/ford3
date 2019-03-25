@@ -1,4 +1,5 @@
 
+
         <env name="PYTHONUNBUFFERED" value="1" />
         <env name="PATH" value="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin" />
         <env name="PYTHONPATH" value="/home/web/django_project" />
@@ -6,7 +7,7 @@
 
         {# Django environment #}
 
-        {% for key, value in uwsgi.environment.items() -%}
+        {% for key, value in uwsgi.environment.iteritems() -%}
 
         <env name="{{ key }}" value="{{ value }}" />
 
