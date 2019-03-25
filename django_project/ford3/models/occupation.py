@@ -12,12 +12,12 @@ class Occupation(models.Model):
         blank=True,
         null=True,
         help_text='')
-    green_occupation=models.BooleanField(
+    green_occupation = models.BooleanField(
         blank=False,
         null=False,
         default=False,
         help_text='')
-    scarce_skill=models.BooleanField(
+    scarce_skill = models.BooleanField(
         blank=False,
         null=False,
         default=False,
