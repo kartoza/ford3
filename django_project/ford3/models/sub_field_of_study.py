@@ -9,12 +9,6 @@ class SubFieldOfStudy(models.Model):
         on_delete=models.PROTECT)
     occupation_id = models.ManyToManyField(Occupation)
 
-    id = models.IntegerField(
-        blank=False,
-        null=False,
-        unique=True,
-        help_text='',
-        primary_key=True)
     name = models.CharField(
         blank=False,
         null=False,
