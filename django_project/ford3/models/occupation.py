@@ -22,7 +22,7 @@ class Occupation(models.Model):
         null=False,
         default=False,
         help_text='')
-    description = models.TextField(
+    tasks = models.TextField(
         blank=True,
         null=True,
         help_text='')
