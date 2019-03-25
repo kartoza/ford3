@@ -1,5 +1,5 @@
 export COMPOSE_PROJECT_NAME=ford3
-export COMPOSE_FILE=docker-compose.yml$(shell if [ -f docker-compose.override.yml ]; then echo ":docker-compose.override.yml"; fi)
+export COMPOSE_FILE=docker-compose.yml$(shell if [ -f docker-compose.override.yml ]; then echo ":docker-compose.override.yml"; fi):scripts/travis/selenium-compose.yml
 export ANSIBLE_PROJECT_SETUP_DIR=ansible
 
 SHELL := /bin/bash
@@ -379,10 +379,17 @@ pull-translation-source:
 	@echo "------------------------------------------------------------------"
 	@tx pull -a -f
 
+selenium-up:
+	@docker-compose up -d firefox-debug
+
+selenium-down:
+	@docker-compose stop hub firefox-debug
 
 test:
 	@docker-compose exec uwsgi python manage.py test
 
+coverage-test:
+	@docker-compose exec uwsgi coverage run manage.py test
 
 # --------------- help --------------------------------
 
