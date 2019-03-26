@@ -65,6 +65,6 @@ services:
   btsync-media:
     environment:
 
-      {% for k, v in btsync_media.environment.items() -%}
+      {% for k, v in btsync_media.environment.iteritems() -%}
       {{ k }}: "{{ v }}"
       {% endfor %}
