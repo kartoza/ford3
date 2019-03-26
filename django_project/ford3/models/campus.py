@@ -4,7 +4,7 @@ from ford3.models.provider import Provider
 
 
 class Campus(models.Model):
-    provider_id = models.ForeignKey(
+    provider = models.ForeignKey(
         Provider,
         on_delete=models.CASCADE)
     name = models.CharField(
