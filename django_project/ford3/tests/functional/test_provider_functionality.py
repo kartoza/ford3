@@ -14,7 +14,7 @@ class TestProviderForm(SeleniumTestCase):
 
         # User has created a basic account and now needs to add
         # provider form details and have been redirected to the provider form.
-        provider_form_url =  self.live_server_url + '/ProviderForm/#'
+        provider_form_url = self.live_server_url + '/ProviderForm/#'
         self.driver.get(provider_form_url)
         html = self.driver.page_source
         self.assertTrue(html.startswith('<html'))
@@ -106,4 +106,3 @@ class TestProviderForm(SeleniumTestCase):
         submit_button.click()
 
         # Since they entered too many digits the form returns an error message
-
