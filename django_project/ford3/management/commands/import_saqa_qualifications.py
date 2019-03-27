@@ -10,7 +10,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         yes_to_continue = input(
             'This will delete all data in the saqa_qualification table '
-            'before attempting a fresh import. Type "yes" to continue.  ')
+            'and then attempt a fresh import. Type "yes" to continue.  ')
         if yes_to_continue != 'yes':
             print('Import canceled - User response: ' + yes_to_continue)
             return
