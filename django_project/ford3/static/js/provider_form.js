@@ -30,7 +30,7 @@ function createCampusNameInputs(campus_count) {
     var campus_count_number;
     campus_container.innerHTML = '';
     for (i = 0; i < campus_count; i++) {
-        campus_count_number += 1;
+        campus_count_number = i + 1;
         result_html +=
             '<div class="row mt1 campus-name-fade-in">' +
                 '<div class="col-4 centerv npl">' +
