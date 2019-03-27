@@ -10,7 +10,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         yes_to_continue = input(
             'This will delete all data in the saqa_qualification table '
-            'before attempting a fresh import. Type "yes" to continue')
+            'before attempting a fresh import. Type "yes" to continue.  ')
         if yes_to_continue != 'yes':
             print('Import canceled - User response: ' + yes_to_continue)
             return
@@ -28,10 +28,9 @@ class Command(BaseCommand):
                     # Create a qualification object for the row
                     saqa_id = row[0]
                     name = row[1]
-
-                    new_qualification = ()  # type: Qualification
-                    new_qualification.name = name
-                    new_qualification.saqa_id = saqa_id
+                    new_saqa_qualification = SAQAQualification()
+                    new_saqa_qualification.name = name
+                    new_saqa_qualification.saqa_id = saqa_id
                     # Compile subfield of study
                     this_subfield_of_study = ''
                     for x in range(4, 8):
@@ -44,11 +43,12 @@ class Command(BaseCommand):
                         name = this_subfield_of_study
                     )
 
-                    new_qualification.sub_field_of_study = (
+                    new_saqa_qualification.sub_field_of_study = (
                         subfield_of_study_object.first())
-                    new_qualification.save()
+                    new_saqa_qualification.save()
                     line_count += 1
         print(f'Processed {line_count} lines.')
 
     def delete_everything(self):
         SAQAQualification.objects.all().delete()
+        Qualification.objects.all().delete()
