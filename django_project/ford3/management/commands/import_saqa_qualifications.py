@@ -1,6 +1,6 @@
 import csv
 from django.core.management.base import BaseCommand
-from ford3.models import Qualification, SubFieldOfStudy
+from ford3.models import Qualification, SubFieldOfStudy, SAQAQualification
 
 
 class Command(BaseCommand):
@@ -8,6 +8,15 @@ class Command(BaseCommand):
     Import SAQA Qualifications from scraped CSV
     """
     def handle(self, *args, **options):
+        yes_to_continue = input(
+            'This will delete all data in the saqa_qualification table '
+            'before attempting a fresh import. Type "yes" to continue')
+        if yes_to_continue != 'yes':
+            print('Import canceled - User response: ' + yes_to_continue)
+            return
+
+        self.delete_everything()
+        print('Old data cleared from the saqa_qualification table')
         with open('SAQAData.csv') as csv_file:
             csv_reader = csv.reader(csv_file, delimiter=',')
             line_count = 0
@@ -20,7 +29,7 @@ class Command(BaseCommand):
                     saqa_id = row[0]
                     name = row[1]
 
-                    new_qualification = Qualification()  # type: Qualification
+                    new_qualification = ()  # type: Qualification
                     new_qualification.name = name
                     new_qualification.saqa_id = saqa_id
                     # Compile subfield of study
@@ -40,3 +49,6 @@ class Command(BaseCommand):
                     new_qualification.save()
                     line_count += 1
         print(f'Processed {line_count} lines.')
+
+    def delete_everything(self):
+        SAQAQualification.objects.all().delete()
