@@ -193,4 +193,3 @@ class ModelFactories:
         )
 
         return saqa_qualification_test_object
-
