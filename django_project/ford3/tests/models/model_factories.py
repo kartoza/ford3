@@ -13,6 +13,7 @@ from ford3.models.subject import Subject
 from ford3.models.campus_event import CampusEvent
 from ford3.models.qualification_event import QualificationEvent
 from ford3.models.interest import Interest
+from ford3.models.saqa_qualification import SAQAQualification
 
 
 class ModelFactories:
@@ -179,3 +180,15 @@ class ModelFactories:
         )
 
         return interest_test_object
+
+    @staticmethod
+    def get_saqa_qualification_test_object(new_id=1):
+        saqa_qualification_test_object = SAQAQualification.objects.create(
+            id=new_id,
+            name='SAQAQualification name',
+            nqf_level='1',
+            saqa_id='12345'
+        )
+
+        return saqa_qualification_test_object
+
