@@ -1,5 +1,5 @@
 # coding utf-8
-import unittest, time
+import unittest
 
 from ford3.tests.functional.utils import SeleniumTestCase, selenium_flag_ready
 
