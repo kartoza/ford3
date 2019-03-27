@@ -12,7 +12,8 @@ class Qualification(models.Model):
         through='QualificationEntranceRequirementSubject')
     campus = models.ForeignKey(
         Campus,
-        on_delete=models.CASCADE)
+        on_delete=models.CASCADE,
+        null=True)
     sub_field_of_study = models.ForeignKey(
         SubFieldOfStudy,
         null=True,

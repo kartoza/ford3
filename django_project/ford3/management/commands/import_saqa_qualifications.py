@@ -18,7 +18,6 @@ class Command(BaseCommand):
                     # Create a qualification object for the row
                     saqa_id = row[0]
                     name = row[1]
-                    type = row[2]
 
                     new_qualification = Qualification() # type: Qualification
                     new_qualification.name = name
@@ -29,13 +28,14 @@ class Command(BaseCommand):
                         if len(row[x]) > 0:
                             this_subfield_of_study += ',' + row[x]
 
-                    # For each subfield of study, get the subfield of study from
-                    # the list of subfields of study in the database
+                    # For each subfield of study, get the subfield of study
+                    # from the list of subfields of study in the database
                     subfield_of_study_object = SubFieldOfStudy.objects.filter(
                         name = this_subfield_of_study
                     )
 
-                    new_qualification.sub_field_of_study = subfield_of_study_object.first()
+                    new_qualification.sub_field_of_study = (
+                        subfield_of_study_object.first())
                     new_qualification.save()
                     line_count += 1
         print(f'Processed {line_count} lines.')
