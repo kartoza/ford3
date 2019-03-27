@@ -2,6 +2,7 @@ import csv
 from django.core.management.base import BaseCommand
 from ford3.models import Qualification, SubFieldOfStudy
 
+
 class Command(BaseCommand):
     """
     Import SAQA Qualifications from scraped CSV
@@ -14,12 +15,12 @@ class Command(BaseCommand):
                 if line_count == 0:
                     print(f'Column names are {", ".join(row)}')
                     line_count += 1
-                elif line_count < 8:
+                else:
                     # Create a qualification object for the row
                     saqa_id = row[0]
                     name = row[1]
 
-                    new_qualification = Qualification() # type: Qualification
+                    new_qualification = Qualification()  # type: Qualification
                     new_qualification.name = name
                     new_qualification.saqa_id = saqa_id
                     # Compile subfield of study
