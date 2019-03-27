@@ -96,7 +96,7 @@ class Migration(migrations.Migration):
                 ('id', models.IntegerField(primary_key=True, serialize=False, unique=True)),
                 ('minimum_score', models.IntegerField()),
                 ('required', models.BooleanField()),
-                ('qualification_id', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to='ford3.Qualification')),
+                ('qualification_id', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to='ford3.models.qualification.import_qualifcations_from_scraped_file')),
             ],
         ),
         migrations.CreateModel(
@@ -111,7 +111,7 @@ class Migration(migrations.Migration):
                 ('portfolio', models.BooleanField(default=False)),
                 ('portfolio_comment', models.CharField(max_length=255, null=True)),
                 ('aps_calculator_link', models.CharField(max_length=255, null=True)),
-                ('qualification_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='ford3.Qualification')),
+                ('qualification_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='ford3.models.qualification.import_qualifcations_from_scraped_file')),
             ],
         ),
         migrations.CreateModel(

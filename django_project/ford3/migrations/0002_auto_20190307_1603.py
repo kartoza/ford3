@@ -29,7 +29,7 @@ class Migration(migrations.Migration):
                 ('date_start', models.DateField()),
                 ('date_end', models.DateField()),
                 ('http_link', models.CharField(max_length=255)),
-                ('qualification_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='ford3.Qualification')),
+                ('qualification_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='ford3.models.qualification.import_qualifcations_from_scraped_file')),
             ],
         ),
         migrations.AlterField(

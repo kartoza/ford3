@@ -1,7 +1,7 @@
 from django.shortcuts import redirect, Http404, get_object_or_404
 from formtools.wizard.views import CookieWizardView
 from ford3.models import (
-    Qualification,
+    import_qualifcations_from_scraped_file,
     Requirement,
     Subject,
     QualificationEntranceRequirementSubject,
@@ -58,7 +58,7 @@ class QualificationFormWizardDataProcess(object):
         )
         for qualification_field in qualification_form_fields:
             try:
-                getattr(Qualification, qualification_field)
+                getattr(import_qualifcations_from_scraped_file, qualification_field)
                 qualification_fields[qualification_field] = (
                     form_data[qualification_field]
                 )
@@ -163,7 +163,7 @@ class QualificationFormWizardDataProcess(object):
                 )
             )
 
-        Qualification.objects.filter(
+        import_qualifcations_from_scraped_file.objects.filter(
             id=self.qualification.id
         ).update(
             **qualification_form_data
@@ -206,7 +206,7 @@ class QualificationFormWizard(CookieWizardView):
         if not qualification_id:
             raise Http404()
         return get_object_or_404(
-            Qualification,
+            import_qualifcations_from_scraped_file,
             id=qualification_id
         )
 

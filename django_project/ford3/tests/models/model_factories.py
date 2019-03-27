@@ -5,7 +5,7 @@ from ford3.models.campus import Campus
 from ford3.models.field_of_study import FieldOfStudy
 from ford3.models.occupation import Occupation
 from ford3.models.provider import Provider
-from ford3.models.qualification import Qualification
+from ford3.models.qualification import import_qualifcations_from_scraped_file
 from ford3.models.requirement import Requirement
 from ford3.models.secondary_institution_type import SecondaryInstitutionType
 from ford3.models.sub_field_of_study import SubFieldOfStudy
@@ -18,7 +18,7 @@ from ford3.models.interest import Interest
 class ModelFactories:
     @staticmethod
     def get_qualification_test_object(new_id=1):
-        qualification_test_object_instance = Qualification.objects.create(
+        qualification_test_object_instance = import_qualifcations_from_scraped_file.objects.create(
             id=new_id,
             saqa_id=4,
             name='Object Test Name',

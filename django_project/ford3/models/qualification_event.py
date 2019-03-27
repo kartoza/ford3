@@ -1,11 +1,11 @@
 from django.db import models
 
-from ford3.models.qualification import Qualification
+from ford3.models.qualification import import_qualifcations_from_scraped_file
 
 
 class QualificationEvent(models.Model):
     qualification = models.ForeignKey(
-        Qualification,
+        import_qualifcations_from_scraped_file,
         on_delete=models.CASCADE)
     name = models.CharField(
         blank=True,
