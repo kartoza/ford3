@@ -1,7 +1,7 @@
 from django.db import models
 from ford3.models.campus import Campus
 from ford3.models.occupation import Occupation
-from ford3.models.sub_field_of_study import SubFieldOfStudy
+from ford3.models.saqa_qualification import SAQAQualification
 from ford3.models.subject import Subject
 from ford3.models.interest import Interest
 
@@ -12,26 +12,17 @@ class Qualification(models.Model):
         through='QualificationEntranceRequirementSubject')
     campus = models.ForeignKey(
         Campus,
-        on_delete=models.CASCADE,
-        null=True)
-    sub_field_of_study = models.ForeignKey(
-        SubFieldOfStudy,
+        on_delete=models.CASCADE)
+    saqa_qualification = models.ForeignKey(
+        SAQAQualification,
         null=True,
-        blank=True,
         on_delete=models.PROTECT)
     occupations = models.ManyToManyField(
         Occupation,
-        null=True,
         blank=True)
     interests = models.ManyToManyField(
         Interest,
-        null=True,
         blank=True)
-
-    saqa_id = models.IntegerField(
-        blank=True,
-        null=True,
-        help_text='')
     name = models.CharField(
         blank=False,
         null=False,
@@ -48,10 +39,6 @@ class Qualification(models.Model):
         null=True,
         help_text='',
         max_length=500)
-    nqf_level = models.IntegerField(
-        blank=True,
-        null=True,
-        help_text='')
     duration_in_months = models.IntegerField(
         blank=True,
         null=True,
