@@ -10,16 +10,6 @@ class TestProvider(TestCase):
         new_provider = ModelFactories.get_provider_test_object()
         self.assertEqual(new_provider.__str__(), 'Object Test Name')
 
-    def test_can_save_a_POST_request(self):
-        self.client.post(
-            '/ProviderForm/',
-            data={
-                'telephone': '082 123 3444'
-            })
-        self.assertEqual(Provider.objects.count(), 1)
-        new_item = Provider.objects.first()  # type: Provider
-        self.assertEqual(new_item.telephone, '082 123 3444')
-
     def test_correct_GET_template_used(self):
         response = self.client.get(
             '/ProviderForm/')

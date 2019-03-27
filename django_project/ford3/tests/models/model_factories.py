@@ -128,7 +128,9 @@ class ModelFactories:
             email='Test@test.com',
             admissions_contact_no='0137527576',
             postal_address='1200',
-            physical_address='Some long physical address',
+            physical_address_line_1='24 Test Street',
+            physical_address_line_2='TestVille',
+            physical_address_city='Testopalis',
             telephone='27821233322',
             provider_type='Technicon',
         )
