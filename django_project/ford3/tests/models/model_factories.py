@@ -21,11 +21,9 @@ class ModelFactories:
     def get_qualification_test_object(new_id=1):
         qualification_test_object_instance = Qualification.objects.create(
             id=new_id,
-            saqa_id=4,
             name='Object Test Name',
             short_description='Some short description',
             long_description='Some very long description that just goes on...',
-            nqf_level=6,
             duration_in_months=12,
             full_time=True,
             part_time=False,

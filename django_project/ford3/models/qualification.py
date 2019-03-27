@@ -19,11 +19,9 @@ class Qualification(models.Model):
         on_delete=models.PROTECT)
     occupations = models.ManyToManyField(
         Occupation,
-        null=True,
         blank=True)
     interests = models.ManyToManyField(
         Interest,
-        null=True,
         blank=True)
     name = models.CharField(
         blank=False,
