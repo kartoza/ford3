@@ -1,18 +1,13 @@
 from django.db import models
+from ford3.models.sub_field_of_study import SubFieldOfStudy
 
 
 class SAQAQualification(models.Model):
-    # subjects = models.ManyToManyField(
-    #     Subject,
-    #     through='QualificationEntranceRequirementSubject')
-    # campus = models.ForeignKey(
-    #     Campus,
-    #     on_delete=models.CASCADE)
-    # sub_field_of_study = models.ForeignKey(
-    #     SubFieldOfStudy,
-    #     null=True,
-    #     blank=True,
-    #     on_delete=models.PROTECT)
+    sub_field_of_study = models.ForeignKey(
+        SubFieldOfStudy,
+        null=True,
+        blank=True,
+        on_delete=models.PROTECT)
     saqa_id = models.IntegerField(
         blank=False,
         null=False,

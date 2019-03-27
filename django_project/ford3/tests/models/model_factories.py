@@ -33,8 +33,8 @@ class ModelFactories:
             distance_learning=False,
             total_cost=100000,
             campus=ModelFactories.get_campus_test_object(),
-            sub_field_of_study=(
-                ModelFactories.get_sub_field_of_study_test_object()),
+            saqa_qualification=(
+                ModelFactories.get_saqa_qualification_test_object()),
             completion_rate=72,
             total_cost_comment='Way too much',
             critical_skill=False,
@@ -187,7 +187,9 @@ class ModelFactories:
             id=new_id,
             name='SAQAQualification name',
             nqf_level='1',
-            saqa_id='12345'
+            saqa_id='12345',
+            sub_field_of_study=(
+                ModelFactories.get_sub_field_of_study_test_object()),
         )
 
         return saqa_qualification_test_object
