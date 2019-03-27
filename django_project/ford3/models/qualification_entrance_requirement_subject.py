@@ -1,11 +1,11 @@
 from django.db import models
-from ford3.models.qualification import import_qualifcations_from_scraped_file
+from ford3.models.qualification import Qualification
 from ford3.models.subject import Subject
 
 
 class QualificationEntranceRequirementSubject(models.Model):
     qualification = models.ForeignKey(
-        import_qualifcations_from_scraped_file,
+        Qualification,
         on_delete=models.PROTECT)
     subject = models.ForeignKey(
         Subject,

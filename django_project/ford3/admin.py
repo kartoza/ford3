@@ -1,7 +1,7 @@
 from django.contrib import admin # noqa
 from ford3.models import (
     Campus,
-    import_qualifcations_from_scraped_file,
+    Qualification,
     QualificationEntranceRequirementSubject,
     Provider,
     Requirement,
@@ -15,7 +15,7 @@ from ford3.models import (
 # Register your models here.
 admin.site.register(Campus)
 admin.site.register(Provider)
-admin.site.register(import_qualifcations_from_scraped_file)
+admin.site.register(Qualification)
 admin.site.register(QualificationEntranceRequirementSubject)
 admin.site.register(Requirement)
 admin.site.register(Interest)

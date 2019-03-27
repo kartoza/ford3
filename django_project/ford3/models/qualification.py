@@ -6,7 +6,7 @@ from ford3.models.subject import Subject
 from ford3.models.interest import Interest
 
 
-class import_qualifcations_from_scraped_file(models.Model):
+class Qualification(models.Model):
     subjects = models.ManyToManyField(
         Subject,
         through='QualificationEntranceRequirementSubject')

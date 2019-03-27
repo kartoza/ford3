@@ -2,7 +2,7 @@ import datetime
 from django.test import TestCase
 from django.test.utils import override_settings
 from ford3.tests.models.model_factories import ModelFactories
-from ford3.models.qualification import import_qualifcations_from_scraped_file
+from ford3.models.qualification import Qualification
 from ford3.models.qualification_entrance_requirement_subject import (
     QualificationEntranceRequirementSubject
 )
@@ -105,7 +105,7 @@ class TestQualificationWizard(TestCase):
         self.qualification_data_process.process_data(
             form_data=self.wizard_form_data
         )
-        updated_qualification = import_qualifcations_from_scraped_file.objects.get(
+        updated_qualification = Qualification.objects.get(
             id=self.qualification.id
         )
         qualification_form_data = (
