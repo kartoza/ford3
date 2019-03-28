@@ -57,5 +57,6 @@ urlpatterns = [
     path(
         'saqa_qualifications',
         views.saqa_qualifications,
-        name='saqa_qualifications')
+        name='saqa_qualifications'),
+    path('providers/<int:provider_id>/', views.provider_landing_page)
 ]
