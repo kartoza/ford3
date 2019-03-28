@@ -10,13 +10,13 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.CreateModel(
-            name='SAQAQualification',
-            fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('saqa_id', models.IntegerField()),
-                ('nqf_level', models.IntegerField(blank=True, null=True)),
-                ('name', models.CharField(max_length=255)),
-            ],
-        ),
+        # migrations.CreateModel(
+        #     name='SAQAQualification',
+        #     fields=[
+        #         ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+        #         ('saqa_id', models.IntegerField()),
+        #         ('nqf_level', models.IntegerField(blank=True, null=True)),
+        #         ('name', models.CharField(max_length=255)),
+        #     ],
+        # ),
     ]
