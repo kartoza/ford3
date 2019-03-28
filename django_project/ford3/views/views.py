@@ -55,6 +55,7 @@ def provider_form(request):
         form = ProviderForm(initial={'name': 'False Bay College'})
     return render(request, 'provider_form.html', {'form': form})
 
+
 def provider_landing_page(request, provider_id):
     campus_query = Campus.objects.filter(provider__id=provider_id).annotate(
         campus_name=F('name'), campus_id=F('id')
@@ -64,7 +65,8 @@ def provider_landing_page(request, provider_id):
         campus_list.append({
             'campus_id': each_campus.campus_id,
             'campus_name': each_campus.campus_name})
-    return render(request, 'provider_landing_page.html', {'campus_list' : campus_list})
+    return render(request, 'provider_landing_page.html',
+                  {'campus_list' : campus_list})
 
 
 def widget_examples(request):
