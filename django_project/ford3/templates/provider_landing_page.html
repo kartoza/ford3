@@ -1,3 +1,8 @@
 {% block body_content %}
-
+	{% for each_campus in campus_list %}
+		{% for id, name in each_campus %}
+			<h1>{{ id }}</h1>
+			<h2>{{ name }}</h2>
+		{% endfor %}
+	{% endfor %}
 {% endblock %}

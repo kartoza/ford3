@@ -3,6 +3,7 @@
 from django.conf import settings
 from django.shortcuts import render, redirect, render_to_response
 from django.db import transaction, IntegrityError
+from django.db.models import F
 from ford3.models.provider import Provider
 from ford3.models.campus import Campus
 from ford3.forms.provider_form import ProviderForm
@@ -55,8 +56,11 @@ def provider_form(request):
     return render(request, 'provider_form.html', {'form': form})
 
 def provider_landing_page(request, provider_id):
-
-    return render(request, 'provider_landing_page.html', {'campus_list' : 'asdf'})
+    campus_query = Campus.objects.filter(provider__id=provider_id).annotate(
+        campus_name=F('name'), campus_id=F('id')
+    )
+    campus_list = list(campus_query)
+    return render(request, 'provider_landing_page.html', {'campus_list' : campus_list})
 
 
 def widget_examples(request):
