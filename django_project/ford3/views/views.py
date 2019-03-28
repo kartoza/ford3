@@ -21,6 +21,7 @@ def provider_form(request):
         form = ProviderForm(request.POST)
         if form.is_valid():
             new_provider = Provider()
+            name = form.cleaned_data['name']
             provider_type = form.cleaned_data['provider_type']
             telephone = form.cleaned_data['telephone']
             email = form.cleaned_data['email']
@@ -32,6 +33,7 @@ def provider_form(request):
             postal_address = form.cleaned_data['postal_address']
             admissions_contact_no = form.cleaned_data['admissions_contact_no']
             new_provider.provider_type = provider_type
+            new_provider.name = name
             new_provider.telephone = telephone
             new_provider.email = email
             new_provider.physical_address_line_1 = physical_address_line_1
@@ -50,19 +52,27 @@ def provider_form(request):
                                               name=campus_name)
             except IntegrityError:
                 return render(request, 'provider_form.html', {'form': form})
-            return redirect('/')
+            redirect_url = '/providers/' + str(new_provider.id)
+            return redirect(redirect_url)
     else:
         form = ProviderForm(initial={'name': 'False Bay College'})
     return render(request, 'provider_form.html', {'form': form})
 
 
 def provider_landing_page(request, provider_id):
+    form_data = {}
     campus_query = Campus.objects.filter(provider__id=provider_id).annotate(
-        campus_name=F('name'), campus_id=F('id')
+        campus_name=F('name'),
+        campus_id=F('id'),
+        provider_name=F('provider__name')
     )
-    campus_list = list(campus_query)
+    campus_data = campus_query.values('campus_name', 'campus_id')
+    provider_name = campus_query.values('provider_name')[0]['provider_name']
+
+    form_data['campus_list'] = list(campus_data)
+    form_data['provider_name'] = str(provider_name)
     return render(request, 'provider_landing_page.html',
-                  {'campus_list' : campus_list})
+                  {'form_data' : form_data})
 
 
 def widget_examples(request):

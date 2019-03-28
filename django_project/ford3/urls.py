@@ -32,7 +32,7 @@ urlpatterns = [
     path('campus/', CampusWizard.as_view([
         ('Details', CampusDetailsForm),
     ])),
-    url(r'^ProviderForm/$', views.provider_form, name='provider_form'),
+    url(r'^providers$', views.provider_form, name='provider_form'),
     url(r'^TestWidgets/$', views.widget_examples, name='test_widgets'),
-    path('Providers/<int:provider_id>/', views.provider_landing_page)
+    path('providers/<int:provider_id>/', views.provider_landing_page)
 ]

@@ -4,11 +4,21 @@
 	Provider Overview
 {% endblock %}
 
-{% block body_content %}
-	{% for each_campus in campus_list %}
+{% block body %}
+	<div class="row">
+		<h3>Provider: {{ form_data.provider_name }}</h3>
+	</div>
+	<div class="row">
+		<h3>Please select a campus to maintain</h3>
+	</div>
+	{% for each_campus in form_data.campus_list %}
+		<div class="col-4">
 		<button class='edu-button edu-button-blue'
-		        onclick="window.location=window.location.href + 'Campus/{{ each_campus.campus_id }}';">
+		        onclick="window.location=window.location.href + 'campus/{{ each_campus.campus_id }}';">
 				{{ each_campus.campus_name }}
 		</button>
+
+		</div>
 	{% endfor %}
+
 {% endblock %}
