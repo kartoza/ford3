@@ -7,14 +7,26 @@ class Command(BaseCommand):
     """
     Import SAQA Qualifications from scraped CSV
     """
+
+    def add_arguments(self, parser):
+        parser.add_argument(
+            '-f',
+            '--force',
+            action='store_true',
+            dest='force',
+            help='Force execute without asking for input from the user')
+
     def handle(self, *args, **options):
-        yes_to_continue = input(
-            'This will delete all data in the saqa_qualification table '
-            'and then attempt a fresh import. Type "yes" to continue.  ')
+        force = options.get('force')
+        if force:
+            yes_to_continue = 'yes'
+        else:
+            yes_to_continue = input(
+                'This will delete all data in the saqa_qualification table '
+                'and then attempt a fresh import. Type "yes" to continue.  ')
         if yes_to_continue != 'yes':
             print('Import canceled - User response: ' + yes_to_continue)
             return
-
         self.delete_everything()
         print('Old data cleared from the saqa_qualification table')
         with open('SAQAData.csv') as csv_file:
@@ -51,4 +63,3 @@ class Command(BaseCommand):
 
     def delete_everything(self):
         SAQAQualification.objects.all().delete()
-        Qualification.objects.all().delete()
