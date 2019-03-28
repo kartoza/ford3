@@ -54,13 +54,15 @@ class Command(BaseCommand):
                                 this_subfield_of_study += (
                                         ', ' + str(stripped_row))
 
-
                     # For each subfield of study, get the subfield of study
                     # from the list of subfields of study in the database
                     subfield_of_study_object = SubFieldOfStudy.objects.filter(
                         name = this_subfield_of_study
                     ).first()
-
+                    if len(subfield_of_study_object) == 0:
+                        new_subfield_of_study = SubFieldOfStudy()
+                        new_subfield_of_study.name = this_subfield_of_study
+                        new_subfield_of_study
                     new_saqa_qualification.sub_field_of_study = (
                         subfield_of_study_object)
                     new_saqa_qualification.save()
