@@ -45,18 +45,24 @@ class Command(BaseCommand):
                     new_saqa_qualification.saqa_id = saqa_id
                     # Compile subfield of study
                     this_subfield_of_study = ''
-                    for x in range(4, 8):
+                    for x in range(5, 8):
                         if len(row[x]) > 0:
-                            this_subfield_of_study += ',' + row[x]
+                            stripped_row = str(row[x]).strip()
+                            if x == 5:
+                                this_subfield_of_study += stripped_row
+                            else:
+                                this_subfield_of_study += (
+                                        ', ' + str(stripped_row))
+
 
                     # For each subfield of study, get the subfield of study
                     # from the list of subfields of study in the database
                     subfield_of_study_object = SubFieldOfStudy.objects.filter(
                         name = this_subfield_of_study
-                    )
+                    ).first()
 
                     new_saqa_qualification.sub_field_of_study = (
-                        subfield_of_study_object.first())
+                        subfield_of_study_object)
                     new_saqa_qualification.save()
                     line_count += 1
         print(f'Processed {line_count} lines.')
