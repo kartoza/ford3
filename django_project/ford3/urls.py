@@ -33,5 +33,6 @@ urlpatterns = [
         ('Details', CampusDetailsForm),
     ])),
     url(r'^ProviderForm/$', views.provider_form, name='provider_form'),
-    url(r'^TestWidgets/$', views.widget_examples, name='test_widgets')
+    url(r'^TestWidgets/$', views.widget_examples, name='test_widgets'),
+    url(r'^Providers/$', views.)
 ]
