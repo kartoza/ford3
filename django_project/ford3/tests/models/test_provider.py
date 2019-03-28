@@ -12,9 +12,9 @@ class TestProvider(TestCase):
 
     def test_correct_GET_template_used(self):
         response = self.client.get(
-            '/ProviderForm/')
+            '/providers')
         self.assertTemplateUsed(response, 'provider_form.html')
 
     def test_only_saves_items_when_necessary(self):
-        self.client.get('/ProviderForm/')
+        self.client.get('/providers')
         self.assertEqual(Provider.objects.count(), 0)
