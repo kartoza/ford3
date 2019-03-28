@@ -60,11 +60,7 @@ def provider_landing_page(request, provider_id):
     campus_query = Campus.objects.filter(provider__id=provider_id).annotate(
         campus_name=F('name'), campus_id=F('id')
     )
-    campus_list = []
-    for each_campus in campus_query:
-        campus_list.append({
-            'campus_id': each_campus.campus_id,
-            'campus_name': each_campus.campus_name})
+    campus_list = list(campus_query)
     return render(request, 'provider_landing_page.html',
                   {'campus_list' : campus_list})
 
