@@ -54,7 +54,7 @@ def provider_form(request):
         form = ProviderForm(initial={'name': 'False Bay College'})
     return render(request, 'provider_form.html', {'form': form})
 
-def provider_landing_page(request):
+def provider_landing_page(request, provider_id):
 
     return render(request, 'provider_landing_page.html', {'campus_list' : 'asdf'})
 

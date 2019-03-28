@@ -34,5 +34,5 @@ urlpatterns = [
     ])),
     url(r'^ProviderForm/$', views.provider_form, name='provider_form'),
     url(r'^TestWidgets/$', views.widget_examples, name='test_widgets'),
-    url(r'^Providers/$', views.provider_landing_page, name='provider_landing_page')
+    path('Providers/<int:provider_id>/', views.provider_landing_page)
 ]
