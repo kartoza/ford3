@@ -8,7 +8,7 @@ class TestProvider(TestCase):
 
     def test_provider_description_save_and_read(self):
         new_provider = ModelFactories.get_provider_test_object()
-        self.assertEqual(new_provider.__str__(), 'Object Test Name')
+        self.assertEqual(str(new_provider), 'Object Test Name')
 
     def test_correct_GET_template_used(self):
         response = self.client.get(

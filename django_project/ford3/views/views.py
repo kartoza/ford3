@@ -55,12 +55,11 @@ def show_campus(request, provider_id, campus_id):
 
 
 @transaction.atomic
-def provider_form(request):
+def edit_provider(request, provider_id):
     if request.method == 'POST':
         form = ProviderForm(request.POST)
         if form.is_valid():
-            new_provider = Provider()
-            name = form.cleaned_data['name']
+            new_provider = Provider.objects.filter(pk=provider_id).first()
             provider_type = form.cleaned_data['provider_type']
             telephone = form.cleaned_data['telephone']
             email = form.cleaned_data['email']
@@ -72,7 +71,6 @@ def provider_form(request):
             postal_address = form.cleaned_data['postal_address']
             admissions_contact_no = form.cleaned_data['admissions_contact_no']
             new_provider.provider_type = provider_type
-            new_provider.name = name
             new_provider.telephone = telephone
             new_provider.email = email
             new_provider.physical_address_line_1 = physical_address_line_1
@@ -94,11 +92,13 @@ def provider_form(request):
             redirect_url = '/providers/' + str(new_provider.id)
             return redirect(redirect_url)
     else:
-        form = ProviderForm(initial={'name': 'False Bay College'})
-    return render(request, 'provider_form.html', {'form': form})
+        form = ProviderForm(instance=Provider.objects.filter(
+            pk=provider_id).first())
+    return render(request, 'provider_form.html',
+                  {'form': form, 'provider_id': provider_id})
 
 
-def provider_landing_page(request, provider_id):
+def show_provider(request, provider_id):
     form_data = {}
     campus_query = Campus.objects.filter(provider__id=provider_id).annotate(
         campus_name=F('name'),

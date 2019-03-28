@@ -44,8 +44,12 @@ urlpatterns = [
         qualification_wizard,
         name='qualification_form'
     ),
-    url(r'^providers$', views.provider_form, name='provider_form'),
-    url(r'^test_widgets/$', views.widget_examples, name='test_widgets'),
+    path('providers/<int:provider_id>/',
+         views.show_provider,
+         name='show_provider'),
+    path('providers/<int:provider_id>/edit',
+         views.edit_provider,
+         name='provider_form'),
     path(
         'providers/<int:provider_id>/campus/<int:campus_id>/edit',
         campus_wizard,
@@ -58,5 +62,6 @@ urlpatterns = [
         'saqa_qualifications',
         views.saqa_qualifications,
         name='saqa_qualifications'),
-    path('providers/<int:provider_id>/', views.provider_landing_page)
+
+    url(r'^test_widgets/$', views.widget_examples, name='test_widgets'),
 ]
