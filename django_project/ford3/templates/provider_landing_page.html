@@ -1,6 +1,14 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block title %}
+	Provider Overview
+{% endblock %}
+
 {% block body_content %}
 	{% for each_campus in campus_list %}
-		<h1>{{ each_campus.campus_id }}</h1>
-		<h2>{{ each_campus.campus_name }}</h2>
+		<button class='edu-button edu-button-blue'
+		        onclick="window.location=window.location.href + 'Campus/{{ each_campus.campus_id }}';">
+				{{ each_campus.campus_name }}
+		</button>
 	{% endfor %}
 {% endblock %}
