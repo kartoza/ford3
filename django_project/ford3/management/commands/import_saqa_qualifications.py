@@ -1,6 +1,6 @@
 import csv
 from django.core.management.base import BaseCommand
-from ford3.models import Qualification, SubFieldOfStudy, SAQAQualification
+from ford3.models import SubFieldOfStudy, SAQAQualification
 
 
 class Command(BaseCommand):
