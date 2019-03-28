@@ -5,6 +5,9 @@
 {% endblock %}
 
 {% block body_content %}
+	<button id="sidebarCollapse" class="edu-button edu-button-blue">
+		<span>Toggle Sidebar</span>
+	</button>
 	{% for each_campus in campus_list %}
 		<button class='edu-button edu-button-blue'
 		        onclick="window.location=window.location.href + 'Campus/{{ each_campus.campus_id }}';">
