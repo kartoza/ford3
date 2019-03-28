@@ -56,7 +56,7 @@ def provider_form(request):
 
 def provider_landing_page(request):
 
-    return render(request, 'provider_landing_page.html', {'campus_list' : )
+    return render(request, 'provider_landing_page.html', {'campus_list' : 'asdf'})
 
 
 def widget_examples(request):
