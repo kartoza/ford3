@@ -92,10 +92,16 @@ def edit_provider(request, provider_id):
             redirect_url = '/providers/' + str(new_provider.id)
             return redirect(redirect_url)
     else:
-        form = ProviderForm(instance=Provider.objects.filter(
-            pk=provider_id).first())
-    return render(request, 'provider_form.html',
-                  {'form': form, 'provider_id': provider_id})
+        provider = get_object_or_404(
+            Provider,
+            id=provider_id
+        )
+        form = ProviderForm(instance=provider)
+        context = {
+            'form': form,
+            'provider_id': provider_id
+        }
+        return render(request, 'provider_form.html', context)
 
 
 def show_provider(request, provider_id):
