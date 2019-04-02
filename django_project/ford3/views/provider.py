@@ -37,12 +37,12 @@ def edit_provider(request, provider_id):
             new_provider.postal_address = postal_address
             new_provider.admissions_contact_no = admissions_contact_no
             new_provider.save()
-
-            number_of_campuses = int(request.POST['number-of-campuses'])
+            campus_list = request.POST.getlist('campus_name')
+            number_of_campuses = len(campus_list)
             try:
                 with transaction.atomic():
                     for idx in range(number_of_campuses):
-                        campus_name = request.POST[f'campus_name_{idx +  1}']
+                        campus_name = campus_list[idx]
                         Campus.objects.create(provider=new_provider,
                                               name=campus_name)
             except IntegrityError:

@@ -6,7 +6,6 @@
 $(document).on("submit", "form", function(e) {
     if (confirm('Submitting data. Continue?')) {
         campus_name_elements = $('.campus_name').elements
-
        return true;
     }
     else {
@@ -27,7 +26,7 @@ function addCampusNameInput() {
                     'Campus Name ' +
                 '</div>' +
                 '<div class="col-7">' +
-                    '<input required class="campus_name" ' +
+                    '<input name="campus_name[]" required class="campus_name" ' +
                     'type="text" placeholder="•••••••••••••••••"/>' +
                 '</div>' +
                 '<div class="col-1">' +
