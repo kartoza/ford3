@@ -30,7 +30,7 @@ function addCampusNameInput() {
                     'Campus Name ' +
                 '</div>' +
                 '<div class="col-7">' +
-                    '<input name="campus_name[]" required class="campus_name" ' +
+                    '<input name="campus_name" required class="campus_name" ' +
                     'type="text" placeholder="•••••••••••••••••"/>' +
                 '</div>' +
                 '<div class="col-1">' +
