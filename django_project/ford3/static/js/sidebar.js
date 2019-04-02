@@ -1,6 +1,4 @@
-$(document).ready(function() {
-    // Show sidebar
-    let sidebar = document.getElementById('sidebar');
-    sidebar.classList.toggle('active');
-
-})
+const toggleSidebar = () => {
+   const sidebar = document.getElementById('sidebar')
+   sidebar.classList.toggle('active')
+}
