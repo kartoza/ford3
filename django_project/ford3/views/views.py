@@ -5,8 +5,6 @@ from django.shortcuts import (
     get_object_or_404,
     render_to_response
 )
-from django.db import transaction, IntegrityError
-from django.db.models import F
 from django.http import HttpResponse
 from ford3.models import (
     Campus,
@@ -14,8 +12,6 @@ from ford3.models import (
     Qualification,
     SAQAQualification
 )
-from ford3.views import provider
-from ford3.forms.provider_form import ProviderForm
 
 
 def json_response(results):
