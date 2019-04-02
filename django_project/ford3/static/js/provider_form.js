@@ -1,4 +1,4 @@
- $('.remove_campus_button').click(function() {
+ $('.remove-campus-button').click(function() {
         this_button_parrent_parent = $(this).parent().parent();
         this_button_parrent_parent.remove();
     })
@@ -30,12 +30,13 @@ function addCampusNameInput() {
                     'type="text" placeholder="•••••••••••••••••"/>' +
                 '</div>' +
                 '<div class="col-1">' +
-                    '<div class="edu-button edu-button-orange remove_campus_button">X</div>' +
+                    '<div class="remove-campus-button">' +
+                    '<div class="remove-campus-button-inner ">X</div></div>' +
                 '</div>' +
             '</div>'
 
     campus_container.innerHTML += result_html
-    $('.remove_campus_button').click(function() {
+    $('.remove-campus-button').click(function() {
         this_button_parrent_parent = $(this).parent().parent();
         this_button_parrent_parent.remove();
     })
@@ -61,7 +62,7 @@ function createCampusNameInputs(campus_count) {
                 '</div>' +
             '</div>' +
             '<div class="col-1">' +
-                '<div class="edu-button edu-button-orange remove_campus_button">X</div>' +
+                '<div class="edu-button edu-button-orange remove-campus-button">X</div>' +
             '</div>'
     }
     campus_container.innerHTML = result_html;
