@@ -5,7 +5,6 @@ output.onchange = function () {
 }
 
 $(document).on("submit", "form", function(e) {
-    var oForm = $(this);
     if (confirm('Submitting data. Continue?')) {
        return true;
     }
