@@ -14,8 +14,13 @@ $(document).on("submit", "form", function(e) {
 })
 
 $('#add-campus-name').click(
-    function() {addCampusNameInput()}
-    )
+    function() {addCampusNameInput()
+    $('.remove-campus-button').click(function() {
+        this_button_parrent_parent = $(this).parent().parent();
+        this_button_parrent_parent.remove();
+    })
+    }
+ )
 
 function addCampusNameInput() {
     var campus_container = $('#campus-names-input-wrapper');
@@ -35,8 +40,5 @@ function addCampusNameInput() {
             '</div></div>')
     new_input = $.parseHTML(result_html);
     campus_container.append(new_input);
-    $('.remove-campus-button').onclick(function() {
-        this_button_parrent_parent = $(this).parent().parent();
-        this_button_parrent_parent.remove();
-    })
+
 }
