@@ -81,4 +81,3 @@ def show_provider(request, provider_id):
     form_data['provider_name'] = str(provider_name)
     return render(request, 'provider_landing_page.html',
                   {'form_data': form_data})
-
