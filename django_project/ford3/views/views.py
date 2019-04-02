@@ -1,14 +1,12 @@
 import json
 from django.shortcuts import (
     render,
-    redirect,
     get_object_or_404,
     render_to_response
 )
 from django.http import HttpResponse
 from ford3.models import (
     Campus,
-    Provider,
     Qualification,
     SAQAQualification
 )
@@ -45,6 +43,7 @@ def show_campus(request, provider_id, campus_id):
     }
 
     return render(request, 'campus.html', context)
+
 
 def show_qualification(request, provider_id, campus_id, qualification_id):
     qualification = get_object_or_404(
