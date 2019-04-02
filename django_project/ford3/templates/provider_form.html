@@ -60,8 +60,6 @@
 					{{ form.admissions_contact_no }}
 				</div>
 			</div>
-
-
 			<div class="row mt1">
 				{{ form.email.errors }}
 				<div class="col-4 centerv npl">
@@ -93,27 +91,32 @@
 					</div>
 				</div>
 			</div>
-			{% if is_new_provider %}
+			{% if is_new_provider or True %}
 
 			<div class="row mt1 edu-underline">
 				<h4>Campuses</h4>
-			</div>
-			<div class="row mt1">
-				<div class="col-4 npl">
-					Number of Campuses
-				</div>
-				<div class="col-2">
-					<input name="number-of-campuses" id="number-of-campuses" class="number-of-campuses" value="1"/>
-				</div>
 			</div>
 			<div id="campus-names-input-wrapper">
 				<div class="row mt1">
 					<div class="col-4 centerv npl">
 						Name of Campus 1:
 					</div>
-					<div class="col-8">
-						<input name="campus_name_1" type="text" placeholder="•••••••••••••••••"/>
+					<div class="col-7">
+						<input name="campus_name_1" class="campus_name" type="text" placeholder="•••••••••••••••••"/>
 					</div>
+					<div class="col-1">
+						<div class="edu-button edu-button-orange remove_campus_button">X</div>
+					</div>
+				</div>
+			</div>
+			{% endif %}
+			<div class="row mt1">
+
+			</div>
+			<div class="row mt1">
+				<div class="col-4"></div>
+				<div class="col-3">
+					<div id="add-campus-name" class="edu-button edu-button-blue">Add Campus</button>
 				</div>
 			</div>
 			<div class="row mt1">
@@ -124,9 +127,7 @@
 			</div>
 			<div class="row mt1">
 			</div>
-			{% else %}
-				<div class="row mt1 edu-underline"></div>
-			{% endif %}
+
 		</div>
 	</div>
 	</form>
