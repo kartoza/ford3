@@ -18,9 +18,8 @@ $('#add-campus-name').click(
     )
 
 function addCampusNameInput() {
-    var campus_container = document.getElementById('campus-names-input-wrapper');
-
-    var result_html =
+    var campus_container = $('#campus-names-input-wrapper');
+    var result_html = ('<div>' +
             '<div class="row mt1 campus-name-fade-in">' +
                 '<div class="col-4 centerv npl">' +
                     'Campus Name ' +
@@ -33,37 +32,11 @@ function addCampusNameInput() {
                     '<div class="remove-campus-button">' +
                     '<div class="remove-campus-button-inner ">X</div></div>' +
                 '</div>' +
-            '</div>'
-
-    campus_container.innerHTML += result_html
-    $('.remove-campus-button').click(function() {
+            '</div></div>')
+    new_input = $.parseHTML(result_html);
+    campus_container.append(new_input);
+    $('.remove-campus-button').onclick(function() {
         this_button_parrent_parent = $(this).parent().parent();
         this_button_parrent_parent.remove();
     })
-}
-
-function createCampusNameInputs(campus_count) {
-    var i;
-    var result_html = '';
-    var campus_container = document.getElementById('campus-names-input-wrapper');
-    var campus_count_number;
-    campus_container.innerHTML = '';
-    for (i = 0; i < campus_count; i++) {
-        campus_count_number = i + 1;
-        result_html +=
-            '<div class="row mt1 campus-name-fade-in">' +
-                '<div class="col-4 centerv npl">' +
-                    'Name of Campus ' + campus_count_number.toString() +
-                '</div>' +
-                '<div class="col-8">' +
-                    '<input required name="campus_name_' + campus_count_number.toString() + '" ' +
-                    'id="campus_name_' + campus_count_number.toString() + '" ' +
-                    'type="text" placeholder="•••••••••••••••••"/>' +
-                '</div>' +
-            '</div>' +
-            '<div class="col-1">' +
-                '<div class="edu-button edu-button-orange remove-campus-button">X</div>' +
-            '</div>'
-    }
-    campus_container.innerHTML = result_html;
 }
