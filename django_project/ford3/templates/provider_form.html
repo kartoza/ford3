@@ -93,6 +93,8 @@
 					</div>
 				</div>
 			</div>
+			{% if is_new_provider %}
+
 			<div class="row mt1 edu-underline">
 				<h4>Campuses</h4>
 			</div>
@@ -126,6 +128,9 @@
 			</div>
 			<div class="row mt1">
 			</div>
+			{% else %}
+				<div class="row mt1 edu-underline"></div>
+			{% endif %}
 		</div>
 	</div>
 	</form>

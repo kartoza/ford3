@@ -1,14 +1,18 @@
-var slider = document.getElementById('campus-count');
 var output = document.getElementById('number-of-campuses');
-slider.value = 1;
-output.value = slider.value; // Display the default slider value
 // Update the current slider value (each time you drag the slider handle)
-slider.oninput = function () {
-    output.value = this.value;
-
-    createCampusNameInputs(this.value);
+output.onchange = function () {
+    createCampusNameInputs(output.value);
 }
 
+$(document).on("submit", "form", function(e) {
+    var oForm = $(this);
+    if (confirm('Submitting data. Continue?')) {
+       return true;
+    }
+    else {
+       return false;
+    }
+})
 
 function createCampusNameInputs(campus_count) {
     var i;
@@ -24,7 +28,7 @@ function createCampusNameInputs(campus_count) {
                     'Name of Campus ' + campus_count_number.toString() +
                 '</div>' +
                 '<div class="col-8">' +
-                    '<input name="campus_name_' + campus_count_number.toString() + '" ' +
+                    '<input required name="campus_name_' + campus_count_number.toString() + '" ' +
                     'id="campus_name_' + campus_count_number.toString() + '" ' +
                     'type="text" placeholder="•••••••••••••••••"/>' +
                 '</div>' +
