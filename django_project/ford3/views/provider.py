@@ -71,12 +71,14 @@ def show_provider(request, provider_id):
         campus_id=F('id'),
         provider_name=F('provider__name')
     )
-    campus_data = campus_query.values('campus_name', 'campus_id')
+    campus_data = campus_query.values('name', 'id')
     provider_name = campus_query.values('provider_name')[0]['provider_name']
 
     form_data['campus_list'] = list(campus_data)
     form_data['provider_name'] = str(provider_name)
 
     context['form_data'] = form_data
-    context['provider_id'] = provider_id
+    context['provider'] = {}
+    context['provider']['campus'] = campus_data
+    context['provider']['id'] = provider_id
     return render(request, 'provider.html', context)

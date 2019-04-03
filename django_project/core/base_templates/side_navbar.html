@@ -9,9 +9,9 @@
 		</div>
 		<div class='col-md-12 noplr'>
 			<ul>
-				{% for each_campus in form_data.campus_list %}
+				{% for campus in provider.campus %}
 					<li>
-						<a href='/ford3/providers/{{ provider_id }}/campus/{{ each_campus.campus_id }}'>{{ each_campus.campus_name }}</a>
+							<a href='/ford3/providers/{{ provider.id }}/campus/{{ campus.id }}'>{{ campus.name }}</a>
 					</li>
 				{% endfor %}
 			</ul>
