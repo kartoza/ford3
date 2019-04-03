@@ -1,5 +1,5 @@
 <nav id="sidebar">
-	<div class="container-fluid">
+	<div class="container-fluid noplr">
 		<div class="col-12">
 			<div id="provider-photo" class="provider-photo">
 			</div>
@@ -7,7 +7,7 @@
 		<div class="col-12 side-bar-title" id="provider-name">
 			{{ form_data.provider_name }}
 		</div>
-		<div class='col-md-12'>
+		<div class='col-md-12 noplr'>
 			<ul>
 				{% for each_campus in form_data.campus_list %}
 					<li>
@@ -64,10 +64,11 @@
 		background-color: rgba(255, 255, 255, 0.13);
 		height: 2.5rem;
 		line-height: 1.25rem;
-		color: white;
+		color: var(--c-grey-l);
 	}
 
 	#sidebar ul li:hover {
+		color: white;
 		background-color: rgba(255, 255, 255, 0.21);
 
 	}
