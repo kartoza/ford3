@@ -18,11 +18,11 @@
 		</div>
 
 		<div class='row justify-content-center no-gutters'>
-			{% for each_campus in form_data.campus_list %}
+			{% for campus in provider.campus %}
 				<div class='col-md-4 card mb-5 border-0'>
 					<div class='campus-card mx-auto'>
 						<div class='card-body'>
-							<h5 class='card-title'>{{ each_campus.campus_name }}</h5>
+							<h5 class='card-title'>{{ campus.name }}</h5>
 
 							<div class='campus-completion-rate'>
 								<p>
