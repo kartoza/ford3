@@ -146,7 +146,6 @@ const displaySaqaQualificationsResults = (results) => {
     const saqaNodeContent = document.createTextNode(saqa.name)
     const saqaLink = buildSaqaQualificationLiContent(saqa)
     saqaNode.appendChild(saqaLink)
-    saqaNode.appendChild(document.createTextNode('\u00A0'))
     saqaNode.appendChild(saqaNodeContent)
 
     list.appendChild(saqaNode)
