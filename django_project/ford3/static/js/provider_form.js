@@ -26,6 +26,8 @@ $('#add-campus-name').click(
     }
  )
 
+
+
 function addCampusNameInput() {
     var campus_container = $('#campus-names-input-wrapper');
     var result_html = ('<div>' +
@@ -44,4 +46,5 @@ function addCampusNameInput() {
             '</div></div>')
     new_input = $.parseHTML(result_html);
     campus_container.append(new_input);
+
 }
