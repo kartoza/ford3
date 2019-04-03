@@ -44,9 +44,10 @@ class TestCampus(TestCase):
 
     def test_save_events_form_data(self):
         form_data = {
-            'event_type': 'Open day',
-            'event_date': datetime.date(2019, 3, 30),
-            'event_http_link': 'http://event42.com'
+            'name': 'Open day',
+            'date_start': datetime.date(2019, 3, 30),
+            'date_end': datetime.date(2019, 3, 30),
+            'http_link': 'http://event42.com'
         }
 
         # campus should not have events yet.
@@ -60,9 +61,10 @@ class TestCampus(TestCase):
 
     def test_save_empty_event_form_data(self):
         form_data = {
-            'event_type': '',
-            'event_date': None,
-            'event_http_link': ''
+            'name': '',
+            'date_start': None,
+            'date_end': '',
+            'http_link': ''
         }
 
         self.assertEqual(len(self.campus.events), 0)

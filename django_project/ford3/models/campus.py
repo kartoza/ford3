@@ -116,15 +116,15 @@ class Campus(models.Model):
         self.save()
 
     def save_events(self, form_data):
-        if len(form_data['event_type']) == 0 \
-           and form_data['event_date'] is None:
+        if len(form_data['name']) == 0 \
+           and form_data['date_start'] is None:
             return
 
         event = CampusEvent(
             campus=self,
-            name=form_data['event_name'],
-            date_start=form_data['event_date'],
-            date_end=form_data['event_date'],
+            name=form_data['name'],
+            date_start=form_data['date_start'],
+            date_end=form_data['date_end'],
             http_link=form_data['http_link'])
         event.save()
 
