@@ -1,7 +1,13 @@
- $('.remove-campus-button').click(function() {
+$(document).ready(function() {
+    innitiate_remove_campus_buttons();
+})
+
+function innitiate_remove_campus_buttons() {
+    $('.remove-campus-button').click(function() {
         this_button_parrent_parent = $(this).parent().parent();
         this_button_parrent_parent.remove();
     })
+ }
 
 $(document).on("submit", "form", function(e) {
     if (confirm('Submitting data. Continue?')) {
@@ -15,13 +21,12 @@ $(document).on("submit", "form", function(e) {
 
 $('#add-campus-name').click(
     function () {
-        addCampusNameInput()
-        $('.remove-campus-button').click(function () {
-            this_button_parrent_parent = $(this).parent().parent();
-            this_button_parrent_parent.remove();
-        })
+        addCampusNameInput();
+        innitiate_remove_campus_buttons();
     }
  )
+
+
 
 function addCampusNameInput() {
     var campus_container = $('#campus-names-input-wrapper');
