@@ -1,8 +1,8 @@
 $(document).ready(function() {
-    innitiate_remove_campus_buttons();
+    innitiateRemoveCampusButtons();
 })
 
-function innitiate_remove_campus_buttons() {
+function innitiateRemoveCampusButtons() {
     $('.remove-campus-button').click(function() {
         this_button_parrent_parent = $(this).parent().parent();
         this_button_parrent_parent.remove();
@@ -22,7 +22,7 @@ $(document).on("submit", "form", function(e) {
 $('#add-campus-name').click(
     function () {
         addCampusNameInput();
-        innitiate_remove_campus_buttons();
+        innitiateRemoveCampusButtons();
     }
  )
 
