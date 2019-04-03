@@ -55,14 +55,10 @@ def edit_provider(request, provider_id):
             id=provider_id
         )
         form = ProviderForm(instance=provider)
-        if len(provider.campus) > 0:
-            is_new_provider = False
-        else:
-            is_new_provider = True
         context = {
             'form': form,
             'provider_id': provider_id,
-            'is_new_provider': is_new_provider,
+            'is_new_provider': provider.is_new_provider,
         }
         return render(request, 'provider_form.html', context)
 
