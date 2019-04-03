@@ -14,11 +14,12 @@ $(document).on("submit", "form", function(e) {
 })
 
 $('#add-campus-name').click(
-    function() {addCampusNameInput()
-    $('.remove-campus-button').click(function() {
-        this_button_parrent_parent = $(this).parent().parent();
-        this_button_parrent_parent.remove();
-    })
+    function () {
+        addCampusNameInput()
+        $('.remove-campus-button').click(function () {
+            this_button_parrent_parent = $(this).parent().parent();
+            this_button_parrent_parent.remove();
+        })
     }
  )
 
