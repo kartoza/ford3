@@ -91,7 +91,8 @@ class Campus(models.Model):
             campus__id=self.id).values(
                 'date_start',
                 'name',
-                'http_link')
+                'http_link',
+                'date_end')
         return list(event_query)
 
     @property
@@ -121,10 +122,10 @@ class Campus(models.Model):
 
         event = CampusEvent(
             campus=self,
-            name=form_data['event_type'],
+            name=form_data['event_name'],
             date_start=form_data['event_date'],
             date_end=form_data['event_date'],
-            http_link=form_data['event_http_link'])
+            http_link=form_data['http_link'])
         event.save()
 
     def save_qualifications(self, form_data):
