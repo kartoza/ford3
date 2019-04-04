@@ -2,7 +2,7 @@
     padding-left: 0;
 }
 
-.provider-form-photo {
+.provider-form-photo, img {
     background-color: #efeee9;
     min-width: 225px;
     margin-top: 0;

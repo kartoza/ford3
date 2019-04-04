@@ -3,7 +3,7 @@
 
 {% block body %}
 	<div class="container">
-		<form action="/providers/{{ provider_id }}/edit" method="post">
+		<form action="/providers/{{ provider_id }}/edit" method="post" enctype="multipart/form-data">
 		{% csrf_token %}
 		<div class="row">
 			<div class="col-12">
@@ -23,10 +23,17 @@
 			</div>
 			<br>
 			<div class="row">
-				<div class="col-4 npl">Provider Logo</div>
+				<div class="col-4 npl">
+                    Provider Logo
+                    <input type="file" name="file_logo">
+                    <button type="submit" class="edu-button edu-button-blue" name="upload_logo">Upload Logo</button>
+
+                </div>
 				<div class="col-8">
 					<div class="provider-form-photo">
-
+                        {% if provider_logo %}
+                            <img src="{{ provider_logo }}" />
+                        {% endif %}
 					</div>
 				</div>
 			</div>
