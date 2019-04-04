@@ -23,7 +23,11 @@ def edit_provider(request, provider_id):
             form = ProviderForm(request.POST, request.FILES)
             # users press upload button without specifying a file
             if not request.FILES:
-                return render(request, 'provider_form.html', {'form': form} )
+                context = {
+                    'form': form,
+                    'provider_id': provider_id,
+                }
+                return render(request, 'provider_form.html', context)
 
             uploaded_file = request.FILES['file_logo']
             fs = FileSystemStorage()
