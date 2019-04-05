@@ -115,18 +115,12 @@ class Campus(models.Model):
             setattr(self, key, value)
         self.save()
 
-    def save_events(self, form_data):
-        if len(form_data['name']) == 0 \
-           and form_data['date_start'] is None:
+    def save_events(self, campus_events):
+        if len(campus_events) == 0:
             return
+        for each_campus_event in campus_events:
+            each_campus_event.save()
 
-        event = CampusEvent(
-            campus=self,
-            name=form_data['name'],
-            date_start=form_data['date_start'],
-            date_end=form_data['date_end'],
-            http_link=form_data['http_link'])
-        event.save()
 
     def save_qualifications(self, form_data):
         if len(form_data['saqa_ids']) == 0:

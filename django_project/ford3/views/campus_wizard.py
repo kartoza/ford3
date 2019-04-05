@@ -1,4 +1,5 @@
 import os
+from datetime import date, datetime
 from django.shortcuts import redirect, Http404, get_object_or_404
 from django.core.files.storage import FileSystemStorage
 from django.conf import settings
@@ -17,7 +18,7 @@ class CampusFormWizard(CookieWizardView):
     template_name = 'campus_form.html'
     file_storage = FileSystemStorage(
         location=os.path.join(settings.MEDIA_ROOT, 'photos'))
-    new_events = []
+    new_campus_events = []
 
     @property
     def campus(self):
@@ -77,12 +78,11 @@ class CampusFormWizard(CookieWizardView):
             elif i == steps['DATES']:
                 print(form.cleaned_data)
                 # self.add_events(form)
-                self.campus.save_events(form.cleaned_data)
+                self.campus.save_events(self.new_campus_events)
             elif i == steps['QUALIFICATION_TITLES']:
                 self.campus.save_qualifications(form.cleaned_data)
                 self.campus.delete_qualifications(form.cleaned_data)
             i += 1
-        # self.add_events(fo)
         return redirect(
             '/ford3/providers/{provider_id}/campus/{campus_id}'.format(
                 provider_id=self.provider.id,
@@ -97,13 +97,23 @@ class CampusFormWizard(CookieWizardView):
             new_date_start = step_data['2-date_start']
             new_date_end = step_data['2-date_end']
             new_http_link = step_data['2-http_link']
+
             new_campus_event = CampusEvent()
             new_campus_event.campus = campus
-            new_campus_event.name = new_name[0]
-            new_campus_event.date_start = new_date_start[0]
-            new_campus_event.date_end = new_date_end[0]
-            new_campus_event.http_link = new_http_link[0]
-            new_campus_event.save()
+            for i in range(0, len(new_name)):
+                new_campus_event.name = new_name[i]
+                new_date_start_i = new_date_start[i]
+                new_date_start_formatted = (
+                    datetime.strptime(new_date_start_i, '%m/%d/%Y')
+                ).strftime('%Y-%m-%d')
+                new_date_end_i = new_date_end[i]
+                new_date_end_formatted = (
+                    datetime.strptime(new_date_end_i, '%m/%d/%Y')
+                ).strftime('%Y-%m-%d')
+                new_campus_event.date_start = new_date_start_formatted
+                new_campus_event.date_end = new_date_end_formatted
+                new_campus_event.http_link = new_http_link[i]
+                self.new_campus_events.append(new_campus_event)
 
 
     def render(self, form=None, **kwargs):
@@ -114,7 +124,3 @@ class CampusFormWizard(CookieWizardView):
             self.add_events(
                 context['view'].storage.data['step_data']['2'], self.campus)
         return self.render_to_response(context)
-
-
-    def get_form_step_data(self, form):
-        return form.data
