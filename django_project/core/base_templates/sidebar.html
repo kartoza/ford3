@@ -8,6 +8,13 @@
 			{{ form_data.provider_name }}
 		</div>
 		<div class='col-md-12 noplr'>
+            {% if provider.name %}
+                <ul>
+                    <li>
+                        <a href="/ford3/providers/{{ provider.id }}">{{ provider.name }}</a>
+                    </li>
+                </ul>
+            {% endif %}
 			<ul>
 				{% for campus in provider.campus %}
 					<li>
