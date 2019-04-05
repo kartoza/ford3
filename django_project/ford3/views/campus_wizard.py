@@ -7,14 +7,17 @@ from django.forms.models import model_to_dict
 from formtools.wizard.views import CookieWizardView
 from ford3.models import (
     Campus,
+    CampusEvent,
     Provider
 )
+from ford3.forms.campus import CampusImportantDatesForm
 
 
 class CampusFormWizard(CookieWizardView):
     template_name = 'campus_form.html'
     file_storage = FileSystemStorage(
         location=os.path.join(settings.MEDIA_ROOT, 'photos'))
+    new_events = []
 
     @property
     def campus(self):
@@ -73,11 +76,45 @@ class CampusFormWizard(CookieWizardView):
                 self.campus.save_form_data(form.cleaned_data)
             elif i == steps['DATES']:
                 print(form.cleaned_data)
+                # self.add_events(form)
                 self.campus.save_events(form.cleaned_data)
             elif i == steps['QUALIFICATION_TITLES']:
                 self.campus.save_qualifications(form.cleaned_data)
                 self.campus.delete_qualifications(form.cleaned_data)
             i += 1
+        # self.add_events(fo)
+        return redirect(
+            '/ford3/providers/{provider_id}/campus/{campus_id}'.format(
+                provider_id=self.provider.id,
+                campus_id=self.campus.id))
 
         url = reverse('show-campus', args=(self.provider.id, self.campus.id))
         return redirect(url)
+
+    def add_events(self, step_data, campus):
+        if step_data['campus_form_wizard-current_step'][0] == '2':
+            new_name = step_data['2-name']
+            new_date_start = step_data['2-date_start']
+            new_date_end = step_data['2-date_end']
+            new_http_link = step_data['2-http_link']
+            new_campus_event = CampusEvent()
+            new_campus_event.campus = campus
+            new_campus_event.name = new_name[0]
+            new_campus_event.date_start = new_date_start[0]
+            new_campus_event.date_end = new_date_end[0]
+            new_campus_event.http_link = new_http_link[0]
+            new_campus_event.save()
+
+
+    def render(self, form=None, **kwargs):
+        form = form or self.get_form()
+        context = self.get_context_data(form=form, **kwargs)
+        current_step = context['view'].storage.current_step
+        if current_step == '3':
+            self.add_events(
+                context['view'].storage.data['step_data']['2'], self.campus)
+        return self.render_to_response(context)
+
+
+    def get_form_step_data(self, form):
+        return form.data
