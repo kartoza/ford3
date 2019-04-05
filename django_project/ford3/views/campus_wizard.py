@@ -92,15 +92,17 @@ class CampusFormWizard(CookieWizardView):
         return redirect(url)
 
     def add_events(self, step_data, campus):
+
         if step_data['campus_form_wizard-current_step'][0] == '2':
             new_name = step_data['2-name']
             new_date_start = step_data['2-date_start']
             new_date_end = step_data['2-date_end']
             new_http_link = step_data['2-http_link']
 
-            new_campus_event = CampusEvent()
-            new_campus_event.campus = campus
+
+
             for i in range(0, len(new_name)):
+                new_campus_event = CampusEvent()
                 new_campus_event.name = new_name[i]
                 new_date_start_i = new_date_start[i]
                 new_date_start_formatted = (
@@ -120,7 +122,13 @@ class CampusFormWizard(CookieWizardView):
         form = form or self.get_form()
         context = self.get_context_data(form=form, **kwargs)
         current_step = context['view'].storage.current_step
-        if current_step == '3':
-            self.add_events(
-                context['view'].storage.data['step_data']['2'], self.campus)
+        if current_step == '3' or current_step == '2':
+            try:
+                self.add_events(
+                    context['view'].storage.data['step_data']['2'],
+                    self.campus)
+            except KeyError:
+                pass
+        if current_step == '2':
+            self.new_campus_events = []
         return self.render_to_response(context)

@@ -119,6 +119,7 @@ class Campus(models.Model):
         if len(campus_events) == 0:
             return
         for each_campus_event in campus_events:
+            each_campus_event.campus = self
             each_campus_event.save()
 
 

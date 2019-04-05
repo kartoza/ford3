@@ -18,18 +18,42 @@ function addCampusEvent(){
         clearElement(new_end_date_div);
         clearElement(new_http_link_div);
 
-        let new_hr = document.createElement('hr')
+        // let new_hr = document.createElement('hr');
+        let new_remove_button_row = document.createElement('div');
+        new_remove_button_row.innerHTML = getRemoveGroupRow();
         let form_group = (
             document.getElementsByClassName('form-group')[0]);
-        form_group.appendChild(new_hr);
+        new_remove_button_row.classlist += 'row';
+
+        // form_group.appendChild(new_hr);
+        form_group.appendChild(new_remove_button_row)
         form_group.appendChild(new_name_div);
         form_group.appendChild(new_start_date_div);
         form_group.appendChild(new_end_date_div);
         form_group.appendChild(new_http_link_div);
+        innitiateRemoveCampusEventButtons();
 }
 
 function clearElement(elementToClear) {
        $(elementToClear).find('input:text').val('');
 };
 
-function updateElementID(elementID) {}
+function innitiateRemoveCampusEventButtons() {
+    $('.remove-campus-event-button').click(function() {
+
+        for (let i = 0; i < 4; i++) {
+                var parent_div = this.parentElement.parentElement.parentElement;
+                parent_div.nextElementSibling.remove();
+        };
+        parent_div.remove();
+    })
+ }
+
+function getRemoveGroupRow() {
+        let button_html = '<div class="remove-campus-event-button">' +
+            '<div class="remove-campus-button-inner ">X</div></div>'
+        let result = (  '<div class="row">' +
+                        '<div class="col-11"><hr/></div><div class="col-1">' +
+            button_html + '</div>')
+        return result
+}
