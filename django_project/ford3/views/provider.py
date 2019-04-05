@@ -39,7 +39,7 @@ def edit_provider(request, provider_id):
                 id=provider_id
             )
 
-            provider.provider_logo = logo_url
+            provider.logo_url = logo_url
             provider.save()
 
             context = {
@@ -61,9 +61,12 @@ def edit_provider(request, provider_id):
                     form.cleaned_data['physical_address_line_1'])
                 physical_address_line_2 = (
                     form.cleaned_data['physical_address_line_2'])
-                physical_address_city = form.cleaned_data['physical_address_city']
-                postal_address = form.cleaned_data['postal_address']
-                admissions_contact_no = form.cleaned_data['admissions_contact_no']
+                physical_address_city = (
+                    form.cleaned_data['physical_address_city'])
+                postal_address = (
+                    form.cleaned_data['postal_address'])
+                admissions_contact_no = (
+                    form.cleaned_data['admissions_contact_no'])
                 new_provider.provider_type = provider_type
                 new_provider.telephone = telephone
                 new_provider.email = email
@@ -82,7 +85,10 @@ def edit_provider(request, provider_id):
                             Campus.objects.create(provider=new_provider,
                                                   name=campus_name)
                 except IntegrityError:
-                    return render(request, 'provider_form.html', {'form': form})
+                    return render(
+                        request,
+                        'provider_form.html',
+                        {'form': form})
                 redirect_url = '/providers/' + str(new_provider.id)
                 return redirect(redirect_url)
     else:
@@ -95,7 +101,7 @@ def edit_provider(request, provider_id):
             'form': form,
             'provider_id': provider_id,
             'is_new_provider': provider.is_new_provider,
-            'provider_logo': provider.provider_logo,
+            'provider_logo': provider.logo_url,
         }
         return render(request, 'provider_form.html', context)
 

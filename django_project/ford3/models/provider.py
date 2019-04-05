@@ -76,11 +76,6 @@ class Provider(models.Model):
         unique = False,
         help_text ='',
         max_length = 255)
-    provider_logo = models.CharField(
-        verbose_name='Logo',
-        null=True,
-        blank=True,
-        max_length=255)
 
     pass
 
