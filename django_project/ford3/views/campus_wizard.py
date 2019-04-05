@@ -1,5 +1,5 @@
 import os
-from datetime import date, datetime
+from datetime import datetime
 from django.shortcuts import redirect, Http404, get_object_or_404
 from django.core.files.storage import FileSystemStorage
 from django.conf import settings
@@ -11,7 +11,6 @@ from ford3.models import (
     CampusEvent,
     Provider
 )
-from ford3.forms.campus import CampusImportantDatesForm
 
 
 class CampusFormWizard(CookieWizardView):
@@ -76,8 +75,6 @@ class CampusFormWizard(CookieWizardView):
             if i == steps['DETAILS'] or i == steps['LOCATION']:
                 self.campus.save_form_data(form.cleaned_data)
             elif i == steps['DATES']:
-                print(form.cleaned_data)
-                # self.add_events(form)
                 self.campus.save_events(self.new_campus_events)
             elif i == steps['QUALIFICATION_TITLES']:
                 self.campus.save_qualifications(form.cleaned_data)

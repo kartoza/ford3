@@ -46,9 +46,7 @@ def show_campus(request, provider_id, campus_id):
         'provider': campus.provider
     }
     return render(request, 'campus.html', context)
-    qualification_event_form_fields = (
-        vars(QualificationImportantDatesForm)['declared_fields']
-    )
+
 
 def show_qualification(request, provider_id, campus_id, qualification_id):
     qualification = get_object_or_404(

@@ -3,6 +3,7 @@ from ford3.tests.functional.utils import SeleniumTestCase, selenium_flag_ready
 from django.urls import reverse
 from ford3.tests.models.model_factories import ModelFactories
 from selenium.webdriver.common.by import By
+from ford3.models import Campus
 
 
 class TestCampusForm(SeleniumTestCase):
@@ -113,24 +114,12 @@ class TestCampusFormDataBinding(SeleniumTestCase):
         self.assertEqual(saqa_ids_value, str(saqa.saqa_id))
 
     def test_add_campus(self):
-        campus_object = Campus.objects.filter(id=1).first()
-        try:
-            provider_id = campus_object.provider_id
-        except AttributeError:
-            campus_object = ModelFactories.get_campus_test_object(1)
-
-        campus_form_url = build_campus_form_url(
-            self.live_server_url,
-            campus_object.provider_id,
-            campus_object.id)
-
-        self.driver.get(campus_form_url)
-
-        # They get
-        html = self.driver.page_source
-        self.assertNotIn('404', html)
-
-        self.driver.get(campus_form_url)
+        campus_object = Campus.objects.all().first()
+        if len(str(campus_object)) > 0:
+            pass
+        else:
+            campus_object = ModelFactories.get_campus_test_object()
+        self.driver.get(self.campus_form_url)
 
         # User sees the first page's title
         title = self.driver.find_element_by_tag_name('h2').text
@@ -160,10 +149,8 @@ class TestCampusFormDataBinding(SeleniumTestCase):
         add_campus_button.click()
         self.assertEqual(len(visible_form_inputs), 8)
 
-
-
     def get_next_button(self):
-        next_button = self.driver.find_element_by_id('wizard_next')
+        next_button = self.driver.find_element_by_id('my-next-button')
         return next_button
 
     def assert_footer(self, expected_content):
