@@ -111,3 +111,62 @@ class TestCampusFormDataBinding(SeleniumTestCase):
             'id_campus-qualifications-saqa_ids')
         saqa_ids_value = saqa_ids_elem.get_attribute('value')
         self.assertEqual(saqa_ids_value, str(saqa.saqa_id))
+
+    def test_add_campus(self):
+        campus_object = Campus.objects.filter(id=1).first()
+        try:
+            provider_id = campus_object.provider_id
+        except AttributeError:
+            campus_object = ModelFactories.get_campus_test_object(1)
+
+        campus_form_url = build_campus_form_url(
+            self.live_server_url,
+            campus_object.provider_id,
+            campus_object.id)
+
+        self.driver.get(campus_form_url)
+
+        # They get
+        html = self.driver.page_source
+        self.assertNotIn('404', html)
+
+        self.driver.get(campus_form_url)
+
+        # User sees the first page's title
+        title = self.driver.find_element_by_tag_name('h2').text
+        print(title)
+        self.assertIn('Campus Details', title)
+        # and the footer shows him what page he is on
+        self.assert_footer('Page 1 of')
+        # User clicks next
+        self.get_next_button().click()
+        # User sees they are on the 2nd page from the footer
+        self.assert_footer('Page 2 of')
+        # User clicks next
+        self.get_next_button().click()
+        # User sees they are on the 3rd page from the footer
+        self.assert_footer('Page 3 of')
+        # User sees the 4 form fields - 1 of each
+        form_content = self.driver.find_element_by_id('form-wrapper')
+        # Get visible inputs
+        visible_form_inputs = []
+        form_inputs = form_content.find_elements_by_tag_name('input')
+        for each_form_input in form_inputs:
+            if each_form_input.is_displayed():
+                visible_form_inputs.append(each_form_input)
+        self.assertEqual(len(visible_form_inputs), 4)
+        # User clicks add campus
+        add_campus_button = self.driver.find_element_by_id('add-campus-event')
+        add_campus_button.click()
+        self.assertEqual(len(visible_form_inputs), 8)
+
+
+
+    def get_next_button(self):
+        next_button = self.driver.find_element_by_id('wizard_next')
+        return next_button
+
+    def assert_footer(self, expected_content):
+        footer = (
+            self.driver.find_element_by_class_name('form-steps-count').text)
+        self.assertIn(expected_content, footer)

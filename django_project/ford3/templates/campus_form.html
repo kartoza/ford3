@@ -96,6 +96,11 @@
                         </div>
                         {% endif %}                        
                     </div>
+                        {% if wizard.steps.step1 == 3 %}
+	                        <div id="add-campus-event" class="edu-button edu-butotn-orange">
+	                            Add event
+	                        </div>
+                        {% endif %}
                     <div class="row form-actions">
                         <div class="col-md-4">
                             {% if wizard.steps.prev %}
@@ -138,6 +143,7 @@
     {% if wizard.steps.step1 == 3 %}
         <script type="text/javascript"
                 src="{% static 'js/datepicker.js' %}"></script>
+	            <script type="text/javascript" src="{% static 'js/campus_event.js' %}"></script>
     {% endif %}
     {% if wizard.steps.step1 == 4 %}
         <script type="text/javascript"
