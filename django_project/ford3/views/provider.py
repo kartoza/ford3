@@ -3,9 +3,7 @@ from django.shortcuts import (
     redirect,
     get_object_or_404,
 )
-import os
 from django.conf import settings
-from django.core.files.storage import FileSystemStorage
 from django.db import transaction, IntegrityError
 from django.db.models import F
 from ford3.forms.provider_form import ProviderForm

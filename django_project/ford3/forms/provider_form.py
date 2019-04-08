@@ -10,6 +10,7 @@ EMPTY_EMAIL_ERROR = 'Your email is required.'
 class ProviderForm(forms.models.ModelForm):
 
     image = ImageField()
+
     class Meta:
         model = Provider
         provider_types_list = []
