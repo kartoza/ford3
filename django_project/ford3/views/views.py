@@ -40,7 +40,7 @@ def show_campus(request, provider_id, campus_id):
     context = {
         'campus': campus,
         'provider': campus.provider,
-        'provider_logo': campus.provider.logo_url
+        'provider_logo': campus.provider.provider_logo.url
     }
 
     return render(request, 'campus.html', context)

@@ -34,12 +34,13 @@ class Provider(models.Model):
         unique=False,
         help_text='',
         max_length=255)
-    logo_url = models.CharField(
-        blank=False,
-        null=True,
-        unique=False,
-        help_text='',
-        max_length=255)
+    # TBC: no longer need this variable
+    # logo_url = models.CharField(
+    #     blank=False,
+    #     null=True,
+    #     unique=False,
+    #     help_text='',
+    #     max_length=255)
     email = models.CharField(
         blank=False,
         null=False,
@@ -76,6 +77,10 @@ class Provider(models.Model):
         unique = False,
         help_text ='',
         max_length = 255)
+    provider_logo = models.ImageField(
+        blank=True,
+        upload_to='provider_logo'
+    )
 
     pass
 

@@ -1,4 +1,5 @@
 from django import forms
+from django.forms import ImageField
 from ford3.models.provider import Provider
 
 
@@ -8,6 +9,7 @@ EMPTY_EMAIL_ERROR = 'Your email is required.'
 
 class ProviderForm(forms.models.ModelForm):
 
+    image = ImageField()
     class Meta:
         model = Provider
         provider_types_list = []
@@ -25,6 +27,7 @@ class ProviderForm(forms.models.ModelForm):
                   'physical_address_line_2',
                   'physical_address_city',
                   'postal_address',
+                  'image',
                   )
         widgets = {
             'name' : forms.fields.HiddenInput(),
