@@ -117,3 +117,7 @@
     text-align: center;
     cursor: pointer;
 }
+
+.form_provider_logo a, #provider_logo-clear_id, label[for="provider_logo-clear_id"] {
+    display: none;
+}

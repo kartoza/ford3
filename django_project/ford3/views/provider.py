@@ -33,7 +33,7 @@ def edit_provider(request, provider_id):
                 form.cleaned_data['postal_address'])
             admissions_contact_no = (
                 form.cleaned_data['admissions_contact_no'])
-            provider_logo = form.cleaned_data['image']
+            provider_logo = form.cleaned_data['provider_logo']
             new_provider.provider_type = provider_type
             new_provider.telephone = telephone
             new_provider.email = email
@@ -68,8 +68,12 @@ def edit_provider(request, provider_id):
             'form': form,
             'provider_id': provider_id,
             'is_new_provider': provider.is_new_provider,
-            'provider_logo': provider.provider_logo.url,
         }
+
+        # use case: load page for the first time
+        if provider.provider_logo:
+            context['provider_logo'] = '/ford3' + provider.provider_logo.url
+
         return render(request, 'provider_form.html', context)
 
 
@@ -94,5 +98,5 @@ def show_provider(request, provider_id):
         'campus': campus_data,
         'id': provider_id,
     }
-    context['provider_logo'] = settings.MEDIA_URL + provider_logo
+    context['provider_logo'] = '/ford3' + settings.MEDIA_URL + provider_logo
     return render(request, 'provider.html', context)
