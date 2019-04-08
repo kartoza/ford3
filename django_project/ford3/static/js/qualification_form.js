@@ -186,3 +186,8 @@ let customSelectChangedHandler = ($target, $hiddenListInput, selectedValue) => {
         addSubject($input, selectedValue, minimumScoreValue);
     });
 })();
+
+
+
+
+
