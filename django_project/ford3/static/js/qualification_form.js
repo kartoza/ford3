@@ -100,6 +100,8 @@ let customSelectChangedHandler = ($target, $hiddenListInput, selectedValue) => {
     $hiddenListInput.val(subjectListInputValue.join(','));
 };
 
+let
+
 (function () {
     // Datepicker
     $(".dateinput").datepicker();

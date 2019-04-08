@@ -242,34 +242,31 @@ class QualificationInterestsAndJobsForm(QualificationForm):
 
 
 class QualificationImportantDatesForm(QualificationForm):
-    date_start = forms.DateField(
-        label='Application period start:',
-        required=False,
-        widget=forms.DateInput(
-            attrs={'class': 'col-md-4'}
-        )
-    )
-
-    date_end = forms.DateField(
-        label='Application period end:',
-        required=False,
-        widget=forms.DateInput(
-            attrs={'class': 'col-md-4'}
-        )
-    )
-
-    other_event = forms.CharField(
-        label='Other event [if any]:',
-        required=False,
+    name = forms.CharField(
+        label='Event name',
+        required=True,
         widget=forms.TextInput(
             attrs={'placeholder': 'Title, eg, Exhibition'}
         )
     )
-
-    event_date = forms.DateField(
-        label='Event Date:',
+    date_start = forms.DateField(
+        label='Starting date',
         required=False,
         widget=forms.DateInput(
             attrs={'class': 'col-md-4'}
+        )
+    )
+    date_end = forms.DateField(
+        label='Ending date',
+        required=False,
+        widget=forms.DateInput(
+            attrs={'class': 'col-md-4'}
+        )
+    )
+    http_link = forms.CharField(
+        label='Link to event:',
+        required=False,
+        widget=forms.TextInput(
+            attrs={'placeholder': 'http://...'}
         )
     )
