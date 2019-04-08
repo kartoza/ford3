@@ -31,6 +31,7 @@
                             </a>
                         </li>
                     {% endfor %}
+
                 </ul>
 
                 <form action="" method="post">{% csrf_token %}
@@ -43,6 +44,11 @@
                             {% crispy wizard.form wizard.form.helper %}
                         {% endif %}
                     </div>
+	                {% if wizard.steps.step1 == 5 %}
+	                    <div id="add-qualification-event" class="edu-button edu-button-orange">
+	                        Add event
+	                    </div>
+	                {% endif %}
                     <div class="row form-actions">
                         <div class="col-md-4">
                             {% if wizard.steps.prev %}
@@ -72,6 +78,7 @@
                         </div>
                     </div>
                 </form>
+
             </div>
         </div>
     </div>

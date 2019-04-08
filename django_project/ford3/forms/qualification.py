@@ -246,7 +246,7 @@ class QualificationImportantDatesForm(QualificationForm):
         label='Event name',
         required=True,
         widget=forms.TextInput(
-            attrs={'placeholder': 'Title, eg, Exhibition'}
+            attrs={'placeholder': 'eg. Applications'}
         )
     )
     date_start = forms.DateField(
