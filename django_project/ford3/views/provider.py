@@ -6,6 +6,7 @@ from django.shortcuts import (
 from django.conf import settings
 from django.db import transaction, IntegrityError
 from django.db.models import F
+from django.urls import reverse
 from ford3.forms.provider_form import ProviderForm
 from ford3.models import (
     Campus,
@@ -52,11 +53,10 @@ def edit_provider(request, provider_id):
                         Campus.objects.create(provider=new_provider,
                                               name=campus_name)
             except IntegrityError:
-                return render(
-                    request,
-                    'provider_form.html',
-                    {'form': form})
-            redirect_url = '/providers/' + str(new_provider.id)
+                return render(request, 'provider_form.html', {'form': form})
+            redirect_url = reverse(
+                'show-provider',
+                args=[str(new_provider.id)])
             return redirect(redirect_url)
     else:
         provider = get_object_or_404(
