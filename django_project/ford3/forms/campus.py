@@ -69,7 +69,7 @@ class CampusLocationForm(CampusForm):
 
 
 class CampusImportantDatesForm(CampusForm):
-    name = forms.CharField(
+    event_name = forms.CharField(
         label='Event name',
         required=False,
         widget=forms.TextInput(

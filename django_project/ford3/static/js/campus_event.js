@@ -4,11 +4,14 @@ $('#add-campus-event').click(function () {
 );
 
 function addCampusEvent(){
-        let name_div = document.getElementById('div_id_2-name');
-        let start_date_div = document.getElementById('div_id_2-date_start');
-        let end_date_div = document.getElementById('div_id_2-date_end');
-        let http_link_div = document.getElementById('div_id_2-http_link');
-
+        let name_div = document.getElementById(
+            'div_id_campus-dates-event_name');
+        let start_date_div = document.getElementById(
+            'div_id_campus-dates-date_start');
+        let end_date_div = document.getElementById(
+            'div_id_campus-dates-date_end');
+        let http_link_div = document.getElementById(
+            'div_id_campus-dates-http_link');
         let new_name_div = name_div.cloneNode(true);
         let new_start_date_div = start_date_div.cloneNode(true);
         let new_end_date_div = end_date_div.cloneNode(true);
@@ -17,14 +20,12 @@ function addCampusEvent(){
         clearElement(new_start_date_div);
         clearElement(new_end_date_div);
         clearElement(new_http_link_div);
-
         // let new_hr = document.createElement('hr');
         let new_remove_button_row = document.createElement('div');
         new_remove_button_row.innerHTML = getRemoveGroupRow();
         let form_group = (
             document.getElementsByClassName('form-group')[0]);
         new_remove_button_row.classlist += 'row';
-
         // form_group.appendChild(new_hr);
         form_group.appendChild(new_remove_button_row)
         form_group.appendChild(new_name_div);

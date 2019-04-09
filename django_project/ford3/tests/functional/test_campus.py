@@ -135,16 +135,20 @@ class TestCampusFormDataBinding(SeleniumTestCase):
         self.get_next_button().click()
         # User sees they are on the 3rd page from the footer
         self.assert_footer('Page 3 of')
-        # User sees the 4 form fields - 1 of each
+        # User sees the 4 form fields - 1 of each and there are 2 hidden inputs
         form_content = self.driver.find_element_by_css_selector(
             '.form-group')
-        # Get visible inputs
-        visible_form_inputs = []
+        # Get visible inputs]
         form_inputs = form_content.find_elements_by_tag_name('input')
-        for each_form_input in form_inputs:
-            if each_form_input.is_displayed():
-                visible_form_inputs.append(each_form_input)
-        self.assertEqual(len(visible_form_inputs), 4)
+        self.assertEqual(len(form_inputs), 6)
+        self.driver.find_element_by_id(
+            'add-campus-event').click()
+        self.driver.find_element_by_id(
+            'add-campus-event').click()
+        # form_inputs = form_content.find_elements_by_tag_name('input')
+        # page_source = self.driver.page_source
+        # self.assertEqual(len(form_inputs), 10)
+
 
 
     def get_next_button(self):

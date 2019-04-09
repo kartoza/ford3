@@ -91,7 +91,7 @@ class ModelFactories:
         return campus_test_object_instance
 
     @staticmethod
-    def get_campus_event_test_object(newid=1):
+    def get_campus_event_test_object(new_id=1):
         campus_event_test_object_instance = CampusEvent.objects.create(
             campus=ModelFactories.get_campus_test_object(),
             name='Campus Event Test Name',
