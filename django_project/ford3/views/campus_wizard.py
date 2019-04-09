@@ -80,11 +80,6 @@ class CampusFormWizard(CookieWizardView):
                 self.campus.save_qualifications(form.cleaned_data)
                 self.campus.delete_qualifications(form.cleaned_data)
             i += 1
-        return redirect(
-            '/ford3/providers/{provider_id}/campus/{campus_id}'.format(
-                provider_id=self.provider.id,
-                campus_id=self.campus.id))
-
         url = reverse('show-campus', args=(self.provider.id, self.campus.id))
         return redirect(url)
 
