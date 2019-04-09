@@ -43,7 +43,7 @@ class TestCampus(TestCase):
 
     def test_save_events_form_data(self):
 
-        campus_events = [ModelFactories.get_campus_event_test_object(36)]
+        campus_events = [ModelFactories.get_campus_event_test_object()]
 
         # campus should not have events yet.
         self.assertQuerysetEqual(self.campus.events, [])
