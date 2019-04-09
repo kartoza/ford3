@@ -270,8 +270,45 @@ class QualificationFormWizard(CookieWizardView):
         qualification_data_process.process_data(
             form_data
         )
-
         url = reverse(
             'show-qualification',
             args=(self.provider.id, self.campus.id, self.qualification.id))
         return redirect(url)
+
+    def render(self, form=None, **kwargs):
+        form = form or self.get_form()
+        context = self.get_context_data(form=form, **kwargs)
+        current_step = context['view'].storage.current_step
+        step_before = '1'
+        step_after = '3'
+        if current_step == step_before or current_step == step_after:
+            try:
+                self.add_events(
+                    context['view'].storage.data['step_data']['2'])
+            except KeyError:
+                pass
+        return self.render_to_response(context)
+
+    def add_events(self, step_data):
+        if step_data['campus_form_wizard-current_step'][0] == '2':
+            new_name = step_data['2-name']
+            new_date_start = step_data['2-date_start']
+            new_date_end = step_data['2-date_end']
+            new_http_link = step_data['2-http_link']
+            # Count how many names were submitted and create new_events
+            number_of_new_events = len(new_name)
+            for i in range(0, number_of_new_events):
+                new_campus_event = CampusEvent()
+                new_campus_event.name = new_name[i]
+                new_date_start_i = new_date_start[i]
+                new_date_start_formatted = (
+                    datetime.strptime(new_date_start_i, '%m/%d/%Y')
+                ).strftime('%Y-%m-%d')
+                new_date_end_i = new_date_end[i]
+                new_date_end_formatted = (
+                    datetime.strptime(new_date_end_i, '%m/%d/%Y')
+                ).strftime('%Y-%m-%d')
+                new_campus_event.date_start = new_date_start_formatted
+                new_campus_event.date_end = new_date_end_formatted
+                new_campus_event.http_link = new_http_link[i]
+                self.new_campus_events.append(new_campus_event)
