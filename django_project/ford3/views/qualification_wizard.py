@@ -81,7 +81,7 @@ class QualificationFormWizardDataProcess(object):
                 subject = Subject.objects.get(
                     id=subject_value
                 )
-            except Subject.DoesNotExist:
+            except (Subject.DoesNotExist, ValueError):
                 continue
             requirement_subjects, created = (
                 QualificationEntranceRequirementSubject.objects.
@@ -279,12 +279,12 @@ class QualificationFormWizard(CookieWizardView):
         form = form or self.get_form()
         context = self.get_context_data(form=form, **kwargs)
         current_step = context['view'].storage.current_step
-        step_before = '1'
-        step_after = '3'
+        step_before = '3'
+        step_after = '5'
         if current_step == step_before or current_step == step_after:
             try:
                 self.add_events(
-                    context['view'].storage.data['step_data']['2'])
+                    context['view'].storage.data['step_data']['4'])
             except KeyError:
                 pass
         return self.render_to_response(context)

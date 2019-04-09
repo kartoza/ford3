@@ -251,14 +251,14 @@ class QualificationImportantDatesForm(QualificationForm):
     )
     date_start = forms.DateField(
         label='Starting date',
-        required=False,
+        required=True,
         widget=forms.DateInput(
             attrs={'class': 'col-md-4'}
         )
     )
     date_end = forms.DateField(
         label='Ending date',
-        required=False,
+        required=True,
         widget=forms.DateInput(
             attrs={'class': 'col-md-4'}
         )
