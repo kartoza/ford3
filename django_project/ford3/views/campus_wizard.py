@@ -89,16 +89,14 @@ class CampusFormWizard(CookieWizardView):
         return redirect(url)
 
     def add_events(self, step_data, campus):
-
         if step_data['campus_form_wizard-current_step'][0] == '2':
             new_name = step_data['2-name']
             new_date_start = step_data['2-date_start']
             new_date_end = step_data['2-date_end']
             new_http_link = step_data['2-http_link']
-
-
-
-            for i in range(0, len(new_name)):
+            # Count how many names were submitted and create new_events
+            number_of_new_events = len(new_name)
+            for i in range(0, number_of_new_events):
                 new_campus_event = CampusEvent()
                 new_campus_event.name = new_name[i]
                 new_date_start_i = new_date_start[i]
@@ -119,13 +117,18 @@ class CampusFormWizard(CookieWizardView):
         form = form or self.get_form()
         context = self.get_context_data(form=form, **kwargs)
         current_step = context['view'].storage.current_step
-        if current_step == '3' or current_step == '2':
+        step_before = '1'
+        step_after = '3'
+        if current_step == step_before or current_step == step_after:
             try:
                 self.add_events(
                     context['view'].storage.data['step_data']['2'],
                     self.campus)
             except KeyError:
                 pass
+
+        # Currently this simply clears the events forcing the user to re-enter
+        # TODO: Generate events from stored self.new_campus_events
         if current_step == '2':
             self.new_campus_events = []
         return self.render_to_response(context)
