@@ -67,6 +67,7 @@ def edit_provider(request, provider_id):
         context = {
             'form': form,
             'provider_id': provider_id,
+            'provider': provider,
             'is_new_provider': provider.is_new_provider,
         }
 
