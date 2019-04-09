@@ -20,7 +20,7 @@ class TestProviderForm(SeleniumTestCase):
             'edit-provider',
             args=(str(self.new_provider.id)))
 
-        self.driver.get(f'{self.live_server_url}{provider_form_url}')
+        self.driver.get({provider_form_url})
         html = self.driver.page_source
         self.assertTrue(html.startswith('<html'))
         self.assertIn('FORD3', self.driver.title)

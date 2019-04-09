@@ -55,16 +55,11 @@ class TestCampus(TestCase):
         self.assertEqual(len(self.campus.events), 1)
 
     def test_save_empty_event_form_data(self):
-        form_data = {
-            'name': '',
-            'date_start': None,
-            'date_end': '',
-            'http_link': ''
-        }
+        campus_events = [ModelFactories.get_campus_event_test_object()]
 
         self.assertEqual(len(self.campus.events), 0)
 
-        self.campus.save_events(form_data)
+        self.campus.save_events(campus_events)
 
         self.assertEqual(len(self.campus.events), 0)
 
