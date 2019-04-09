@@ -54,14 +54,11 @@ class TestCampus(TestCase):
         # campus should have one event
         self.assertEqual(len(self.campus.events), 1)
 
-    def test_save_empty_event_form_data(self):
+    def test_save_single_event(self):
+        self.assertEqual(len(self.campus.events), 0)
         campus_events = [ModelFactories.get_campus_event_test_object()]
-
-        self.assertEqual(len(self.campus.events), 0)
-
         self.campus.save_events(campus_events)
-
-        self.assertEqual(len(self.campus.events), 0)
+        self.assertEqual(len(self.campus.events), 1)
 
     def test_save_qualifications(self):
 

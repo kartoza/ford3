@@ -20,7 +20,7 @@ class TestProviderForm(SeleniumTestCase):
             'edit-provider',
             args=[str(self.new_provider.id)])
 
-        self.driver.get({provider_form_url})
+        self.driver.get(f'{self.live_server_url}{provider_form_url}')
         html = self.driver.page_source
         self.assertTrue(html.startswith('<html'))
         self.assertIn('FORD3', self.driver.title)
@@ -106,3 +106,13 @@ class TestProviderForm(SeleniumTestCase):
         # They submit their data by clicking on the submit button
         submit_button = self.driver.find_element_by_class_name('edu-button')
         submit_button.click()
+
+    def test_show_new_provider(self):
+        """ It should redirect to the edit form if it's a new provider.
+        """
+        provider_form_url = reverse(
+            'show-provider',
+            args=[str(self.new_provider.id)])
+
+        self.driver.get(f'{self.live_server_url}{provider_form_url}')
+        self.assertTrue('edit' in self.driver.current_url)
