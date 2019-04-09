@@ -1,3 +1,4 @@
+import datetime
 from django.shortcuts import redirect, Http404, get_object_or_404
 from django.urls import reverse
 from formtools.wizard.views import CookieWizardView
@@ -18,6 +19,7 @@ from ford3.forms.qualification import (
     QualificationImportantDatesForm,
 )
 
+new_qualification_events = []
 
 class QualificationFormWizardDataProcess(object):
 
@@ -264,6 +266,14 @@ class QualificationFormWizard(CookieWizardView):
         form_data = dict()
         for form in form_list:
             form_data.update(form.cleaned_data)
+            if form.prefix == '4':
+                events_form = form
+                context = self.get_context_data(form=form, **kwargs)
+                try:
+                    self.add_events(
+                        context['view'].storage.data['step_data']['4'])
+                except KeyError:
+                    pass
         qualification_data_process = QualificationFormWizardDataProcess(
             self.qualification
         )
@@ -275,31 +285,17 @@ class QualificationFormWizard(CookieWizardView):
             args=(self.provider.id, self.campus.id, self.qualification.id))
         return redirect(url)
 
-    def render(self, form=None, **kwargs):
-        form = form or self.get_form()
-        context = self.get_context_data(form=form, **kwargs)
-        current_step = context['view'].storage.current_step
-        step_before = '3'
-        step_after = '5'
-        if current_step == step_before or current_step == step_after:
-            try:
-                self.add_events(
-                    context['view'].storage.data['step_data']['4'])
-            except KeyError:
-                pass
-        return self.render_to_response(context)
-
     def add_events(self, step_data):
-        if step_data['campus_form_wizard-current_step'][0] == '2':
-            new_name = step_data['2-name']
-            new_date_start = step_data['2-date_start']
-            new_date_end = step_data['2-date_end']
-            new_http_link = step_data['2-http_link']
+        if step_data['campus_form_wizard-current_step'][0] == '4':
+            new_name = step_data['4-name']
+            new_date_start = step_data['4-date_start']
+            new_date_end = step_data['4-date_end']
+            new_http_link = step_data['4-http_link']
             # Count how many names were submitted and create new_events
             number_of_new_events = len(new_name)
             for i in range(0, number_of_new_events):
-                new_campus_event = CampusEvent()
-                new_campus_event.name = new_name[i]
+                new_qualification_event = QualificationEvent()
+                new_qualification_event.name = new_name[i]
                 new_date_start_i = new_date_start[i]
                 new_date_start_formatted = (
                     datetime.strptime(new_date_start_i, '%m/%d/%Y')
@@ -308,7 +304,8 @@ class QualificationFormWizard(CookieWizardView):
                 new_date_end_formatted = (
                     datetime.strptime(new_date_end_i, '%m/%d/%Y')
                 ).strftime('%Y-%m-%d')
-                new_campus_event.date_start = new_date_start_formatted
-                new_campus_event.date_end = new_date_end_formatted
-                new_campus_event.http_link = new_http_link[i]
-                self.new_campus_events.append(new_campus_event)
+                new_qualification_event.date_start = new_date_start_formatted
+                new_qualification_event.date_end = new_date_end_formatted
+                new_qualification_event.http_link = new_http_link[i]
+                self.new_qualification_events.append(new_qualification_event)
+        self.qualification.add_events(new_qualification_events)

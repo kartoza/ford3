@@ -1,6 +1,7 @@
 from django.db import models
 from ford3.models.saqa_qualification import SAQAQualification
 from ford3.models.requirement import Requirement
+from ford3.models.qualification_event import QualificationEvent
 
 
 class Qualification(models.Model):
@@ -100,3 +101,10 @@ class Qualification(models.Model):
         requirement_query = Requirement.objects.filter(
             qualification__id=self.id).order_by('id').values()
         return list(requirement_query)
+
+    def save_events(self, qualification_events):
+        if len(qualification_events) == 0:
+            return
+        for each_qualification_event in qualification_events:
+            each_qualification_event.qualification = self
+            each_qualification_event.save()
