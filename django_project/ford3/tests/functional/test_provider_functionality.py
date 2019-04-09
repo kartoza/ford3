@@ -18,7 +18,7 @@ class TestProviderForm(SeleniumTestCase):
         # provider form details and have been redirected to the provider form.
         provider_form_url = reverse(
             'edit-provider',
-            args=(str(self.new_provider.id)))
+            args=[str(self.new_provider.id)])
 
         self.driver.get({provider_form_url})
         html = self.driver.page_source
