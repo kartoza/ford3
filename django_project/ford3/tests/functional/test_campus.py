@@ -3,7 +3,7 @@ from ford3.tests.functional.utils import SeleniumTestCase, selenium_flag_ready
 from django.urls import reverse
 from ford3.tests.models.model_factories import ModelFactories
 from selenium.webdriver.common.by import By
-from ford3.models import Campus
+from ford3.models import Campus, CampusEvent
 
 
 class TestCampusForm(SeleniumTestCase):
@@ -113,7 +113,7 @@ class TestCampusFormDataBinding(SeleniumTestCase):
         saqa_ids_value = saqa_ids_elem.get_attribute('value')
         self.assertEqual(saqa_ids_value, str(saqa.saqa_id))
 
-    def test_campus_page_renders_4_inputs(self):
+    def test_campus_page_add_events(self):
         campus_object = Campus.objects.all().first()
         if len(str(campus_object)) > 0:
             pass
@@ -138,18 +138,46 @@ class TestCampusFormDataBinding(SeleniumTestCase):
         # User sees the 4 form fields - 1 of each and there are 2 hidden inputs
         form_content = self.driver.find_element_by_css_selector(
             '.form-group')
-        # Get visible inputs]
+        # Get inputs
         form_inputs = form_content.find_elements_by_tag_name('input')
-        self.assertEqual(len(form_inputs), 6)
+        self.assertEqual(len(form_inputs), 6)  # 4 form fields + 2 hidden
         self.driver.find_element_by_id(
             'add-campus-event').click()
-        self.driver.find_element_by_id(
-            'add-campus-event').click()
-        # form_inputs = form_content.find_elements_by_tag_name('input')
-        # page_source = self.driver.page_source
-        # self.assertEqual(len(form_inputs), 10)
-
-
+        form_inputs = form_content.find_elements_by_tag_name('input')
+        self.assertEqual(len(form_inputs), 10)  # The existing 6 + 4 new
+        # There should now be 2 of each input
+        name_inputs = form_content.find_elements_by_name(
+            'campus-dates-event_name')
+        self.assertEqual(len(name_inputs), 2)
+        date_start_inputs = form_content.find_elements_by_name(
+            'campus-dates-date_start')
+        self.assertEqual(len(date_start_inputs), 2)
+        date_end_inputs = form_content.find_elements_by_name(
+            'campus-dates-date_end')
+        self.assertEqual(len(date_end_inputs), 2)
+        http_link_inputs = form_content.find_elements_by_name(
+            'campus-dates-http_link')
+        self.assertEqual(len(http_link_inputs), 2)
+        # The user fills in the data for each field
+        name1 = 'Sel Test Name 1'
+        name2 = 'Sel Test Name 2'
+        name_inputs[0].send_keys(name1)
+        date_start_inputs[0].send_keys('04/09/2019')
+        date_end_inputs[0].send_keys('05/09/2019')
+        http_link_inputs[0].send_keys('www.somelink@testworld.com')
+        name_inputs[1].send_keys(name2)
+        date_start_inputs[1].send_keys('07/11/2119')
+        date_end_inputs[1].send_keys('09/11/2119')
+        http_link_inputs[1].send_keys('www.someotherlink@testworld.com')
+        # They click next
+        self.get_next_button().click()
+        # The click submit
+        self.get_next_button().click()
+        # And 2 campus_events should now be saved by those names
+        first_object = list(CampusEvent.objects.filter(name=name1))
+        self.assertEqual(len(first_object), 1)
+        second_object = list(CampusEvent.objects.filter(name=name2))
+        self.assertEqual(len(second_object), 1)
 
     def get_next_button(self):
         next_button = self.driver.find_element_by_id('my-next-button')
