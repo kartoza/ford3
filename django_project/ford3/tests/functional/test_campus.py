@@ -114,13 +114,7 @@ class TestCampusFormDataBinding(SeleniumTestCase):
         self.assertEqual(saqa_ids_value, str(saqa.saqa_id))
 
     def test_campus_page_add_events(self):
-        campus_object = Campus.objects.all().first()
-        if len(str(campus_object)) > 0:
-            pass
-        else:
-            campus_object = ModelFactories.get_campus_test_object()
         self.driver.get(self.campus_form_url)
-
         # User sees the first page's title
         title = self.driver.find_element_by_tag_name('h2').text
         print(title)
@@ -166,8 +160,8 @@ class TestCampusFormDataBinding(SeleniumTestCase):
         date_end_inputs[0].send_keys('05/09/2019')
         http_link_inputs[0].send_keys('www.somelink@testworld.com')
         name_inputs[1].send_keys(name2)
-        date_start_inputs[1].send_keys('07/11/2119')
-        date_end_inputs[1].send_keys('09/11/2119')
+        date_start_inputs[1].send_keys('07/11/2019')
+        date_end_inputs[1].send_keys('09/11/2019')
         http_link_inputs[1].send_keys('www.someotherlink@testworld.com')
         # They click next
         self.get_next_button().click()
@@ -237,15 +231,12 @@ class TestCampusFormDataBinding(SeleniumTestCase):
         http_link_inputs[1].send_keys('www.someotherlink@testworld.com')
         # They click next
         self.get_next_button().click()
-        # The click submit
-        page_source = self.driver.page_source
+        # The form responds with a validation error
         self.assertIn(self.driver.title, 'FORD3')
-        self.get_next_button().click()
-        # And 2 campus_events should now be saved by those names
-        first_object = list(CampusEvent.objects.filter(name=name1))
-        self.assertEqual(len(first_object), 1)
-        second_object = list(CampusEvent.objects.filter(name=name2))
-        self.assertEqual(len(second_object), 1)
+        validation_message = self.driver.find_elements_by_name(
+            'campus-dates-date_end')[1].get_attribute('validationMessage')
+        self.assertEqual(validation_message, 'Please fill out this field.')
+
 
     def get_next_button(self):
         next_button = self.driver.find_element_by_id('my-next-button')

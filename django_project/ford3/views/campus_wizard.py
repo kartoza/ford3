@@ -90,26 +90,23 @@ class CampusFormWizard(CookieWizardView):
         new_http_link = step_data['campus-dates-http_link']
         # Count how many names were submitted and create new_events
         number_of_new_events = len(new_name)
+        if len(new_name) == 1 and new_name[0] == '':
+            return False
         for i in range(0, number_of_new_events):
-            try:
-                new_campus_event = CampusEvent()
-                new_campus_event.name = new_name[i]
-                new_date_start_i = new_date_start[i]
-                new_date_start_formatted = (
-                    datetime.strptime(new_date_start_i, '%m/%d/%Y')
-                ).strftime('%Y-%m-%d')
-                new_date_end_i = new_date_end[i]
-                new_date_end_formatted = (
-                    datetime.strptime(new_date_end_i, '%m/%d/%Y')
-                ).strftime('%Y-%m-%d')
-                new_campus_event.date_start = new_date_start_formatted
-                new_campus_event.date_end = new_date_end_formatted
-                new_campus_event.http_link = new_http_link[i]
-                self.new_campus_events.append(new_campus_event)
-                return True
-            except ValueError as e:
-                current_form.add_error(None, e)
-                return False
+            new_campus_event = CampusEvent()
+            new_campus_event.name = new_name[i]
+            new_date_start_i = new_date_start[i]
+            new_date_start_formatted = (
+                datetime.strptime(new_date_start_i, '%m/%d/%Y')
+            ).strftime('%Y-%m-%d')
+            new_date_end_i = new_date_end[i]
+            new_date_end_formatted = (
+                datetime.strptime(new_date_end_i, '%m/%d/%Y')
+            ).strftime('%Y-%m-%d')
+            new_campus_event.date_start = new_date_start_formatted
+            new_campus_event.date_end = new_date_end_formatted
+            new_campus_event.http_link = new_http_link[i]
+            self.new_campus_events.append(new_campus_event)
 
     def render(self, form=None, **kwargs):
         form = form or self.get_form()
