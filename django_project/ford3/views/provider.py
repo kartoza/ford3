@@ -12,6 +12,7 @@ from ford3.models import (
     Campus,
     Provider,
 )
+from ford3.apps import Ford3Config as ford3
 
 
 @transaction.atomic
@@ -73,8 +74,8 @@ def edit_provider(request, provider_id):
 
         # use case: load page for the first time
         if provider.provider_logo:
-            context['provider_logo'] = '/ford3' + provider.provider_logo.url
-
+            context['provider_logo'] = \
+                ford3.path + provider.provider_logo.url
         return render(request, 'provider_form.html', context)
 
 
@@ -109,5 +110,6 @@ def show_provider(request, provider_id):
         'campus': campus_data,
         'id': provider_id,
     }
-    context['provider_logo'] = '/ford3' + settings.MEDIA_URL + provider_logo
+    context['provider_logo'] = \
+        ford3.path + settings.MEDIA_URL + provider_logo
     return render(request, 'provider.html', context)

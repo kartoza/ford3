@@ -74,9 +74,6 @@ urlpatterns = [
         views.show_qualification,
         name='show-qualification'),
     url(r'^test_widgets/$', views.widget_examples, name='test_widgets'),
-]
-
-if settings.DEBUG:
-    urlpatterns += static(
+] + static(
         settings.MEDIA_URL,
         document_root=settings.MEDIA_ROOT)
