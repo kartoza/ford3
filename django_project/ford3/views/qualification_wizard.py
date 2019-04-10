@@ -128,30 +128,6 @@ class QualificationFormWizardDataProcess(object):
                 **requirement_fields
             )
 
-    def add_qualification_event(self, form_data):
-        """
-        Add event to qualification
-        :param form_data: dict of form data
-        """
-        qualification_event_form_fields = (
-            vars(QualificationImportantDatesForm)['declared_fields']
-        )
-        qualification_event_fields = {}
-        for qualification_event in qualification_event_form_fields.keys():
-            try:
-                getattr(QualificationEvent, qualification_event)
-                if form_data[qualification_event]:
-                    qualification_event_fields[qualification_event] = (
-                        form_data[qualification_event]
-                    )
-            except AttributeError:
-                continue
-        if qualification_event_fields:
-            QualificationEvent.objects.create(
-                qualification=self.qualification,
-                **qualification_event_fields
-            )
-
     def process_data(self, form_data):
         """
         Process qualification form data then update qualification
@@ -194,9 +170,6 @@ class QualificationFormWizardDataProcess(object):
 
         # Add requirements
         self.add_requirements(form_data)
-
-        # Add qualification events
-        self.add_qualification_event(form_data)
 
 
 class QualificationFormWizard(CookieWizardView):
@@ -266,15 +239,13 @@ class QualificationFormWizard(CookieWizardView):
     def done(self, form_list, **kwargs):
         form_data = dict()
         for form in form_list:
-            form_data.update(form.cleaned_data)
             if form.prefix == '4':
-                events_form = form
                 context = self.get_context_data(form=form, **kwargs)
-                # try:
                 self.add_events(
                     context['view'].storage.data['step_data']['4'])
-                # except KeyError:
-                #     pass
+            else:
+                form_data.update(form.cleaned_data)
+
         qualification_data_process = QualificationFormWizardDataProcess(
             self.qualification
         )
