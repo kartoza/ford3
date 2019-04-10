@@ -159,7 +159,7 @@ $('#add-qualification-event').click(function () {
         let button_html = '<div class="remove-qualification-event-button">' +
             '<div class="remove-qualification-button-inner ">X</div></div>'
         let result = (  '<div class="row">' +
-                        '<div class="col-11"><hr/></div><div class="col-1">' +
+                        '<div class="col-10"><hr/></div><div class="col-1">' +
             button_html + '</div>')
         return result
 }
