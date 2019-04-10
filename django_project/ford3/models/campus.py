@@ -122,7 +122,6 @@ class Campus(models.Model):
             each_campus_event.campus = self
             each_campus_event.save()
 
-
     def save_qualifications(self, form_data):
         if len(form_data['saqa_ids']) == 0:
             return
