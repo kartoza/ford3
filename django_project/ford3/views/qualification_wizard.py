@@ -16,7 +16,6 @@ from ford3.forms.qualification import (
     QualificationDurationFeesForm,
     QualificationRequirementsForm,
     QualificationInterestsAndJobsForm,
-    QualificationImportantDatesForm,
 )
 
 
@@ -84,7 +83,7 @@ class QualificationFormWizardDataProcess(object):
                 subject = Subject.objects.get(
                     id=subject_value
                 )
-            except (Subject.DoesNotExist, ValueError):
+            except Subject.DoesNotExist:
                 continue
             requirement_subjects, created = (
                 QualificationEntranceRequirementSubject.objects.

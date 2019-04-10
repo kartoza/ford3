@@ -2,7 +2,6 @@ import unittest
 from ford3.tests.functional.utils import SeleniumTestCase, selenium_flag_ready
 from django.urls import reverse
 from ford3.tests.models.model_factories import ModelFactories
-from selenium.webdriver.common.by import By
 from ford3.models import QualificationEvent
 
 
@@ -45,7 +44,6 @@ class TestQualificationFormDataBinding(SeleniumTestCase):
     def test_qualification_add_events(self):
         self.driver.get(self.qualification_form_url)
         # User sees the first page's title
-        page_source = self.driver.page_source
         title = self.driver.find_element_by_tag_name('h3').text
         self.assertEqual(title, 'SAQAQualification name')
         # and the footer shows him what page he is on
