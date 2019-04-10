@@ -293,6 +293,8 @@ class QualificationFormWizard(CookieWizardView):
             new_http_link = step_data['4-http_link']
             # Count how many names were submitted and create new_events
             number_of_new_events = len(new_name)
+            if len(new_name) == 1 and new_name[0] == '':
+                return False
             for i in range(0, number_of_new_events):
                 new_qualification_event = QualificationEvent()
                 new_qualification_event.name = new_name[i]
