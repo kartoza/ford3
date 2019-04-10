@@ -101,7 +101,7 @@ class Qualification(models.Model):
             qualification__id=self.id).order_by('id').values()
         return list(requirement_query)
 
-    def save_events(self, qualification_events):
+    def add_events(self, qualification_events):
         if len(qualification_events) == 0:
             return
         for each_qualification_event in qualification_events:
