@@ -44,7 +44,7 @@ def show_campus(request, provider_id, campus_id):
         'form_data': form_data,
         'campus': campus,
         'provider': campus.provider,
-        'provider_logo': '/ford3' + campus.provider.provider_logo.url
+        'provider_logo': campus.provider.provider_logo.url
     }
 
     return render(request, 'campus.html', context)
@@ -56,7 +56,8 @@ def show_qualification(request, provider_id, campus_id, qualification_id):
         id=qualification_id)
     context = {
         'qualification': qualification,
-        'provider': qualification.campus.provider
+        'provider': qualification.campus.provider,
+        'provider_logo': qualification.campus.provider.provider_logo.url
     }
     return render(request, 'qualification.html', context)
 

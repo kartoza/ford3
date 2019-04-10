@@ -32,8 +32,8 @@
                 </div>
 				<div class="col-8">
 					<div class="provider-form-photo">
-                        {% if provider_logo %}
-                            <img src="{{ provider_logo }}" />
+                        {% if form.instance.provider_logo %}
+                        <img src="{{ form.instance.provider_logo.url }}" />
                         {% endif %}
 					</div>
 				</div>

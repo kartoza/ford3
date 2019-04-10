@@ -1,7 +1,5 @@
 # coding=utf-8
 from django.urls import path
-from django.conf import settings
-from django.conf.urls.static import static
 from ford3.views import views
 from django.conf.urls import url
 from ford3.forms.qualification import (
@@ -74,6 +72,4 @@ urlpatterns = [
         views.show_qualification,
         name='show-qualification'),
     url(r'^test_widgets/$', views.widget_examples, name='test_widgets'),
-] + static(
-        settings.MEDIA_URL,
-        document_root=settings.MEDIA_ROOT)
+]

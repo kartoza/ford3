@@ -3,7 +3,6 @@ from django.shortcuts import (
     redirect,
     get_object_or_404,
 )
-from django.conf import settings
 from django.db import transaction, IntegrityError
 from django.db.models import F
 from django.urls import reverse
@@ -12,7 +11,6 @@ from ford3.models import (
     Campus,
     Provider,
 )
-from ford3.apps import Ford3Config as ford3
 
 
 @transaction.atomic
@@ -72,10 +70,6 @@ def edit_provider(request, provider_id):
             'is_new_provider': provider.is_new_provider,
         }
 
-        # use case: load page for the first time
-        if provider.provider_logo:
-            context['provider_logo'] = \
-                ford3.path + provider.provider_logo.url
         return render(request, 'provider_form.html', context)
 
 
@@ -100,7 +94,6 @@ def show_provider(request, provider_id):
     )
     campus_data = campus_query.values('name', 'id')
     provider_name = campus_query.values('provider_name')[0]['provider_name']
-    provider_logo = campus_query.values('provider_logo')[0]['provider_logo']
 
     form_data['campus_list'] = list(campus_data)
     form_data['provider_name'] = str(provider_name)
@@ -110,6 +103,5 @@ def show_provider(request, provider_id):
         'campus': campus_data,
         'id': provider_id,
     }
-    context['provider_logo'] = \
-        ford3.path + settings.MEDIA_URL + provider_logo
+    context['provider_logo'] = provider.provider_logo.url
     return render(request, 'provider.html', context)
