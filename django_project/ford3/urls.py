@@ -27,6 +27,7 @@ qualification_wizard = QualificationFormWizard.as_view(
         QualificationInterestsAndJobsForm,
         QualificationImportantDatesForm,
     ],
+    QualificationFormWizard.get_initial_dictionary()
 )
 
 CAMPUS_FORMS = [

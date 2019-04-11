@@ -173,6 +173,9 @@ class QualificationFormWizardDataProcess(object):
 
 class QualificationFormWizard(CookieWizardView):
     template_name = 'qualification_form.html'
+    initial_dict = {
+        '0': {'
+    }
 
     @property
     def provider(self):
@@ -291,3 +294,7 @@ class QualificationFormWizard(CookieWizardView):
                 self.new_qualification_events = []
                 self.new_qualification_events.append(new_qualification_event)
         self.qualification.add_events(self.new_qualification_events)
+
+    @staticmethod
+    def get_initial_dictionary():
+        i = 0
