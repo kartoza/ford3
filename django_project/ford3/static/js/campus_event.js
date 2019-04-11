@@ -1,7 +1,3 @@
-$('#add-campus-event').click(function () {
-        addCampusEvent();
-    }
-);
 
 function addCampusEvent(){
     let name_div = document.getElementById(
@@ -90,6 +86,10 @@ function onNameEditMakeOtherFieldsRequired()
 }
 
 $(document).ready(function () {
-    onNameEditMakeOtherFieldsRequired()
+    onNameEditMakeOtherFieldsRequired();
+    $('#add-campus-event').click(function () {
+            addCampusEvent();
+        }
+    );
 })
 
