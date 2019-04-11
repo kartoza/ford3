@@ -1,4 +1,5 @@
 import unittest
+import os
 from ford3.tests.functional.utils import SeleniumTestCase, selenium_flag_ready
 from django.urls import reverse
 from ford3.tests.models.model_factories import ModelFactories
@@ -113,6 +114,8 @@ class TestCampusFormDataBinding(SeleniumTestCase):
         saqa_ids_value = saqa_ids_elem.get_attribute('value')
         self.assertEqual(saqa_ids_value, str(saqa.saqa_id))
 
+    @unittest.skipIf("TRAVIS" in os.environ and os.environ["TRAVIS"] == "true",
+                     "Skipping this test on Travis CI.")
     def test_campus_page_add_events(self):
         self.driver.get(self.campus_form_url)
         # User sees the first page's title
@@ -173,6 +176,8 @@ class TestCampusFormDataBinding(SeleniumTestCase):
         second_object = list(CampusEvent.objects.filter(name=name2))
         self.assertEqual(len(second_object), 1)
 
+    @unittest.skipIf("TRAVIS" in os.environ and os.environ["TRAVIS"] == "true",
+                     "Skipping this test on Travis CI.")
     def test_campus_page_add_events_empty_date(self):
         campus_object = Campus.objects.all().first()
         if len(str(campus_object)) > 0:
