@@ -173,9 +173,7 @@ class QualificationFormWizardDataProcess(object):
 
 class QualificationFormWizard(CookieWizardView):
     template_name = 'qualification_form.html'
-    initial_dict = {
-        '0': {'
-    }
+    initial_dict = {}
 
     @property
     def provider(self):
@@ -220,6 +218,7 @@ class QualificationFormWizard(CookieWizardView):
         )
 
     def get(self, *args, **kwargs):
+        self.set_initial_data()
         qualification = self.qualification
         if not qualification:
             raise Http404()
@@ -298,3 +297,33 @@ class QualificationFormWizard(CookieWizardView):
     @staticmethod
     def get_initial_dictionary():
         i = 0
+
+    def set_initial_data(self):
+        self.initial_dict['0'] = ({
+            'short_description': self.qualification.short_description,
+            'long_description': self.qualification.long_description,
+            'distance_learning': self.qualification.distance_learning
+        })
+        self.initial_dict['1'] = ({
+            'full_time': self.qualification.full_time,
+            'part_time': self.qualification.part_time,
+            'duration': self.qualification.duration_in_months,
+            'duration_type': 'month',
+            'total_cost': self.qualification.total_cost,
+            'total_cost_comment': self.qualification.total_cost_comment
+        })
+        self.initial_dict['2'] = ({
+            'min_nqf_level': self.qualification.requirements[0].min_nqf_level,
+            'interview': self.qualification.requirements[0].interview,
+            'portfolio': self.qualification.requirements[0].portfolio,
+            'portfolio_comment':
+                self.qualification.requirements[0].portfolio_comment,
+            'require_aps_score':
+                self.qualification.requirements[0].require_aps_score,
+            'aps_calculator_link':
+                self.qualification.requirements[0].aps_calculator_link,
+            'require_certain_subjects': self.qualification
+        })
+        # self.initial_dict['2'] = ({
+        #     'min_nqf_level
+        # })

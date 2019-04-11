@@ -1,4 +1,5 @@
 from django.db import models
+from typing import List
 from ford3.models.saqa_qualification import SAQAQualification
 from ford3.models.requirement import Requirement
 
@@ -95,7 +96,7 @@ class Qualification(models.Model):
         return self.saqa_qualification.name
 
     @property
-    def requirements(self):
+    def requirements(self) -> List[Requirement]:
 
         requirement_query = Requirement.objects.filter(
             qualification__id=self.id).order_by('id').values()
