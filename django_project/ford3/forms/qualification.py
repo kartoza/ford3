@@ -165,21 +165,22 @@ class QualificationRequirementsForm(QualificationForm):
         required=False,
         widget=forms.Select(
             attrs={'class': 'col-md-4 subject-list'}
-        )
+        ),
     )
 
     subject_list = forms.CharField(
         required=False,
         widget=forms.HiddenInput(
             attrs={'id': 'subject-list'}
-        )
+        ),
     )
 
     minimum_score_list = forms.CharField(
         required=False,
         widget=forms.HiddenInput(
             attrs={'id': 'minimum-score-list'}
-        )
+        ),
+        initial='0',
     )
 
 
@@ -253,14 +254,15 @@ class QualificationImportantDatesForm(QualificationForm):
         label='Starting date',
         required=True,
         widget=forms.DateInput(
-            attrs={'class': 'col-md-4'}
+            attrs={'class': 'col-md-4', 'placeholder': 'mm/dd/yyyy'}
+
         )
     )
     date_end = forms.DateField(
         label='Ending date',
         required=True,
         widget=forms.DateInput(
-            attrs={'class': 'col-md-4'}
+            attrs={'class': 'col-md-4', 'placeholder': 'mm/dd/yyyy'}
         )
     )
     http_link = forms.CharField(
