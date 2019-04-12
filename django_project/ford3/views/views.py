@@ -46,7 +46,6 @@ def show_campus(request, provider_id, campus_id):
         'provider': campus.provider,
         'provider_logo': campus.provider.provider_logo.url
     }
-
     return render(request, 'campus.html', context)
 
 
