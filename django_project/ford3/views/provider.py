@@ -103,5 +103,9 @@ def show_provider(request, provider_id):
         'campus': campus_data,
         'id': provider_id,
     }
-    context['provider_logo'] = provider.provider_logo.url
+    # make sure logo has been uploaded before set the context
+    # otherwise, let it empty
+    if provider.provider_logo:
+        context['provider_logo'] = provider.provider_logo.url
+
     return render(request, 'provider.html', context)

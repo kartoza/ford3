@@ -43,9 +43,13 @@ def show_campus(request, provider_id, campus_id):
     context = {
         'form_data': form_data,
         'campus': campus,
-        'provider': campus.provider,
-        'provider_logo': campus.provider.provider_logo.url
+        'provider': campus.provider
     }
+    # make sure logo has been uploaded before set the context
+    # otherwise, let it empty
+    if campus.provider.provider_logo:
+        context['provider_logo'] = campus.provider.provider_logo.url
+
     return render(request, 'campus.html', context)
 
 
