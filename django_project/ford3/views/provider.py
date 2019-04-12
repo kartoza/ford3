@@ -61,12 +61,23 @@ def edit_provider(request, provider_id):
         context = {
             'form': form,
             'provider_id': provider_id,
+            'provider': provider,
             'is_new_provider': provider.is_new_provider,
         }
         return render(request, 'provider_form.html', context)
 
 
 def show_provider(request, provider_id):
+    provider = get_object_or_404(
+        Provider,
+        id=provider_id
+    )
+    if provider.is_new_provider:
+        redirect_url = reverse(
+            'edit-provider',
+            args=[str(provider.id)])
+        return redirect(redirect_url)
+
     context = {}
     form_data = {}
     campus_query = Campus.objects.filter(provider__id=provider_id).annotate(
