@@ -1,5 +1,6 @@
 $(document).ready(function() {
     innitiateRemoveCampusButtons();
+    setPostalAddressEnabled();
 })
 
 function innitiateRemoveCampusButtons() {
@@ -51,6 +52,10 @@ function addCampusNameInput() {
 }
 
 $('#id_postal_address_differs').click(function(e) {
+    setPostalAddressEnabled()
+});
+
+function setPostalAddressEnabled() {
     let postal_address_does_differ = (
         document.getElementById("id_postal_address_differs").checked);
     let postal_address_container = document.getElementById('postal_address_container');
@@ -61,8 +66,6 @@ $('#id_postal_address_differs').click(function(e) {
     else {
         postal_address_container.style.pointerEvents = "none";
         postal_address_container.style.opacity = "0.4";
-
     }
-   //postal_address_container
-});
+}
 
