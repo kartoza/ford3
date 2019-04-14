@@ -67,8 +67,6 @@
 					{{ form.admissions_contact_no }}
 				</div>
 			</div>
-
-
 			<div class="row mt1">
 				{{ form.email.errors }}
 				<div class="col-4 centerv npl">
@@ -78,7 +76,6 @@
 					{{ form.email }}
 				</div>
 			</div>
-
 			<div class="row mt1">
 				<div class="col-4 npl">
 					Physical Address
@@ -100,6 +97,29 @@
 					</div>
 				</div>
 			</div>
+			{% if postal_address_differs  %}
+			<div class="row mt1">
+				<div class="col-4 npl">
+					Physical Address
+				</div>
+				<div class="col-8">
+					{{ form.physical_address_line_1.errors }}
+					{{ form.physical_address_line_2.errors }}
+					{{ form.physical_address_line_1 }}
+					{{ form.physical_address_line_2 }}
+					<div class="row">
+						<div class="col-lg-7 col-sm-12 mt1">
+							{{ form.physical_address_city.errors}}
+							{{ form.physical_address_city}}
+						</div>
+						<div class="col-lg-5 col-sm-12 mt1">
+							{{ form.postal_address.errors}}
+							{{ form.postal_address }}
+						</div>
+					</div>
+				</div>
+			</div>
+			{% endif %}
 			{% if is_new_provider %}
 
 				<div class="row mt1 edu-underline">

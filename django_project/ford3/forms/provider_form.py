@@ -25,6 +25,7 @@ class ProviderForm(forms.models.ModelForm):
                   'physical_address_line_1',
                   'physical_address_line_2',
                   'physical_address_city',
+                  'physical_postal_code',
                   'postal_address',
                   'provider_logo',
                   )
@@ -48,7 +49,7 @@ class ProviderForm(forms.models.ModelForm):
                        'class' : 'mt1'}),
             'physical_address_city': forms.fields.TextInput(
                 attrs={'placeholder': 'City'}),
-            'postal_address': forms.fields.TextInput(
+            'physical_postal_code': forms.fields.TextInput(
                 attrs={'placeholder': 'Postal/ZIP Code'}),
         }
         error_messages = {

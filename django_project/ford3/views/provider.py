@@ -42,7 +42,7 @@ def edit_provider(request, provider_id):
             new_provider.physical_address_line_1 = physical_address_line_1
             new_provider.physical_address_line_2 = physical_address_line_2
             new_provider.physical_address_city = physical_address_city
-            new_provider.postal_address = postal_address
+            new_provider.physical_postal_code = postal_code
             new_provider.admissions_contact_no = admissions_contact_no
             new_provider.provider_logo = provider_logo
             new_provider.save()
