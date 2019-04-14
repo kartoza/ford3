@@ -313,17 +313,20 @@ class QualificationFormWizard(CookieWizardView):
             'total_cost_comment': self.qualification.total_cost_comment
         })
         self.initial_dict['2'] = ({
-            'min_nqf_level': self.qualification.requirements[0].min_nqf_level,
-            'interview': self.qualification.requirements[0].interview,
-            'portfolio': self.qualification.requirements[0].portfolio,
+            'min_nqf_level':
+                self.qualification.requirements[0]['min_nqf_level'],
+                'interview': self.qualification.requirements[0]['interview'],
+            'portfolio': self.qualification.requirements[0]['portfolio'],
             'portfolio_comment':
-                self.qualification.requirements[0].portfolio_comment,
+                self.qualification.requirements[0]['portfolio_comment'],
             'require_aps_score':
-                self.qualification.requirements[0].require_aps_score,
+                self.qualification.requirements[0]['require_aps_score'],
             'aps_calculator_link':
-                self.qualification.requirements[0].aps_calculator_link,
-            'require_certain_subjects': self.qualification
+                self.qualification.requirements[0]['aps_calculator_link'],
+            'require_certain_subjects':
+                self.qualification.requirements[0]['require_certain_subjects']
         })
-        # self.initial_dict['2'] = ({
-        #     'min_nqf_level
-        # })
+        self.initial_dict['3'] = ({
+
+        })
+
