@@ -28,8 +28,8 @@ def edit_provider(request, provider_id):
                 form.cleaned_data['physical_address_line_2'])
             physical_address_city = (
                 form.cleaned_data['physical_address_city'])
-            postal_address = (
-                form.cleaned_data['postal_address'])
+            physical_address_postal_code = (
+                form.cleaned_data['physical_address_postal_code'])
             admissions_contact_no = (
                 form.cleaned_data['admissions_contact_no'])
             provider_logo = form.cleaned_data['provider_logo']
@@ -42,7 +42,8 @@ def edit_provider(request, provider_id):
             new_provider.physical_address_line_1 = physical_address_line_1
             new_provider.physical_address_line_2 = physical_address_line_2
             new_provider.physical_address_city = physical_address_city
-            new_provider.physical_postal_code = postal_code
+            new_provider.physical_address_postal_code = (
+                physical_address_postal_code)
             new_provider.admissions_contact_no = admissions_contact_no
             new_provider.provider_logo = provider_logo
             new_provider.save()

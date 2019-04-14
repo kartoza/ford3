@@ -46,7 +46,7 @@ class Provider(models.Model):
         unique=False,
         help_text='',
         max_length=255)
-    physical_postal_code = models.CharField(
+    physical_address_postal_code = models.CharField(
         blank=False,
         null=False,
         unique=False,
@@ -79,7 +79,7 @@ class Provider(models.Model):
         null=True,
         default=False,
         help_text='')
-    postal_postal_code = models.CharField(
+    postal_address_postal_code = models.CharField(
         blank=False,
         null=True,
         unique=False,
