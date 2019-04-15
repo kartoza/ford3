@@ -94,6 +94,7 @@ def show_provider(request, provider_id):
     context['form_data'] = form_data
     context['provider'] = {
         'campus': campus_data,
-        'id': provider_id
+        'id': provider_id,
+        'name': provider_name,
     }
     return render(request, 'provider.html', context)
