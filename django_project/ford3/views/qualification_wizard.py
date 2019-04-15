@@ -257,7 +257,7 @@ class QualificationFormWizard(CookieWizardView):
             'Important Dates',
         ]
         context['qualification'] = self.qualification
-        context['provider'] = self.qualification.campus.provider
+        context['provider'] = self.provider
         return context
 
     def done(self, form_list, **kwargs):
