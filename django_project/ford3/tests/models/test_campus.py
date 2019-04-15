@@ -1,4 +1,3 @@
-import datetime
 from django.test import TestCase
 from ford3.tests.models.model_factories import ModelFactories
 from ford3.models.saqa_qualification import SAQAQualification
@@ -43,33 +42,23 @@ class TestCampus(TestCase):
         pass
 
     def test_save_events_form_data(self):
-        form_data = {
-            'event_type': 'Open day',
-            'event_date': datetime.date(2019, 3, 30),
-            'event_http_link': 'http://event42.com'
-        }
+
+        campus_events = [ModelFactories.get_campus_event_test_object()]
 
         # campus should not have events yet.
         self.assertQuerysetEqual(self.campus.events, [])
 
         # save events
-        self.campus.save_events(form_data)
+        self.campus.save_events(campus_events)
 
         # campus should have one event
         self.assertEqual(len(self.campus.events), 1)
 
-    def test_save_empty_event_form_data(self):
-        form_data = {
-            'event_type': '',
-            'event_date': None,
-            'event_http_link': ''
-        }
-
+    def test_save_single_event(self):
         self.assertEqual(len(self.campus.events), 0)
-
-        self.campus.save_events(form_data)
-
-        self.assertEqual(len(self.campus.events), 0)
+        campus_events = [ModelFactories.get_campus_event_test_object()]
+        self.campus.save_events(campus_events)
+        self.assertEqual(len(self.campus.events), 1)
 
     def test_save_qualifications(self):
 
@@ -100,11 +89,69 @@ class TestCampus(TestCase):
         # campus should have 2 qualifications.
         self.assertEqual(len(self.campus.qualifications), 2)
 
-        for i in range(2):
-            self.assertEqual(
-                self.campus.qualifications[i]['saqa_qualification__saqa_id'],
-                saqas[i].saqa_id)
+    def test_save_qualifications_duplicate(self):
+        """ It should not save a duplicate qualification.
+        """
 
-            self.assertEqual(
-                self.campus.qualifications[i]['saqa_qualification__name'],
-                saqas[i].name)
+        saqas = [
+            ModelFactories.get_saqa_qualification_test_object(),
+            SAQAQualification.objects.create(
+                name='Hello World',
+                nqf_level='42',
+                saqa_id=42,
+                sub_field_of_study=(
+                    ModelFactories.get_sub_field_of_study_test_object(
+                        new_id=42)),
+            )
+        ]
+
+        # build form data
+        form_data = {
+            'saqa_ids': '{}'.format(saqas[0].saqa_id)
+        }
+        # save two times with same saqa_ids
+        self.campus.save_qualifications(form_data)
+        self.campus.save_qualifications(form_data)
+
+        self.assertEqual(len(self.campus.qualifications), 1)
+
+        form_data = {
+            'saqa_ids': '{} {}'.format(saqas[0].saqa_id, saqas[1].saqa_id)
+        }
+
+        # save with a new saqa_id
+        self.campus.save_qualifications(form_data)
+
+        self.assertEqual(len(self.campus.qualifications), 2)
+
+    def test_delete_qualifications(self):
+        saqas = [
+            ModelFactories.get_saqa_qualification_test_object(),
+            SAQAQualification.objects.create(
+                name='Hello World',
+                nqf_level='42',
+                saqa_id=42,
+                sub_field_of_study=(
+                    ModelFactories.get_sub_field_of_study_test_object(
+                        new_id=42)),
+            )
+        ]
+
+        # build form data
+        form_data = {
+            'saqa_ids': '{} {}'.format(saqas[0].saqa_id, saqas[1].saqa_id)
+        }
+        self.campus.save_qualifications(form_data)
+        self.assertEqual(len(self.campus.qualifications), 2)
+
+        form_data = {
+            'saqa_ids': '{}'.format(saqas[1].saqa_id)
+        }
+
+        # it should remove the first saqa
+        self.campus.delete_qualifications(form_data)
+
+        self.assertEqual(len(self.campus.qualifications), 1)
+        self.assertEqual(
+            self.campus.qualifications[0]['saqa_qualification__saqa_id'],
+            42)

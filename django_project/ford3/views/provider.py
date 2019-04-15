@@ -5,6 +5,7 @@ from django.shortcuts import (
 )
 from django.db import transaction, IntegrityError
 from django.db.models import F
+from django.urls import reverse
 from ford3.forms.provider_form import ProviderForm
 from ford3.models import (
     Campus,
@@ -47,7 +48,9 @@ def edit_provider(request, provider_id):
                                               name=campus_name)
             except IntegrityError:
                 return render(request, 'provider_form.html', {'form': form})
-            redirect_url = '/providers/' + str(new_provider.id)
+            redirect_url = reverse(
+                'show-provider',
+                args=[str(new_provider.id)])
             return redirect(redirect_url)
     else:
         provider = get_object_or_404(
@@ -58,12 +61,23 @@ def edit_provider(request, provider_id):
         context = {
             'form': form,
             'provider_id': provider_id,
+            'provider': provider,
             'is_new_provider': provider.is_new_provider,
         }
         return render(request, 'provider_form.html', context)
 
 
 def show_provider(request, provider_id):
+    provider = get_object_or_404(
+        Provider,
+        id=provider_id
+    )
+    if provider.is_new_provider:
+        redirect_url = reverse(
+            'edit-provider',
+            args=[str(provider.id)])
+        return redirect(redirect_url)
+
     context = {}
     form_data = {}
     campus_query = Campus.objects.filter(provider__id=provider_id).annotate(

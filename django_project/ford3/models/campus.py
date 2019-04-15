@@ -91,7 +91,8 @@ class Campus(models.Model):
             campus__id=self.id).values(
                 'date_start',
                 'name',
-                'http_link')
+                'http_link',
+                'date_end')
         return list(event_query)
 
     @property
@@ -103,28 +104,32 @@ class Campus(models.Model):
                 'saqa_qualification__saqa_id')
         return list(qualif_query)
 
+    @property
+    def saqa_ids(self):
+        return [
+            str(s['saqa_qualification__saqa_id'])
+            for s in self.qualifications]
+
     def save_form_data(self, form_data):
         for key, value in form_data.items():
             setattr(self, key, value)
         self.save()
 
-    def save_events(self, form_data):
-        if len(form_data['event_type']) == 0 \
-           and form_data['event_date'] is None:
+    def save_events(self, campus_events):
+        if len(campus_events) == 0:
             return
-
-        event = CampusEvent(
-            campus=self,
-            name=form_data['event_type'],
-            date_start=form_data['event_date'],
-            date_end=form_data['event_date'],
-            http_link=form_data['event_http_link'])
-        event.save()
+        for each_campus_event in campus_events:
+            each_campus_event.campus = self
+            each_campus_event.save()
 
     def save_qualifications(self, form_data):
         if len(form_data['saqa_ids']) == 0:
             return
-        for saqa_id in form_data['saqa_ids'].split(' '):
+
+        # symmetric difference
+        ids = set(self.saqa_ids) ^ set(form_data['saqa_ids'].split(' '))
+
+        for saqa_id in ids:
 
             saqa_qualif = SAQAQualification.objects.get(saqa_id=saqa_id)
 
@@ -132,6 +137,16 @@ class Campus(models.Model):
                 saqa_qualification=saqa_qualif,
                 campus=self)
             qualif.save()
+
+    def delete_qualifications(self, form_data):
+        # ids missing in form_data must be deleted
+        ids = set(form_data['saqa_ids'].split(' ')) ^ set(self.saqa_ids)
+        ids = [saqa_id for saqa_id in ids if len(saqa_id) > 0]
+
+        for saqa_id in ids:
+            qualif = Qualification.objects.filter(
+                saqa_qualification__saqa_id=saqa_id)
+            qualif.delete()
 
     def __str__(self):
         return f'{self.name} campus'

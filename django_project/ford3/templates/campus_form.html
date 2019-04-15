@@ -46,12 +46,16 @@
                         {% else %}
                             {% crispy wizard.form wizard.form.helper %}
                         {% endif %}
-
                         {% if wizard.steps.step1 == 4 %}
                         <div class='row no-gutters'>
                             <div class='col-md-5 campus-all-qualifications'>
                                 <h5 class="text-center">All qualifications in {{ campus }} campus</h5>
                                 <ul id='campus-qualifications-list'>
+                                    {% for qualification in campus.qualifications %}
+                                    <li data-saqa-id='{{ qualification.saqa_qualification__saqa_id }}'>
+                                        <a href='http://regqs.saqa.org.za/viewQualification.php?id={{ qualification.saqa_qualification__id }}' target='_blank'>({{ qualification.saqa_qualification__saqa_id }})</a> {{ qualification.saqa_qualification__name }}
+                                    </li>
+                                    {% endfor %}
                                 </ul>
                             </div>
                             <div class='col-md-2 text-center'>
@@ -89,6 +93,16 @@
                         </div>
                         {% endif %}                        
                     </div>
+                        {% if wizard.steps.step1 == 3 %}
+	                        <div class="row">
+								<div class="col-md-8"></div>
+	                            <div class="col-md-4">
+			                        <div id="add-campus-event" class="edu-button edu-button-orange">
+			                            Add event
+			                        </div>
+	                            </div>
+	                        </div>
+                        {% endif %}
                     <div class="row form-actions">
                         <div class="col-md-4">
                             {% if wizard.steps.prev %}
@@ -108,7 +122,8 @@
                         <div class="col-md-4">
                             <button class="edu-button edu-button-blue"
                                     type="submit"
-                                    value="submit">
+                                    value="submit"
+                                    id='my-next-button'>
                                 {% if wizard.steps.next %}
                                     Next
                                 {% else %}
@@ -130,6 +145,7 @@
     {% if wizard.steps.step1 == 3 %}
         <script type="text/javascript"
                 src="{% static 'js/datepicker.js' %}"></script>
+	            <script type="text/javascript" src="{% static 'js/campus_event.js' %}"></script>
     {% endif %}
     {% if wizard.steps.step1 == 4 %}
         <script type="text/javascript"
