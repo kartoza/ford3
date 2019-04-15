@@ -62,6 +62,12 @@ class Campus(models.Model):
         help_text='',
         max_length=255)
 
+    postal_address_differs = models.BooleanField(
+        blank=False,
+        null=True,
+        default=False,
+        help_text='')
+
     postal_address_street_name = models.CharField(
         blank=False,
         null=True,

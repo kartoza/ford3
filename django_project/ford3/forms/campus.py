@@ -59,13 +59,37 @@ class CampusLocationForm(CampusForm):
             }
         ))
 
-    is_physical_addr_same_as_postal_addr = forms.TypedChoiceField(
-        label='Is Postal Address different to Physical Address',
-        coerce=lambda x: x == 'True',
+    postal_address_differs = forms.BooleanField(
+        label='Postal address is different.',
         required=False,
-        choices=((True, 'Yes'), (False, 'No')),
-        widget=forms.RadioSelect
+        initial=False,
+        widget=forms.CheckboxInput(),
     )
+
+    postal_address_street_name = forms.CharField(
+        label='Postal Street name',
+        required=False,
+        widget=forms.TextInput(
+            attrs={'placeholder': 'Postal Street name'}
+        ))
+
+    postal_address_city = forms.CharField(
+        required=False,
+        label='Postal City',
+        widget=forms.TextInput(
+            attrs={
+                'placeholder': 'Postal City'
+            }
+        ))
+
+    postal_address_postal_code = forms.CharField(
+        required=False,
+        label='Postal code',
+        widget=forms.TextInput(
+            attrs={
+                'placeholder': 'Postal code'
+            }
+        ))
 
 
 class CampusImportantDatesForm(CampusForm):
