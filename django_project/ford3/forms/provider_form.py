@@ -63,5 +63,3 @@ class ProviderForm(forms.models.ModelForm):
             if provider_logo.size > 100 * 1024:
                 raise ValidationError("Max file size is 100Kb")
             return provider_logo
-        else:
-            raise ValidationError("Couldn't read uploaded image")

@@ -33,6 +33,9 @@ def edit_provider(request, provider_id):
             admissions_contact_no = (
                 form.cleaned_data['admissions_contact_no'])
             provider_logo = form.cleaned_data['provider_logo']
+            # use case: user does not upload logo, then use old logo
+            if not form.cleaned_data['provider_logo']:
+                provider_logo = new_provider.provider_logo
             new_provider.provider_type = provider_type
             new_provider.telephone = telephone
             new_provider.email = email
@@ -49,8 +52,10 @@ def edit_provider(request, provider_id):
                 with transaction.atomic():
                     for idx in range(number_of_campuses):
                         campus_name = campus_list[idx]
-                        Campus.objects.create(provider=new_provider,
-                                              name=campus_name)
+                        # only add campus if it doesn't exist
+                        if Campus.objects.filter(name=campus_name).count() < 1:
+                            Campus.objects.create(provider=new_provider,
+                                                  name=campus_name)
             except IntegrityError:
                 return render(request, 'provider_form.html', {'form': form})
             redirect_url = reverse(
@@ -60,6 +65,8 @@ def edit_provider(request, provider_id):
         # form is not valid
         else:
             provider = Provider.objects.filter(pk=provider_id).first()
+            # since the upload fail, use old logo
+            form.instance.provider_logo = provider.provider_logo
             context = {
                 'form': form,
                 'provider_id': provider_id,
