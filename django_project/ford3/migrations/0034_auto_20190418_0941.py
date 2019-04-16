@@ -10,10 +10,10 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RemoveField(
-            model_name='provider',
-            name='logo_url',
-        ),
+        # migrations.RemoveField(
+        #     model_name='provider',
+        #     name='logo_url',
+        # ),
         migrations.AddField(
             model_name='provider',
             name='provider_logo',
