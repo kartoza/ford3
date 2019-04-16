@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block body %}
-	<div class="container">
+	<div class="container fill">
 
 		<form action="{% url 'edit-provider' provider_id %}" method="post">
 		{% csrf_token %}
