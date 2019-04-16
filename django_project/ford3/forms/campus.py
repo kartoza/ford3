@@ -34,16 +34,22 @@ class CampusDetailForm(CampusForm):
 
 
 class CampusLocationForm(CampusForm):
-    physical_address_street_name = forms.CharField(
-        label='Street name',
+    physical_address_line_1 = forms.CharField(
+        label='Physical Address',
         required=False,
         widget=forms.TextInput(
-            attrs={'placeholder': 'Street name'}
+            attrs={'placeholder': 'Line 1'}
+        ))
+    physical_address_line_2 = forms.CharField(
+        label=' ',
+        required=False,
+        widget=forms.TextInput(
+            attrs={'placeholder': 'Line 2'}
         ))
 
     physical_address_city = forms.CharField(
         required=False,
-        label='City',
+        label=' ',
         widget=forms.TextInput(
             attrs={
                 'placeholder': 'City'
@@ -52,7 +58,7 @@ class CampusLocationForm(CampusForm):
 
     physical_address_postal_code = forms.CharField(
         required=False,
-        label='Postal code',
+        label=' ',
         widget=forms.TextInput(
             attrs={
                 'placeholder': 'Postal code'
@@ -66,25 +72,31 @@ class CampusLocationForm(CampusForm):
         widget=forms.CheckboxInput(),
     )
 
-    postal_address_street_name = forms.CharField(
-        label='Postal Street name',
+    postal_address_line_1 = forms.CharField(
+        label='Postal Address',
         required=False,
         widget=forms.TextInput(
-            attrs={'placeholder': 'Postal Street name'}
+            attrs={'placeholder': 'Line 1'}
+        ))
+    postal_address_line_2 = forms.CharField(
+        label=' ',
+        required=False,
+        widget=forms.TextInput(
+            attrs={'placeholder': 'Line 2'}
         ))
 
     postal_address_city = forms.CharField(
         required=False,
-        label='Postal City',
+        label=' ',
         widget=forms.TextInput(
             attrs={
-                'placeholder': 'Postal City'
+                'placeholder': 'City'
             }
         ))
 
     postal_address_postal_code = forms.CharField(
         required=False,
-        label='Postal code',
+        label=' ',
         widget=forms.TextInput(
             attrs={
                 'placeholder': 'Postal code'
