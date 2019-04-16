@@ -2,6 +2,8 @@ from django.db import models
 from typing import List
 from ford3.models.saqa_qualification import SAQAQualification
 from ford3.models.requirement import Requirement
+from ford3.models.interest import Interest
+from ford3.models.occupation import Occupation
 
 
 class Qualification(models.Model):
@@ -108,3 +110,30 @@ class Qualification(models.Model):
         for each_qualification_event in qualification_events:
             each_qualification_event.qualification = self
             each_qualification_event.save()
+
+    @property
+    def interest_id_list(self) -> List[int]:
+
+        result = []
+        try:
+            interest_query = Interest.objects.filter(
+                qualification_id=self.id).order_by('id').values('id')
+            interest_query_list = list(interest_query)
+            for each_item in interest_query_list:
+                result.append(each_item['id'])
+        except:
+            pass
+        return result
+
+    @property
+    def occupation_id_list(self) -> List[int]:
+        result = []
+        try:
+            occupation_query = Occupation.objects.filter(
+                qualification_id=self.id).order_by('id').values('id')
+            occupation_query_list = list(occupation_query)
+            for each_item in occupation_query_list:
+                result.append(each_item['id'])
+        except:
+            pass
+        return result

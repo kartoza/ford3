@@ -12,7 +12,7 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AlterField(
             model_name='provider',
-            name='postal_address',
+            name='physical_address_postal_code',
             field=models.CharField(default='', max_length=4),
             preserve_default=False,
         ),
