@@ -64,4 +64,4 @@ class ProviderForm(forms.models.ModelForm):
                 raise ValidationError("Sorry the image is too big (> 100 Kb)")
             return provider_logo
         else:
-            raise ValidationError("Caouldn't read uploaded image")
+            raise ValidationError("Couldn't read uploaded image")

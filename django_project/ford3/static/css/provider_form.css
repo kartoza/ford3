@@ -2,7 +2,7 @@
     padding-left: 0;
 }
 
-.provider-form-photo, img {
+.provider-form-photo, .provider-form-photo img {
     background-color: #efeee9;
     min-width: 225px;
     margin-top: 0;
@@ -120,4 +120,10 @@
 
 .form_provider_logo a, #provider_logo-clear_id, label[for="provider_logo-clear_id"] {
     display: none;
+}
+
+ul.errorlist {
+    list-style-type: none;
+    padding-inline-start: 10px;
+    color: red;
 }
