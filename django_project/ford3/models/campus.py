@@ -116,6 +116,40 @@ class Campus(models.Model):
             str(s['saqa_qualification__saqa_id'])
             for s in self.qualifications]
 
+    def save_postal_data(self, form_data):
+        postal_address_differs = form_data.get(
+            'postal_address_differs', '')
+        physical_address_street_name = form_data.get(
+                'physical_address_street_name', '')
+        physical_address_city = form_data.get(
+            'physical_address_city', '')
+        physical_address_postal_code = form_data.get(
+            'physical_address_postal_code', '')
+        if not postal_address_differs:
+            postal_address_street_name = physical_address_street_name
+            postal_address_city = physical_address_city
+            postal_address_postal_code = physical_address_postal_code
+        else:
+            postal_address_street_name = form_data.get(
+                'postal_address_street_name', '')
+            postal_address_city = form_data.get(
+                'postal_address_city', '')
+            postal_address_postal_code = form_data.get(
+                'postal_address_postal_code', '')
+        setattr(self,
+                'physical_address_street_name', physical_address_street_name)
+        setattr(self,
+                'physical_address_city', physical_address_city)
+        setattr(self,
+                'physical_address_postal_code', physical_address_postal_code)
+        setattr(self,
+                'postal_address_street_name', postal_address_street_name)
+        setattr(self,
+                'postal_address_city', postal_address_city)
+        setattr(self,
+                'postal_address_postal_code', postal_address_postal_code)
+        self.save()
+
     def save_form_data(self, form_data):
         for key, value in form_data.items():
             setattr(self, key, value)
