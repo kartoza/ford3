@@ -1,4 +1,5 @@
 from django import forms
+from django.core.exceptions import ValidationError
 from ford3.models.provider import Provider
 
 
@@ -54,3 +55,13 @@ class ProviderForm(forms.models.ModelForm):
             'telephone': {'required': EMPTY_TEL_ERROR},
             'email' : {'required': EMPTY_EMAIL_ERROR}
         }
+
+
+    def clean_provider_logo(self):
+        provider_logo = self.cleaned_data.get('provider_logo', False)
+        if provider_logo:
+            if provider_logo.size > 100 * 1024:
+                raise ValidationError("Sorry the image is too big (> 100 Kb)")
+            return provider_logo
+        else:
+            raise ValidationError("Caouldn't read uploaded image")

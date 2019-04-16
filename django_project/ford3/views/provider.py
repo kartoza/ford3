@@ -57,6 +57,15 @@ def edit_provider(request, provider_id):
                 'show-provider',
                 args=[str(new_provider.id)])
             return redirect(redirect_url)
+        # form is not valid
+        else:
+            provider = Provider.objects.filter(pk=provider_id).first()
+            context = {
+                'form': form,
+                'provider_id': provider_id,
+                'provider': provider
+            }
+            return render(request, 'provider_form.html', context)
     else:
         provider = get_object_or_404(
             Provider,

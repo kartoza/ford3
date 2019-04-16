@@ -25,7 +25,7 @@
 			<div class="row">
 				<div class="col-4 npl">
                     Provider Logo
-
+                    {{ form.provider_logo.errors }}
                     {% if form.provider_logo %}
                         <p class="form_provider_logo">{{ form.provider_logo }}</p>
                     {% endif %}
