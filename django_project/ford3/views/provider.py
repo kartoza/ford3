@@ -52,10 +52,8 @@ def edit_provider(request, provider_id):
                 with transaction.atomic():
                     for idx in range(number_of_campuses):
                         campus_name = campus_list[idx]
-                        # only add campus if it doesn't exist
-                        if Campus.objects.filter(name=campus_name).count() < 1:
-                            Campus.objects.create(provider=new_provider,
-                                                  name=campus_name)
+                        Campus.objects.create(provider=new_provider,
+                                              name=campus_name)
             except IntegrityError:
                 return render(request, 'provider_form.html', {'form': form})
             redirect_url = reverse(
@@ -70,7 +68,9 @@ def edit_provider(request, provider_id):
             context = {
                 'form': form,
                 'provider_id': provider_id,
-                'provider': provider
+                'provider': provider,
+                'is_new_provider': provider.is_new_provider
+
             }
             return render(request, 'provider_form.html', context)
     else:

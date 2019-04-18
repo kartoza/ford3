@@ -128,37 +128,6 @@
 						</div>
 					</div>
 				</div>
-            {% else %}
-                {% for campus in provider.campus %}
-                    {% if forloop.first %}
-                 <div class="row mt1 edu-underline">
-					<div class="col-8"><h4>Campuses</h4></div>
-					<div class="col-4">
-						<div id="add-campus-name"
-						     class="edu-button edu-button-orange">Add Campus
-						</div>
-					</div>
-				</div>
-                    {% endif %}
-				<div id="campus-names-input-wrapper">
-					<div class="row mt1">
-						<div class="col-4 centerv npl">
-							Campus Name
-						</div>
-						<div class="col-7">
-							<input name="campus_name" required
-							       class="campus_name"
-							       type="text"
-							       value="{{ campus.name }}"/>
-						</div>
-						<div class="col-1">
-							<div class="remove-campus-button">
-								<div class="remove-campus-button-inner ">X</div>
-							</div>
-						</div>
-					</div>
-				</div>
-                {% endfor %}
 			{% endif %}
 		</div>
 		<div class="row mt1">
