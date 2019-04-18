@@ -127,16 +127,3 @@ ul.errorlist {
     padding-inline-start: 10px;
     color: red;
 }
-
-.edit-campus {
-    font-family: "Lato Black";
-    color: #2a3056;
-    font-size: 20px;
-    font-weight: 900;
-    letter-spacing: 1.67px;
-    line-height: 20px;
-}
-
-a.edit-campus:hover {
-    color: #2a3056;
-}
