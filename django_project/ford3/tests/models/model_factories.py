@@ -20,7 +20,6 @@ class ModelFactories:
     @staticmethod
     def get_qualification_test_object(new_id=1):
         qualification_test_object_instance = Qualification.objects.create(
-            id=new_id,
             name='Object Test Name',
             short_description='Some short description',
             long_description='Some very long description that just goes on...',
@@ -50,7 +49,6 @@ class ModelFactories:
     @staticmethod
     def get_requirement_test_object(new_id=1):
         requirement_test_object_instance = Requirement.objects.create(
-            id=new_id,
             description='Some long description that goes on...',
             qualification=ModelFactories.get_qualification_test_object(),
             assessment=True,
@@ -81,10 +79,12 @@ class ModelFactories:
             telephone='+27137441422',
             email='test@campus.com',
             max_students_per_year='42',
-            physical_address_street_name='24 Test Street',
+            physical_address_line_1='24 Test Street',
+            physical_address_line_2='Extension 5',
             physical_address_city='TestVille',
             physical_address_postal_code='93460',
-            postal_address_street_name='PO Box 1000',
+            postal_address_line_1='PO Box 1000',
+            postal_address_line_2='Somewhere',
             postal_address_city='Cape Town',
             postal_address_postal_code='93460')
 
@@ -112,7 +112,6 @@ class ModelFactories:
     @staticmethod
     def get_occupation_test_object(new_id=1):
         occupation_test_object_instance = Occupation.objects.create(
-            id=new_id,
             name='Object Test Name',
             description='Some long description that goes on...'
         )
@@ -124,7 +123,7 @@ class ModelFactories:
         provider_test_object_instance = Provider.objects.create(
             name='Object Test Name',
             website='www.mytest.com',
-            logo_url='http://sometestplaceholder/logo.png',
+            provider_logo='http://sometestplaceholder/logo.png',
             email='Test@test.com',
             admissions_contact_no='0137527576',
             postal_address='1200',
@@ -141,7 +140,6 @@ class ModelFactories:
     def get_sub_field_of_study_test_object(new_id=1):
         sub_field_of_study_test_object_instance = (
             SubFieldOfStudy.objects.create(
-                id=new_id,
                 name='Object Test Name',
                 field_of_study=(
                     ModelFactories.get_field_of_study_test_object(1)),
@@ -152,7 +150,6 @@ class ModelFactories:
     @staticmethod
     def get_subject_test_object(new_id=1):
         subject_field_of_study_test_object = Subject.objects.create(
-            id=new_id,
             name='Object Test Name',
             description='Some long description that goes on'
         )
@@ -162,7 +159,6 @@ class ModelFactories:
     @staticmethod
     def get_qualification_event_test_object(new_id=1):
         qualification_event_test_object = QualificationEvent.objects.create(
-            id=new_id,
             qualification=ModelFactories.get_qualification_test_object(),
             name='Qualification Event Test Name',
             date_start=datetime.date(2019, 3, 6),
@@ -174,7 +170,6 @@ class ModelFactories:
     @staticmethod
     def get_interest_test_object(new_id=1):
         interest_test_object = Interest.objects.create(
-            id=new_id,
             name='Interest name'
         )
 

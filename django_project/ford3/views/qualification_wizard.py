@@ -1,3 +1,4 @@
+from datetime import datetime
 from django.shortcuts import redirect, Http404, get_object_or_404
 from django.urls import reverse
 from formtools.wizard.views import CookieWizardView
@@ -20,9 +21,11 @@ from ford3.forms.qualification import (
 
 
 class QualificationFormWizardDataProcess(object):
+    new_qualification_events = []
 
     def __init__(self, qualification):
         self.qualification = qualification
+        self.new_qualification_events = []
 
     def duration_in_months(self, duration, duration_type):
         """
@@ -258,12 +261,23 @@ class QualificationFormWizard(CookieWizardView):
         ]
         context['qualification'] = self.qualification
         context['provider'] = self.provider
+        # make sure logo has been uploaded before set the context
+        # otherwise, let it empty
+        if self.qualification.campus.provider.provider_logo:
+            context['provider_logo'] = \
+                self.qualification.campus.provider.provider_logo.url
         return context
 
     def done(self, form_list, **kwargs):
         form_data = dict()
         for form in form_list:
-            form_data.update(form.cleaned_data)
+            if form.prefix == '4':
+                context = self.get_context_data(form=form, **kwargs)
+                self.add_events(
+                    context['view'].storage.data['step_data']['4'])
+            else:
+                form_data.update(form.cleaned_data)
+
         qualification_data_process = QualificationFormWizardDataProcess(
             self.qualification
         )
@@ -275,3 +289,33 @@ class QualificationFormWizard(CookieWizardView):
             'show-qualification',
             args=(self.provider.id, self.campus.id, self.qualification.id))
         return redirect(url)
+
+    def add_events(self, step_data):
+        new_name = step_data['4-name']
+        new_date_start = step_data['4-date_start']
+        new_date_end = step_data['4-date_end']
+        new_http_link = step_data['4-http_link']
+        # Count how many names were submitted and create new_events
+        number_of_new_events = len(new_name)
+        if len(new_name) == 1 and new_name[0] == '':
+            return False
+        for i in range(0, number_of_new_events):
+            new_qualification_event = QualificationEvent()
+            new_qualification_event.name = new_name[i]
+            new_date_start_i = new_date_start[i]
+            new_date_start_formatted = (
+                datetime.strptime(new_date_start_i, '%m/%d/%Y')
+            ).strftime('%Y-%m-%d')
+            new_date_end_i = new_date_end[i]
+            new_date_end_formatted = (
+                datetime.strptime(new_date_end_i, '%m/%d/%Y')
+            ).strftime('%Y-%m-%d')
+            new_qualification_event.date_start = new_date_start_formatted
+            new_qualification_event.date_end = new_date_end_formatted
+            new_qualification_event.http_link = new_http_link[i]
+            try:
+                self.new_qualification_events.append(new_qualification_event)
+            except AttributeError:
+                self.new_qualification_events = []
+                self.new_qualification_events.append(new_qualification_event)
+        self.qualification.add_events(self.new_qualification_events)
