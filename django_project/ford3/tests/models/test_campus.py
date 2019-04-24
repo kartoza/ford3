@@ -36,7 +36,7 @@ class TestCampus(TestCase):
         # form_data = {
         #     'physical_address_street_name': 'street name',
         #     'physical_address_city': 'gournay',
-        #     'physical_address_postal_code': '93460',
+        #     'postal_address': '93460',
         #     'is_physical_addr_same_as_postal_addr': True
         # }
         pass

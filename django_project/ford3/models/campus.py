@@ -139,7 +139,7 @@ class Campus(models.Model):
         physical_address_city = form_data.get(
             'physical_address_city', '')
         physical_address_postal_code = form_data.get(
-            'physical_address_postal_code', '')
+            'postal_address', '')
         if not postal_address_differs:
             postal_address_line_1 = physical_address_line_1
             postal_address_line_2 = physical_address_line_2
@@ -161,7 +161,7 @@ class Campus(models.Model):
         setattr(self,
                 'physical_address_city', physical_address_city)
         setattr(self,
-                'physical_address_postal_code', physical_address_postal_code)
+                'postal_address', physical_address_postal_code)
         setattr(self,
                 'postal_address_line_1', postal_address_line_1)
         setattr(self,

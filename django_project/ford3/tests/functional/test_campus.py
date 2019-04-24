@@ -58,7 +58,7 @@ class TestCampusFormDataBinding(SeleniumTestCase):
             'physical_address_line_1',
             'physical_address_line_2',
             'physical_address_city',
-            'physical_address_postal_code'
+            'postal_address'
         ]
 
         self.driver.get(self.campus_form_url)
