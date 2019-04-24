@@ -78,30 +78,33 @@ class QualificationFormWizardDataProcess(object):
         """
         subject_list = form_data['subject_list'].split(',')
         minimum_score_list = form_data['minimum_score_list'].split(',')
-        for index, subject_value in enumerate(subject_list):
-            try:
-                subject = Subject.objects.get(
-                    id=subject_value
+        try:
+            for index, subject_value in enumerate(subject_list):
+                try:
+                    subject = Subject.objects.get(
+                        id=subject_value
+                    )
+                except Subject.DoesNotExist:
+                    continue
+                requirement_subjects, created = (
+                    QualificationEntranceRequirementSubject.objects.
+                    get_or_create(
+                        subject=subject,
+                        qualification=self.qualification,
+                    )
                 )
-            except Subject.DoesNotExist:
-                continue
-            requirement_subjects, created = (
-                QualificationEntranceRequirementSubject.objects.
-                get_or_create(
-                    subject=subject,
-                    qualification=self.qualification,
+                try:
+                    minimum_score_value = int(minimum_score_list[index])
+                except IndexError:
+                    continue
+                if minimum_score_value == -1:
+                    continue
+                requirement_subjects.minimum_score = (
+                    minimum_score_value
                 )
-            )
-            try:
-                minimum_score_value = int(minimum_score_list[index])
-            except IndexError:
-                continue
-            if minimum_score_value == -1:
-                continue
-            requirement_subjects.minimum_score = (
-                minimum_score_value
-            )
-            requirement_subjects.save()
+                requirement_subjects.save()
+        except ValueError:
+            pass
 
     def add_requirements(self, form_data):
         """
