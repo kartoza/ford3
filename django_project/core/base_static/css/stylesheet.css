@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css?family=Lato');
 body {
     --c-purple: #2C314F;
     --c-blue: #7ACDCF;
@@ -9,8 +10,10 @@ body {
     --c-grey: #AAAAAA;
     --c-grey-d: #464646;
     --c-purple-grey: #1B1D28;
+    --c-navy: #2a3056;
     --cg-blue-dblue: linear-gradient(to right, #7ACDCF, #47B4B6);
     --cg-orange-dorange: linear-gradient(to right, #FCB53B, #F99824);
+    font-family: 'Lato', sans-serif;
 }
 
 html, body, .wrapper {
@@ -20,30 +23,26 @@ html, body, .wrapper {
 }
 
 h1 {
-    Font-family: Lato;
-    Font-size: 70px;
-    Font-weight: bold;
+    font-size: 70px;
+    font-weight: bold;
     color: var(--c-purple);
 }
 
 h2 {
-    Font-family: Lato;
-    Font-size: 55px;
-    Font-weight: bold;
+    font-size: 55px;
+    font-weight: bold;
     color: var(--c-purple);
 }
 
 h3 {
-    Font-family: Lato;
-    Font-size: 40px;
-    Font-weight: bold;
+    font-size: 40px;
+    font-weight: bold;
     color: var(--c-purple);
 }
 
 h4 {
-    Font-family: Lato;
-    Font-size: 24px;
-    Font-weight: bold;
+    font-size: 24px;
+    font-weight: bold;
     color: var(--c-blue);
 }
 
@@ -106,6 +105,26 @@ h4 {
 }
 
 .edu-button-grey:focus {
+    outline-color: var(--c-grey-l);
+}
+
+.edu-button-navy {
+    color: var(--c-navy);
+    background-color: var(--c-smoke);
+    font-size: 20px;
+    font-weight: 900;
+    letter-spacing: 1.67px;
+    line-height: 20px;
+
+}
+
+.edu-button-navy:hover {
+    color: var(--c-navy);
+    background-color: var(--c-grey-l);
+    text-decoration: none;
+}
+
+.edu-button-navy:focus {
     outline-color: var(--c-grey-l);
 }
 
@@ -746,7 +765,6 @@ nav#sidebar ul li a:hover {
     color: #ffffff;
     font-weight: 400;
     width:  122px;
-    font-family: Lato;
     opacity:  .75;
 }
 
