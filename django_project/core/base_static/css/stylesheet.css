@@ -1,7 +1,7 @@
-@import url('https://fonts.googleapis.com/css?family=Lato');
+@import url('https://fonts.googleapis.com/css?family=Lato:400, 700');
 body {
     --c-purple: #2C314F;
-    --c-blue: #7ACDCF;
+    --c-blue: #83cbd1;
     --c-orange: #FCB53B;
     --c-blue-d: #47B4B6;
     --c-orange-d: #F99824;
@@ -779,6 +779,11 @@ nav#sidebar ul li a:hover {
 .noplr {
     padding-left: 0;
     padding-right: 0;
+}
+
+.nomlr {
+    margin-left: 0;
+    margin-right: 0;
 }
 
 .body-wrapper {
