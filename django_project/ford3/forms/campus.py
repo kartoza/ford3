@@ -21,7 +21,7 @@ class CampusDetailForm(CampusForm):
     #     required=False)
 
     telephone = forms.CharField(
-        label='Telephone Number:',
+        label='Telephone number:',
         required=False)
 
     email = forms.CharField(
