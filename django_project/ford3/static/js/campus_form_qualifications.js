@@ -56,6 +56,37 @@ const setClickEventToLi = () => {
   })
 }
 
+//isEnabled true = disabled add button
+const toggleAddButton = (isEnabled) => {
+  addButton = getAddQualificationButtonElement()
+  addButton.disabled = isEnabled
+}
+
+const toggleRemoveButton = (isEnabled) => {
+  removeButton = getRemoveQualificationButtonElement()
+  removeButton.disabled = isEnabled
+}
+
+const checkSaqaList = () =>
+{
+    saqaList = getSaqaQualificationsListElement()
+    if (saqaList.length == 0 || saqaList.getElementsByTagName("li").length < 1) {
+        toggleAddButton(true);
+    }
+}
+
+const checkCampusList = () => {
+  campusList = getCampusQualificationsListElement()
+  if(campusList.length == 0 || campusList.getElementsByTagName("li").length < 1) {
+    toggleRemoveButton(true)
+  }
+}
+
+const checkLists = () => {
+  checkSaqaList()
+  checkCampusList()
+}
+
 const setClickEventToAddButton = () => {
   const addQualifButton = getAddQualificationButtonElement()
   addQualifButton.addEventListener('click', function (evt) {
@@ -82,6 +113,8 @@ const setClickEventToAddButton = () => {
 
       let saqaId = selectedQualifElem.dataset['saqaId']
       addSaqaQualification(saqaId)
+      checkSaqaList()
+      toggleRemoveButton(false)
     })
   })
 }
@@ -102,6 +135,7 @@ const setClickEventToRemoveButton = () => {
 
       let saqaId = selectedQualifElem.dataset['saqaId']
       removeSaqaQualification(saqaId)
+      checkCampusList()
     })
   })
 }
@@ -118,6 +152,7 @@ const setClickEventToClearButton = () => {
     const saqaQualifListElem = getSaqaQualificationsListElement()
     saqaQualifListElem.querySelectorAll('li').forEach(function (li) {
       saqaQualifListElem.removeChild(li)
+    checkSaqaList()
     })
   })
 }
@@ -165,6 +200,7 @@ const ajaxSearchQualifications = (query) => {
     // Success!
       var data = JSON.parse(request.responseText)
       displaySaqaQualificationsResults(data['results'])
+      toggleAddButton(false)
     } else {
     // We reached our target server, but it returned an error
 
@@ -199,6 +235,7 @@ const setupEvents = () => {
 }
 
 (function () {
+  checkLists()
   setupEvents()
 })()
 
