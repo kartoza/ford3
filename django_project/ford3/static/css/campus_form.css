@@ -22,8 +22,16 @@ button.left-arrow-button {
   background-image: url('../images/ui/left-arrow.svg');  
 }
 
+button.left-arrow-grey-button {
+  background-image: url('../images/ui/left-arrow-grey.png');
+}
+
 button.right-arrow-button {
   background-image: url('../images/ui/right-arrow.png');
+}
+
+button.right-arrow-grey-button {
+  background-image: url('../images/ui/right-arrow-grey.png');
 }
 
 .qualif-texts {
@@ -32,6 +40,11 @@ button.right-arrow-button {
   font-weight: 700;
   text-transform: uppercase;
 }
+
+.qualif-texts.disabled {
+    color: #d5d5d5 !important;
+}
+
 
 .campus-all-qualifications {
   border: 1px solid #aaaaaa;
