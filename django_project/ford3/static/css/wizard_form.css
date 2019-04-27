@@ -34,8 +34,8 @@
 }
 
 .nav-link.done {
-    color: #7dccd0 !important;
-    border: 1px solid #7dccd0;
+    color: var(--c-blue-l) !important;
+    border: 1px solid var(--c-blue-l);
 }
 
 .nav-link.done h4 {
