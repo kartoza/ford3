@@ -25,11 +25,11 @@ class CampusDetailForm(CampusForm):
         required=False)
 
     email = forms.EmailField(
-        label='Email:',
+        label='E-mail address:',
         required=False)
 
     max_students_per_year = forms.IntegerField(
-        label='Maximum number of Students per year in campus',
+        label='Annual student capacity:',
         max_value=1000000,
         min_value=0,
         required=False)
