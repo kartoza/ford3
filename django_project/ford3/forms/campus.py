@@ -132,7 +132,7 @@ class CampusImportantDatesForm(CampusForm):
     )
 
     http_link = forms.URLField(
-        label='Link to event',
+        label='Link to event:',
         required=False,
         widget=forms.TextInput(
             attrs={'placeholder': 'http://...'}
