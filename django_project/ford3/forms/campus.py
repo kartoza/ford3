@@ -21,7 +21,7 @@ class CampusDetailForm(CampusForm):
     #     required=False)
 
     telephone = forms.CharField(
-        label='Tel. Number:',
+        label='Telephone number:',
         required=False)
 
     email = forms.EmailField(
@@ -37,7 +37,7 @@ class CampusDetailForm(CampusForm):
 
 class CampusLocationForm(CampusForm):
     physical_address_line_1 = forms.CharField(
-        label='Physical Address',
+        label='Physical address:',
         required=False,
         widget=forms.TextInput(
             attrs={'placeholder': 'Line 1'}
@@ -75,7 +75,7 @@ class CampusLocationForm(CampusForm):
     )
 
     postal_address_line_1 = forms.CharField(
-        label='Postal Address',
+        label='Postal address:',
         required=False,
         widget=forms.TextInput(
             attrs={'placeholder': 'Line 1'}
@@ -108,7 +108,7 @@ class CampusLocationForm(CampusForm):
 
 class CampusImportantDatesForm(CampusForm):
     event_name = forms.CharField(
-        label='Event name',
+        label='Event name:',
         required=False,
         widget=forms.TextInput(
             attrs={'placeholder': 'Open day, ...'}
@@ -116,7 +116,7 @@ class CampusImportantDatesForm(CampusForm):
     )
 
     date_start = forms.DateField(
-        label='Starting date:',
+        label='Start date:',
         required=False,
         widget=forms.DateInput(
             attrs={'class': 'col-md-4'}
@@ -124,7 +124,7 @@ class CampusImportantDatesForm(CampusForm):
     )
 
     date_end = forms.DateField(
-        label='Ending date',
+        label='End date:',
         required=False,
         widget=forms.DateInput(
             attrs={'class': 'col-md-4'}
