@@ -99,10 +99,15 @@ class Qualification(models.Model):
 
     @property
     def requirements(self) -> List[Requirement]:
-
         requirement_query = Requirement.objects.filter(
             qualification__id=self.id).order_by('id').values()
         return list(requirement_query)
+
+    @property
+    def requirement(self) -> Requirement:
+        requirement_query = Requirement.objects.filter(
+            qualification__id=self.id).order_by('id').first()
+        return requirement_query
 
     def add_events(self, qualification_events):
         if len(qualification_events) == 0:

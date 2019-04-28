@@ -18,7 +18,6 @@ from ford3.forms.qualification import (
     QualificationInterestsAndJobsForm,
 )
 
-
 class QualificationFormWizardDataProcess(object):
     new_qualification_events = []
 
@@ -103,29 +102,58 @@ class QualificationFormWizardDataProcess(object):
             )
             requirement_subjects.save()
 
-    def add_requirements(self, form_data):
+    def add_or_update_requirements(self, form_data):
         """
         Add requirements to qualification
         :param form_data: dict of form data
         """
-        requirement_fields = {}
-        requirement_form_fields = (
-            vars(QualificationRequirementsForm)['declared_fields']
-        )
-        for requirement_field in requirement_form_fields.keys():
-            try:
-                getattr(Requirement, requirement_field)
-                if form_data[requirement_field]:
-                    requirement_fields[requirement_field] = (
-                        form_data[requirement_field]
-                    )
-            except AttributeError:
-                continue
-        if requirement_form_fields:
-            Requirement.objects.create(
-                qualification=self.qualification,
-                **requirement_fields
+
+        # Check if there is already a requirements object
+        existing_requirement: Requirement = self.qualification.requirement
+        try:
+            existing_requirement
+        except NameError:
+            min_nqf_level = form_data['min_nqf_level']
+            existing_requirement.min_nqf_level = (
+                form_data['min_nqf_level'])
+            existing_requirement.interview = (
+                form_data['interview'])
+            existing_requirement.portfolio = (
+                form_data['portfolio'])
+            existing_requirement.portfolio_comment = (
+                form_data['portfolio_comment'])
+            existing_requirement.require_aps_score = (
+                form_data['require_aps_score'])
+            existing_requirement.aps_calculator_link = (
+                form_data['aps_calculator_link'])
+            existing_requirement.require_certain_subjects = (
+                form_data['require_certain_subjects'])
+            existing_requirement.subject = (
+                form_data['subject'])
+            existing_requirement.subject_list = (
+                form_data['subject_list'])
+            existing_requirement.minimum_score_list = (
+                form_data['minimum_score_list'])
+            existing_requirement.save()
+        else:
+            requirement_fields = {}
+            requirement_form_fields = (
+                vars(QualificationRequirementsForm)['declared_fields']
             )
+            for requirement_field in requirement_form_fields.keys():
+                try:
+                    getattr(Requirement, requirement_field)
+                    if form_data[requirement_field]:
+                        requirement_fields[requirement_field] = (
+                            form_data[requirement_field]
+                        )
+                except AttributeError:
+                    continue
+            if requirement_form_fields:
+                Requirement.objects.create(
+                    qualification=self.qualification,
+                    **requirement_fields
+                )
 
     def process_data(self, form_data):
         """
@@ -168,7 +196,7 @@ class QualificationFormWizardDataProcess(object):
         self.add_subjects(form_data)
 
         # Add requirements
-        self.add_requirements(form_data)
+        self.add_or_update_requirements(form_data)
 
 
 class QualificationFormWizard(CookieWizardView):
@@ -338,12 +366,12 @@ class QualificationFormWizard(CookieWizardView):
             pass
         try:
             self.initial_dict['3'] = ({
-                'interest_list': self.qualification[0].interest_id_list,
-                'occupation_list': self.qualification.occupation_id_list,
-                'critical_skill': self.qualification.critical_skill,
-                'green_occupation': self.qualification.green_occupation,
-                'high_demand_occupation':
-                    self.qualification.high_demand_occupation
+                # # 'interest_list': self.qualification[0].interest_id_list,
+                # 'occupation_list': self.qualification.occupation_id_list,
+                # 'critical_skill': self.qualification.critical_skill,
+                # 'green_occupation': self.qualification.green_occupation,
+                # 'high_demand_occupation':
+                #     self.qualification.high_demand_occupation
             })
         except IndexError:
             pass
