@@ -53,7 +53,7 @@
                         {% if wizard.steps.step1 == 4 %}
                         <div class='row no-gutters'>
                             <div class='col-md-5 campus-all-qualifications'>
-                                <h5 class="text-center">All qualifications in {{ campus }} campus</h5>
+                                <h5 class="text-center edu-underline">All qualifications in {{ campus }} campus</h5>
                                 <ul id='campus-qualifications-list'>
                                     {% for qualification in campus.qualifications %}
                                     <li data-saqa-id='{{ qualification.saqa_qualification__saqa_id }}'>
@@ -77,7 +77,7 @@
                                 <p class="qualif-texts">remove</p>
                             </div>
                             <div class='col-md-5 saqa-all-qualifications'>
-                                <h5 class="text-center">All qualifications</h5>
+                                <h5 class="text-center edu-underline">All qualifications</h5>
                                 <div class='row'>
                                     <div class='col-md-9'>
                                         <input type='text' data-action='search-qualif' class="search-qualifications"    placeholder="Search Qualifications" />

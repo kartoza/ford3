@@ -55,7 +55,9 @@ button.right-arrow-button {
   list-style: none;
   color: #464746;
   line-height: 27px;
-  padding-left: 0.1rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  font-size: 0.9rem;
   overflow-y: auto;
 }
 
@@ -91,4 +93,9 @@ button.edu-button-blue {
     cursor: pointer;
     position: relative;
     top: -0.25rem;
+}
+
+h5.text-center.edu-underline {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
 }
