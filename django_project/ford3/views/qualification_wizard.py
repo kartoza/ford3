@@ -18,6 +18,7 @@ from ford3.forms.qualification import (
     QualificationInterestsAndJobsForm,
 )
 
+
 class QualificationFormWizardDataProcess(object):
     new_qualification_events = []
 
@@ -75,6 +76,9 @@ class QualificationFormWizardDataProcess(object):
         Add subjects to qualification
         :param form_data: dict of form data
         """
+        # Remove old subjects
+        QualificationEntranceRequirementSubject.objects.filter(
+            qualification=self.qualification).delete()
         subject_list = form_data['subject_list'].split(',')
         minimum_score_list = form_data['minimum_score_list'].split(',')
         for index, subject_value in enumerate(subject_list):
@@ -82,7 +86,7 @@ class QualificationFormWizardDataProcess(object):
                 subject = Subject.objects.get(
                     id=subject_value
                 )
-            except Subject.DoesNotExist:
+            except (Subject.DoesNotExist, ValueError):
                 continue
             requirement_subjects, created = (
                 QualificationEntranceRequirementSubject.objects.
@@ -107,12 +111,14 @@ class QualificationFormWizardDataProcess(object):
         Add requirements to qualification
         :param form_data: dict of form data
         """
-
         # Check if there is already a requirements object
+        requirement_exists = True
         existing_requirement: Requirement = self.qualification.requirement
         try:
-            existing_requirement
-        except NameError:
+            existing_requirement.qualification
+        except AttributeError:
+            requirement_exists = False
+        if requirement_exists:
             existing_requirement.min_nqf_level = (
                 form_data['min_nqf_level'])
             existing_requirement.interview = (
@@ -127,12 +133,6 @@ class QualificationFormWizardDataProcess(object):
                 form_data['aps_calculator_link'])
             existing_requirement.require_certain_subjects = (
                 form_data['require_certain_subjects'])
-            existing_requirement.subject = (
-                form_data['subject'])
-            existing_requirement.subject_list = (
-                form_data['subject_list'])
-            existing_requirement.minimum_score_list = (
-                form_data['minimum_score_list'])
             existing_requirement.save()
         else:
             requirement_fields = {}
@@ -269,7 +269,11 @@ class QualificationFormWizard(CookieWizardView):
                 self.qualification.campus.provider.provider_logo.url
         context['subjects_list'] = (
             self.qualification.entrance_req_subjects_list)
+        context['events_list'] = self.qualification.qualification_events_list
         return context
+
+    def add_required_subjects(self, step_data):
+        i = 0
 
     def done(self, form_list, **kwargs):
         form_data = dict()
@@ -278,6 +282,10 @@ class QualificationFormWizard(CookieWizardView):
                 context = self.get_context_data(form=form, **kwargs)
                 self.add_events(
                     context['view'].storage.data['step_data']['4'])
+            elif form.prefix == '2':
+                context = self.get_context_data(form=form, **kwargs)
+                self.add_required_subjects(
+                    context['view'].storage.data['step_data']['2'])
             else:
                 form_data.update(form.cleaned_data)
 
@@ -294,6 +302,9 @@ class QualificationFormWizard(CookieWizardView):
         return redirect(url)
 
     def add_events(self, step_data):
+        # Remove old events
+        QualificationEvent.objects.filter(
+            qualification__id=self.qualification.id).delete()
         new_name = step_data['4-name']
         new_date_start = step_data['4-date_start']
         new_date_end = step_data['4-date_end']
@@ -346,18 +357,17 @@ class QualificationFormWizard(CookieWizardView):
         try:
             self.initial_dict['2'] = ({
                 'min_nqf_level':
-                    self.qualification.requirements[0]['min_nqf_level'],
-                    'interview': self.qualification.requirements[0]['interview'],
-                'portfolio': self.qualification.requirements[0]['portfolio'],
+                    self.qualification.requirement.min_nqf_level,
+                    'interview': self.qualification.requirement.interview,
+                'portfolio': self.qualification.requirement.portfolio,
                 'portfolio_comment':
-                    self.qualification.requirements[0]['portfolio_comment'],
+                    self.qualification.requirement.portfolio_comment,
                 'require_aps_score':
-                    self.qualification.requirements[0]['require_aps_score'],
+                    self.qualification.requirement.require_aps_score,
                 'aps_calculator_link':
-                    self.qualification.requirements[0]['aps_calculator_link'],
+                    self.qualification.requirement.aps_calculator_link,
                 'require_certain_subjects':
-                    self.qualification.requirements[0]
-                    ['require_certain_subjects']
+                    self.qualification.requirement.require_certain_subjects
             })
         except IndexError:
             pass

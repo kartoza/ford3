@@ -6,7 +6,7 @@ from ford3.models.interest import Interest
 from ford3.models.occupation import Occupation
 from ford3.models.qualification_entrance_requirement_subject import \
     QualificationEntranceRequirementSubject
-
+from ford3.models.qualification_event import QualificationEvent
 
 class Qualification(models.Model):
     subjects = models.ManyToManyField(
@@ -139,8 +139,7 @@ class Qualification(models.Model):
         return result
 
     @property
-    def entrance_req_subjects_list(self) -> \
-            List[QualificationEntranceRequirementSubject]:
+    def entrance_req_subjects_list(self):
         result = []
         subject_query = QualificationEntranceRequirementSubject.objects.filter(
             qualification__id=self.id)
@@ -153,3 +152,9 @@ class Qualification(models.Model):
             next_subject['minimum_score'] = each_subject.minimum_score
             result.append(next_subject)
         return result
+
+    @property
+    def qualification_events_list(self) -> List[QualificationEvent]:
+        event_query = QualificationEvent.objects.filter(
+            qualification__id=self.id).values()
+        return list(event_query)
