@@ -113,7 +113,6 @@ class QualificationFormWizardDataProcess(object):
         try:
             existing_requirement
         except NameError:
-            min_nqf_level = form_data['min_nqf_level']
             existing_requirement.min_nqf_level = (
                 form_data['min_nqf_level'])
             existing_requirement.interview = (
@@ -268,6 +267,8 @@ class QualificationFormWizard(CookieWizardView):
         if self.qualification.campus.provider.provider_logo:
             context['provider_logo'] = \
                 self.qualification.campus.provider.provider_logo.url
+        context['subjects_list'] = (
+            self.qualification.entrance_req_subjects_list)
         return context
 
     def done(self, form_list, **kwargs):
@@ -322,10 +323,6 @@ class QualificationFormWizard(CookieWizardView):
                 self.new_qualification_events.append(new_qualification_event)
         self.qualification.add_events(self.new_qualification_events)
 
-    @staticmethod
-    def get_initial_dictionary():
-        i = 0
-
     def set_initial_data(self):
         try:
             self.initial_dict['0'] = ({
@@ -366,13 +363,12 @@ class QualificationFormWizard(CookieWizardView):
             pass
         try:
             self.initial_dict['3'] = ({
-                # # 'interest_list': self.qualification[0].interest_id_list,
-                # 'occupation_list': self.qualification.occupation_id_list,
-                # 'critical_skill': self.qualification.critical_skill,
-                # 'green_occupation': self.qualification.green_occupation,
-                # 'high_demand_occupation':
-                #     self.qualification.high_demand_occupation
+                'interest_list': self.qualification.interest_id_list,
+                'occupation_list': self.qualification.occupation_id_list,
+                'critical_skill': self.qualification.critical_skill,
+                'green_occupation': self.qualification.green_occupation,
+                'high_demand_occupation':
+                    self.qualification.high_demand_occupation
             })
         except IndexError:
             pass
-

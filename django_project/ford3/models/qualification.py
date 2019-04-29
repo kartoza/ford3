@@ -4,6 +4,8 @@ from ford3.models.saqa_qualification import SAQAQualification
 from ford3.models.requirement import Requirement
 from ford3.models.interest import Interest
 from ford3.models.occupation import Occupation
+from ford3.models.qualification_entrance_requirement_subject import \
+    QualificationEntranceRequirementSubject
 
 
 class Qualification(models.Model):
@@ -118,27 +120,36 @@ class Qualification(models.Model):
 
     @property
     def interest_id_list(self) -> List[int]:
-
         result = []
-        try:
-            interest_query = Interest.objects.filter(
-                qualification_id=self.id).order_by('id').values('id')
-            interest_query_list = list(interest_query)
-            for each_item in interest_query_list:
-                result.append(each_item['id'])
-        except:
-            pass
+        interest_query = Interest.objects.filter(
+            qualification__id=self.id).order_by('id').values('id')
+        interest_query_list = list(interest_query)
+        for each_item in interest_query_list:
+            result.append(each_item['id'])
         return result
 
     @property
     def occupation_id_list(self) -> List[int]:
         result = []
-        try:
-            occupation_query = Occupation.objects.filter(
-                qualification_id=self.id).order_by('id').values('id')
-            occupation_query_list = list(occupation_query)
-            for each_item in occupation_query_list:
-                result.append(each_item['id'])
-        except:
-            pass
+        occupation_query = Occupation.objects.filter(
+            qualification__id=self.id).order_by('id').values('id')
+        occupation_query_list = list(occupation_query)
+        for each_item in occupation_query_list:
+            result.append(each_item['id'])
+        return result
+
+    @property
+    def entrance_req_subjects_list(self) -> \
+            List[QualificationEntranceRequirementSubject]:
+        result = []
+        subject_query = QualificationEntranceRequirementSubject.objects.filter(
+            qualification__id=self.id)
+        idx = 0
+        for each_subject in subject_query:
+            idx += 1
+            next_subject = {}
+            next_subject['index'] = idx
+            next_subject['name'] = each_subject.subject.name
+            next_subject['minimum_score'] = each_subject.minimum_score
+            result.append(next_subject)
         return result

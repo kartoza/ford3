@@ -61,6 +61,12 @@ let addSubject = (e, selectedValue = '', minimumScoreValue = '') => {
     $row.find('.add-subject-btn').remove();
 };
 
+let removeSubject = (e) => {
+    subjectList--;
+    let $row = $(e).parent().parent().parent();
+    $row.remove();
+}
+
 let subjectChangedHandler = (e) => {
     // Handler for Subject select changed event
     let $target = $(e.target);
