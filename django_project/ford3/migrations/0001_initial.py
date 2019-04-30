@@ -24,7 +24,7 @@ class Migration(migrations.Migration):
                 ('email', models.CharField(max_length=255, null=True)),
                 ('max_students_per_year', models.IntegerField(null=True)),
                 ('physical_address', models.CharField(max_length=255, null=True)),
-                ('physical_address_postal_code', models.CharField(max_length=255, null=True)),
+                ('postal_address', models.CharField(max_length=255, null=True)),
             ],
         ),
         migrations.CreateModel(
@@ -58,7 +58,7 @@ class Migration(migrations.Migration):
                 ('logo_url', models.CharField(max_length=255)),
                 ('email', models.CharField(max_length=255)),
                 ('admissions_contact_no', models.CharField(max_length=255)),
-                ('physical_address_postal_code', models.CharField(max_length=255, null=True)),
+                ('postal_address', models.CharField(max_length=255, null=True)),
                 ('physical_address', models.CharField(max_length=255, null=True)),
                 ('telephone', models.IntegerField(null=True)),
                 ('provider_type', models.CharField(max_length=255, null=True)),

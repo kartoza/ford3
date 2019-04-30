@@ -192,7 +192,7 @@ class QualificationFormWizardDataProcess(object):
             self.qualification.occupations.add(occupation)
 
         # Subjects
-        self.add_subjects(form_data)
+        # self.add_subjects(form_data)
 
         # Add requirements
         self.add_or_update_requirements(form_data)
@@ -272,8 +272,7 @@ class QualificationFormWizard(CookieWizardView):
         context['events_list'] = self.qualification.qualification_events_list
         return context
 
-    def add_required_subjects(self, step_data):
-        i = 0
+
 
     def done(self, form_list, **kwargs):
         form_data = dict()
@@ -286,6 +285,7 @@ class QualificationFormWizard(CookieWizardView):
                 context = self.get_context_data(form=form, **kwargs)
                 self.add_required_subjects(
                     context['view'].storage.data['step_data']['2'])
+                form_data.update(form.cleaned_data)
             else:
                 form_data.update(form.cleaned_data)
 
@@ -301,37 +301,65 @@ class QualificationFormWizard(CookieWizardView):
             args=(self.provider.id, self.campus.id, self.qualification.id))
         return redirect(url)
 
+    def add_required_subjects(self, step_data):
+        # Remove old subjects
+        QualificationEntranceRequirementSubject.objects.filter(
+            qualification__id=self.qualification.id).delete()
+        new_subject_values = step_data['2-subject']
+        new_minimum_scores = step_data['2-subject-minimum-score']
+        number_of_new_subjects = len(new_subject_values)
+        for i in range(0, number_of_new_subjects):
+            try:
+                subject = Subject.objects.filter(
+                    id=new_subject_values[i]).first()
+                new_subject = QualificationEntranceRequirementSubject()
+                new_subject.subject = subject
+                new_subject.qualification = self.qualification
+                new_subject.minimum_score = new_minimum_scores[i]
+                new_subject.save()
+            except (Subject.DoesNotExist, ValueError):
+                # ToDo: I need to alert the user one of the subjects could
+                #  not be saved
+                pass
+
     def add_events(self, step_data):
         # Remove old events
         QualificationEvent.objects.filter(
             qualification__id=self.qualification.id).delete()
+
         new_name = step_data['4-name']
         new_date_start = step_data['4-date_start']
         new_date_end = step_data['4-date_end']
         new_http_link = step_data['4-http_link']
-        # Count how many names were submitted and create new_events
+        # Count how many names were submitted
         number_of_new_events = len(new_name)
-        if len(new_name) == 1 and new_name[0] == '':
-            return False
+        # Create new events
         for i in range(0, number_of_new_events):
-            new_qualification_event = QualificationEvent()
-            new_qualification_event.name = new_name[i]
-            new_date_start_i = new_date_start[i]
-            new_date_start_formatted = (
-                datetime.strptime(new_date_start_i, '%m/%d/%Y')
-            ).strftime('%Y-%m-%d')
-            new_date_end_i = new_date_end[i]
-            new_date_end_formatted = (
-                datetime.strptime(new_date_end_i, '%m/%d/%Y')
-            ).strftime('%Y-%m-%d')
-            new_qualification_event.date_start = new_date_start_formatted
-            new_qualification_event.date_end = new_date_end_formatted
-            new_qualification_event.http_link = new_http_link[i]
             try:
-                self.new_qualification_events.append(new_qualification_event)
-            except AttributeError:
-                self.new_qualification_events = []
-                self.new_qualification_events.append(new_qualification_event)
+                new_qualification_event = QualificationEvent()
+                new_qualification_event.name = new_name[i]
+                new_date_start_i = new_date_start[i]
+                new_date_start_formatted = (
+                    datetime.strptime(new_date_start_i, '%m/%d/%Y')
+                ).strftime('%Y-%m-%d')
+                new_date_end_i = new_date_end[i]
+                new_date_end_formatted = (
+                    datetime.strptime(new_date_end_i, '%m/%d/%Y')
+                ).strftime('%Y-%m-%d')
+                new_qualification_event.date_start = new_date_start_formatted
+                new_qualification_event.date_end = new_date_end_formatted
+                new_qualification_event.http_link = new_http_link[i]
+                try:
+                    self.new_qualification_events.append(
+                        new_qualification_event)
+                except AttributeError:
+                    self.new_qualification_events = []
+                    self.new_qualification_events.append(
+                        new_qualification_event)
+            # If there was a problem with the record, just don't save it
+            except ValueError:
+                pass
+
         self.qualification.add_events(self.new_qualification_events)
 
     def set_initial_data(self):

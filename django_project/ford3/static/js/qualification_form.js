@@ -81,10 +81,18 @@ $(document).ready(function() {
         $date_start_input.removeAttr('required');
         $date_end_input.removeAttr('required');
         $http_link_input.removeAttr('required');
-        $first_form.css({visibility: 'hidden', height: 0});
-
+        // name_label.forEach(removeRequiredFromLabel)
+        removeRequiredFromLabel($name_input.labels());
+        removeRequiredFromLabel($date_start_input.labels());
+        removeRequiredFromLabel($date_end_input.labels());
+        removeRequiredFromLabel($http_link_input.labels());
     }
 })
+
+function removeRequiredFromLabel(item)
+{
+    item[0].innerHTML = item[0].innerHTML.replace('*', '');
+}
 
 let removeSubject = (e) => {
     let $row = $(e).parent().parent().parent();

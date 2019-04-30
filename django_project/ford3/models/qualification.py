@@ -8,6 +8,7 @@ from ford3.models.qualification_entrance_requirement_subject import \
     QualificationEntranceRequirementSubject
 from ford3.models.qualification_event import QualificationEvent
 
+
 class Qualification(models.Model):
     subjects = models.ManyToManyField(
         'ford3.subject',
@@ -150,6 +151,7 @@ class Qualification(models.Model):
             next_subject['index'] = idx
             next_subject['name'] = each_subject.subject.name
             next_subject['minimum_score'] = each_subject.minimum_score
+            next_subject['id'] = each_subject.id
             result.append(next_subject)
         return result
 

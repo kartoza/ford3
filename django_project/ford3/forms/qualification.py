@@ -22,7 +22,7 @@ class QualificationForm(forms.Form):
 
 class QualificationDetailForm(QualificationForm):
     short_description = forms.CharField(
-        label='Short Description of this Qualification:',
+        label='Short Description of this Qualification',
         help_text='*120 character max',
         required=False,
         widget=forms.Textarea(
@@ -31,14 +31,14 @@ class QualificationDetailForm(QualificationForm):
         max_length=120
     )
     long_description = forms.CharField(
-        label='Long Description of this Qualification:',
+        label='Long Description of this Qualification',
         help_text='*500 character max',
         required=False,
         widget=forms.Textarea,
         max_length=500
     )
     distance_learning = forms.TypedChoiceField(
-        label='Distance Learning:',
+        label='Distance Learning',
         coerce=lambda x: x == 'True',
         required=False,
         choices=((True, 'Yes'), (False, 'No')),
@@ -48,7 +48,7 @@ class QualificationDetailForm(QualificationForm):
 
 class QualificationDurationFeesForm(QualificationForm):
     full_time = forms.TypedChoiceField(
-        label='Full-Time Qualification:',
+        label='Full-Time Qualification',
         coerce=lambda x: x == 'True',
         required=False,
         choices=((True, 'Yes'), (False, 'No')),
@@ -56,7 +56,7 @@ class QualificationDurationFeesForm(QualificationForm):
     )
 
     part_time = forms.TypedChoiceField(
-        label='Part-Time Qualification:',
+        label='Part-Time Qualification',
         coerce=lambda x: x == 'True',
         required=False,
         choices=((True, 'Yes'), (False, 'No')),
@@ -103,7 +103,7 @@ class QualificationDurationFeesForm(QualificationForm):
 
 class QualificationRequirementsForm(QualificationForm):
     min_nqf_level = forms.ChoiceField(
-        label='Required Entrance Qualification:',
+        label='Required Entrance Qualification',
         help_text='*List from SAQA',
         required=False,
         choices=[('', '-')] + [
@@ -111,7 +111,7 @@ class QualificationRequirementsForm(QualificationForm):
     )
 
     interview = forms.TypedChoiceField(
-        label='Is there an interview:',
+        label='Is there an interview',
         coerce=lambda x: x == 'True',
         required=False,
         choices=((True, 'Yes'), (False, 'No')),
@@ -119,7 +119,7 @@ class QualificationRequirementsForm(QualificationForm):
     )
 
     portfolio = forms.TypedChoiceField(
-        label='Require a portfolio:',
+        label='Require a portfolio',
         coerce=lambda x: x == 'True',
         required=False,
         choices=((True, 'Yes'), (False, 'No')),
@@ -127,7 +127,7 @@ class QualificationRequirementsForm(QualificationForm):
     )
 
     portfolio_comment = forms.CharField(
-        label='What does the portfolio require:',
+        label='What does the portfolio require',
         required=False,
         widget=forms.Textarea(
             attrs={'rows': '5'}
@@ -136,7 +136,7 @@ class QualificationRequirementsForm(QualificationForm):
     )
 
     require_aps_score = forms.TypedChoiceField(
-        label='Require an APS score:',
+        label='Require an APS score',
         coerce=lambda x: x == 'True',
         required=False,
         choices=((True, 'Yes'), (False, 'No')),
@@ -144,7 +144,7 @@ class QualificationRequirementsForm(QualificationForm):
     )
 
     aps_calculator_link = forms.URLField(
-        label='Link to APS Calculator on Website [if any]:',
+        label='Link to APS Calculator on Website [if any]',
         required=False,
         widget=forms.TextInput(
             attrs={'placeholder': 'www.example/aps.com'}
@@ -152,7 +152,7 @@ class QualificationRequirementsForm(QualificationForm):
     )
 
     require_certain_subjects = forms.TypedChoiceField(
-        label='Does Qualification require certain subjects:',
+        label='Does Qualification require certain subjects',
         coerce=lambda x: x == 'True',
         required=False,
         choices=((True, 'Yes'), (False, 'No')),
@@ -160,7 +160,7 @@ class QualificationRequirementsForm(QualificationForm):
     )
 
     subject = forms.ModelChoiceField(
-        label='Subject 1:',
+        label='Subject 1',
         queryset=Subject.objects.all(),
         required=False,
         widget=forms.Select(
@@ -186,7 +186,7 @@ class QualificationRequirementsForm(QualificationForm):
 
 class QualificationInterestsAndJobsForm(QualificationForm):
     interest_list = forms.ModelMultipleChoiceField(
-        label='Choose three interests associated to this Qualification:',
+        label='Choose three interests associated to this Qualification',
         queryset=Interest.objects.all(),
         required=False,
         widget=forms.SelectMultiple(
@@ -200,7 +200,7 @@ class QualificationInterestsAndJobsForm(QualificationForm):
     occupation_list = forms.ModelMultipleChoiceField(
         label=(
             'Choose up to five Occupations that '
-            'this Qualification could prepare you for:'
+            'this Qualification could prepare you for'
         ),
         queryset=Occupation.objects.all(),
         required=False,
@@ -215,7 +215,7 @@ class QualificationInterestsAndJobsForm(QualificationForm):
     critical_skill = forms.TypedChoiceField(
         label=(
             'Does the qualification prepare for a '
-            '<b>critical skills</b> occupation:'
+            '<b>critical skills</b> occupation'
         ),
         required=False,
         choices=((True, 'Yes'), (False, 'No')),
@@ -224,7 +224,7 @@ class QualificationInterestsAndJobsForm(QualificationForm):
 
     green_occupation = forms.TypedChoiceField(
         label=(
-            'Does the qualification prepare for a <b>green</b> occupation:'
+            'Does the qualification prepare for a <b>green</b> occupation'
         ),
         required=False,
         choices=((True, 'Yes'), (False, 'No')),
@@ -234,7 +234,7 @@ class QualificationInterestsAndJobsForm(QualificationForm):
     high_demand_occupation = forms.TypedChoiceField(
         label=(
             'Does the qualification '
-            'prepare for a <b>high demand</b> occupation:'
+            'prepare for a <b>high demand</b> occupation'
         ),
         required=False,
         choices=((True, 'Yes'), (False, 'No')),
@@ -266,7 +266,7 @@ class QualificationImportantDatesForm(QualificationForm):
         )
     )
     http_link = forms.CharField(
-        label='Link to event:',
+        label='Link to event',
         required=False,
         widget=forms.TextInput(
             attrs={'placeholder': 'http://...'}
