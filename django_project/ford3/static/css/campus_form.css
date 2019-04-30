@@ -99,3 +99,17 @@ h5.text-center.edu-underline {
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
 }
+
+.spacer {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.nounderline {
+    text-decoration: none !important;
+}
+
+.nomlr {
+    margin-left: 0;
+    margin-right: 0;
+}

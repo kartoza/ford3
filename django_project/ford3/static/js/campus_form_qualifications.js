@@ -126,10 +126,11 @@ const getSearchQualifInputElem = () => {
 }
 
 const buildSaqaQualificationLiContent = (saqa) => {
-  let linkText = document.createTextNode('(' + saqa.saqa_id + ')')
+  let linkText = document.createTextNode(saqa.saqa_id)
   let link = document.createElement('a')
   link.href = 'http://regqs.saqa.org.za/viewQualification.php?id=' + saqa.saqa_id
   link.target = '_blank'
+  link.className = 'btn btn-sm btn-success nounderline'
   link.appendChild(linkText)
   return link
 }
@@ -143,6 +144,7 @@ const displaySaqaQualificationsResults = (results) => {
   results.forEach(function (saqa) {
     let saqaNode = document.createElement('li')
     saqaNode.setAttribute('data-saqa-id', saqa.saqa_id)
+    saqaNode.setAttribute('class', 'row spacer noplr nomlr')
     const saqaNodeContent = document.createTextNode(saqa.name)
     const saqaLink = buildSaqaQualificationLiContent(saqa)
     saqaNode.appendChild(saqaLink)

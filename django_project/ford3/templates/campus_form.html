@@ -56,8 +56,9 @@
                                 <h5 class="text-center edu-underline">All qualifications in {{ campus }} campus</h5>
                                 <ul id='campus-qualifications-list'>
                                     {% for qualification in campus.qualifications %}
-                                    <li data-saqa-id='{{ qualification.saqa_qualification__saqa_id }}'>
-                                        <a href='http://regqs.saqa.org.za/viewQualification.php?id={{ qualification.saqa_qualification__id }}' target='_blank'>({{ qualification.saqa_qualification__saqa_id }})</a> {{ qualification.saqa_qualification__name }}
+                                    <li data-saqa-id='{{ qualification.saqa_qualification__saqa_id }}' class="row spacer noplr nomlr">
+                                        <a class="btn btn-sm btn-success nounderline" href="http://regqs.saqa.org.za/viewQualification.php?id={{ qualification.saqa_qualification__saqa_id }}" target='_blank'>{{ qualification.saqa_qualification__saqa_id }}</a>
+                                        &nbsp; {{ qualification.saqa_qualification__name }}
                                     </li>
                                     {% endfor %}
                                 </ul>
