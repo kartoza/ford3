@@ -326,7 +326,6 @@ class QualificationFormWizard(CookieWizardView):
         # Remove old events
         QualificationEvent.objects.filter(
             qualification__id=self.qualification.id).delete()
-
         new_name = step_data['4-name']
         new_date_start = step_data['4-date_start']
         new_date_end = step_data['4-date_end']
@@ -369,7 +368,7 @@ class QualificationFormWizard(CookieWizardView):
                 'long_description': self.qualification.long_description,
                 'distance_learning': self.qualification.distance_learning
             })
-        except IndexError:
+        except (IndexError, AttributeError):
             pass
         try:
             self.initial_dict['1'] = ({
@@ -380,7 +379,7 @@ class QualificationFormWizard(CookieWizardView):
                 'total_cost': self.qualification.total_cost,
                 'total_cost_comment': self.qualification.total_cost_comment
             })
-        except IndexError:
+        except (IndexError, AttributeError):
             pass
         try:
             self.initial_dict['2'] = ({
@@ -397,7 +396,7 @@ class QualificationFormWizard(CookieWizardView):
                 'require_certain_subjects':
                     self.qualification.requirement.require_certain_subjects
             })
-        except IndexError:
+        except (IndexError, AttributeError):
             pass
         try:
             self.initial_dict['3'] = ({
@@ -408,5 +407,5 @@ class QualificationFormWizard(CookieWizardView):
                 'high_demand_occupation':
                     self.qualification.high_demand_occupation
             })
-        except IndexError:
+        except (IndexError, AttributeError):
             pass

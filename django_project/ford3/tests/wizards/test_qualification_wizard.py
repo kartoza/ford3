@@ -125,9 +125,9 @@ class TestQualificationWizard(TestCase):
             subject1=self.subject_1.id,
             subject2=self.subject_2.id)
         self.wizard_form_data['subject_list'] = new_subject_list
-        # self.qualification_data_process.add_subjects(
-        #     form_data=self.wizard_form_data
-        # )
+        self.qualification_data_process.add_subjects(
+            form_data=self.wizard_form_data
+        )
         subjects = QualificationEntranceRequirementSubject.objects.filter(
             qualification_id=self.qualification,
         )
