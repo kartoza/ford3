@@ -3,7 +3,7 @@
 [![FORD Screenshot](http://ford3screenshoturl)](http://ford3productionurl)
 
 
-A django app for creating publishing open education programm data for South Africa. 
+A django app for creating publishing open education program data for South Africa. 
 
 View a running instance at [http://ford3productionurl](http://ford3productionurl)
 
