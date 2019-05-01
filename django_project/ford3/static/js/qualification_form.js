@@ -135,6 +135,12 @@ $('#add-qualification-event').click(function () {
         form_group.appendChild(new_start_date_div);
         form_group.appendChild(new_end_date_div);
         form_group.appendChild(new_http_link_div);
+        let new_start_date_input = new_start_date_div.getElementsByTagName('input')[0];
+        $(new_start_date_input).removeClass('hasDatepicker');
+        $(new_start_date_input).datepicker();
+        let new_end_date_input = new_end_date_div.getElementsByTagName('input')[0];
+        $(new_end_date_input).removeClass('hasDatepicker');
+        $(new_end_date_input).datepicker();
         innitiateRemoveQualificationEventButtons();
 }
 
