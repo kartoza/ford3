@@ -200,7 +200,7 @@ class QualificationInterestsAndJobsForm(QualificationForm):
     occupation_list = forms.ModelMultipleChoiceField(
         label=(
             'Choose up to five Occupations that '
-            'this Qualification could prepare you for'
+            'this qualification could prepare you for'
         ),
         queryset=Occupation.objects.all(),
         required=False,
