@@ -111,7 +111,7 @@ class QualificationRequirementsForm(QualificationForm):
     )
 
     interview = forms.TypedChoiceField(
-        label='Is there an interview',
+        label='Is there an interview?',
         coerce=lambda x: x == 'True',
         required=False,
         choices=((True, 'Yes'), (False, 'No')),
@@ -119,7 +119,7 @@ class QualificationRequirementsForm(QualificationForm):
     )
 
     portfolio = forms.TypedChoiceField(
-        label='Require a portfolio',
+        label='Does it require a portfolio?',
         coerce=lambda x: x == 'True',
         required=False,
         choices=((True, 'Yes'), (False, 'No')),
@@ -127,7 +127,7 @@ class QualificationRequirementsForm(QualificationForm):
     )
 
     portfolio_comment = forms.CharField(
-        label='What does the portfolio require',
+        label='What does the portfolio require?',
         required=False,
         widget=forms.Textarea(
             attrs={'rows': '5'}
@@ -136,7 +136,7 @@ class QualificationRequirementsForm(QualificationForm):
     )
 
     require_aps_score = forms.TypedChoiceField(
-        label='Require an APS score',
+        label='Does it require an APS score?',
         coerce=lambda x: x == 'True',
         required=False,
         choices=((True, 'Yes'), (False, 'No')),
@@ -152,7 +152,7 @@ class QualificationRequirementsForm(QualificationForm):
     )
 
     require_certain_subjects = forms.TypedChoiceField(
-        label='Does Qualification require certain subjects',
+        label='Does the qualification require certain subjects?',
         coerce=lambda x: x == 'True',
         required=False,
         choices=((True, 'Yes'), (False, 'No')),
