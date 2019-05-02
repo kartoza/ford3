@@ -22,7 +22,7 @@ class QualificationForm(forms.Form):
 
 class QualificationDetailForm(QualificationForm):
     short_description = forms.CharField(
-        label='Short Description of this Qualification',
+        label='Short description of this qualification',
         help_text='*120 character max',
         required=False,
         widget=forms.Textarea(
@@ -31,14 +31,14 @@ class QualificationDetailForm(QualificationForm):
         max_length=120
     )
     long_description = forms.CharField(
-        label='Long Description of this Qualification',
+        label='Long description of this qualification',
         help_text='*500 character max',
         required=False,
         widget=forms.Textarea,
         max_length=500
     )
     distance_learning = forms.TypedChoiceField(
-        label='Distance Learning',
+        label='Distance learning',
         coerce=lambda x: x == 'True',
         required=False,
         choices=((True, 'Yes'), (False, 'No')),
@@ -48,7 +48,7 @@ class QualificationDetailForm(QualificationForm):
 
 class QualificationDurationFeesForm(QualificationForm):
     full_time = forms.TypedChoiceField(
-        label='Full-Time Qualification',
+        label='Full-Time qualification',
         coerce=lambda x: x == 'True',
         required=False,
         choices=((True, 'Yes'), (False, 'No')),
@@ -56,7 +56,7 @@ class QualificationDurationFeesForm(QualificationForm):
     )
 
     part_time = forms.TypedChoiceField(
-        label='Part-Time Qualification',
+        label='Part-time qualification',
         coerce=lambda x: x == 'True',
         required=False,
         choices=((True, 'Yes'), (False, 'No')),
@@ -64,7 +64,7 @@ class QualificationDurationFeesForm(QualificationForm):
     )
 
     duration = forms.IntegerField(
-        label='Duration of the Qualification',
+        label='Duration of the qualification',
         required=False,
         widget=forms.NumberInput(
             attrs={'class': 'col-md-4'}
@@ -84,7 +84,7 @@ class QualificationDurationFeesForm(QualificationForm):
     )
 
     total_cost = forms.DecimalField(
-        label='Total Cost of Qualification',
+        label='Total cost of qualification',
         required=False,
         widget=forms.TextInput(
             attrs={'placeholder': 'ZAR'}
@@ -92,7 +92,7 @@ class QualificationDurationFeesForm(QualificationForm):
     )
 
     total_cost_comment = forms.CharField(
-        label='Cost Comment Field',
+        label='Cost comment field',
         help_text='*Any extra comments on '
                   'how Costs of this Qualification work',
         required=False,
@@ -103,7 +103,7 @@ class QualificationDurationFeesForm(QualificationForm):
 
 class QualificationRequirementsForm(QualificationForm):
     min_nqf_level = forms.ChoiceField(
-        label='Required Entrance Qualification',
+        label='Required entrance qualification',
         help_text='*List from SAQA',
         required=False,
         choices=[('', '-')] + [
@@ -186,7 +186,7 @@ class QualificationRequirementsForm(QualificationForm):
 
 class QualificationInterestsAndJobsForm(QualificationForm):
     interest_list = forms.ModelMultipleChoiceField(
-        label='Choose three interests associated to this Qualification',
+        label='Choose three interests associated to this qualification',
         queryset=Interest.objects.all(),
         required=False,
         widget=forms.SelectMultiple(
@@ -199,7 +199,7 @@ class QualificationInterestsAndJobsForm(QualificationForm):
 
     occupation_list = forms.ModelMultipleChoiceField(
         label=(
-            'Choose up to five Occupations that '
+            'Choose up to five occupations that '
             'this qualification could prepare you for'
         ),
         queryset=Occupation.objects.all(),
