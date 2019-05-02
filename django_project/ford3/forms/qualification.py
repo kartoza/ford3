@@ -215,7 +215,7 @@ class QualificationInterestsAndJobsForm(QualificationForm):
     critical_skill = forms.TypedChoiceField(
         label=(
             'Does the qualification prepare for a '
-            '<b>critical skills</b> occupation'
+            '<b>critical skills</b> occupation?'
         ),
         required=False,
         choices=((True, 'Yes'), (False, 'No')),
@@ -224,7 +224,7 @@ class QualificationInterestsAndJobsForm(QualificationForm):
 
     green_occupation = forms.TypedChoiceField(
         label=(
-            'Does the qualification prepare for a <b>green</b> occupation'
+            'Does the qualification prepare for a <b>green</b> occupation?'
         ),
         required=False,
         choices=((True, 'Yes'), (False, 'No')),
@@ -234,7 +234,7 @@ class QualificationInterestsAndJobsForm(QualificationForm):
     high_demand_occupation = forms.TypedChoiceField(
         label=(
             'Does the qualification '
-            'prepare for a <b>high demand</b> occupation'
+            'prepare for a <b>high demand</b> occupation?'
         ),
         required=False,
         choices=((True, 'Yes'), (False, 'No')),
