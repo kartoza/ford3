@@ -79,7 +79,7 @@ class TestProviderForm(SeleniumTestCase):
         inputbox.send_keys('Nelspruit')
 
         inputbox = self.driver.find_element_by_name(
-            'postal_address')
+            'physical_address_postal_code')
         self.assertEqual(
             inputbox.get_attribute('placeholder'),
             'Postal/ZIP Code'
