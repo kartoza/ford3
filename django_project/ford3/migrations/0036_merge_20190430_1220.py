@@ -7,7 +7,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('ford3', '0035_auto_20190426_1743'),
-        ('ford3', '0035_prospect'),
+        ('ford3', '0036_prospect'),
         ('ford3', '0034_merge_20190416_2147'),
     ]
 
