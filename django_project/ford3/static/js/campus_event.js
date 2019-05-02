@@ -32,14 +32,20 @@ function addCampusEvent(){
     form_group.appendChild(new_http_link_div);
     
     $(new_start_date_input).removeClass('hasDatepicker');
+    updateElementID(new_start_date_input, campus_event_counter);
     $(new_start_date_input).datepicker();
     $(new_end_date_input).removeClass('hasDatepicker');
+    updateElementID(new_end_date_input, campus_event_counter);
     $(new_end_date_input).datepicker();
     
     innitiateRemoveCampusEventButtons();
     onNameEditMakeOtherFieldsRequired();
     clearElement(new_name_div)
 
+}
+
+function updateElementID(e, counter){
+             $(e).attr('id', $(e).attr('id') + '_' + counter.toString());
 }
 
 function clearElement(elementToClear) {
