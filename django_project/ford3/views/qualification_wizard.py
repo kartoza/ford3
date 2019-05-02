@@ -235,9 +235,10 @@ class QualificationFormWizard(CookieWizardView):
         context['provider'] = self.provider
         # make sure logo has been uploaded before set the context
         # otherwise, let it empty
-        if self.qualification.campus.provider.provider_logo:
-            context['provider_logo'] = \
-                self.qualification.campus.provider.provider_logo.url
+        context['provider_logo'] = \
+            self.qualification.campus.provider.provider_logo.url \
+            if self.qualification.campus.provider.provider_logo else ""
+
         return context
 
     def done(self, form_list, **kwargs):
