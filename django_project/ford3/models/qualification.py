@@ -130,6 +130,16 @@ class Qualification(models.Model):
         return result
 
     @property
+    def interest_name_list(self) -> List[int]:
+        result = []
+        interest_query = Interest.objects.filter(
+            qualification__id=self.id).order_by('id').values('name')
+        interest_query_list = list(interest_query)
+        for each_item in interest_query_list:
+            result.append(each_item['name'])
+        return result
+
+    @property
     def occupation_id_list(self) -> List[int]:
         result = []
         occupation_query = Occupation.objects.filter(
@@ -137,6 +147,16 @@ class Qualification(models.Model):
         occupation_query_list = list(occupation_query)
         for each_item in occupation_query_list:
             result.append(each_item['id'])
+        return result
+
+    @property
+    def occupation_name_list(self) -> List[int]:
+        result = []
+        occupation_query = Occupation.objects.filter(
+            qualification__id=self.id).order_by('id').values('name')
+        occupation_query_list = list(occupation_query)
+        for each_item in occupation_query_list:
+            result.append(each_item['name'])
         return result
 
     @property

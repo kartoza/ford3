@@ -27,7 +27,7 @@
                     <p class="pt-3 pb-3">{{ qualification.long_description }}</p>
                 </div>
                 <div class='col-md-6 pb-3'>
-                    <b>NQF Level:</b> {{ qualification.nqf_level }}
+                    <b>NQF Level:</b> {{ qualification.saqa_qualification.nqf_level }}
                 </div>
                 <div class='col-md-6 pb-3'>
                     <b>Distance learning:</b> {{ qualification.distance_learning }}
@@ -56,7 +56,7 @@
                         <b>Duration of the qualification:</b> {{ qualification.duration_in_months }} months
                     </div>
                     <div class="col-md-6">
-                        <b>Total cost of the qualification:</b> ZAR {{ qualification.total_cost }}
+                        <b>Total cost of the qualification:</b> R {{ qualification.total_cost }}
                     </div>
                 </div>
             </div>
@@ -69,10 +69,42 @@
                     <a class="edu-button edu-button-orange" href="#">Edit</a>
                 </div>
             </div>
-            <div class='row col-md-12 pt-3 pb-3'>
-                    {{ qualification.requirements }}
+            <div class='row pt-3 pb-3'>
+                <div class='col-md-12 pb-3'>
+                    {% for requirement in qualification.requirements %}
+                    <div class="row pb-3">
+                        <div class="col-md-6">
+                            <b>Required Entrace Qualification: </b>{{ requirement.min_nqf_level }}
+                        </div>
+                        <div class="col-md-6">
+                            <b>Is there an interview: </b>{{ requirement.interview }}
+                        </div>
+                    </div>
+                    <div class="row pb-3">
+                        <div class="col-md-6">
+                            <b>Require a portfolio: </b>{{ requirement.portfolio }}
+                            <br />
+                            <b>Require and APS score: </b>{{ requirement.require_aps_score }}
+                        </div>
+                        <div class="col-md-6">
+                            <b>What does the portfolio require: </b>{{ requirement.portfolio_comment }}
+                        </div>
+                    </div>
+                    <div class="row pb-3">
+                        <div class="col-md-6">
+                            <b>Does qualification require certain subjects: </b>{{ requirement.require_certain_subjects }}
+                        </div>
+                    </div>
+                        <div class="row pb-3">
+                        {% for subject in qualification.entrance_req_subjects_list %}
+                            <div class="col-md-6">
+                                <b>Subject {{ forloop.counter }}: </b>{{ subject.name }} {{ subject.minimum_score }}%
+                            </div>
+                        {% endfor %}
+                        </div>
+                    {% endfor %}
+                </div>
             </div>
-
             <div class="row pt-3 pb-3 nomlr">
                 <div class='col-md-10 edu-underline noplr'>
                     <h4 class="mt-3">4. Interests and Jobs</h4>
@@ -81,11 +113,44 @@
                     <a class="edu-button edu-button-orange" href="#">Edit</a>
                 </div>
             </div>
-            <div class='row col-md-12 pt-3 pb-3'>
-                    {{ qualifications.occupations }}
-                    
-                    {{ qualifications.interests }}
-                    
+            <div class='row pt-3 pb-3'>
+                <div class='col-md-12'>
+                    <div class="row pb-3">
+                        <div class="col-md-6">
+                            <b>Choose three interests associated to this qualification:</b>
+                            <br />
+                            {% for  interest in qualification.interest_name_list %}
+                                {{  interest }}
+                                {% if forloop.counter < qualification.interest_name_list|length %}, {% endif  %}
+                            {% endfor %}
+                        </div>
+                        <div class="col-md-6">
+                            <b>Choose up to five occupations that this qualification could prepare you for:</b>
+                            <br />
+                            {% for occupation in qualification.occupation_name_list %}
+                                {{  occupation }}
+                                {% if forloop.counter < qualification.occupation_name_list|length %}, {% endif  %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="row pb-3">
+                        <div class="col-md-6">
+                            <b>Does the qualification prepare for a critical skills occupation:</b>
+                            {{ qualification.critical_skill }}
+                        </div>
+                        <div class="col-md-6">
+                            <b>Does the qualification prepare for a green occupation:</b>
+                            {{ qualification.green_occupation }}
+                        </div>
+                    </div>
+                    <div class="row pb-3">
+                        <div class="col-md-6">
+                            <b>Does the qualification prepare for a high demand occupation:</b>
+                            {{ qualification.high_demand_occupation }}
+                        </div>
+                    </div>
+
+                </div>
             </div>
 
             <div class="row pt-3 pb-3 nomlr">
@@ -98,7 +163,12 @@
             </div>
             <div class='row pt-3 pb-3'>
                 <div class='col-md-12'>
-
+                    <b>Application period start: </b>{{ qualification.qualification_events_list.0.date_start }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <a class="edu-button edu-button-blue" href="{% url 'show-campus' provider_id=provider.id campus_id=qualification.campus.id %}">Back</a>
                 </div>
             </div>
         </div>
