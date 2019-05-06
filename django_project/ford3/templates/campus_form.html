@@ -2,6 +2,10 @@
 {% load static %}
 {% load crispy_forms_tags %}
 
+{% block side_navbar %}
+{% include 'sidebar.html' %}
+{% endblock %}
+
 {% block head %}
     {{ wizard.form.media }}
     <link rel="stylesheet" type="text/css"
@@ -26,8 +30,12 @@
                             {% if forloop.counter == wizard.steps.step1 %}
                                 active
                             {% elif forloop.counter < wizard.steps.step1 %} done {% else %} disabled {% endif %}" href="#">
-                                <h4 class="list-group-item-heading">
-                                    Step {{ forloop.counter }}</h4>
+                                <h4 class="list-group-item-heading
+                                {% if forloop.counter == wizard.steps.step1 %}
+                                    active
+                                {% elif forloop.counter < wizard.steps.step1 %} done {% else %} disabled {% endif %}">
+                                    Step {{ forloop.counter }}
+                                </h4>
                                 <p class="list-group-item-text">{{ form_name }}</p>
                             </a>
                         </li>
@@ -59,7 +67,7 @@
                                 </ul>
                             </div>
                             <div class='col-md-2 text-center'>
-                                    <p class="qualif-texts">add</p>
+                                <p class="qualif-texts">add</p>
                                 <button type='button'
                                         class='arrow-button left-arrow-button'
                                         data-action='add-qualif'>
@@ -114,10 +122,6 @@
                             {% endif %}
                         </div>
                         <div class="col-md-4">
-                            <p class="form-steps-count">
-                                Page {{ wizard.steps.step1 }}
-                                of {{ wizard.steps.count }}
-                            </p>
                         </div>
                         <div class="col-md-4">
                             <button class="edu-button edu-button-blue"
@@ -142,6 +146,9 @@
 {% block footer %}
     <script type="text/javascript"
             src="{% static 'js/libs/jquery-ui-1.12.1-custom/jquery-ui.min.js' %}"></script>
+	{%  if wizard.steps.step1 == 2 %}
+		<script type="text/javascript" src="{% static 'js/campus.js' %}"></script>
+	{%  endif %}
     {% if wizard.steps.step1 == 3 %}
         <script type="text/javascript"
                 src="{% static 'js/datepicker.js' %}"></script>
@@ -151,6 +158,6 @@
         <script type="text/javascript"
                 src="{% static 'js/campus_form_qualifications.js' %}"></script>
     {% endif %}
-	<script type="text/javascript" src="{% static 'js/campus.js' %}"></script>
+
 
 {% endblock %}

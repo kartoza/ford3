@@ -46,12 +46,13 @@ class Provider(models.Model):
         unique=False,
         help_text='',
         max_length=255)
-    postal_address = models.CharField(
+    physical_address_postal_code = models.CharField(
         blank=False,
         null=False,
         unique=False,
         help_text='',
         max_length=4)
+
     physical_address_line_1 = models.CharField(
         blank = False,
         null = True,
@@ -74,6 +75,35 @@ class Provider(models.Model):
         blank=True,
         upload_to='provider_logo'
     )
+    postal_address_differs = models.BooleanField(
+        blank=True,
+        null=True,
+        default=False,
+        help_text='')
+    postal_address_postal_code = models.CharField(
+        blank=True,
+        null=True,
+        unique=False,
+        help_text='',
+        max_length=4)
+    postal_address_line_1 = models.CharField(
+        blank=True,
+        null=True,
+        unique=False,
+        help_text='',
+        max_length=255)
+    postal_address_line_2 = models.CharField(
+        blank=True,
+        null=True,
+        unique=False,
+        help_text='',
+        max_length=255)
+    postal_address_city = models.CharField(
+        blank=True,
+        null=True,
+        unique=False,
+        help_text='',
+        max_length=255)
 
     pass
 

@@ -30,13 +30,13 @@ class Campus(models.Model):
         unique=False,
         help_text='',
         max_length=255)
-    email = models.CharField(
+    email = models.EmailField(
         blank=False,
         null=True,
         unique=False,
         help_text='',
         max_length=255)
-    max_students_per_year = models.IntegerField(
+    max_students_per_year = models.PositiveIntegerField(
         blank=False,
         null=True,
         unique=False,
@@ -213,4 +213,4 @@ class Campus(models.Model):
             qualif.delete()
 
     def __str__(self):
-        return f'{self.name} campus'
+        return self.name
