@@ -20,17 +20,17 @@
             </div>
             <div class='row pt-3 pb-3'>
                 <div class='col-md-12'>
-                    <b>Short Description of this Qualification:</b>
+                    <b>Short description of this qualification:</b>
                     <p class="pt-3">{{ qualification.short_description }}</p>
 
-                    <b>Long Description of this Qualification:</b>
+                    <b>Long description of this qualification:</b>
                     <p class="pt-3 pb-3">{{ qualification.long_description }}</p>
                 </div>
                 <div class='col-md-6 pb-3'>
                     <b>NQF Level:</b> {{ qualification.saqa_qualification.nqf_level }}
                 </div>
                 <div class='col-md-6 pb-3'>
-                    <b>Distance learning:</b> {{ qualification.distance_learning }}
+                    <b>Distance learning:</b> {{ qualification.distance_learning|yesno:"YES,NO" }}
                 </div>
             </div>
 
@@ -45,10 +45,10 @@
             <div class='row pt-3 pb-3'>
                 <div class="row col-md-12 pb-3">
                     <div class="col-md-6">
-                        <b>Full-time qualification:</b> {{ qualification.full_time }}
+                        <b>Full-time qualification:</b> {{ qualification.full_time|yesno:"YES,NO" }}
                     </div>
                     <div class="col-md-6">
-                        <b>Part-time qualification:</b> {{ qualification.part_time }}
+                        <b>Part-time qualification:</b> {{ qualification.part_time|yesno:"YES,NO" }}
                     </div>
                 </div>
                 <div class="row col-md-12 pb-3">
@@ -74,17 +74,17 @@
                     {% for requirement in qualification.requirements %}
                     <div class="row pb-3">
                         <div class="col-md-6">
-                            <b>Required Entrace Qualification: </b>{{ requirement.min_nqf_level }}
+                            <b>Required entrace qualification: </b>{{ requirement.min_nqf_level }}
                         </div>
                         <div class="col-md-6">
-                            <b>Is there an interview: </b>{{ requirement.interview }}
+                            <b>Is there an interview: </b>{{ requirement.interview|yesno:"YES,NO" }}
                         </div>
                     </div>
                     <div class="row pb-3">
                         <div class="col-md-6">
-                            <b>Require a portfolio: </b>{{ requirement.portfolio }}
+                            <b>Require a portfolio: </b>{{ requirement.portfolio|yesno:"YES,NO" }}
                             <br />
-                            <b>Require and APS score: </b>{{ requirement.require_aps_score }}
+                            <b>Require and APS score: </b>{{ requirement.require_aps_score|yesno:"YES,NO" }}
                         </div>
                         <div class="col-md-6">
                             <b>What does the portfolio require: </b>{{ requirement.portfolio_comment }}
@@ -136,17 +136,17 @@
                     <div class="row pb-3">
                         <div class="col-md-6">
                             <b>Does the qualification prepare for a critical skills occupation:</b>
-                            {{ qualification.critical_skill }}
+                            {{ qualification.critical_skill|yesno:"YES,NO" }}
                         </div>
                         <div class="col-md-6">
                             <b>Does the qualification prepare for a green occupation:</b>
-                            {{ qualification.green_occupation }}
+                            {{ qualification.green_occupation|yesno:"YES,NO" }}
                         </div>
                     </div>
                     <div class="row pb-3">
                         <div class="col-md-6">
                             <b>Does the qualification prepare for a high demand occupation:</b>
-                            {{ qualification.high_demand_occupation }}
+                            {{ qualification.high_demand_occupation|yesno:"YES,NO" }}
                         </div>
                     </div>
 
@@ -162,8 +162,11 @@
                 </div>
             </div>
             <div class='row pt-3 pb-3'>
-                <div class='col-md-12'>
+                <div class='col-md-6'>
                     <b>Application period start: </b>{{ qualification.qualification_events_list.0.date_start }}
+                </div>
+                <div class='col-md-6'>
+                    <b>Application period end: </b>{{ qualification.qualification_events_list.0.date_end }}
                 </div>
             </div>
             <div class="row">
