@@ -59,23 +59,87 @@
             <h4>3. Requirements</h4>
             <div class='row'>
                 <div class='col-md-12'>
-                    {{ qualification.requirements }}
+                    {% for requirement in qualification.requirements %}
+                    <div class="row">
+                        <div class="col-md-6">
+                            Required Entrace Qualification: {{ requirement.min_nqf_level }}
+                        </div>
+                        <div class="col-md-6">
+                            Is there an interview: {{ requirement.interview }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            Require a portfolio: {{ requirement.portfolio }}
+                        </div>
+                        <div class="col-md-6">
+                            What does the portfolio require: {{ requirement.portfolio_comment }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            Require and APS score: {{ requirement.require_aps_score }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            Does qualification require certain subjects: {{ requirement.require_certain_subjects }}
+                        </div>
+                    </div>
+                        <div class="row">
+                        {% for subject in qualification.entrance_req_subjects_list %}
+                            <div class="col-md-6">
+                                Subject {{ forloop.counter }}: {{ subject.name }} {{ subject.minimum_score }}%
+                            </div>
+                        {% endfor %}
+                        </div>
+                    {% endfor %}
                 </div>
             </div>
 
             <h4>4. Interests and Jobs</h4>
             <div class='row'>
                 <div class='col-md-12'>
-                    {{ qualifications.occupations }}
-                    
-                    {{ qualifications.interests }}
-                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            Choose three interests associated to this qualification:
+                            {% for  interest in qualification.interest_name_list %}
+                                {{  interest }}
+                                {% if forloop.counter < qualification.interest_name_list|length %}, {% endif  %}
+                            {% endfor %}
+                        </div>
+                        <div class="col-md-6">
+                            Choose up to five occupations that this qualification could prepare you for:
+                            {% for occupation in qualification.occupation_name_list %}
+                                {{  occupation }}
+                                {% if forloop.counter < qualification.occupation_name_list|length %}, {% endif  %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            Does the qualification prepare for a critical skills occupation:
+                            {{ qualification.critical_skill }}
+                        </div>
+                        <div class="col-md-6">
+                            Does the qualification prepare for a green occupation:
+                            {{ qualification.green_occupation }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            Does the qualification prepare for a high demand occupation:
+                            {{ qualification.high_demand_occupation }}
+                        </div>
+                    </div>
+
                 </div>
             </div>
 
             <h4>5. Important Dates</h4>
             <div class='row'>
                 <div class='col-md-12'>
+                    Application period start: {{ qualification.qualification_events_list.0.date_start }}
 
                 </div>
             </div>
