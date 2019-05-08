@@ -26,6 +26,9 @@
                 </div>
                 <div class='col-md-4'>
                     <p>Physical address: {{ campus.physical_address_line_1 }}, {{ campus.physical_address_line_2 }}, {{ campus.physical_address_city }} {{ campus.physical_address_postal_code }}</p>
+                    <div class="text-right">
+                        <a href="{% url 'edit-campus' provider_id=provider.id campus_id=campus.id  %}?step=campus-details" class='edu-button edu-button-orange w-50'>Edit info</a>
+                    </div>
                 </div>
                 <div class='col-md-4'>
                     <ul>
