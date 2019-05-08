@@ -33,6 +33,9 @@
                         <li><b>{{ event.name }}</b> <br /> {{ event.date_start }} - {{ event.date_end }}</li>
                     {% endfor %}
                     </ul>
+                    <div class="text-right">
+                        <a href="{% url 'edit-campus' provider_id=provider.id campus_id=campus.id  %}?step=campus-dates" class='edu-button edu-button-orange w-50'>Edit events</a>
+                    </div>
                 </div>
             </div>
 
