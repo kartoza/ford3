@@ -127,3 +127,8 @@ ul.errorlist {
     padding-inline-start: 10px;
     color: red;
 }
+
+#edit-location {
+    background: url('../images/ui/edit-icon.svg') no-repeat;
+    width: 32px;
+}

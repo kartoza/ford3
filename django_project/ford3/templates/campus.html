@@ -25,6 +25,9 @@
                     <p>Max number of Students per year in Campus: {{ campus.max_students_per_year }}</p>
                 </div>
                 <div class='col-md-4'>
+                    <div class="text-right">
+                         <a href="{% url 'edit-campus' provider_id=provider.id campus_id=campus.id  %}?step=campus-details" id='edit-location' class='edu-button noplr'></a>
+                    </div>
                     <p>Physical address: {{ campus.physical_address_line_1 }}, {{ campus.physical_address_line_2 }}, {{ campus.physical_address_city }} {{ campus.physical_address_postal_code }}</p>
                 </div>
                 <div class='col-md-4'>
