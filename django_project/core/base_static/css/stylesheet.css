@@ -93,8 +93,10 @@ h5 {
 }
 
 .edu-button-blue:hover {
+    color: white;
     background-image: none;
     background-color: var(--c-blue-d);
+    text-decoration: none;
 }
 
 .edu-button-blue:focus {

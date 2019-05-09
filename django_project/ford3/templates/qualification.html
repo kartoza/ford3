@@ -170,9 +170,12 @@
                     <b>Application period end: </b>{{ qualification.qualification_events_list.0.date_end }}
                 </div>
             </div>
-            <div class="row">
+            <div class="row mb-5">
+                <div class="col-md-9">
+                    {# spacer #}
+                </div>
                 <div class="col-md-3">
-                    <a class="edu-button edu-button-blue" href="{% url 'show-campus' provider_id=provider.id campus_id=qualification.campus.id %}">Back</a>
+                    <a class="edu-button edu-button-blue h-100" href="{% url 'show-campus' provider_id=provider.id campus_id=qualification.campus.id %}">Go to Campus Overview</a>
                 </div>
             </div>
         </div>
