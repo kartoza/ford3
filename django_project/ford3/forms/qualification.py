@@ -26,7 +26,9 @@ class QualificationDetailForm(QualificationForm):
         help_text='*120 character max',
         required=False,
         widget=forms.Textarea(
-            attrs={'rows': '5', 'placeholder': 'Write short description of this qualification'}
+            attrs={
+                'rows': '5',
+                'placeholder': 'Write short description of this qualification'}
         ),
         max_length=120
     )
@@ -35,7 +37,10 @@ class QualificationDetailForm(QualificationForm):
         help_text='*500 character max',
         required=False,
         widget=forms.Textarea(
-            attrs={'rows': '10', 'cols': '40', 'placeholder': 'Write full description of this qualification'}
+            attrs={
+                'rows': '10',
+                'cols': '40',
+                'placeholder': 'Write full description of this qualification'}
         ),
         max_length=500
     )
@@ -99,7 +104,10 @@ class QualificationDurationFeesForm(QualificationForm):
                   'how Costs of this Qualification work',
         required=False,
         widget=forms.Textarea(
-            attrs={'placeholder': 'Additional info regarding costs', 'cols': '40', 'rows': '10'}
+            attrs={
+                'placeholder': 'Additional info regarding costs',
+                'cols': '40',
+                'rows': '10'}
         ),
         max_length=255
     )
@@ -134,7 +142,9 @@ class QualificationRequirementsForm(QualificationForm):
         label='What does the portfolio require?',
         required=False,
         widget=forms.Textarea(
-            attrs={'rows': '5', 'placeholder': 'What does the portfolio require?'}
+            attrs={
+                'rows': '5',
+                'placeholder': 'What does the portfolio require?'}
         ),
         max_length=120
     )
