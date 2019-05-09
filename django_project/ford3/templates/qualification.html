@@ -1,5 +1,6 @@
 {% extends "index.html" %}
 {% load static %}
+{% load nqf_level_tags %}
 
 {% block side_navbar %}
 {% include 'sidebar.html' %}
@@ -74,7 +75,7 @@
                     {% for requirement in qualification.requirements %}
                     <div class="row pb-3">
                         <div class="col-md-6">
-                            <b>Required entrace qualification: </b>{{ requirement.min_nqf_level }}
+                            <b>Required entrace qualification: </b>{{ requirement.min_nqf_level|filter_level }}
                         </div>
                         <div class="col-md-6">
                             <b>Is there an interview: </b>{{ requirement.interview|yesno:"YES,NO" }}
