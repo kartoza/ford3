@@ -108,26 +108,28 @@ class CampusLocationForm(CampusForm):
 
 class CampusImportantDatesForm(CampusForm):
     event_name = forms.CharField(
-        label='Event name',
+        label='Event name*',
         required=False,
         widget=forms.TextInput(
-            attrs={'placeholder': 'Open day, ...'}
+            attrs={'placeholder': 'eg Open day, ...'}
         )
     )
 
     date_start = forms.DateField(
-        label='Start date',
+        label='Start date*',
         required=False,
         widget=forms.DateInput(
-            attrs={'class': 'col-md-4'}
+            attrs={'class': 'col-md-4',
+                   'placeholder': 'dd/mm/yyyy'}
         )
     )
 
     date_end = forms.DateField(
-        label='End date',
+        label='End date*',
         required=False,
         widget=forms.DateInput(
-            attrs={'class': 'col-md-4'}
+            attrs={'class': 'col-md-4',
+                   'placeholder': 'dd/mm/yyyy'}
         )
     )
 
@@ -135,7 +137,7 @@ class CampusImportantDatesForm(CampusForm):
         label='Link to event',
         required=False,
         widget=forms.TextInput(
-            attrs={'placeholder': 'http://...'}
+            attrs={'placeholder': 'eg. http://www.ExampleCampus.com/OpenDay2019'}
         )
     )
 

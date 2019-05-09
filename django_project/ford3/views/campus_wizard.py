@@ -58,18 +58,28 @@ class CampusFormWizard(CookieWizardView):
             'provider_name': self.provider.name
         }
         context['form_data'] = form_data
+
+        context['campus_events'] = self.campus.events
+        context['campus_events_length'] = len(self.campus.events)
+
         return context
 
     def get_form_initial(self, step):
         # For 'Details' and 'Location' forms
+
         initial_dict = model_to_dict(self.campus)
+        initial_event = self.campus.events[0]
+        initial_event['event_name'] = initial_event['name']
+        del initial_event['name']
+        initial_dict.update(initial_event)
 
         # For 'Qualification Titles' form
         saqa_ids = ' '.join([
             str(s['saqa_qualification__id'])
-            for s in self.campus.qualifications])
 
+            for s in self.campus.qualifications])
         initial_dict.update({'saqa_ids': saqa_ids})
+
         return initial_dict
 
     def done(self, form_list, **kwargs):
@@ -91,6 +101,7 @@ class CampusFormWizard(CookieWizardView):
         return redirect(url)
 
     def add_events(self, step_data, current_form):
+
         new_name = step_data['campus-dates-event_name']
         new_date_start = step_data['campus-dates-date_start']
         new_date_end = step_data['campus-dates-date_end']
@@ -99,21 +110,25 @@ class CampusFormWizard(CookieWizardView):
         number_of_new_events = len(new_name)
         if len(new_name) == 1 and new_name[0] == '':
             return False
+
         for i in range(0, number_of_new_events):
-            new_campus_event = CampusEvent()
-            new_campus_event.name = new_name[i]
-            new_date_start_i = new_date_start[i]
-            new_date_start_formatted = (
-                datetime.strptime(new_date_start_i, '%m/%d/%Y')
-            ).strftime('%Y-%m-%d')
-            new_date_end_i = new_date_end[i]
-            new_date_end_formatted = (
-                datetime.strptime(new_date_end_i, '%m/%d/%Y')
-            ).strftime('%Y-%m-%d')
-            new_campus_event.date_start = new_date_start_formatted
-            new_campus_event.date_end = new_date_end_formatted
-            new_campus_event.http_link = new_http_link[i]
-            self.new_campus_events.append(new_campus_event)
+            try:
+                new_campus_event = CampusEvent()
+                new_campus_event.name = new_name[i]
+                new_date_start_i = new_date_start[i]
+                new_date_start_formatted = (
+                    datetime.strptime(new_date_start_i, '%m/%d/%Y')
+                ).strftime('%Y-%m-%d')
+                new_date_end_i = new_date_end[i]
+                new_date_end_formatted = (
+                    datetime.strptime(new_date_end_i, '%m/%d/%Y')
+                ).strftime('%Y-%m-%d')
+                new_campus_event.date_start = new_date_start_formatted
+                new_campus_event.date_end = new_date_end_formatted
+                new_campus_event.http_link = new_http_link[i]
+                self.new_campus_events.append(new_campus_event)
+            except ValueError:
+                pass
 
     def render(self, form=None, **kwargs):
         form = form or self.get_form()
@@ -121,10 +136,11 @@ class CampusFormWizard(CookieWizardView):
         current_step = context['view'].storage.current_step
         step_before = 'campus-location'
         step_after = 'campus-qualifications'
+
         # Currently this simply clears the events forcing the user to re-enter
         # TODO: Generate events from stored self.new_campus_events
         if current_step == 'campus-dates':
-            self.new_campus_events = []
+            self.new_campus_events.clear()
 
         if current_step == step_before or current_step == step_after:
             try:

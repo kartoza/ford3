@@ -23,7 +23,7 @@ class CampusEvent(models.Model):
         unique=False,
         help_text='The date on which the event ends')
     http_link = models.URLField(
-        blank=False,
+        blank=True,
         null=True,
         unique=False,
         help_text='A link to a web page containing additional details '

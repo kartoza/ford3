@@ -56,7 +56,7 @@ function innitiateRemoveCampusEventButtons() {
     $('.remove-campus-event-button').click(function() {
 
         for (let i = 0; i < 4; i++) {
-                var parent_div = this.parentElement.parentElement.parentElement;
+                var parent_div = this.parentElement.parentElement;
                 parent_div.nextElementSibling.remove();
         };
         parent_div.remove();
@@ -81,7 +81,7 @@ function onNameEditMakeOtherFieldsRequired()
             // Check if my next element is not empty
             if (!$(nextElement).val()) {
                 let nextInputParent = $(nextElement).parent().parent()
-                for (let i = 0; i < 3; i ++) {
+                for (let i = 0; i < 2; i ++) {
                     let nextInput = nextInputParent.next().find('input')
                     nextInput.prop('required', false);
                     nextInputParent = $(nextInput).parent().parent()
@@ -90,7 +90,7 @@ function onNameEditMakeOtherFieldsRequired()
             }
             else {
                 let nextInputParent = $(nextElement).parent().parent()
-                for (let i = 0; i < 3; i ++) {
+                for (let i = 0; i < 2; i ++) {
                     let nextInput =nextInputParent.next().find('input')
                     nextInput.prop('required', true);
                     nextInputParent = $(nextInput).parent().parent()
@@ -106,5 +106,14 @@ $(document).ready(function () {
             addCampusEvent();
         }
     );
+    let event_counter = 0;
+    innitiateRemoveCampusEventButtons();
+    let dateInputlist = $('.dateinput');
+    dateInputlist.each(function (key, each_datepicker) {
+        $(each_datepicker).removeClass("hasDatepicker");
+        updateElementID(each_datepicker, event_counter);
+        $(each_datepicker).datepicker();
+        event_counter += 1;
+    });
 })
 
