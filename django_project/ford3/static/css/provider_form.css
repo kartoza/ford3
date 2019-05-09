@@ -129,6 +129,6 @@ ul.errorlist {
 }
 
 #edit-location {
-    background: url('../images/ui/edit-icon.svg') no-repeat;
+    background: no-repeat url('../images/ui/edit-icon.svg');
     width: 32px;
 }
