@@ -22,14 +22,17 @@ class CampusDetailForm(CampusForm):
 
     telephone = forms.CharField(
         label='Telephone number',
+        widget=forms.TextInput(attrs={'placeholder': 'Telephone number'}),
         required=False)
 
     email = forms.EmailField(
         label='E-mail address',
+        widget=forms.EmailInput(attrs={'placeholder': 'E-mail address'}),
         required=False)
 
     max_students_per_year = forms.IntegerField(
         label='Annual student capacity',
+        widget=forms.NumberInput(attrs={'placeholder': 'Annual student capacity'}),
         max_value=1000000,
         min_value=0,
         required=False)
@@ -119,7 +122,7 @@ class CampusImportantDatesForm(CampusForm):
         label='Start date',
         required=False,
         widget=forms.DateInput(
-            attrs={'class': 'col-md-4'}
+            attrs={'class': 'col-md-4', 'placeholder': 'mm/dd/yyyy'}
         )
     )
 
@@ -127,7 +130,7 @@ class CampusImportantDatesForm(CampusForm):
         label='End date',
         required=False,
         widget=forms.DateInput(
-            attrs={'class': 'col-md-4'}
+            attrs={'class': 'col-md-4', 'placeholder': 'mm/dd/yyyy'}
         )
     )
 

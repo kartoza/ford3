@@ -26,7 +26,7 @@ class QualificationDetailForm(QualificationForm):
         help_text='*120 character max',
         required=False,
         widget=forms.Textarea(
-            attrs={'rows': '5'}
+            attrs={'rows': '5', 'placeholder': 'Write short description of this qualification'}
         ),
         max_length=120
     )
@@ -34,7 +34,9 @@ class QualificationDetailForm(QualificationForm):
         label='Long description of this qualification',
         help_text='*500 character max',
         required=False,
-        widget=forms.Textarea,
+        widget=forms.Textarea(
+            attrs={'rows': '10', 'cols': '40', 'placeholder': 'Write full description of this qualification'}
+        ),
         max_length=500
     )
     distance_learning = forms.TypedChoiceField(
@@ -67,7 +69,7 @@ class QualificationDurationFeesForm(QualificationForm):
         label='Duration of the qualification',
         required=False,
         widget=forms.NumberInput(
-            attrs={'class': 'col-md-4'}
+            attrs={'class': 'col-md-4', 'placeholder': 'Duration'}
         )
     )
 
@@ -96,7 +98,9 @@ class QualificationDurationFeesForm(QualificationForm):
         help_text='*Any extra comments on '
                   'how Costs of this Qualification work',
         required=False,
-        widget=forms.Textarea,
+        widget=forms.Textarea(
+            attrs={'placeholder': 'Additional info regarding costs', 'cols': '40', 'rows': '10'}
+        ),
         max_length=255
     )
 
@@ -130,7 +134,7 @@ class QualificationRequirementsForm(QualificationForm):
         label='What does the portfolio require?',
         required=False,
         widget=forms.Textarea(
-            attrs={'rows': '5'}
+            attrs={'rows': '5', 'placeholder': 'What does the portfolio require?'}
         ),
         max_length=120
     )
