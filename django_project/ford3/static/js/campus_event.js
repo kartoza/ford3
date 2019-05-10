@@ -49,7 +49,7 @@ function addCampusEvent(){
 }
 
 function updateElementID(e, counter){
-             $(e).attr('id', $(e).attr('id') + '_' + counter.toString());
+     $(e).attr('id', $(e).attr('id') + '_' + counter.toString());
 }
 
 function clearElement(elementToClear) {
@@ -63,6 +63,19 @@ function innitiateRemoveCampusEventButtons() {
     })
  }
 
+function innitiateRemoveFirstEventButton() {
+    $('.remove-first-campus-event-button').click(function (e) {
+        let target = e.target.parentNode.parentNode.parentNode;
+        let newTarget = $(target).prev();
+        for (let i = 0; i < 4; i++) {
+
+            $(newTarget).find("input").val("");
+            newTarget = $(newTarget).prev();
+        }
+        markAllFieldsRequiredOrNot();
+    })
+ }
+
 function getRemoveGroupRow() {
     let button_html = '<div class="remove-campus-event-button">' +
         '<div class="remove-campus-button-inner ">X</div></div>'
@@ -72,7 +85,43 @@ function getRemoveGroupRow() {
     return result
 }
 
+function getRemoveFirstGroupRow() {
+    let button_html = '<div class="remove-first-campus-event-button">' +
+        '<div class="remove-campus-button-inner ">X</div></div>'
+    let result = (  '<div class="row">' +
+                    '<div class="col-11"><hr/></div><div class="col-1">' +
+        button_html + '</div>')
+    return result
+}
 
+function markAllFieldsRequiredOrNot(){
+    $('[name=campus-dates-event_name]').each(function (index, nextElement) {
+        // Check if my next element is empty
+        if ($(nextElement).val().length == 0) {
+            let nextInputParent = $(nextElement).parent().parent()
+            for (let i = 0; i < 3; i++) {
+                let nextInput = nextInputParent.next().find('input')
+                nextInput.prop('required', false);
+                let nextLabel = nextInputParent.find('label');
+                nextLabel.text(nextLabel.text().toString().replace('*', ''));
+                nextInputParent = $(nextInput).parent().parent()
+            }
+
+        } else {
+            let nextInputParent = $(nextElement).parent().parent()
+            for (let i = 0; i < 3; i++) {
+                let nextInput = nextInputParent.next().find('input')
+                let nextLabel = nextInputParent.find('label');
+                nextLabel.text(nextLabel.text().toString().replace('*', ''));
+                nextLabel.text(nextLabel.text().toString() + '*');
+
+                // nextLabel.html(nextLabel.html + '*');
+                nextInput.prop('required', true);
+                nextInputParent = $(nextInput).parent().parent()
+            }
+        }
+    });
+}
 
 function onNameEditMakeOtherFieldsRequired()
 {
@@ -122,5 +171,13 @@ $(document).ready(function () {
         $(each_datepicker).datepicker();
         event_counter += 1;
     });
+    addRemoveButtonToFirstGroup();
+
 })
 
+function addRemoveButtonToFirstGroup(){
+    $('#div_id_campus-dates-http_link').parent().append(getRemoveFirstGroupRow());
+    innitiateRemoveFirstEventButton();
+
+    // Check if my next element is empty
+}
