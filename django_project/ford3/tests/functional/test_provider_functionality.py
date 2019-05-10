@@ -117,3 +117,18 @@ class TestProviderForm(SeleniumTestCase):
 
         self.driver.get(f'{self.live_server_url}{provider_form_url}')
         self.assertTrue('edit' in self.driver.current_url)
+
+
+    def test_save_provider(self):
+        self.assertTrue(self.driver)
+        self.provider = ModelFactories.get_provider_test_object()
+        provider_form_url = reverse('show-provider', args=str(self.provider.id))
+        self.driver.get(f'{self.live_server_url}{provider_form_url}')
+        self.driver.find_element_by_id('open_add_campus_modal').click()
+        self.driver.find_element_by_id('add-campus-input').send_keys(
+            'New campus name')
+        self.driver.find_elements_by_id('submit_add_new_campus').click()
+
+        self.assertIn('New campus name', self.driver.page_source)
+
+

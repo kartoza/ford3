@@ -65,7 +65,7 @@ def edit_provider(request, provider_id):
                 new_provider.postal_address_city = physical_address_city
                 new_provider.postal_address_postal_code = (
                     physical_address_postal_code)
-            new_provider.admissions_contact_no = admissions_contact_no
+            new_provider.admissiofns_contact_no = admissions_contact_no
             new_provider.provider_logo = provider_logo
             new_provider.save()
             campus_list = request.POST.getlist('campus_name')

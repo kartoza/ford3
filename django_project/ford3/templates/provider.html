@@ -30,7 +30,7 @@
 			</div>
 
 			<div class='col-md-3' style="padding-left: 2.5rem;">
-				<a data-toggle="modal" data-target="#exampleModal"
+				<a data-toggle="modal" data-target="#addCampusModal" id="open_add_campus_modal"
 				   class='edu-button edu-button-orange'  style="margin: 0; padding: 0; color: white">Add Campus</a>
 			</div>
 		</div>
@@ -72,15 +72,15 @@
 
 
 	<!-- Modal -->
-	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
-	     aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal fade" id="addCampusModal" tabindex="-1" role="dialog"
+	     aria-labelledby="addCampusModalLabel" aria-hidden="true">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
 					<h5 class="modal-title"
-					    id="exampleModalLabel">Add campus</h5>
+					    id="addCampusModalLabel">Add campus</h5>
 					<button type="button" class="close" data-dismiss="modal"
-					        aria-label="Close">
+					        aria-label="Close" id="modal_add_campus">
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
@@ -95,7 +95,7 @@
 							placeholder="Enter the campus' name" name="add_campus_input_name">
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary"
+						<button type="button" class="btn btn-secondary" id="submit_add_new_campus"
 						        data-dismiss="modal">Close
 						</button>
 						<button type="submit"
@@ -109,7 +109,7 @@
 	{% if campus_error|length > 0 %}
 		<script>
 			$(document).ready(function() {
-			    $('#exampleModal').modal("show");
+			    $('#addCampusModal').modal("show");
 			});
 		</script>
 	{% endif %}
