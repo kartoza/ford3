@@ -183,88 +183,97 @@
                                 </div>
                             </div>
                         </div>
-                        {% endif %}                        
+                        {% endif %}
                     </div>
-                 {% if wizard.steps.step1 == 3 %}
-                    {% if campus_events_length > 0 %}
-	                    {% for event in campus_events %}
-		                    {% if forloop.counter != 1 %}
+	                {% if wizard.steps.step1 == 3 %}
+		                {% if campus_events_length > 0 %}
+			                {% for event in campus_events %}
+				                {% if forloop.counter != 1 %}
+					                <div><div>
+						                <div id="new_event_group">
+							                <div id="div_id_campus-dates-event_name"
+							                     class="form-group row"><label
+									                for="id_campus-dates-event_name"
+									                class="col-form-label col-md-3">
+								                Event name*
+							                </label>
+								                <div class="col-md-9">
+									                <input type="text"
+									                       name="campus-dates-event_name"
+									                       placeholder="Open day, ..."
+									                       class="textinput textInput form-control"
+									                       id="id_campus-dates-event_name"
+									                       value="{{ event.name }}"
+									                       required>
+								                </div>
+							                </div>
+							                <div id="div_id_campus-dates-date_start"
+							                     class="form-group row"><label
+									                for="id_campus-dates-date_start"
+									                class="col-form-label col-md-3">
+								                Start date*
+							                </label>
+								                <div class="col-md-9">
+									                <input type="text"
+									                       name="campus-dates-date_start"
+									                       class="col-md-4 dateinput form-control hasDatepicker"
+									                       id="id_campus-dates-date_start"
+									                       value="{{ event.date_start|date:'m/d/Y' }}"
+									                       placeholder="dd/mm/yyyy"
+									                       required>
+								                </div>
+							                </div>
+							                <div id="div_id_campus-dates-date_end"
+							                     class="form-group row"><label
+									                for="id_campus-dates-date_end"
+									                class="col-form-label col-md-3">
+								                End date*
+							                </label>
+								                <div class="col-md-9">
+									                <input type="text"
+									                       name="campus-dates-date_end"
+									                       class="col-md-4 dateinput form-control hasDatepicker"
+									                       id="id_campus-dates-date_end"
+									                       placeholder="dd/mm/yyyy"
+									                       value="{{ event.date_start|date:'m/d/Y' }}"
+									                       required>
+								                </div>
+							                </div>
+							                <div id="div_id_campus-dates-http_link"
+							                     class="form-group row"><label
+									                for="id_campus-dates-http_link"
+									                class="col-form-label col-md-3">
+								                Link to event
+							                </label>
+								                <div class="col-md-9">
+									                <input type="text"
+									                       name="campus-dates-http_link"
+									                       placeholder="http://www.ExampleCampus.com/OpenDay2019"
+									                       class="textinput textInput form-control"
+									                       id="id_campus-dates-http_link"
+									                       value="{{ event.http_link }}">
+								                </div>
+							                </div>
+						                </div>
 
-			                    <div><div id="new_event_group">
-		                    <div class="row">
-			                    <div class="col-11">
-				                    <hr/>
-			                    </div>
-			                    <div class="col-1">
-				                    <div class="remove-campus-event-button">
-					                    <div class="remove-campus-button-inner">X</div>
-				                    </div>
-			                    </div>
-		                    </div>
-							 <div id="div_id_campus-dates-event_name"
-								                      class="form-group row"><label
-										                 for="id_campus-dates-event_name"
-										                 class="col-form-label col-md-3">
-									                 Event name*
-								                 </label>
-									                 <div class="col-md-9">
-										                 <input   type="text"
-								                                  name="campus-dates-event_name"
-								                                  placeholder="Open day, ..."
-								                                  class="textinput textInput form-control"
-								                                  id="id_campus-dates-event_name"
-										                          value="{{ event.name }}"
-									                              required>
-									                 </div>
-								                 </div>
-			                 <div id="div_id_campus-dates-date_start"
-			                      class="form-group row"><label
-					                 for="id_campus-dates-date_start"
-					                 class="col-form-label col-md-3">
-				                 Start date*
-			                 </label>
-				                 <div class="col-md-9">
-					                 <input type="text"
-                                            name="campus-dates-date_start"
-                                            class="col-md-4 dateinput form-control hasDatepicker"
-                                            id="id_campus-dates-date_start"
-                                            value="{{ event.date_start|date:'m/d/Y' }}"
-					                        placeholder="dd/mm/yyyy"
-					                        required>
-				                 </div>
-			                 </div>
-			                 <div id="div_id_campus-dates-date_end"
-			                      class="form-group row"><label
-					                 for="id_campus-dates-date_end"
-					                 class="col-form-label col-md-3">
-				                 End date*
-			                 </label>
-				                 <div class="col-md-9">
-					                 <input type="text"
-                                            name="campus-dates-date_end"
-                                            class="col-md-4 dateinput form-control hasDatepicker"
-                                            id="id_campus-dates-date_end"
-					                        placeholder="dd/mm/yyyy"
-	                                        value="{{ event.date_start|date:'m/d/Y' }}"
-					                        required>
-				                 </div>
-			                 </div>
-			                 <div id="div_id_campus-dates-http_link"
-			                      class="form-group row"><label
-					                 for="id_campus-dates-http_link"
-					                 class="col-form-label col-md-3">
-				                 Link to event
-			                 </label>
-				                 <div class="col-md-9">
-					                 <input   type="text"
-		                                      name="campus-dates-http_link"
-		                                      placeholder="http://www.ExampleCampus.com/OpenDay2019"
-		                                      class="textinput textInput form-control"
-		                                      id="id_campus-dates-http_link"
-				                              value="{{ event.http_link }}"></div>
-			                 </div>
-		                    </div></div>
-		                    {% endif %}
+						                <div class="row remove-campus-event-row">
+							                <div class="col-8"></div>
+							                <div class="col-4">
+								                <div class="remove-campus-event-button edu-button edu-button-orange">Remove
+								                </div>
+							                </div>
+							                <div class="col-12">
+								                <hr class="mt-0"/>
+							                </div>
+
+						                </div>
+					                </div>
+					                </div>
+
+
+
+				                {% endif %}
+
 						{% endfor %}
                     {% endif %}
 

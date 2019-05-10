@@ -347,6 +347,3 @@ class TestCampusFormDataBinding(SeleniumTestCase):
         date_end_inputs[0].send_keys(date_end_input_values[0])
         http_link_inputs[0].send_keys(http_link_input_values[0])
         # They click on the delete button for the 2nd element
-
-
-

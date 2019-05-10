@@ -27,13 +27,13 @@ function addCampusEvent(){
     let new_end_date_input = new_end_date_div.getElementsByTagName('input')[0];
     let new_events_group_div = document.createElement("div");
 
-    new_events_group_div.appendChild(new_remove_button_row)
+
     new_events_group_div.appendChild(new_name_div);
     new_events_group_div.appendChild(new_start_date_div);
     new_events_group_div.appendChild(new_end_date_div);
     new_events_group_div.appendChild(new_http_link_div);
-
-    form_group.append(new_events_group_div);
+    new_events_group_div.appendChild(new_remove_button_row);
+    $(new_events_group_div).insertAfter($('.remove-campus-event-row').last());
     
     $(new_start_date_input).removeClass('hasDatepicker');
     updateElementID(new_start_date_input, campus_event_counter);
@@ -58,14 +58,14 @@ function clearElement(elementToClear) {
 
 function innitiateRemoveCampusEventButtons() {
     $('.remove-campus-event-button').click(function() {
-        var parent_div = this.parentElement.parentElement.parentElement.parentElement;
+        var parent_div = this.parentNode.parentNode.parentNode.parentNode;
         parent_div.remove();
     })
  }
 
 function innitiateRemoveFirstEventButton() {
     $('.remove-first-campus-event-button').click(function (e) {
-        let target = e.target.parentNode.parentNode.parentNode;
+        let target = e.target.parentNode.parentNode;
         let newTarget = $(target).prev();
         for (let i = 0; i < 4; i++) {
 
@@ -77,28 +77,42 @@ function innitiateRemoveFirstEventButton() {
  }
 
 function getRemoveGroupRow() {
-    let button_html = '<div class="remove-campus-event-button">' +
-        '<div class="remove-campus-button-inner ">X</div></div>'
-    let result = (  '<div class="row">' +
-                    '<div class="col-11"><hr/></div><div class="col-1">' +
-        button_html + '</div>')
-    return result
+    let button_html = `
+        <div class="row remove-campus-event-row">
+            <div class="col-8"></div>
+            <div class="col-4">
+                <div class="remove-campus-event-button edu-button edu-button-orange">
+                    Remove
+                </div>
+            </div>
+            <div class="col-12">
+                 <hr class="mt-0"/>
+            </div>
+        </div>`
+    return button_html;
 }
 
 function getRemoveFirstGroupRow() {
-    let button_html = '<div class="remove-first-campus-event-button">' +
-        '<div class="remove-campus-button-inner ">X</div></div>'
-    let result = (  '<div class="row">' +
-                    '<div class="col-11"><hr/></div><div class="col-1">' +
-        button_html + '</div>')
-    return result
+    let button_html = `
+        <div class="row remove-campus-event-row">
+            <div class="col-8"></div>
+            <div class="col-4">
+                <div class="remove-first-campus-event-button edu-button edu-button-orange">
+                    Clear
+                </div>
+            </div>
+            <div class="col-12">
+                 <hr class="mt-0"/>
+            </div>
+        </div>`
+    return button_html;
 }
 
 function markAllFieldsRequiredOrNot(){
     $('[name=campus-dates-event_name]').each(function (index, nextElement) {
         // Check if my next element is empty
         if ($(nextElement).val().length == 0) {
-            let nextInputParent = $(nextElement).parent().parent()
+            let nextInputParent = $(nextElement).parent().parent();
             for (let i = 0; i < 3; i++) {
                 let nextInput = nextInputParent.next().find('input')
                 nextInput.prop('required', false);
