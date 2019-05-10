@@ -280,20 +280,30 @@ class TestCampusFormDataBinding(SeleniumTestCase):
         name1 = 'Sel Test Name 1'
         name2 = 'Sel Test Name 2'
         name_inputs[0].send_keys(name1)
-        date_start_inputs[0].send_keys('04/09/2019')
-        date_end_inputs[0].send_keys('05/09/2019')
-        http_link_inputs[0].send_keys('www.somelink@testworld.com')
+        date_start_input_values = []
+        date_start_input_values[0] = '04/09/2019'
+        date_start_input_values[1] = '07/11/2019'
+        date_end_input_values = []
+        date_end_input_values[0] = '05/09/2019'
+        date_end_input_values[1] = '11/11/2019'
+        http_link_input_values = []
+        http_link_input_values[0] = 'www.somelink.com'
+        http_link_input_values[1] = ''
+
+        date_start_inputs[0].send_keys(date_start_input_values[0])
+        date_end_inputs[0].send_keys(date_end_input_values[0])
+        http_link_inputs[0].send_keys(http_link_input_values[0])
         name_inputs[1].send_keys(name2)
-        date_start_inputs[1].send_keys('07/11/2119')
-        date_end_inputs[1].send_keys('07/11/2119')
-        http_link_inputs[1].send_keys('www.someotherlink@testworld.com')
+        date_start_inputs[1].send_keys(date_start_input_values[1])
+        date_end_inputs[1].send_keys(date_end_input_values[1])
+        http_link_inputs[1].send_keys(http_link_input_values[1])
         # The user submits the form
         self.get_next_button().click()
         self.get_next_button().click()
         # The form submitted successfully
         heading = self.driver.find_elements_by_tag_name('h3')
         self.assertIn(heading[0].text, self.campus.name)
-        self.driver.find_element_by_id('edit-campus-button')..click()
+        self.driver.find_element_by_id('edit-campus-button').click()
         self.get_next_button().click()
         self.get_next_button().click()
         # Make sure I have the right number of inputs
@@ -312,3 +322,31 @@ class TestCampusFormDataBinding(SeleniumTestCase):
         http_link_inputs = form_content.find_elements_by_name(
             'campus-dates-http_link')
         self.assertEqual(len(http_link_inputs), 2)
+        # They check if the data was saved correctly
+        self.assertEqual(name_inputs[0].text, name1)
+        self.assertEqual(name_inputs[1].text, name2)
+        self.assertEqual(date_start_inputs[0].text, date_start_input_values[0])
+        self.assertEqual(date_start_inputs[1].text, date_start_input_values[1])
+        self.assertEqual(date_end_inputs[0].text, date_end_input_values[0])
+        self.assertEqual(date_end_inputs[1].text, date_end_input_values[1])
+        self.assertEqual(http_link_inputs[0].text, http_link_input_values[0])
+        self.assertEqual(http_link_inputs[1].text, http_link_input_values[1])
+        # We edit the first one and delete the 2nd
+        # The user fills in the data for each field
+        name1 = 'Sel Test Name 1'
+        name2 = 'Sel Test Name 2'
+        name_inputs[0].send_keys(name1)
+        date_start_input_values = []
+        date_start_input_values[0] = '09/09/2019'
+        date_end_input_values = []
+        date_end_input_values[0] = '05/09/2019'
+        http_link_input_values = []
+        http_link_input_values[0] = 'www.somelink.com'
+        date_start_inputs[0].clear()
+        date_start_inputs[0].send_keys(date_start_input_values[0])
+        date_end_inputs[0].send_keys(date_end_input_values[0])
+        http_link_inputs[0].send_keys(http_link_input_values[0])
+        # They click on the delete button for the 2nd element
+
+
+

@@ -25,11 +25,15 @@ function addCampusEvent(){
     new_remove_button_row.classlist += 'row';
     let new_start_date_input = new_start_date_div.getElementsByTagName('input')[0];
     let new_end_date_input = new_end_date_div.getElementsByTagName('input')[0];
-    form_group.appendChild(new_remove_button_row)
-    form_group.appendChild(new_name_div);
-    form_group.appendChild(new_start_date_div);
-    form_group.appendChild(new_end_date_div);
-    form_group.appendChild(new_http_link_div);
+    let new_events_group_div = document.createElement("div");
+
+    new_events_group_div.appendChild(new_remove_button_row)
+    new_events_group_div.appendChild(new_name_div);
+    new_events_group_div.appendChild(new_start_date_div);
+    new_events_group_div.appendChild(new_end_date_div);
+    new_events_group_div.appendChild(new_http_link_div);
+
+    form_group.append(new_events_group_div);
     
     $(new_start_date_input).removeClass('hasDatepicker');
     updateElementID(new_start_date_input, campus_event_counter);
@@ -54,11 +58,7 @@ function clearElement(elementToClear) {
 
 function innitiateRemoveCampusEventButtons() {
     $('.remove-campus-event-button').click(function() {
-
-        for (let i = 0; i < 4; i++) {
-                var parent_div = this.parentElement.parentElement;
-                parent_div.nextElementSibling.remove();
-        };
+        var parent_div = this.parentElement.parentElement.parentElement.parentElement;
         parent_div.remove();
     })
  }
@@ -115,5 +115,24 @@ $(document).ready(function () {
         $(each_datepicker).datepicker();
         event_counter += 1;
     });
+    removeRequired();
 })
+
+function removeRequired() {
+    let event_name = document.getElementsByName(
+        'campus-dates-event_name');
+    let start_date_div = document.getElementsByName(
+        'campus-dates-date_start');
+    let end_date_div = document.getElementsByName(
+        'campus-dates-date_end');
+    if (!event_name.value)
+    {
+        let start_date_label = $(start_date_div).parent().parent().find("label"); //.parentNode.parentNode.getElementByTagName("Input");
+        let end_date_label = $(end_date_div).parent().parent().find("label"); //.parentNode.parentNode.getElementByTagName("Input");
+
+        $(event_name).labels()[0].innerHTML = $(event_name).labels()[0].innerHTML.toString().replace("*", "");
+        $(start_date_label).text($(start_date_label).html().toString().replace("*", ""));
+        $(end_date_label).text($(end_date_label).html().toString().replace("*", ""));
+    }
+}
 

@@ -111,7 +111,7 @@ class CampusImportantDatesForm(CampusForm):
         label='Event name*',
         required=False,
         widget=forms.TextInput(
-            attrs={'placeholder': 'eg Open day, ...'}
+            attrs={'placeholder': 'Open day, ...'}
         )
     )
 
@@ -137,7 +137,7 @@ class CampusImportantDatesForm(CampusForm):
         label='Link to event',
         required=False,
         widget=forms.TextInput(
-            attrs={'placeholder': 'eg. http://www.ExampleCampus.com/OpenDay2019'}
+            attrs={'placeholder': 'http://www.ExampleCampus.com/OpenDay2019'}
         )
     )
 

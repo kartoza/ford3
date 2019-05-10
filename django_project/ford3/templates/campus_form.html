@@ -189,7 +189,8 @@
                     {% if campus_events_length > 0 %}
 	                    {% for event in campus_events %}
 		                    {% if forloop.counter != 1 %}
-		                    <div id="new_event_group">
+
+			                    <div><div id="new_event_group">
 		                    <div class="row">
 			                    <div class="col-11">
 				                    <hr/>
@@ -257,12 +258,12 @@
 				                 <div class="col-md-9">
 					                 <input   type="text"
 		                                      name="campus-dates-http_link"
-		                                      placeholder="http://..."
+		                                      placeholder="http://www.ExampleCampus.com/OpenDay2019"
 		                                      class="textinput textInput form-control"
 		                                      id="id_campus-dates-http_link"
 				                              value="{{ event.http_link }}"></div>
 			                 </div>
-		                    </div>
+		                    </div></div>
 		                    {% endif %}
 						{% endfor %}
                     {% endif %}

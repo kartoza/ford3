@@ -68,11 +68,13 @@ class CampusFormWizard(CookieWizardView):
         # For 'Details' and 'Location' forms
 
         initial_dict = model_to_dict(self.campus)
-        initial_event = self.campus.events[0]
-        initial_event['event_name'] = initial_event['name']
-        del initial_event['name']
-        initial_dict.update(initial_event)
-
+        try:
+            initial_event = self.campus.events[0]
+            initial_event['event_name'] = initial_event['name']
+            del initial_event['name']
+            initial_dict.update(initial_event)
+        except IndexError:
+            pass
         # For 'Qualification Titles' form
         saqa_ids = ' '.join([
             str(s['saqa_qualification__id'])
@@ -91,8 +93,8 @@ class CampusFormWizard(CookieWizardView):
                 self.campus.save_form_data(cleaned_data)
             elif form == 'campus-location':
                 self.campus.save_postal_data(cleaned_data)
-            elif form == 'campus-dates':
-                self.campus.save_events(self.new_campus_events)
+            # elif form == 'campus-dates':
+            #     self.campus.save_events(self.new_campus_events)
             elif form == 'campus-qualifications':
                 self.campus.save_qualifications(cleaned_data)
                 self.campus.delete_qualifications(cleaned_data)
@@ -130,6 +132,7 @@ class CampusFormWizard(CookieWizardView):
             except ValueError:
                 pass
 
+
     def render(self, form=None, **kwargs):
         form = form or self.get_form()
         context = self.get_context_data(form=form, **kwargs)
@@ -147,6 +150,7 @@ class CampusFormWizard(CookieWizardView):
                 self.add_events(
                     context['view'].storage.data['step_data']['campus-dates'],
                     form)
+                self.campus.save_events(self.new_campus_events)
             except KeyError:
                 pass
         return self.render_to_response(context)
