@@ -120,3 +120,13 @@ class Provider(models.Model):
     @property
     def is_new_provider(self):
         return len(self.campus) == 0
+
+    # @property
+    # def campus_name_is_available(self, new_name):
+    #     campus_query = Campus.objects.filter(
+    #         provider__id=self.id,
+    #         name=new_name).count()
+    #     if campus_query == 0:
+    #         return True
+    #     else:
+    #         return False

@@ -118,23 +118,37 @@ def edit_provider(request, provider_id):
 
 
 def show_provider(request, provider_id):
-    provider = get_object_or_404(
-        Provider,
-        id=provider_id
-    )
-    if provider.is_new_provider:
-        redirect_url = reverse(
-            'edit-provider',
-            args=[str(provider.id)])
-        return redirect(redirect_url)
+        provider = get_object_or_404(
+            Provider,
+            id=provider_id
+        )
+        if provider.is_new_provider:
+            redirect_url = reverse(
+                'edit-provider',
+                args=[str(provider.id)])
+            return redirect(redirect_url)
 
-    context = {
-        'provider': provider
-    }
+        context = {
+            'provider': provider
+        }
+        context['campus_error'] = ''
+        if request.method == 'POST':
+            new_campus_name = str(request.POST['add_campus_input_name'])
+            campus_query = (Campus.objects.filter(
+                provider__id=provider.id,
+                name=new_campus_name).count())
+            if campus_query == 0:
+                new_campus_object = Campus()
+                new_campus_object.name = new_campus_name
+                new_campus_object.provider = provider
+                new_campus_object.save()
+                context['campus_error'] = ''
+            else:
+                context['campus_error'] = (
+                    'Sorry, that campus name is already taken')
+        # make sure logo has been uploaded before set the context
+        # otherwise, let it empty
+        if provider.provider_logo:
+            context['provider_logo'] = provider.provider_logo.url
 
-    # make sure logo has been uploaded before set the context
-    # otherwise, let it empty
-    if provider.provider_logo:
-        context['provider_logo'] = provider.provider_logo.url
-
-    return render(request, 'provider.html', context)
+        return render(request, 'provider.html', context)

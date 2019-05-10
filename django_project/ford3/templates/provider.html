@@ -17,11 +17,21 @@
 		<div class="row no-gutters">
 			<div class='col-md-9'>
 				<h3>{{ provider.name }}</h3>
-				<h4>Campuses</h4>
-				<hr />
 			</div>
-			<div class='col-md-3'>
-				<a href="{% url 'edit-provider' provider_id=provider.id %}" class='edu-button edu-button-orange'>Edit Provider</a>
+			<div class='col-md-3' style="padding-left: 2.5rem;">
+				<a href="{% url 'edit-provider' provider_id=provider.id %}"
+				   class='edu-button edu-button-orange' style="margin: 0; padding: 0;">Edit Provider</a>
+			</div>
+		</div>
+		<div class="row no-gutters">
+			<div class='col-md-9'>
+				<h4>Campuses</h4>
+				<hr/>
+			</div>
+
+			<div class='col-md-3' style="padding-left: 2.5rem;">
+				<a data-toggle="modal" data-target="#exampleModal"
+				   class='edu-button edu-button-orange'  style="margin: 0; padding: 0; color: white">Add Campus</a>
 			</div>
 		</div>
 
@@ -60,7 +70,52 @@
 		</div>
     </div>
 
+
+	<!-- Modal -->
+	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+	     aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title"
+					    id="exampleModalLabel">Add campus</h5>
+					<button type="button" class="close" data-dismiss="modal"
+					        aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<form method="post">
+					{% csrf_token %}
+					<div class="modal-body">
+						{% if campus_error|length > 0 %}
+							<div class="alert alert-danger">{{ campus_error }}</div>
+						{% endif %}
+						<label for="add_campus_input">Campus name</label><input
+							required id="add_campus_input" type="text"
+							placeholder="Enter the campus' name" name="add_campus_input_name">
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary"
+						        data-dismiss="modal">Close
+						</button>
+						<button type="submit"
+						        class="edu-button edu-button-blue">Add campus
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	{% if campus_error|length > 0 %}
+		<script>
+			$(document).ready(function() {
+			    $('#exampleModal').modal("show");
+			});
+		</script>
+	{% endif %}
 {% endblock %}
+
+
 
 {% block footer %}
     <script type="text/javascript"
