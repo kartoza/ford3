@@ -78,20 +78,27 @@ function onNameEditMakeOtherFieldsRequired()
 {
     $('[name=campus-dates-event_name]').each(function(index, nextElement) {
         $(nextElement).change(function() {
-            // Check if my next element is not empty
-            if (!$(nextElement).val()) {
+            // Check if my next element is empty
+            if ($(nextElement).val().length == 0) {
                 let nextInputParent = $(nextElement).parent().parent()
-                for (let i = 0; i < 2; i ++) {
+                for (let i = 0; i < 3; i ++) {
                     let nextInput = nextInputParent.next().find('input')
                     nextInput.prop('required', false);
+                    let nextLabel = nextInputParent.find('label');
+                    nextLabel.text(nextLabel.text().toString().replace('*', ''));
                     nextInputParent = $(nextInput).parent().parent()
                 }
 
             }
             else {
                 let nextInputParent = $(nextElement).parent().parent()
-                for (let i = 0; i < 2; i ++) {
+                for (let i = 0; i < 3; i ++) {
                     let nextInput =nextInputParent.next().find('input')
+                    let nextLabel = nextInputParent.find('label');
+                    nextLabel.text(nextLabel.text().toString().replace('*', ''));
+                    nextLabel.text(nextLabel.text().toString() + '*');
+
+                    // nextLabel.html(nextLabel.html + '*');
                     nextInput.prop('required', true);
                     nextInputParent = $(nextInput).parent().parent()
                 }
@@ -115,24 +122,5 @@ $(document).ready(function () {
         $(each_datepicker).datepicker();
         event_counter += 1;
     });
-    removeRequired();
 })
-
-function removeRequired() {
-    let event_name = document.getElementsByName(
-        'campus-dates-event_name');
-    let start_date_div = document.getElementsByName(
-        'campus-dates-date_start');
-    let end_date_div = document.getElementsByName(
-        'campus-dates-date_end');
-    if (!event_name.value)
-    {
-        let start_date_label = $(start_date_div).parent().parent().find("label"); //.parentNode.parentNode.getElementByTagName("Input");
-        let end_date_label = $(end_date_div).parent().parent().find("label"); //.parentNode.parentNode.getElementByTagName("Input");
-
-        $(event_name).labels()[0].innerHTML = $(event_name).labels()[0].innerHTML.toString().replace("*", "");
-        $(start_date_label).text($(start_date_label).html().toString().replace("*", ""));
-        $(end_date_label).text($(end_date_label).html().toString().replace("*", ""));
-    }
-}
 
