@@ -1,36 +1,12 @@
-import json
 from django.shortcuts import (
     render,
     get_object_or_404,
     render_to_response
 )
-from django.http import HttpResponse
 from ford3.models import (
     Campus,
-    Qualification,
-    SAQAQualification
+    Qualification
 )
-
-
-def json_response(results):
-    return HttpResponse(
-        json.dumps({
-            'results': results}),
-        content_type='application/json')
-
-
-def saqa_qualifications(request):
-    if request.method != 'GET':
-        return json_response([])
-
-    query = request.GET.get('q', None)
-
-    if query is None or len(query) == 0:
-        return json_response([])
-
-    results = SAQAQualification.search(query)
-
-    return json_response(results)
 
 
 def show_campus(request, provider_id, campus_id):
@@ -43,12 +19,13 @@ def show_campus(request, provider_id, campus_id):
     context = {
         'form_data': form_data,
         'campus': campus,
-        'provider': campus.provider
+        'provider': campus.provider,
+        # make sure logo has been uploaded before set the context
+        # otherwise, let it empty
+        'provider_logo':
+            campus.provider.provider_logo.url
+            if campus.provider.provider_logo else ""
     }
-    # make sure logo has been uploaded before set the context
-    # otherwise, let it empty
-    if campus.provider.provider_logo:
-        context['provider_logo'] = campus.provider.provider_logo.url
 
     return render(request, 'campus.html', context)
 
@@ -60,7 +37,11 @@ def show_qualification(request, provider_id, campus_id, qualification_id):
     context = {
         'qualification': qualification,
         'provider': qualification.campus.provider,
-        'provider_logo': qualification.campus.provider.provider_logo.url
+        # make sure logo has been uploaded before set the context
+        # otherwise, let it empty
+        'provider_logo':
+            qualification.campus.provider.provider_logo.url
+            if qualification.campus.provider.provider_logo else ""
     }
     return render(request, 'qualification.html', context)
 
