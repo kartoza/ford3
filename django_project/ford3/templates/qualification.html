@@ -14,22 +14,22 @@
 <div class='container'>
     <div class='row'>
         <div class="col-md-12">
-            <h3 class="mb-4 noplr">{{ qualification.campus }}: {{ qualification }}</h3>
-            <div class='row pt-3 nomlr'>
-                <div class='col-md-10 edu-underline noplr'>
+            <h3 class="mb-4 px-0">{{ qualification.campus }}: {{ qualification }}</h3>
+            <div class='row pt-3 mx-0'>
+                <div class='col-md-10 edu-underline px-0'>
                     <h4 class="mt-3">1. Details</h4>
                 </div>
                 <div class='col-md-2'>
                     <a class="edu-button edu-button-orange" href="{% url 'edit-qualification' provider_id=qualification.campus.provider.id campus_id=qualification.campus.id qualification_id=qualification.id %}">Edit</a>
                 </div>
             </div>
-            <div class='row pt-3 pb-3'>
+            <div class='row py-3'>
                 <div class='col-md-12'>
-                    <b>Short description of this qualification:</b>
+                    <b>Short description</b>
                     <p class="pt-3">{{ qualification.short_description }}</p>
 
-                    <b>Long description of this qualification:</b>
-                    <p class="pt-3 pb-3">{{ qualification.long_description }}</p>
+                    <b>Long description</b>
+                    <p class="py-3">{{ qualification.long_description }}</p>
                 </div>
                 <div class='col-md-6 pb-3'>
                     <b>NQF Level:</b> {{ qualification.saqa_qualification.nqf_level }}
@@ -39,15 +39,15 @@
                 </div>
             </div>
 
-            <div class="row pt-3 pb-3 nomlr">
-                <div class='col-md-10 edu-underline noplr'>
+            <div class="row py-3 mx-0">
+                <div class='col-md-10 edu-underline px-0'>
                     <h4 class="mt-3">2. Duration and Fees</h4>
                 </div>
                 <div class='col-md-2'>
                     <a class="edu-button edu-button-orange" href="#">Edit</a>
                 </div>
             </div>
-            <div class='row pt-3 pb-3'>
+            <div class='row py-3'>
                 <div class="row col-md-12 pb-3">
                     <div class="col-md-6">
                         <b>Full-time qualification:</b> {{ qualification.full_time|yesno:"YES,NO" }}
@@ -66,15 +66,15 @@
                 </div>
             </div>
 
-            <div class="row pt-3 pb-3 nomlr">
-                <div class='col-md-10 edu-underline noplr'>
+            <div class="row py-3 mx-0">
+                <div class='col-md-10 edu-underline px-0'>
                     <h4 class="mt-3">3. Requirements</h4>
                 </div>
                 <div class='col-md-2'>
                     <a class="edu-button edu-button-orange" href="#">Edit</a>
                 </div>
             </div>
-            <div class='row pt-3 pb-3'>
+            <div class='row py-3'>
                 <div class='col-md-12 pb-3'>
                     {% for requirement in qualification.requirements %}
                     <div class="row pb-3">
@@ -110,19 +110,19 @@
                     {% endfor %}
                 </div>
             </div>
-            <div class="row pt-3 pb-3 nomlr">
-                <div class='col-md-10 edu-underline noplr'>
+            <div class="row py-3 mx-0">
+                <div class='col-md-10 edu-underline px-0'>
                     <h4 class="mt-3">4. Interests and Jobs</h4>
                 </div>
                 <div class='col-md-2'>
                     <a class="edu-button edu-button-orange" href="#">Edit</a>
                 </div>
             </div>
-            <div class='row pt-3 pb-3'>
+            <div class='row py-3'>
                 <div class='col-md-12'>
                     <div class="row pb-3">
                         <div class="col-md-6">
-                            <b>Choose three interests associated to this qualification:</b>
+                            <b>Interests</b>
                             <br />
                             {% for  interest in qualification.interest_name_list %}
                                 {{  interest }}
@@ -130,7 +130,7 @@
                             {% endfor %}
                         </div>
                         <div class="col-md-6">
-                            <b>Choose up to five occupations that this qualification could prepare you for:</b>
+                            <b>Occupations</b>
                             <br />
                             {% for occupation in qualification.occupation_name_list %}
                                 {{  occupation }}
@@ -140,45 +140,53 @@
                     </div>
                     <div class="row pb-3">
                         <div class="col-md-6">
-                            <b>Does the qualification prepare for a critical skills occupation:</b>
-                            {{ qualification.critical_skill|yesno:"YES,NO" }}
+                            <b>Does the qualification prepare for a critical skills occupation</b>
+                            {% if qualification.critical_skill %}
+                                &#9989
+                            {% else %}
+                                &#10060
+                            {% endif %}
                         </div>
                         <div class="col-md-6">
-                            <b>Does the qualification prepare for a green occupation:</b>
-                            {{ qualification.green_occupation|yesno:"YES,NO" }}
+                            <b>Does the qualification prepare for a green occupation</b>
+                            {% if qualification.green_occupation  %}
+                                &#9989
+                            {% else %}
+                                &#10060
+                            {% endif %}
                         </div>
                     </div>
                     <div class="row pb-3">
                         <div class="col-md-6">
-                            <b>Does the qualification prepare for a high demand occupation:</b>
-                            {{ qualification.high_demand_occupation|yesno:"YES,NO" }}
+                            <b>Does the qualification prepare for a high demand occupation</b>
+                            {% if qualification.high_demand_occupation %}
+                                &#9989
+                            {% else %}
+                                &#10060
+                            {% endif %}
                         </div>
                     </div>
 
                 </div>
             </div>
 
-            <div class="row pt-3 pb-3 nomlr">
-                <div class='col-md-10 edu-underline noplr'>
+            <div class="row py-3 mx-0">
+                <div class='col-md-10 edu-underline px-0'>
                     <h4 class="mt-3">5. Important Dates</h4>
                 </div>
                 <div class='col-md-2'>
                     <a class="edu-button edu-button-orange" href="#">Edit</a>
                 </div>
             </div>
-            <div class='row pt-3 pb-3'>
+            <div class='row py-3'>
                 <div class='col-md-6'>
-                    <b>Application period start: </b>{{ qualification.qualification_events_list.0.date_start }}
-                </div>
-                <div class='col-md-6'>
-                    <b>Application period end: </b>{{ qualification.qualification_events_list.0.date_end }}
+                    {% for event in qualification.qualification_events_list %}
+                    <b>{{ event.name }} </b>{{ event.date_start }} - {{ event.date_end }}
+                    {% endfor %}
                 </div>
             </div>
             <div class="row mb-5">
-                <div class="col-md-9">
-                    {# spacer #}
-                </div>
-                <div class="col-md-3">
+                <div class="col-md-3 mx-auto">
                     <a class="edu-button edu-button-blue h-100" href="{% url 'show-campus' provider_id=provider.id campus_id=qualification.campus.id %}">Go to Campus Overview</a>
                 </div>
             </div>
