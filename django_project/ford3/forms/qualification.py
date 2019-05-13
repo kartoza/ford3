@@ -74,7 +74,7 @@ class QualificationDurationFeesForm(QualificationForm):
         label='Duration of the qualification',
         required=False,
         widget=forms.NumberInput(
-            attrs={'class': 'col-md-4', 'placeholder': '12'}
+            attrs={'class': 'col-md-4', 'placeholder': '6 months or 2 years'}
         )
     )
 
