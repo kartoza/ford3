@@ -102,6 +102,12 @@ class Campus(models.Model):
         help_text="The campus' postal adress code",
         max_length=255)
 
+    deleted = models.BooleanField(
+        blank=False,
+        null=False,
+        default=False,
+        help_text="Campus has been deleted")
+
     pass
 
     @property
@@ -215,6 +221,10 @@ class Campus(models.Model):
                 saqa_qualification__id=saqa_id,
                 campus=self)
             qualif.delete()
+
+    def mark_campus_as_deleted(self):
+        self.deleted = True
+        self.save()
 
     def __str__(self):
         return self.name
