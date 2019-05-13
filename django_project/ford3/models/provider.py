@@ -122,14 +122,14 @@ class Provider(models.Model):
     def is_new_provider(self):
         return len(self.campus) == 0
 
-    def has_campus_event(self, new_campus_name):
+    def has_campus(self, new_campus_name):
         campus_exists = (Campus.objects.filter(
             provider__id=self.id,
             name=new_campus_name).exists())
         return campus_exists
 
-    def save_campus(self, new_name):
-        campus_exists = self.has_campus_event(new_name)
+    def add_campus(self, new_name):
+        campus_exists = self.has_campus(new_name)
         if not campus_exists:
             new_campus_object = Campus()
             new_campus_object.name = new_name

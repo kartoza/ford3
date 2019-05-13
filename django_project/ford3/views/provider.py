@@ -132,7 +132,7 @@ def show_provider(request, provider_id):
 
     if request.method == 'POST':
         try:
-            provider.save_campus(str(request.POST['add_campus_input_name']))
+            provider.add_campus(str(request.POST['add_campus_input_name']))
         except ValidationError as campus_error:
             context['campus_error'] = (
                 campus_error.error_dict['provider'][0].message)

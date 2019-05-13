@@ -118,7 +118,7 @@ class TestProviderForm(SeleniumTestCase):
         self.driver.get(f'{self.live_server_url}{provider_form_url}')
         self.assertTrue('edit' in self.driver.current_url)
 
-    # def test_save_provider(self):
+    # def test_save_campus(self):
     #     self.assertTrue(self.driver)
     #     self.provider = ModelFactories.get_provider_test_object()
     #     provider_form_url = reverse(
