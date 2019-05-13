@@ -22,18 +22,18 @@ class CampusDetailForm(CampusForm):
 
     telephone = forms.CharField(
         label='Telephone number',
-        widget=forms.TextInput(attrs={'placeholder': 'Telephone number'}),
+        widget=forms.TextInput(attrs={'placeholder': '021 345 678'}),
         required=False)
 
     email = forms.EmailField(
         label='E-mail address',
-        widget=forms.EmailInput(attrs={'placeholder': 'E-mail address'}),
+        widget=forms.EmailInput(attrs={'placeholder': 'email@example.com'}),
         required=False)
 
     max_students_per_year = forms.IntegerField(
         label='Annual student capacity',
         widget=forms.NumberInput(
-            attrs={'placeholder': 'Annual student capacity'}),
+            attrs={'placeholder': '1000'}),
         max_value=1000000,
         min_value=0,
         required=False)
@@ -139,7 +139,7 @@ class CampusImportantDatesForm(CampusForm):
         label='Link to event',
         required=False,
         widget=forms.TextInput(
-            attrs={'placeholder': 'http://...'}
+            attrs={'placeholder': 'http://alink.to/event'}
         )
     )
 

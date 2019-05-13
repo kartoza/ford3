@@ -10,9 +10,9 @@ class ProspectForm(forms.models.ModelForm):
 
         widgets = {
             'name': forms.fields.TextInput(
-                attrs={'placeholder': 'Your name'}),
+                attrs={'placeholder': 'John Doe'}),
             'telephone': forms.fields.TextInput(
-                attrs={'placeholder': 'Primary contact number'}),
+                attrs={'placeholder': '021 345 678'}),
             'email': forms.fields.EmailInput(
-                attrs={'placeholder': 'example@example.com'}),
+                attrs={'placeholder': 'johndoe@email.com'}),
         }

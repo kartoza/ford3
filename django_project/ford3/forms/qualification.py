@@ -28,7 +28,7 @@ class QualificationDetailForm(QualificationForm):
         widget=forms.Textarea(
             attrs={
                 'rows': '5',
-                'placeholder': 'Write short description of this qualification'}
+                'placeholder': 'Brief summary of the qualification'}
         ),
         max_length=120
     )
@@ -40,7 +40,7 @@ class QualificationDetailForm(QualificationForm):
             attrs={
                 'rows': '10',
                 'cols': '40',
-                'placeholder': 'Write full description of this qualification'}
+                'placeholder': 'Write full description of the qualification'}
         ),
         max_length=500
     )
@@ -74,7 +74,7 @@ class QualificationDurationFeesForm(QualificationForm):
         label='Duration of the qualification',
         required=False,
         widget=forms.NumberInput(
-            attrs={'class': 'col-md-4', 'placeholder': 'Duration'}
+            attrs={'class': 'col-md-4', 'placeholder': '12'}
         )
     )
 
