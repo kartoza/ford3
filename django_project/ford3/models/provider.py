@@ -2,6 +2,7 @@ from django.db import models
 from django.core.exceptions import ValidationError
 from ford3.models.campus import Campus
 
+
 class Provider(models.Model):
     PROVIDER_TYPES = (
         'TVET College',

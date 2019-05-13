@@ -1,9 +1,7 @@
 from django.shortcuts import (
     render,
     redirect,
-    get_object_or_404,
-)
-
+    get_object_or_404)
 from django.core.exceptions import ValidationError
 from django.db import transaction, IntegrityError
 from django.urls import reverse
@@ -129,15 +127,15 @@ def show_provider(request, provider_id):
             'edit-provider',
             args=[str(provider.id)])
         return redirect(redirect_url)
-    context = { 'provider': provider }
-
+    context = {'provider': provider}
     context['campus_error'] = ''
 
     if request.method == 'POST':
         try:
             provider.save_campus(str(request.POST['add_campus_input_name']))
         except ValidationError as campus_error:
-            context['campus_error'] = campus_error.error_dict['provider'][0].message
+            context['campus_error'] = (
+                campus_error.error_dict['provider'][0].message)
     # make sure logo has been uploaded before set the context
     # otherwise, let it empty
     if provider.provider_logo:
