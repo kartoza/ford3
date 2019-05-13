@@ -1,6 +1,7 @@
 {% extends "index.html" %}
 {% load static %}
 {% load nqf_level_tags %}
+{% load change_value %}
 
 {% block navbar %}
 	{% include 'navbar.html' %}
@@ -14,6 +15,7 @@
 <div class='container'>
     <div class='row'>
         <div class="col-md-12">
+            {% autoescape off %}
             <h3 class="mb-4 px-0">{{ qualification.campus }}: {{ qualification }}</h3>
             <div class='row pt-3 mx-0'>
                 <div class='col-md-10 edu-underline px-0'>
@@ -26,10 +28,10 @@
             <div class='row py-3'>
                 <div class='col-md-12'>
                     <b>Short description</b>
-                    <p class="pt-3">{{ qualification.short_description }}</p>
+                    <p class="pt-3">{{ qualification.short_description|is_none }}</p>
 
                     <b>Long description</b>
-                    <p class="py-3">{{ qualification.long_description }}</p>
+                    <p class="py-3">{{ qualification.long_description|is_none }}</p>
                 </div>
                 <div class='col-md-6 pb-3'>
                     <b>NQF Level:</b> {{ qualification.saqa_qualification.nqf_level }}
@@ -58,10 +60,10 @@
                 </div>
                 <div class="row col-md-12 pb-3">
                     <div class="col-md-6">
-                        <b>Duration of the qualification:</b> {{ qualification.duration_in_months }} months
+                        <b>Duration of the qualification:</b> {{ qualification.duration_in_months|is_number_none }} months
                     </div>
                     <div class="col-md-6">
-                        <b>Total cost of the qualification:</b> R {{ qualification.total_cost }}
+                        <b>Total cost of the qualification:</b> R {{ qualification.total_cost|is_number_none }}
                     </div>
                 </div>
             </div>
@@ -141,32 +143,19 @@
                     <div class="row pb-3">
                         <div class="col-md-6">
                             <b>Does the qualification prepare for a critical skills occupation</b>
-                            {% if qualification.critical_skill %}
-                                &#9989
-                            {% else %}
-                                &#10060
-                            {% endif %}
+                                {{ qualification.critical_skill|checked_or_crossed}}
                         </div>
                         <div class="col-md-6">
                             <b>Does the qualification prepare for a green occupation</b>
-                            {% if qualification.green_occupation  %}
-                                &#9989
-                            {% else %}
-                                &#10060
-                            {% endif %}
+                                {{ qualification.green_occupation|checked_or_crossed}}
                         </div>
                     </div>
                     <div class="row pb-3">
                         <div class="col-md-6">
                             <b>Does the qualification prepare for a high demand occupation</b>
-                            {% if qualification.high_demand_occupation %}
-                                &#9989
-                            {% else %}
-                                &#10060
-                            {% endif %}
+                                {{ qualification.high_demand_occupation|checked_or_crossed }}
                         </div>
                     </div>
-
                 </div>
             </div>
 
@@ -190,6 +179,7 @@
                     <a class="edu-button edu-button-blue h-100" href="{% url 'show-campus' provider_id=provider.id campus_id=qualification.campus.id %}">Go to Campus Overview</a>
                 </div>
             </div>
+        {% endautoescape %}
         </div>
     </div>
 </div>
