@@ -1,6 +1,6 @@
 from django.db import models
+from django.core.exceptions import ValidationError
 from ford3.models.campus import Campus
-
 
 class Provider(models.Model):
     PROVIDER_TYPES = (
@@ -121,12 +121,20 @@ class Provider(models.Model):
     def is_new_provider(self):
         return len(self.campus) == 0
 
-    # @property
-    # def campus_name_is_available(self, new_name):
-    #     campus_query = Campus.objects.filter(
-    #         provider__id=self.id,
-    #         name=new_name).count()
-    #     if campus_query == 0:
-    #         return True
-    #     else:
-    #         return False
+    def has_campus_event(self, new_campus_name):
+        campus_exists = (Campus.objects.filter(
+            provider__id=self.id,
+            name=new_campus_name).exists())
+        return campus_exists
+
+    def save_campus(self, new_name):
+        campus_exists = self.has_campus_event(new_name)
+        if not campus_exists:
+            new_campus_object = Campus()
+            new_campus_object.name = new_name
+            new_campus_object.provider = self
+            new_campus_object.save()
+        else:
+            raise ValidationError(
+                {'provider':
+                 'Sorry, that campus name is already taken'})
