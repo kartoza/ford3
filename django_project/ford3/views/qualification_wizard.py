@@ -169,7 +169,7 @@ class QualificationFormWizardDataProcess(object):
                 )
             )
 
-        Qualification.objects.filter(
+        Qualification.active_objects.filter(
             id=self.qualification.id
         ).update(
             **qualification_form_data

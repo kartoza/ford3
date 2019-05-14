@@ -97,7 +97,7 @@ class TestQualificationWizard(TestCase):
         self.qualification_data_process.process_data(
             form_data=self.wizard_form_data
         )
-        updated_qualification = Qualification.objects.get(
+        updated_qualification = Qualification.active_objects.get(
             id=self.qualification.id
         )
         qualification_form_data = (

@@ -8,7 +8,15 @@ from ford3.models.qualification_entrance_requirement_subject import Qualificatio
 from ford3.models.qualification_event import QualificationEvent
 
 
+class ActiveQualificationManager(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset().filter(deleted=False)
+
+
 class Qualification(models.Model):
+    objects = models.Manager()
+    active_objects = ActiveQualificationManager()
+
     subjects = models.ManyToManyField(
         'ford3.subject',
         through='QualificationEntranceRequirementSubject')
@@ -104,6 +112,13 @@ class Qualification(models.Model):
         auto_now_add=True)
     edited_at = models.DateTimeField(
         auto_now=True)
+
+
+    deleted = models.BooleanField(
+        blank=False,
+        null=False,
+        default=False,
+        help_text="Qualification has been deleted")
 
 
     def __str__(self):

@@ -126,13 +126,17 @@ class Campus(models.Model):
 
     @property
     def qualifications(self):
-        return list(self.qualification_set.all().values(
+        qualifications = self.qualification_set.filter(
+            campus_id=self.id,
+            deleted=False
+        ).values(
             'id',
             'saqa_qualification__id',
             'saqa_qualification__name',
             'saqa_qualification__saqa_id',
             'saqa_qualification__accredited',
-            'edited_at'))
+            'edited_at')
+        return list(qualifications)
 
     @property
     def saqa_ids(self):
@@ -225,8 +229,7 @@ class Campus(models.Model):
         for saqa_id in ids:
             qualif = self.qualification_set.filter(
                 saqa_qualification__id=saqa_id,
-                campus=self)
-            qualif.delete()
+                campus=self).update(deleted=True)
 
     def __str__(self):
         return self.name
