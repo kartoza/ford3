@@ -152,6 +152,21 @@ h5 {
     outline-color: var(--c-grey-l);
 }
 
+.edu-button-red {
+    color: white;
+    background-color: darkred;
+    text-decoration: none;
+}
+
+.edu-button-red:hover {
+    color: white;
+    background-color: #8b6c11;
+    text-decoration: none;
+}
+
+.edu-button-red:focus {
+    outline-color: darkred;
+}
 
 /*  ----------------------------- SWITCH CSS - modified https://www.w3schools.com/howto/howto_css_switch.asp  ----------------------------- */
 

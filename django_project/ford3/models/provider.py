@@ -105,6 +105,11 @@ class Provider(models.Model):
         unique=False,
         help_text='',
         max_length=255)
+    deleted = models.BooleanField(
+        blank=True,
+        null=True,
+        default=False,
+        help_text='')
 
     pass
 

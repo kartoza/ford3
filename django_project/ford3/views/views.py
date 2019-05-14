@@ -7,12 +7,18 @@ from ford3.models import (
     Campus,
     Qualification
 )
+from base.views import custom_404
 
 
 def show_campus(request, provider_id, campus_id):
     campus = get_object_or_404(
         Campus,
         id=campus_id)
+
+    # prevent a knowledgeable user looks at deleted provider
+    if campus.provider.deleted:
+        return custom_404(request)
+
     form_data = {
         'provider_name': campus.provider.name
     }
@@ -34,6 +40,11 @@ def show_qualification(request, provider_id, campus_id, qualification_id):
     qualification = get_object_or_404(
         Qualification,
         id=qualification_id)
+
+    # prevent a knowledgeable user looks at deleted provider
+    if qualification.campus.provider.deleted:
+        return custom_404(request)
+
     context = {
         'qualification': qualification,
         'provider': qualification.campus.provider,

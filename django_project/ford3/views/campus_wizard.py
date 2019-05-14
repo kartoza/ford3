@@ -12,6 +12,7 @@ from ford3.models import (
     CampusEvent,
     Provider
 )
+from base.views import custom_404
 
 
 class CampusFormWizard(CookieWizardView):
@@ -37,6 +38,9 @@ class CampusFormWizard(CookieWizardView):
     def get(self, *args, **kwargs):
         if not self.campus or not self.provider:
             raise Http404()
+        # don't show deleted provider
+        if self.provider.deleted:
+            return custom_404(self.request)
         if 'step' in self.request.GET:
             return super().render_goto_step(self.request.GET['step'], **kwargs)
         else:

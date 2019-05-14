@@ -17,6 +17,7 @@ from ford3.forms.qualification import (
     QualificationRequirementsForm,
     QualificationInterestsAndJobsForm,
 )
+from base.views import custom_404
 
 
 class QualificationFormWizardDataProcess(object):
@@ -249,6 +250,10 @@ class QualificationFormWizard(CookieWizardView):
         qualification = self.qualification
         if not qualification:
             raise Http404()
+        # don't show deleted provider
+        if self.provider.deleted:
+            return custom_404(self.request)
+
         return super(QualificationFormWizard, self).get(*args, **kwargs)
 
     def get_context_data(self, form, **kwargs):

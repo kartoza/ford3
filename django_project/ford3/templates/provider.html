@@ -15,13 +15,19 @@
 {% block body %}
 	<div class="container">
 		<div class="row no-gutters">
-			<div class='col-md-9'>
+			<div class='col-md-7'>
 				<h3>{{ provider.name }}</h3>
 				<h4>Campuses</h4>
 				<hr />
 			</div>
+            <div class='col-md-2 px-2'>
+                <a href="{% url 'remove-provider' provider_id=provider.id %}"
+                   class='edu-button edu-button-red pull-right'
+                   onclick="return confirm('You are going to delete the provider. Are you sure?');">Delete</a>
+            </div>
 			<div class='col-md-3'>
-				<a href="{% url 'edit-provider' provider_id=provider.id %}" class='edu-button edu-button-orange'>Edit Provider</a>
+				<a href="{% url 'edit-provider' provider_id=provider.id %}"
+                   class='edu-button edu-button-orange'>Edit Provider</a>
 			</div>
 		</div>
 

@@ -3,6 +3,7 @@ from django.shortcuts import (
     redirect,
     get_object_or_404,
 )
+from base.views import custom_404
 from django.db import transaction, IntegrityError
 from django.urls import reverse
 from ford3.forms.provider_form import ProviderForm
@@ -106,6 +107,11 @@ def edit_provider(request, provider_id):
             Provider,
             id=provider_id
         )
+
+        # don't show if it's already deleted
+        if provider.deleted:
+            return custom_404(request)
+
         form = ProviderForm(instance=provider)
         context = {
             'form': form,
@@ -122,6 +128,9 @@ def show_provider(request, provider_id):
         Provider,
         id=provider_id
     )
+    # don't show if it's already deleted
+    if provider.deleted:
+        return custom_404(request)
     if provider.is_new_provider:
         redirect_url = reverse(
             'edit-provider',
@@ -138,3 +147,15 @@ def show_provider(request, provider_id):
         context['provider_logo'] = provider.provider_logo.url
 
     return render(request, 'provider.html', context)
+
+
+def remove_provider(request, provider_id):
+    provider = get_object_or_404(
+        Provider,
+        id=provider_id
+    )
+    provider.deleted = True
+    provider.save()
+    redirect_url = reverse(
+        'home')
+    return redirect(redirect_url)

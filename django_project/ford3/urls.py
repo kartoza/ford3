@@ -20,7 +20,7 @@ from ford3.forms.campus import (
     CampusQualificationsForm
 )
 from ford3.views.campus_wizard import CampusFormWizard
-from ford3.views.provider import show_provider, edit_provider
+from ford3.views.provider import show_provider, edit_provider, remove_provider
 
 qualification_wizard = QualificationFormWizard.as_view(
     [
@@ -48,6 +48,9 @@ urlpatterns = [
     path('providers/<int:provider_id>/edit',
          edit_provider,
          name='edit-provider'),
+    path('providers/<int:provider_id>/remove',
+         remove_provider,
+         name='remove-provider'),
     path(
         'providers/<int:provider_id>/campus/<int:campus_id>/edit',
         campus_wizard,
