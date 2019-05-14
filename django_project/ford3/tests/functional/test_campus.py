@@ -1,4 +1,5 @@
 import unittest
+from selenium.webdriver.common.keys import Keys
 from ford3.tests.functional.utils import SeleniumTestCase, selenium_flag_ready
 from django.urls import reverse
 from ford3.tests.models.model_factories import ModelFactories
@@ -240,7 +241,6 @@ class TestCampusFormDataBinding(SeleniumTestCase):
             'campus-dates-date_end')[1].get_attribute('validationMessage')
         self.assertEqual(validation_message, 'Please fill out this field.')
 
-
     def get_next_button(self):
         next_button = self.driver.find_element_by_id('my-next-button')
         return next_button
@@ -249,3 +249,68 @@ class TestCampusFormDataBinding(SeleniumTestCase):
         footer = (
             self.driver.find_element_by_class_name('form-steps-count').text)
         self.assertIn(expected_content, footer)
+
+    def test_enter_does_not_navigate(self):
+        self.driver.get(self.campus_form_url)
+        current_step_input = (
+            '<input name="campus_form_wizard-current_step" '
+            'value="campus-details" id="id_campus_form_wizard-current_step" '
+            'type="hidden">')
+        self.assertIn(current_step_input, self.driver.page_source)
+        page_inputs = self.driver.find_elements_by_tag_name('input')
+        for page_input in page_inputs:
+            if page_input.get_attribute('type') != 'hidden':
+                page_input.send_keys(Keys.ENTER)
+                break
+
+        # We make sure we are on the same page
+        self.assertIn(current_step_input, self.driver.page_source)
+
+        # Test the next page
+        self.get_next_button().click()
+        current_step_input = (
+            '<input name="campus_form_wizard-current_step" '
+            'value="campus-location" id="id_campus_form_wizard-current_step" '
+            'type="hidden">')
+        self.assertIn(current_step_input, self.driver.page_source)
+        page_inputs = self.driver.find_elements_by_tag_name('input')
+        for page_input in page_inputs:
+            if page_input.get_attribute('type') != 'hidden':
+                page_input.send_keys(Keys.ENTER)
+                break
+
+        # We make sure we are on the same page
+        self.assertIn(current_step_input, self.driver.page_source)
+
+        # Test the next page
+        self.get_next_button().click()
+        current_step_input = (
+            '<input name="campus_form_wizard-current_step" '
+            'value="campus-dates" id="id_campus_form_wizard-current_step" '
+            'type="hidden">')
+        self.assertIn(current_step_input, self.driver.page_source)
+        page_inputs = self.driver.find_elements_by_tag_name('input')
+        for page_input in page_inputs:
+            if page_input.get_attribute('type') != 'hidden':
+                page_input.send_keys(Keys.ENTER)
+                break
+
+        # We make sure we are on the same page
+        self.assertIn(current_step_input, self.driver.page_source)
+
+        # Test the next page
+        self.get_next_button().click()
+        current_step_input = (
+            '<input name="campus_form_wizard-current_step" '
+            'value="campus-qualifications" '
+            'id="id_campus_form_wizard-current_step" type="hidden">')
+        self.assertIn(current_step_input, self.driver.page_source)
+        page_inputs = self.driver.find_elements_by_tag_name('input')
+        for page_input in page_inputs:
+            if page_input.get_attribute('type') != 'hidden':
+                page_input.send_keys(Keys.ENTER)
+                break
+
+        # We make sure we are on the same page
+        self.assertIn(current_step_input, self.driver.page_source)
+

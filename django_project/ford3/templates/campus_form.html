@@ -223,7 +223,7 @@
     <script type="text/javascript"
             src="{% static 'js/libs/jquery-ui-1.12.1-custom/jquery-ui.min.js' %}"></script>
 	{%  if wizard.steps.step1 == 2 %}
-		<script type="text/javascript" src="{% static 'js/campus.js' %}"></script>
+		<script type="text/javascript" src="{% static 'js/campus_address.js' %}"></script>
 	{%  endif %}
     {% if wizard.steps.step1 == 3 %}
         <script type="text/javascript"
@@ -234,6 +234,7 @@
         <script type="text/javascript"
                 src="{% static 'js/campus_form_qualifications.js' %}"></script>
     {% endif %}
-
+	<script type="text/javascript"
+                src="{% static 'js/campus_form.js' %}"></script>
 
 {% endblock %}
