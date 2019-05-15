@@ -8,7 +8,8 @@ class TestProvider(TestCase):
         self.provider1 = ModelFactories.get_provider_test_object(new_id=1000)
         self.campus1 = ModelFactories.get_campus_test_object(new_id=3000)
         self.campus2 = ModelFactories.get_campus_test_object(new_id=4000)
-        self.qualification1 = ModelFactories.get_qualification_test_object(new_id=5000)
+        self.qualification1 = \
+            ModelFactories.get_qualification_test_object(new_id=5000)
 
     def test_existed_show_provider_with_campus(self):
         url = reverse('show-provider', args=[self.campus1.provider.id])
@@ -32,11 +33,28 @@ class TestProvider(TestCase):
         self.assertEquals(response.status_code, 404)
 
     def test_provider_being_removed(self):
-        remove_url = reverse('remove-provider', args=[self.campus2.provider.id])
-        show_provider_url = reverse('show-provider', args=[self.campus2.provider.id])
-        edit_provider_url = reverse('edit-provider', args=[self.campus2.provider.id])
-        show_campus_url = reverse('show-campus', args=[self.campus2.provider.id, self.campus2.id])
-        edit_campus_url = reverse('edit-campus', args=[self.campus2.provider.id, self.campus2.id])
+        remove_url = reverse(
+            'remove-provider',
+            args=[
+                self.campus2.provider.id])
+        show_provider_url = reverse(
+            'show-provider',
+            args=[
+                self.campus2.provider.id])
+        edit_provider_url = reverse(
+            'edit-provider',
+            args=[
+                self.campus2.provider.id])
+        show_campus_url = reverse(
+            'show-campus',
+            args=[
+                self.campus2.provider.id,
+                self.campus2.id])
+        edit_campus_url = reverse(
+            'edit-campus',
+            args=[
+                self.campus2.provider.id,
+                self.campus2.id])
 
         # check if the provider exist before delete
         show_provider_response = self.client.get(show_provider_url)

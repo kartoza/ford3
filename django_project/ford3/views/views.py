@@ -7,7 +7,6 @@ from ford3.models import (
     Campus,
     Qualification
 )
-from base.views import custom_404
 
 
 def show_campus(request, provider_id, campus_id):

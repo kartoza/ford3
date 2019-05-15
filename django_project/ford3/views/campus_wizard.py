@@ -12,7 +12,6 @@ from ford3.models import (
     CampusEvent,
     Provider
 )
-from base.views import custom_404
 
 
 class CampusFormWizard(CookieWizardView):

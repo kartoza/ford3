@@ -17,7 +17,6 @@ from ford3.forms.qualification import (
     QualificationRequirementsForm,
     QualificationInterestsAndJobsForm,
 )
-from base.views import custom_404
 
 
 class QualificationFormWizardDataProcess(object):
