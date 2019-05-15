@@ -32,15 +32,13 @@ class CampusFormWizard(CookieWizardView):
     def provider(self):
         provider_id = self.kwargs['provider_id']
         return get_object_or_404(
-            Provider,
+            Provider.objects.exclude(deleted=True),
             id=provider_id)
 
     def get(self, *args, **kwargs):
         if not self.campus or not self.provider:
             raise Http404()
-        # don't show deleted provider
-        if self.provider.deleted:
-            return custom_404(self.request)
+
         if 'step' in self.request.GET:
             return super().render_goto_step(self.request.GET['step'], **kwargs)
         else:

@@ -12,12 +12,8 @@ from base.views import custom_404
 
 def show_campus(request, provider_id, campus_id):
     campus = get_object_or_404(
-        Campus,
+        Campus.objects.exclude(provider__deleted=True),
         id=campus_id)
-
-    # prevent a knowledgeable user looks at deleted provider
-    if campus.provider.deleted:
-        return custom_404(request)
 
     form_data = {
         'provider_name': campus.provider.name
@@ -38,12 +34,8 @@ def show_campus(request, provider_id, campus_id):
 
 def show_qualification(request, provider_id, campus_id, qualification_id):
     qualification = get_object_or_404(
-        Qualification,
+        Qualification.objects.exclude(campus__provider__deleted=True),
         id=qualification_id)
-
-    # prevent a knowledgeable user looks at deleted provider
-    if qualification.campus.provider.deleted:
-        return custom_404(request)
 
     context = {
         'qualification': qualification,

@@ -104,13 +104,9 @@ def edit_provider(request, provider_id):
             return render(request, 'provider_form.html', context)
     else:
         provider = get_object_or_404(
-            Provider,
+            Provider.objects.exclude(deleted=True),
             id=provider_id
         )
-
-        # don't show if it's already deleted
-        if provider.deleted:
-            return custom_404(request)
 
         form = ProviderForm(instance=provider)
         context = {
@@ -125,12 +121,10 @@ def edit_provider(request, provider_id):
 
 def show_provider(request, provider_id):
     provider = get_object_or_404(
-        Provider,
+        Provider.objects.exclude(deleted=True),
         id=provider_id
     )
-    # don't show if it's already deleted
-    if provider.deleted:
-        return custom_404(request)
+
     if provider.is_new_provider:
         redirect_url = reverse(
             'edit-provider',
