@@ -103,7 +103,6 @@ class Campus(models.Model):
         help_text="The campus' postal adress code",
         max_length=255)
 
-
     def save(self, *args, **kwargs):
         if self.id is None:
             if len(self.name) == 0:
@@ -111,7 +110,7 @@ class Campus(models.Model):
 
             if Campus.objects.filter(
                 provider_id=self.provider.id,
-                name__iexact=self.name).exists():
+                    name__iexact=self.name).exists():
                 raise ValidationError({'campus': 'Name is already taken.'})
 
         super().save(*args, **kwargs)
@@ -119,11 +118,12 @@ class Campus(models.Model):
     @property
     def events(self):
         event_query = CampusEvent.objects.filter(
-            campus__id=self.id).values(
-                'date_start',
+            campus__id=self.id).order_by('id').values(
+                'id',
                 'name',
-                'http_link',
-                'date_end')
+                'date_start',
+                'date_end',
+                'http_link')
         return list(event_query)
 
     @property
@@ -148,8 +148,8 @@ class Campus(models.Model):
     def physical_address(self):
         if self.physical_address_line_1 is None \
             and self.physical_address_line_2 is None \
-            and self.physical_address_city is None \
-            and self.physical_address_postal_code is None:
+                and self.physical_address_city is None \
+                and self.physical_address_postal_code is None:
             return None
 
         return f'''
