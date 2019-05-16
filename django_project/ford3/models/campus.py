@@ -117,7 +117,7 @@ class Campus(models.Model):
 
     @property
     def events(self):
-        event_query = CampusEvent.objects.filter(
+        event_query = CampusEvent.active_objects.filter(
             campus__id=self.id).order_by('id').values(
                 'id',
                 'name',

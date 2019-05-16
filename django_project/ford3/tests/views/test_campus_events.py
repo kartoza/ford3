@@ -3,6 +3,7 @@ from datetime import datetime, timedelta
 from django.test import TestCase
 from django.urls import reverse
 from ford3.models.campus_event import CampusEvent
+from ford3.models.campus import Campus
 
 
 from ford3.tests.models.model_factories import ModelFactories
@@ -96,10 +97,42 @@ class TestUpdateCampusEventView(TestCase):
             'date_start': '2999-04-14',
             'date_end': '2999-04-15',
             'http_link': ''}
-        self.client.post(self.url, self.data)
 
     def test_update_event(self):
         self.assertNotEqual(self.campus_event.name, self.data['name'])
         self.client.post(self.url, self.data)
         self.campus_event = CampusEvent.objects.get(pk=self.campus_event.id)
         self.assertEqual(self.campus_event.name, self.data['name'])
+
+
+class TestDeleteCampusEventView(TestCase):
+    def setUp(self):
+
+        self.campus_event = ModelFactories.get_campus_event_test_object()
+        self.campus: Campus = self.campus_event.campus
+        self.url = reverse(
+            'delete-campus-event')
+        self.data = {
+            'id': self.campus_event.id,
+            'name': 'TestName',
+            'date_start': '2999-04-14',
+            'date_end': '2999-04-15',
+            'http_link': ''}
+
+    def test_delete_event(self):
+        self.assertEqual(len(self.campus.events), 1)
+        response = self.client.post(self.url, self.data)
+        body = json.loads(response.content)
+        self.assertTrue(body['success'])
+        self.campus = Campus.objects.get(pk=self.campus.id)
+        self.assertEqual(len(self.campus.events), 0)
+
+    def test_delete_event_without_id(self):
+        self.data = {
+            'name': 'TestName',
+            'date_start': '2999-04-14',
+            'date_end': '2999-04-15',
+            'http_link': ''}
+        response = self.client.post(self.url, self.data)
+        body = json.loads(response.content)
+        self.assertFalse(body['success'])

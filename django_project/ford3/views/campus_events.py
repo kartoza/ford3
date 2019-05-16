@@ -74,3 +74,16 @@ def get_campus_event_dictionary(campus_event):
         'http_link': campus_event.http_link
     }
     return new_campus_event_dict
+
+
+def delete(request):
+    try:
+        event_id = request.POST['id']
+        CampusEvent.objects.get(pk=event_id).soft_delete()
+        response = json.dumps({'success': True})
+    except KeyError:
+        response = json.dumps({
+            'success': False,
+            'error_msg': 'ID missing from request'
+        })
+    return HttpResponse(response)

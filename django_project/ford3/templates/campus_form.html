@@ -48,7 +48,8 @@
                             <div class='row'>
                                 <div class='col-md-6'>                                    
                                     <input id='create-or-update-campus-event-url' type='hidden' value='{% url "create-or-update-campus-event" campus_id=campus.id %}' />
-                                    
+                                    <input id='delete-campus-event-url' type='hidden' value='{% url "delete-campus-event" %}' />
+
                                     <div id='form-event'> 
                                         <label>Name</label>
                                         <input required type='text' name='name' />
@@ -59,9 +60,9 @@
                                         <label>HTTP link</label>
                                         <input type='text' name='http_link' />
                                         <div data-role='new-event-form-error' class='alert alert-danger d-none'></div>
-                                        <button class='col-md-12 edu-button edu-button-navy' data-action='create-event'>create</button>
-                                        <button class='col-md-12 edu-button edu-button-navy d-none' data-action='update-event'>update</button>
-                                        <button class='col-md-5 edu-button edu-button-navy d-none' data-action='cancel-update-event'>cancel</button>
+                                        <button class='col-md-12 edu-button edu-button-navy' data-action='create-event'>Create</button>
+                                        <button class='col-md-12 edu-button edu-button-navy d-none' data-action='update-event'>Update</button>
+                                        <button class='col-md-5 edu-button edu-button-navy d-none' data-action='cancel-update-event'>Cancel</button>
                                     </div>
                                 </div>
                                 <div id='events-list' class='col-md-6'>
@@ -73,7 +74,8 @@
                                             <span data-role='date_end'></span>
                                             <br />
                                             <span data-role='http_link'><a href=''></a></span>
-                                            <button class='col-md-12 edu-button edu-button-navy' data-action='edit-event'>edit</button>
+                                            <button class='col-md-9 edu-button edu-button-navy' data-action='edit-event'>Edit</button>
+                                            <button class='col-md-3 edu-button edu-button-navy' data-action='delete-event'>Delete</button>
                                         </li>  
                                     {% for event in campus.events %}
                                         <li class='event' data-event-id='{{ event.id }}'>
@@ -83,7 +85,8 @@
                                             <span data-role='date_end'>{{ event.date_end|date:"Y-m-d" }}</span>
                                             <br />
                                             <span data-role='http_link'><a href='{{ event.http_link }}'>{{ event.http_link }}</a></span>
-                                            <button class='col-md-12 edu-button edu-button-navy' data-action='edit-event'>edit</button>
+                                            <button class='col-md-9 edu-button edu-button-navy' data-action='edit-event'>Edit</button>
+                                            <button class='col-md-3 edu-button edu-button-navy' data-action='delete-event'>Delete</button>
                                         </li>
                                         <hr />
                                     {% endfor %}
@@ -196,7 +199,7 @@
                                                 </ul>
                                             </div>
                                         </div>
-                                    
+
                                     </div>
                                     <div class='tab-pane' id='create-qualif' role='tabpanel' aria-labelledby='create-qualif-tab'>
                                         <div class='row mx-3'>

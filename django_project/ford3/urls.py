@@ -71,6 +71,10 @@ urlpatterns = [
         campus_events.create_or_update,
         name='create-or-update-campus-event'),
     path(
+        'campus/events/delete/',
+        campus_events.delete,
+        name='delete-campus-event'),
+    path(
         'saqa_qualifications/search/',
         saqa_qualifications.search,
         name='search-saqa-qualifications'),

@@ -19,6 +19,11 @@ const getCreateEventButton = () => {
   return getFormEvent().querySelector('button[data-action="create-event"]')
 }
 
+const getDeleteEventButtons = () => {
+  return document.querySelectorAll(
+      'button[data-action="delete-event"]')
+}
+
 const getEditEventButtons = () => {
   return document.querySelectorAll('button[data-action="edit-event"]')
 }
@@ -28,15 +33,22 @@ const getUpdateEventButton = () => {
 }
 
 const getCreateOrUpdateEventUrl = () => {
-  return document.getElementById('create-or-update-campus-event-url').value
+  return document.getElementById(
+      'create-or-update-campus-event-url').value
 }
+
+const getDeleteEventUrl = () => {
+  return document.getElementById('delete-campus-event-url').value
+}
+
 
 const getEventFieldElem = (event, field) => {
   return event.querySelector(`input[name="${field}"]`)
 }
 
 const getFormErrorAlertElem = () => {
-  return document.querySelector('div[data-role="new-event-form-error"]')
+  return document.querySelector(
+      'div[data-role="new-event-form-error"]')
 }
 
 const getEventFieldValue = (event, field) => {
@@ -149,6 +161,11 @@ const insertEvent = (eventData) => {
   return eventElement
 }
 
+const removeEvent = (eventId) => {
+  const event = findEvent(eventId)
+  event.parentNode.removeChild(event)
+}
+
 const populateEvent = (eventElement, eventData) => {
   eventElement.dataset['eventId'] = eventData.id
 
@@ -197,6 +214,35 @@ const getEventData = (eventElement) => {
   })
 
   return eventData
+}
+
+const ajaxDeleteEvent = (event) => {
+  const eventElement = event.target.parentNode
+  const event_id = eventElement.dataset.eventId
+  let data = {'id': event_id}
+  data = eventToPostData(data)
+  const url = `${getDeleteEventUrl()}`
+
+  const request = new XMLHttpRequest()
+  request.open('POST', url, true)
+  request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+  request.setRequestHeader('X-CSRFToken', getCSRFTokenFromCookies())
+
+  request.onload = function () {
+    if (request.status >= 200 && request.status < 400) {
+      const data = JSON.parse(request.responseText)
+      if (data.success) {
+        hideElement(getFormErrorAlertElem())
+        removeEvent(event_id)
+      } else {
+        const alert = getFormErrorAlertElem()
+        alert.innerHTML = data.error_msg
+        showElement(alert)
+      }
+    }
+  }
+
+  request.send(data)
 }
 
 const ajaxCreateEvent = (event) => {
@@ -281,6 +327,15 @@ const setClickToCreateButton = () => {
   })
 }
 
+const setClickToDeleteButtons = () => {
+  getDeleteEventButtons().forEach((button) => {
+    button.addEventListener('click', function (evt) {
+      evt.preventDefault()
+      ajaxDeleteEvent(evt)
+    })
+  })
+}
+
 const setClickToEditButtons = () => {
   getEditEventButtons().forEach((button) => {
     button.addEventListener('click', function (evt) {
@@ -322,8 +377,12 @@ const setDatepicker = () => {
 const setupEvents = () => {
   setClickToCreateButton()
   setClickToUpdateButton()
+  setClickToDeleteButtons()
   setDatepicker()
-  if (getEvents().length > 0) { setClickToEditButtons() }
+  if (getEvents().length > 0) {
+    setClickToEditButtons()
+    setClickToDeleteButtons()
+  }
 }
 
 (function () {
