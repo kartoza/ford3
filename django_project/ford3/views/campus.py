@@ -39,7 +39,7 @@ def create(request, provider_id):
         return redirect(url)
 
     provider = get_object_or_404(
-        Provider,
+        Provider.active_objects,
         id=provider_id)
 
     context = {

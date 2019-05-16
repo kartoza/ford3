@@ -2,6 +2,11 @@ from django.db import models
 from ford3.models.campus import Campus
 
 
+class ActiveProviderManager(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset().filter(deleted=False)
+
+
 class Provider(models.Model):
     PROVIDER_TYPES = (
         'TVET College',
@@ -16,12 +21,12 @@ class Provider(models.Model):
         default='',
         max_length=255)
     provider_type = models.CharField(
-        blank = False,
-        null = False,
-        unique = False,
+        blank=False,
+        null= False,
+        unique=False,
         default='',
-        help_text ="The type of the institution",
-        max_length = 255)
+        help_text="The type of the institution",
+        max_length=255)
     telephone = models.CharField(
         blank=False,
         null=True,
@@ -106,12 +111,13 @@ class Provider(models.Model):
         help_text='',
         max_length=255)
     deleted = models.BooleanField(
-        blank=True,
-        null=True,
+        blank=False,
+        null=False,
         default=False,
-        help_text='')
+        help_text='Provider has been deleted')
 
-    pass
+    objects = models.Manager()
+    active_objects = ActiveProviderManager()
 
     def __str__(self):
         return self.name
@@ -125,3 +131,7 @@ class Provider(models.Model):
     @property
     def is_new_provider(self):
         return len(self.campus) == 0
+
+    def soft_delete(self):
+        self.deleted = True
+        self.save()

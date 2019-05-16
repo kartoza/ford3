@@ -8,31 +8,9 @@ from ford3.models import (
 )
 
 
-def show_campus(request, provider_id, campus_id):
-    campus = get_object_or_404(
-        Campus.objects.exclude(provider__deleted=True),
-        id=campus_id)
-
-    form_data = {
-        'provider_name': campus.provider.name
-    }
-    context = {
-        'form_data': form_data,
-        'campus': campus,
-        'provider': campus.provider,
-        # make sure logo has been uploaded before set the context
-        # otherwise, let it empty
-        'provider_logo':
-            campus.provider.provider_logo.url
-            if campus.provider.provider_logo else ""
-    }
-
-    return render(request, 'campus.html', context)
-
-
 def show_qualification(request, provider_id, campus_id, qualification_id):
     qualification = get_object_or_404(
-        Qualification.objects.exclude(campus__provider__deleted=True),
+        Qualification,
         id=qualification_id)
 
     context = {

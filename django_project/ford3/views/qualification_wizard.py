@@ -212,7 +212,7 @@ class QualificationFormWizard(CookieWizardView):
         if not provider_id:
             raise Http404()
         return get_object_or_404(
-            Provider,
+            Provider.active_objects,
             id=provider_id
         )
 
@@ -240,7 +240,7 @@ class QualificationFormWizard(CookieWizardView):
         if not qualification_id:
             raise Http404()
         return get_object_or_404(
-            Qualification.objects.exclude(campus__provider__deleted=True),
+            Qualification,
             id=qualification_id
         )
 

@@ -52,7 +52,7 @@ urlpatterns = [
          provider.edit,
          name='edit-provider'),
     path('providers/<int:provider_id>/remove',
-         provider.remove_provider,
+         provider.remove,
          name='remove-provider'),
     path(
         'providers/<int:provider_id>/campus/<int:campus_id>/edit',

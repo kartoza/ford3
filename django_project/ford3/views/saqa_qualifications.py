@@ -1,6 +1,7 @@
 import json
 from django.http import HttpResponse
 from django.core.exceptions import ValidationError
+from django.shortcuts import get_object_or_404
 from ford3.models import (
     Provider,
     SAQAQualification
@@ -29,7 +30,10 @@ def search(request):
 
 
 def create(request):
-    provider = Provider.objects.get(pk=request.POST['provider_id'])
+    provider = get_object_or_404(
+        Provider.active_objects,
+        id=request.POST['provider_id']
+    )
 
     try:
         saqa_qualification = SAQAQualification.create_non_accredited(

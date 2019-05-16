@@ -102,7 +102,7 @@ def edit(request, provider_id):
             return render(request, 'provider_form.html', context)
     else:
         provider = get_object_or_404(
-            Provider.objects.exclude(deleted=True),
+            Provider.active_objects,
             id=provider_id
         )
 
@@ -119,7 +119,7 @@ def edit(request, provider_id):
 
 def show(request, provider_id):
     provider = get_object_or_404(
-        Provider.objects.exclude(deleted=True),
+        Provider.active_objects,
         id=provider_id
     )
 
@@ -140,13 +140,13 @@ def show(request, provider_id):
     return render(request, 'provider.html', context)
 
 
-def remove_provider(request, provider_id):
+def remove(request, provider_id):
     provider = get_object_or_404(
         Provider,
         id=provider_id
     )
-    provider.deleted = True
-    provider.save()
+    provider.soft_delete()
+    # TBD where to go after delete the provider?
     redirect_url = reverse(
         'home')
     return redirect(redirect_url)

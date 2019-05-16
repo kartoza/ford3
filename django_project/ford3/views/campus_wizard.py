@@ -31,7 +31,7 @@ class CampusFormWizard(CookieWizardView):
     def provider(self):
         provider_id = self.kwargs['provider_id']
         return get_object_or_404(
-            Provider.objects.exclude(deleted=True),
+            Provider.active_objects,
             id=provider_id)
 
     def get(self, *args, **kwargs):
