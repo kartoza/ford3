@@ -18,17 +18,28 @@
                    onclick="return confirm('You are going to delete the provider. Are you sure?');">Delete</a>
             </div>
 			<div class='col-md-3'>
-				<a href="{% url 'edit-provider' provider_id=provider.id %}"
-                   class='edu-button edu-button-orange'>Edit Provider</a>
+				<a href="{% url 'edit-provider' provider_id=provider.id %}" class='edu-button edu-button-orange'>Edit Provider</a>
+				<a data-toggle="modal" data-target="#addCampusModal" id="open-add-campus-modal"
+				   class='edu-button edu-button-orange m-0 p-0 text-white'>Add Campus</a>
 			</div>
 		</div>
+
+		{% if campus_success|length > 0 %}
+		<div class="row no-gutters">
+			<div class='col-md-4 mx-auto'>
+				<div class='alert alert-success text-center'>
+					<p class='m-0'>{{ campus_success }}</p>
+				</div>
+			</div>
+		</div>
+		{% endif %}
 
 		<div class='row justify-content-center no-gutters'>
 			{% for campus in provider.campus %}
 				<div class='col-md-4 card mb-5 border-0'>
-					<div class='campus-card mx-auto'>
+					<div class='campus-card mx-auto text-center'>
 						<div class='card-body h-100'>
-							<h5 class='card-title'>{{ campus.name }}</h5>
+							<h5 class='card-title'><a class='text-white' href="{% url 'show-campus' provider_id=provider.id campus_id=campus.id %}">{{ campus.name }}</a></h5>
                             {# disabled for now #}
 							<!--div class='campus-completion-rate'>
 								<p>
@@ -49,7 +60,7 @@
                                    <h3 class="text-white">{{ campus.events|length }} </h3>
                                 </li>
                             </ul>
-							<a class="edu-button edu-button-navy align-bottom mt-0" href="{% url 'edit-campus' provider_id=provider.id campus_id=campus.id %}">Edit Campus</a>
+							<a class="edu-button edu-button-navy align-bottom mt-0" href="{% url 'edit-campus' provider_id=provider.id campus_id=campus.id %}">Edit</a>
 
 						</div>
 					</div>
@@ -58,9 +69,51 @@
 		</div>
     </div>
 
+	<!-- Modal -->
+	<div class="modal fade" id="addCampusModal" tabindex="-1" role="dialog"
+	     aria-labelledby="addCampusModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title"
+					    id="addCampusModalLabel">New campus</h5>
+					<button type="button" class="close" data-dismiss="modal"
+					        aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<form id='form-add-campus' method="post" action="{% url 'create-campus' provider_id=provider.id %}">
+					{% csrf_token %}
+					<div class="modal-body">
+						{% if campus_error|length > 0 %}
+							<div id='campus-error' class="alert alert-danger">{{ campus_error }}</div>
+						{% endif %}
+						<label for="campus-name">Campus name</label>
+						<input required id="campus-name" type="text"
+							placeholder="e.g: My new Campus" name="campus_name">
+					</div>
+					<div class="modal-footer pl-0">
+						<div class="row w-100">
+							<div class="col-8"></div>
+							<div class="col-4">
+								<button type="submit" id="submit_add_new_campus"
+								        class="edu-button edu-button-blue">Add
+								</button>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	{% if campus_error|length > 0 %}
+		<script>
+			$(document).ready(function() {
+			    $('#addCampusModal').modal("show");
+			});
+		</script>
+	{% endif %}
 {% endblock %}
 
 {% block footer %}
-    <script type="text/javascript"
-            src="{% static 'js/provider.js' %}"></script>
 {% endblock %}

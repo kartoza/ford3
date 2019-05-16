@@ -1,4 +1,5 @@
 from django.contrib.gis.db import models
+from django.core.exceptions import ValidationError
 from ford3.models.qualification import Qualification
 from ford3.models.saqa_qualification import SAQAQualification
 from ford3.models.campus_event import CampusEvent
@@ -102,7 +103,18 @@ class Campus(models.Model):
         help_text="The campus' postal adress code",
         max_length=255)
 
-    pass
+
+    def save(self, *args, **kwargs):
+        if self.id is None:
+            if len(self.name) == 0:
+                raise ValidationError({'campus': 'Name is required.'})
+
+            if Campus.objects.filter(
+                provider_id=self.provider.id,
+                name__iexact=self.name).exists():
+                raise ValidationError({'campus': 'Name is already taken.'})
+
+        super().save(*args, **kwargs)
 
     @property
     def events(self):
@@ -122,7 +134,8 @@ class Campus(models.Model):
                 'saqa_qualification__id',
                 'saqa_qualification__name',
                 'saqa_qualification__saqa_id',
-                'saqa_qualification__accredited')
+                'saqa_qualification__accredited',
+                'edited_at')
         return list(qualif_query)
 
     @property
@@ -130,6 +143,21 @@ class Campus(models.Model):
         return [
             str(s['saqa_qualification__id'])
             for s in self.qualifications]
+
+    @property
+    def physical_address(self):
+        if self.physical_address_line_1 is None \
+            and self.physical_address_line_2 is None \
+            and self.physical_address_city is None \
+            and self.physical_address_postal_code is None:
+            return None
+
+        return f'''
+            {self.physical_address_line_1}
+            {self.physical_address_line_2}
+            {self.physical_address_city}
+            {self.physical_address_postal_code}
+        '''
 
     def save_postal_data(self, form_data):
         postal_address_differs = form_data.get(

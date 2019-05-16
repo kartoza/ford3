@@ -4,7 +4,6 @@ from django.shortcuts import (
     render_to_response
 )
 from ford3.models import (
-    Campus,
     Qualification
 )
 
