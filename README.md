@@ -118,6 +118,25 @@ python manage.py runserver 0.0.0.0:8080
 
 ## Miscellaneous
 
+### Populate Initial Data
+#### Add superuser
+Admin user is required to administer the site.
+To add admin:
+
+```
+# go to deployment folder
+make shell
+python manage.py createsuperuser
+# write your usename, email, and password
+```
+#### Add initial data
+```
+# go to deployment folder
+make load-initial-data
+```
+
+
+### Backups using btsync
 If you need backups, put btsync keys in these files. If you don't need backups, 
 you can let the default content.
 
