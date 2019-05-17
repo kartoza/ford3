@@ -152,6 +152,7 @@ const reloadEvent = (eventData) => {
 
   oldEvent.parentNode.removeChild(oldEvent)
   setClickToEditButtons()
+  setClickToDeleteButtons()
 }
 
 const insertEvent = (eventData) => {
@@ -212,8 +213,9 @@ const setFocusToInput = (inputElement) => {
 
 const getEventData = (eventElement) => {
   let eventData = {}
+
   eventElement.querySelectorAll('span').forEach((span) => {
-    console.log(eventElement)
+
     const role = span.dataset['role']
     let value = span.innerHTML
     if (role === 'http_link') {
@@ -312,8 +314,6 @@ const ajaxUpdateEvent = (event, eventElement) => {
         hideElement(getFormErrorAlertElem())
         hideElement(getUpdateEventButton())
         showElement(getCreateEventButton())
-
-
       } else {
         const alert = getFormErrorAlertElem()
         alert.innerHTML = data.error_msg
@@ -352,10 +352,9 @@ const setClickToEditButtons = () => {
   getEditEventButtons().forEach((button) => {
     button.addEventListener('click', function (evt) {
       evt.preventDefault()
-
-      const eventElement = evt.target.parentNode
+      console.log('EditEvent')
+      const eventElement = getElementListParent(evt.target)
       const eventData = getEventData(eventElement)
-
       getFormEvent().dataset['eventId'] = eventElement.dataset['eventId']
 
       const inputs = getEventInputElements(getFormEvent())
@@ -366,6 +365,10 @@ const setClickToEditButtons = () => {
       showElement(getUpdateEventButton())
     })
   })
+}
+
+const getElementListParent = (element) => {
+  return element.closest("li")
 }
 
 const setClickToUpdateButton = () => {
