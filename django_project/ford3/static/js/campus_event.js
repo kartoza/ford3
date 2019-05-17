@@ -151,8 +151,6 @@ const reloadEvent = (eventData) => {
   getEventsList().insertBefore(event, oldEvent)
 
   oldEvent.parentNode.removeChild(oldEvent)
-  setClickToEditButtons()
-  setClickToDeleteButtons()
 }
 
 const insertEvent = (eventData) => {
@@ -191,8 +189,10 @@ const populateEvent = (eventElement, eventData) => {
       span.innerHTML = value
     }
   })
-  setClickToDeleteButtons()
-  setClickToEditButtons()
+  const delete_button = eventElement.querySelector('button[data-action="delete-event"]')
+  const edit_button = eventElement.querySelector('button[data-action="edit-event"]')
+  setClickToDeleteButton(delete_button)
+  setClickToEditButton(edit_button)
 }
 
 const resetForm = () => {
@@ -341,31 +341,37 @@ const setClickToCreateButton = () => {
 
 const setClickToDeleteButtons = () => {
   getDeleteEventButtons().forEach((button) => {
-    button.addEventListener('click', function (evt) {
+    setClickToDeleteButton(button)
+  })
+}
+
+const setClickToDeleteButton = (button)  => {
+  button.addEventListener('click', function (evt) {
       evt.preventDefault()
       ajaxDeleteEvent(evt)
     })
+}
+
+const setClickToEditButton = (button) => {
+    button.addEventListener('click', function (evt) {
+    evt.preventDefault()
+    console.log('EditEvent')
+    const eventElement = getElementListParent(evt.target)
+    const eventData = getEventData(eventElement)
+    getFormEvent().dataset['eventId'] = eventElement.dataset['eventId']
+
+    const inputs = getEventInputElements(getFormEvent())
+    populateInputs(inputs, eventData)
+    setFocusToInput(inputs[0])
+
+    hideElement(getCreateEventButton())
+    showElement(getUpdateEventButton())
   })
 }
 
 const setClickToEditButtons = () => {
-  const editEventButtons = getEditEventButtons()
-  console.log(editEventButtons)
   getEditEventButtons().forEach((button) => {
-    button.addEventListener('click', function (evt) {
-      evt.preventDefault()
-      console.log('EditEvent')
-      const eventElement = getElementListParent(evt.target)
-      const eventData = getEventData(eventElement)
-      getFormEvent().dataset['eventId'] = eventElement.dataset['eventId']
-
-      const inputs = getEventInputElements(getFormEvent())
-      populateInputs(inputs, eventData)
-      setFocusToInput(inputs[0])
-
-      hideElement(getCreateEventButton())
-      showElement(getUpdateEventButton())
-    })
+    setClickToEditButton(button)
   })
 }
 
@@ -394,13 +400,10 @@ const setDatepicker = () => {
 const setupEvents = () => {
   setClickToCreateButton()
   setClickToUpdateButton()
-  setClickToDeleteButtons()
   setDatepicker()
   setClickToEditButtons()
-  if (getEvents().length > 0) {
+  setClickToDeleteButtons()
 
-    setClickToDeleteButtons()
-  }
 }
 
 (function () {
