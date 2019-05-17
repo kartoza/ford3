@@ -25,22 +25,13 @@ The latest source code is available at
 
 ## Project activity
 
-Story queue on Waffle:
-
-* [![Stories in Ready](https://badge.waffle.io/kartoza/ford3.svg?label=ready&title=Ready)](http://waffle.io/kartoza/ford3) 
-* [![Stories in In Progress](https://badge.waffle.io/kartoza/ford3.svg?label=in%20progress&title=In%20Progress)](http://waffle.io/kartoza/ford3)
-
-[![Throughput Graph](https://graphs.waffle.io/kartoza/ford3/throughput.svg)](https://waffle.io/kartoza/ford3/metrics)
-
-* Current test status master: [![Build Status](https://travis-ci.org/inasafe/inasafe.svg?branch=master)](https://travis-ci.org/inasafe/inasafe) and
+* Current test status master: [![Build Status](https://api.travis-ci.com/kartoza/ford3.svg?branch=master)](https://travis-ci.com/kartoza/ford3) and
 [![Code Health](https://landscape.io/github/kartoza/ford3/master/landscape.svg?style=flat)](https://landscape.io/github/kartoza/ford3/master)
 
-* Current test status develop: [![Build Status](https://travis-ci.org/inasafe/inasafe.svg?branch=develop)](https://travis-ci.org/inasafe/inasafe) and
+* Current test status develop: [![Build Status](https://api.travis-ci.com/kartoza/ford3.svg?branch=develop)](https://travis-ci.org/kartoza/ford3) and
 [![Code Health](https://landscape.io/github/kartoza/ford3/develop/landscape.svg?style=flat)](https://landscape.io/github/kartoza/ford3/develop)
 
 * Test coverage [![codecov](https://codecov.io/gh/kartoza/ford3/branch/develop/graph/badge.svg)](https://codecov.io/gh/kartoza/ford3)
-
-
 
 ## Quick Installation Guide
 
@@ -48,15 +39,21 @@ For deployment we use [docker](http://docker.com) so you need to have docker
 running on the host. Ford3 is a django app so it will help if you have
 some knowledge of running a django site.
 
-To run the project locally, there are three steps:
+To run the project locally, there are four steps:
 1. Build the images and set up the docker env
-2. Run the server
-3. Open browser
+2. Populate initial data
+3. Run the server
+4. Open browser
+
+Suppose the current directory is `/home/web`.
+Therefore, the project will be in the `/home/web/ford3` directory.
+The project directory `/home/web/ford3` will be called and referred as `<parent>` throughout the rest of doc below.
 
 ### 1. Build the images and set up the docker for the project
 ```
+cd /home/web
 git clone git://github.com/kartoza/ford3.git
-cd ford3/deployment
+cd `<parent>`/deployment
 cp btsync-db.env.EXAMPLE btsync-db.env
 cp btsync-media.env.EXAMPLE btsync-media.env
 make build
@@ -67,11 +64,28 @@ make migrate
 make collectstatic
 ```
 
-### 2. Run the server
+### 2. Populate initial Data
+#### Add superuser
+Admin user is required to administer the site.
+To add admin:
+
+```
+cd `<parent>`/deployment
+make superuser
+# write your usename, email, and password
+```
+
+#### Add initial data
+```
+cd `<parent>`/deployment
+make load-initial-data
+```
+
+
+### 3. Run the server
 #### A. From PyCharm Professional
 ```
-# go to deployment/ansible/development/group_vars
-cd deployment/ansible/development/group_vars
+cd `<parent>`/deployment/ansible/development/group_vars
 cp all.sample.yml all.yml
 ```
 
@@ -81,8 +95,9 @@ cp all.sample.yml all.yml
   - *project_path* is equal to with your cloned directory
 
 ```
-# go to deployment/ansible
+cd `<parent>`/deployment/ansible
 mkdir tmp
+cd ..
 make setup-ansible
 # choose your pycharm version from the list
 ```
@@ -96,7 +111,7 @@ make setup-ansible
   - If the server doesn't run, try:
 
 ```
-# from deployment folder
+cd `<parent>`/deployment
 make down
 make up
 ```
@@ -104,64 +119,51 @@ make up
 
 #### B. From CLI
 ```
-# go to deployment folder
+cd `<parent>`/deployment
 make migrate
 make shell
 python manage.py runserver 0.0.0.0:8080
 ```
 
-#### 3. Open Browser
+#### 4. Open Browser
 
 - Open browser and type: `http://localhost`
 - You have the project running now
 
+## Useful tools for development
+
+These tools are suggested before developers make a pull request to the repo.
+
+###  Coding style
+
+**flake8** is used to make sure the code is aligned with coding style.
+
+```
+cd `<parent>`/deployment
+make flake8
+```
+- Fix the code if the tool complaint about the coding
+
+### Selenium and django tests
+
+ In order to run the selenium tests, double check the web server is not running.
+ ```
+ cd `<parent>`/deployment
+ make selenium-up
+ ```
+
+ To run django test:
+ ```
+ cd `<parent>`/deployment
+ make test
+ ```
+
 
 ## Miscellaneous
 
-### Populate Initial Data
-#### Add superuser
-Admin user is required to administer the site.
-To add admin:
+### Backups
 
-```
-# go to deployment folder
-make shell
-python manage.py createsuperuser
-# write your usename, email, and password
-```
-#### Add initial data
-```
-# go to deployment folder
-make load-initial-data
-```
-
-
-### Backups using btsync
-If you need backups, put btsync keys in these files. If you don't need backups, 
-you can let the default content.
-
-So as to create your admin account:
-```
-make superuser
-```
-
-**google authentication**
-
-In social auth to use the google authentication you need to go to:
-
-https://console.developers.google.com/apis/credentials
-
-Create and oath2 credential with these options:
-
-Authorized redirect URIs
-
-http://<your domain>/en/complete/google-oauth2/
-
-Use the ford3 admin panel to set up the google account with your id and
-secret
-
-
-**Backups**
+If you don't need backups, you can let the default content.
 
 If you wish to sync backups, you need to establish a read / write btsync 
 key on your production server and run one or more btsync clients 
