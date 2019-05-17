@@ -849,6 +849,6 @@ nav#sidebar ul li a:hover {
 }
 
 .input-invalid {
-    border: 2px dashed red !important;
+    border: 1px solid red !important;
 }
 
