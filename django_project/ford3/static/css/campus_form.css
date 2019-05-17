@@ -135,6 +135,7 @@ input[data-action='create-qualif'] {
 
 .campus_event_list_item {
     list-style-type: none;
+    position: relative;
 }
 
 .delete-campus-event {

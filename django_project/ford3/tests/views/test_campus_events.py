@@ -26,7 +26,8 @@ class TestCreateCampusEventView(TestCase):
         body = json.loads(response.content)
         self.assertEqual(body['success'], True)
         print(body['campus_event'])
-        self.assertEqual(body['campus_event']['id'], self.campus.events[0]['id'])
+        self.assertEqual(
+            body['campus_event']['id'], self.campus.events[0]['id'])
         self.assertEqual(len(self.campus.events), 1)
 
     def test_create_event_empty_name(self):

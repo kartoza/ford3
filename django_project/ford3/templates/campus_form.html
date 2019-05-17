@@ -44,45 +44,91 @@
         </div>
         <div class='row'>
             <div class='col-md-12'>
+
                         {% if wizard.steps.step1 == 3 %}
                             <div class='row'>
                                 <div class='col-md-6'>                                    
                                     <input id='create-or-update-campus-event-url' type='hidden' value='{% url "create-or-update-campus-event" campus_id=campus.id %}' />
                                     <input id='delete-campus-event-url' type='hidden' value='{% url "delete-campus-event" %}' />
 
-                                    <div id='form-event'> 
-                                        <label>Name</label>
-                                        <input required type='text' name='name' />
-                                        <label>Start date</label>
-                                        <input required type='text' name='date_start' class='mydatepicker' />
-                                        <label>End date</label>
-                                        <input required type='text' name='date_end' class='mydatepicker' />
-                                        <label>HTTP link</label>
-                                        <input type='text' name='http_link' />
-                                        <div data-role='new-event-form-error' class='alert alert-danger d-none'></div>
-                                        <button class='col-md-12 edu-button edu-button-navy' data-action='create-event'>Create</button>
-                                        <button class='col-md-12 edu-button edu-button-navy d-none' data-action='update-event'>Update</button>
-                                        <button class='col-md-5 edu-button edu-button-navy d-none' data-action='cancel-update-event'>Cancel</button>
+                                    <div id='form-event'>
+                                        <label>Name*</label>
+                                        <input required placeholder="eg. Open day" type='text' name='name' />
+                                        <label>Start date*</label>
+                                        <input required placeholder="2019-10-26" type='text' name='date_start' class='mydatepicker' />
+                                        <label>End date*</label>
+                                        <input placeholder="2019-10-28" required type='text' name='date_end' class='mydatepicker' />
+                                        <label>Website</label>
+                                        <input type='text' placeholder="http://www.SiteWithEventInformation.co.za" name='http_link' />
+                                        <div class='mt-2' data-role='new-event-form-error' class='alert alert-danger d-none'></div>
+	                                    <div class="row no-gutters">
+		                                    <button class='col-md-4 edu-button edu-button-blue' data-action='create-event'>Create</button>
+	                                        <button class='col-md-4 edu-button edu-button-blue d-none' data-action='update-event'>Update</button>
+	                                        <button class='col-md-4 edu-button edu-button-blue d-none' data-action='cancel-update-event'>Cancel</button>
+	                                    </div>
                                     </div>
+	                                <div class="row no-gutters form-actions mt-4">
+		                                <div class="col-md-4">
+			                                <a href="{% url 'show-campus' provider_id=provider.id campus_id=campus.id %}"
+			                                   class="edu-button edu-button-orange"
+			                                   id='my-next-button'>Return to campus</a>
+		                                </div>
+	                                </div>
                                 </div>
                                 <div id='events-list' class='col-md-6'>
 	                                <ul>
-		                                <li class='event-example campus_event_list_item d-none'
-		                                    data-event-id=''>
-			                                <span class='font-weight-bold'
-			                                      data-role='name'></span><b>:&nbsp;</b>
-			                                <span data-role='date_start'></span> -
-			                                <span data-role='date_end'></span>
-			                                <br/>
-			                                <span data-role='http_link'><a
-					                                href='' target="_blank"></a></span>
-			                                <button class='col-md-9 edu-button edu-button-navy'
-			                                        data-action='edit-event'>Edit
-			                                </button>
-			                                <button class='col-md-3 edu-button edu-button-navy'
-			                                        data-action='delete-event'>Delete
-			                                </button>
-		                                </li>
+{#		                                <li class='event-example campus_event_list_item d-none'#}
+{#		                                    data-event-id=''>#}
+{#			                                <span class='font-weight-bold'#}
+{#			                                      data-role='name'></span><b>:&nbsp;</b>#}
+{#			                                <span data-role='date_start'></span> -#}
+{#			                                <span data-role='date_end'></span>#}
+{#			                                <br/>#}
+{#			                                <span data-role='http_link'><a#}
+{#					                                href='' target="_blank"></a></span>#}
+{#			                                <button class='col-md-9 edu-button edu-button-navy'#}
+{#			                                        data-action='edit-event'>Edit#}
+{#			                                </button>#}
+{#			                                <button class='col-md-3 edu-button edu-button-navy'#}
+{#			                                        data-action='delete-event'>Delete#}
+{#			                                </button>#}
+{#		                                </li>#}
+	                                <li class='event-example campus_event_list_item d-none'
+			                                    data-event-id=''>
+				                                <span class='font-weight-bold'
+				                                      data-role='name'></span>
+
+				                                <div class='row'>
+					                                				                                    <div class='col-1'></div>
+					                                <div class='col-md-1 ml-4 font-weight-bold'>Start:</div>
+					                                <span class='col-md-6'
+					                                      data-role='date_start'></span>
+				                                </div>
+				                                <div class='row'>
+					                                					                                <div class='col-1'></div>
+					                                <div class='col-md-1 ml-4 font-weight-bold'>End:</div>
+					                                <span class='col-md-6'
+					                                      data-role='date_end'></span>
+					                                <div class='col-md-3'></div>
+				                                </div>
+				                                {% if event.http_link %}
+					                                <div class='row'>
+						                                <div class='col-md-1 ml-4 font-weight-bold'>URL:</div>
+						                                <span class='col-md-6'
+						                                      data-role='http_link'><a
+								                                target='_blank'
+								                                href=''></a></span>
+					                                </div>
+				                                {% endif %}
+				                                <div class='row'>
+					                                <button class='edit-campus-event align-self-end col-md-3 edu-button edu-button-blue mb-0'
+					                                        data-action='edit-event'>Edit
+					                                </button>
+				                                </div>
+				                                <button class='delete-campus-event align-self-end col-md-3 edu-button edu-button-orange'
+				                                        data-action='delete-event'>Delete
+				                                </button>
+			                                </li>
 		                                {% for event in campus.events %}
 			                                <li class='event campus_event_list_item'
 			                                    data-event-id='{{ event.id }}'>
@@ -111,11 +157,9 @@
 								                                href='{{ event.http_link }}'>{{ event.http_link }}</a></span>
 					                                </div>
 				                                {% endif %}
-				                                <div class='row'>
-					                                <button class='edit-campus-event align-self-end col-md-3 edu-button edu-button-blue mb-0'
-					                                        data-action='edit-event'>Edit
-					                                </button>
-				                                </div>
+				                                <button class='edit-campus-event align-self-end col-md-3 edu-button edu-button-blue mb-0'
+				                                        data-action='edit-event'>Edit
+				                                </button>
 				                                <button class='delete-campus-event align-self-end col-md-3 edu-button edu-button-orange'
 				                                        data-action='delete-event'>Delete
 				                                </button>
@@ -294,12 +338,7 @@
                     </div>
                     {% else %}
                     {% if wizard.steps.step1 == 3 %}
-                    <div class="row form-actions">
-                            <div class="col-md-4">
-                                <a href="{% url 'show-campus' provider_id=provider.id campus_id=campus.id %}" class="edu-button edu-button-blue"
-                                    id='my-next-button'>Back to campus</a>
-                            </div>
-                        </div>
+
                     {% else %}
                         <div class="row form-actions">
                             <div class="col-md-4">

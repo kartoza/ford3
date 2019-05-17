@@ -72,6 +72,15 @@ h5 {
     color:  darkred !important;
 }
 
+a.edu-button {
+    color: white;
+}
+
+a.edu-button:hover {
+    color: white;
+    text-decoration-line: unset;
+}
+
 .edu-button {
     height: 2.5rem;
     width: 100%;

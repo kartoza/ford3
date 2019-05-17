@@ -204,6 +204,7 @@ const setFocusToInput = (inputElement) => {
 const getEventData = (eventElement) => {
   let eventData = {}
   eventElement.querySelectorAll('span').forEach((span) => {
+    console.log(eventElement)
     const role = span.dataset['role']
     let value = span.innerHTML
     if (role === 'http_link') {
