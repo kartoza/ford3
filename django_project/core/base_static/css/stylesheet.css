@@ -137,14 +137,20 @@ a.edu-button:hover {
     background-color: var(--c-smoke);
 }
 
+a.edu-button-grey {
+    color: black !important;
+}
+
 .edu-button-grey:hover {
     background-color: var(--c-grey-l);
     text-decoration: none;
+    color: black;
 }
 
 .edu-button-grey:focus {
     outline-color: var(--c-grey-l);
 }
+
 
 .edu-button-navy {
     color: var(--c-navy);
