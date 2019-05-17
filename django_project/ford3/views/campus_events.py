@@ -8,7 +8,6 @@ from ford3.models.campus import Campus
 def create_or_update(request, campus_id):
 
     if 'id' in request.POST:
-        # We are updating
         return update(request)
     else:
         return create(request, campus_id)

@@ -168,11 +168,11 @@ const insertEvent = (eventData) => {
 const removeEvent = (eventId) => {
   const event = findEvent(eventId)
   event.parentNode.removeChild(event)
+
 }
 
 const populateEvent = (eventElement, eventData) => {
   eventElement.dataset['eventId'] = eventData.id
-  eventElement.after(document.createElement('hr'))
   eventElement.querySelectorAll('span').forEach((span) => {
     const role = span.dataset['role']
     let value = eventData[role]

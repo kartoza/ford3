@@ -133,7 +133,7 @@ input[data-action='create-qualif'] {
     top: -0.25rem;
 }
 
-.campus_event_list_item {
+.campus-event-list-item {
     list-style-type: none;
     position: relative;
 }

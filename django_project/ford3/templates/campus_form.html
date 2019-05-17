@@ -79,7 +79,7 @@
                                 </div>
                                 <div id='events-list' class='col-md-6'>
 	                                <ul>
-	                                <li class='event-example event campus_event_list_item d-none'
+	                                <li class='event-example event campus-event-list-item d-none pb-3 border-bottom'
 			                                    data-event-id=''>
 				                                <span class='font-weight-bold'
 				                                      data-role='name'></span>
@@ -111,7 +111,7 @@
 				                                </button>
 			                                </li>
 		                                {% for event in campus.events %}
-			                                <li class='event campus_event_list_item'
+			                                <li class='event campus-event-list-item pb-3 border-bottom'
 			                                    data-event-id='{{ event.id }}'>
 				                                <span class='font-weight-bold'
 				                                      data-role='name'>{{ event.name }}</span>
@@ -143,7 +143,6 @@
 				                                        data-action='delete-event'>Delete
 				                                </button>
 			                                </li>
-                                        <hr />
                                     {% endfor %}
                                     </ul>
                                 </div>
