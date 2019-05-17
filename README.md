@@ -1,9 +1,9 @@
 # FORD3 
 
-[![FORD Screenshot](http://ford3screenshoturl)](http://ford3productionurl)
+[![FORD Screenshot](http://ford3.kartoza.com)](http://ford3.kartoza.com)
 
 
-A django app for creating publishing open education programm data for South Africa. 
+A django app for creating publishing open education program data for South Africa.
 
 View a running instance at [http://ford3.kartoza.com](http://ford3.kartoza.com)
 
@@ -46,14 +46,16 @@ To run the project locally, there are four steps:
 4. Open browser
 
 Suppose the current directory is `/home/web`.
+
 Therefore, the project will be in the `/home/web/ford3` directory.
+
 The project directory `/home/web/ford3` will be called and referred as `<parent>` throughout the rest of doc below.
 
 ### 1. Build the images and set up the docker for the project
 ```
 cd /home/web
 git clone git://github.com/kartoza/ford3.git
-cd `<parent>`/deployment
+cd *<parent>*/deployment
 cp btsync-db.env.EXAMPLE btsync-db.env
 cp btsync-media.env.EXAMPLE btsync-media.env
 make build
@@ -70,14 +72,14 @@ Admin user is required to administer the site.
 To add admin:
 
 ```
-cd `<parent>`/deployment
+cd *<parent>*/deployment
 make superuser
 # write your usename, email, and password
 ```
 
 #### Add initial data
 ```
-cd `<parent>`/deployment
+cd *<parent>*/deployment
 make load-initial-data
 ```
 
@@ -85,17 +87,17 @@ make load-initial-data
 ### 3. Run the server
 #### A. From PyCharm Professional
 ```
-cd `<parent>`/deployment/ansible/development/group_vars
+cd <parent>/deployment/ansible/development/group_vars
 cp all.sample.yml all.yml
 ```
 
 - edit line 6 (*remote_user*), 8 (*remote_group*), and 10 (*project_path*) in all.yml accordingly
-  - make sure that *remote_user* align with your local user
-  - *remote_group* is likely not change if using linux and macOS
-  - *project_path* is equal to with your cloned directory
+  - make sure that *remote_user* is equal to your local user
+  - *remote_group* is likely stay the same if using linux and macOS
+  - *project_path* is equal to `<parent>`
 
 ```
-cd `<parent>`/deployment/ansible
+cd <parent>/deployment/ansible
 mkdir tmp
 cd ..
 make setup-ansible
@@ -111,7 +113,7 @@ make setup-ansible
   - If the server doesn't run, try:
 
 ```
-cd `<parent>`/deployment
+cd <parent>/deployment
 make down
 make up
 ```
@@ -119,7 +121,7 @@ make up
 
 #### B. From CLI
 ```
-cd `<parent>`/deployment
+cd <parent>/deployment
 make migrate
 make shell
 python manage.py runserver 0.0.0.0:8080
@@ -139,7 +141,7 @@ These tools are suggested before developers make a pull request to the repo.
 **flake8** is used to make sure the code is aligned with coding style.
 
 ```
-cd `<parent>`/deployment
+cd <parent>/deployment
 make flake8
 ```
 - Fix the code if the tool complaint about the coding
@@ -148,13 +150,13 @@ make flake8
 
  In order to run the selenium tests, double check the web server is not running.
  ```
- cd `<parent>`/deployment
+ cd <parent>/deployment
  make selenium-up
  ```
 
  To run django test:
  ```
- cd `<parent>`/deployment
+ cd <parent>/deployment
  make test
  ```
 
@@ -170,7 +172,7 @@ key on your production server and run one or more btsync clients
 with a read only key.
 
 ```
-cd deployment
+cd <parent>/deployment
 cp btsync-media.env.EXAMPLE btsync-media.env
 cp btsync-db.env.EXAMPLE btsync-db.env
 ```
