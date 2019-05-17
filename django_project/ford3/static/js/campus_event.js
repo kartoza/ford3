@@ -117,7 +117,9 @@ const resetInputs = (inputs) => {
 const populateInputs = (inputs, data) => {
   inputs.forEach((input) => {
     const key = input.name
-    const value = data[key]
+    let value = data[key]
+    if (!value)
+       value = ''
     input.value = value
   })
 }
