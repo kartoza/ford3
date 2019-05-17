@@ -51,9 +51,9 @@ some knowledge of running a django site.
 To run the project locally, there are two steps:
 1. Build the images and set up the docker env
 2. Run the server
-3. Open Browser
+3. Open browser
 
-### Build the images and set up the docker for the project
+### 1. Build the images and set up the docker for the project
 ```
 git clone git://github.com/kartoza/ford3.git
 cd ford3/deployment
@@ -67,18 +67,18 @@ make migrate
 make collectstatic
 ```
 
-### Run the server
-#### From PyCharm Professional
+### 2. Run the server
+#### A. From PyCharm Professional
 ```
 # go to deployment/ansible/development/group_vars
 cd deployment/ansible/development/group_vars
 cp all.sample.yml all.yml
 ```
 
-- edit line 6 (*remote_user*), 8 (*remote_group*), and 10 (*project_path*)in all.yml according to your env
+- edit line 6 (*remote_user*), 8 (*remote_group*), and 10 (*project_path*) in all.yml accordingly
   - make sure that *remote_user* align with your local user
   - *remote_group* is likely not change if using linux and macOS
-  - *project_path* is usually align with your cloned directory
+  - *project_path* is equal to with your cloned directory
 
 ```
 # go to deployment/ansible
@@ -91,7 +91,8 @@ make setup-ansible
 - Notice your pycharm, there should be *Ford3* django server in the toolbar.
   - Wait for a couple of minutes. Make sure the PyCharm has loaded all the necessary files.
   - If pycharm requires to install additional supported modules, click on the provided link
-- Click on it, the pycharm will run the server for you
+- Click on the `play button` or `debug button` next to *Ford3* instance in the toolbar. The pycharm will run the server for you
+  - sometimes restart pycharm can remedy the problem too
   - If the server doesn't run, try:
 
 ```
@@ -100,9 +101,8 @@ make down
 make up
 ```
 
-  - sometimes restart pycharm can remedy the problem too
 
-#### From CLI
+#### B. From CLI
 ```
 # go to deployment folder
 make migrate
@@ -110,10 +110,13 @@ make shell
 python manage.py runserver 0.0.0.0:8080
 ```
 
-#### Open Browser
+#### 3. Open Browser
 
 - Open browser and type: `http://localhost`
 - You have the project running now
+
+
+## Miscellaneous
 
 If you need backups, put btsync keys in these files. If you don't need backups, 
 you can let the default content.
