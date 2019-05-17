@@ -5,7 +5,7 @@
 
 A django app for creating publishing open education programm data for South Africa. 
 
-View a running instance at [http://ford3productionurl](http://ford3productionurl)
+View a running instance at [http://ford3.kartoza.com](http://ford3.kartoza.com)
 
 
 Note that whilst usable, Ford3 is under continual development and not
@@ -48,6 +48,12 @@ For deployment we use [docker](http://docker.com) so you need to have docker
 running on the host. Ford3 is a django app so it will help if you have
 some knowledge of running a django site.
 
+To run the project locally, there are two steps:
+1. Build the images and set up the docker env
+2. Run the server
+3. Open Browser
+
+### Build the images and set up the docker for the project
 ```
 git clone git://github.com/kartoza/ford3.git
 cd ford3/deployment
@@ -60,6 +66,54 @@ make web
 make migrate
 make collectstatic
 ```
+
+### Run the server
+#### From PyCharm Professional
+```
+# go to deployment/ansible/development/group_vars
+cd deployment/ansible/development/group_vars
+cp all.sample.yml all.yml
+```
+
+- edit line 6 (*remote_user*), 8 (*remote_group*), and 10 (*project_path*)in all.yml according to your env
+  - make sure that *remote_user* align with your local user
+  - *remote_group* is likely not change if using linux and macOS
+  - *project_path* is usually align with your cloned directory
+
+```
+# go to deployment/ansible
+mkdir tmp
+make setup-ansible
+# choose your pycharm version from the list
+```
+
+- Open PyCharm
+- Notice your pycharm, there should be *Ford3* django server in the toolbar.
+  - Wait for a couple of minutes. Make sure the PyCharm has loaded all the necessary files.
+  - If pycharm requires to install additional supported modules, click on the provided link
+- Click on it, the pycharm will run the server for you
+  - If the server doesn't run, try:
+
+```
+# from deployment folder
+make down
+make up
+```
+
+  - sometimes restart pycharm can remedy the problem too
+
+#### From CLI
+```
+# go to deployment folder
+make migrate
+make shell
+python manage.py runserver 0.0.0.0:8080
+```
+
+#### Open Browser
+
+- Open browser and type: `http://localhost`
+- You have the project running now
 
 If you need backups, put btsync keys in these files. If you don't need backups, 
 you can let the default content.
