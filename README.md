@@ -48,7 +48,7 @@ For deployment we use [docker](http://docker.com) so you need to have docker
 running on the host. Ford3 is a django app so it will help if you have
 some knowledge of running a django site.
 
-To run the project locally, there are two steps:
+To run the project locally, there are three steps:
 1. Build the images and set up the docker env
 2. Run the server
 3. Open browser
