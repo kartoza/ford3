@@ -151,6 +151,7 @@ const reloadEvent = (eventData) => {
   getEventsList().insertBefore(event, oldEvent)
 
   oldEvent.parentNode.removeChild(oldEvent)
+  setClickToEditButtons()
 }
 
 const insertEvent = (eventData) => {
@@ -170,15 +171,21 @@ const removeEvent = (eventId) => {
 
 const populateEvent = (eventElement, eventData) => {
   eventElement.dataset['eventId'] = eventData.id
-
+  eventElement.after(document.createElement('hr'))
   eventElement.querySelectorAll('span').forEach((span) => {
     const role = span.dataset['role']
     let value = eventData[role]
 
     if (role === 'http_link') {
-      let a = span.querySelector('a')
-      a.href = value
-      a.innerHTML = value
+      if (value === ''){
+        span.parentNode.classList.add('d-none')
+      }
+      else {
+         span.parentNode.classList.remove('d-none')
+        let a = span.querySelector('a')
+        a.href = value
+        a.innerHTML = value
+      }
     } else {
       span.innerHTML = value
     }
@@ -272,7 +279,7 @@ const ajaxCreateEvent = (event) => {
 
         resetForm()
 
-        setClickToEditButtons()
+
       } else {
         const alert = getFormErrorAlertElem()
         alert.innerHTML = data.error_msg
@@ -306,7 +313,7 @@ const ajaxUpdateEvent = (event, eventElement) => {
         hideElement(getUpdateEventButton())
         showElement(getCreateEventButton())
 
-        setClickToEditButtons()
+
       } else {
         const alert = getFormErrorAlertElem()
         alert.innerHTML = data.error_msg
@@ -340,6 +347,8 @@ const setClickToDeleteButtons = () => {
 }
 
 const setClickToEditButtons = () => {
+  const editEventButtons = getEditEventButtons()
+  console.log(editEventButtons)
   getEditEventButtons().forEach((button) => {
     button.addEventListener('click', function (evt) {
       evt.preventDefault()
@@ -382,8 +391,9 @@ const setupEvents = () => {
   setClickToUpdateButton()
   setClickToDeleteButtons()
   setDatepicker()
+  setClickToEditButtons()
   if (getEvents().length > 0) {
-    setClickToEditButtons()
+
     setClickToDeleteButtons()
   }
 }

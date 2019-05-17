@@ -52,13 +52,13 @@
                                     <input id='delete-campus-event-url' type='hidden' value='{% url "delete-campus-event" %}' />
 
                                     <div id='form-event'>
-                                        <label>Name*</label>
+                                        <label class="mt-1">Name*</label>
                                         <input required placeholder="eg. Open day" type='text' name='name' />
-                                        <label>Start date*</label>
+                                        <label class="mt-1">Start date*</label>
                                         <input required placeholder="2019-10-26" type='text' name='date_start' class='mydatepicker' />
-                                        <label>End date*</label>
+                                        <label class="mt-1">End date*</label>
                                         <input placeholder="2019-10-28" required type='text' name='date_end' class='mydatepicker' />
-                                        <label>Website</label>
+                                        <label class="mt-1">Website</label>
                                         <input type='text' placeholder="http://www.event-site.co.za" name='http_link' />
                                         <div class='mt-2' data-role='new-event-form-error' class='alert alert-danger d-none'></div>
 	                                    <div class="row no-gutters">
@@ -85,19 +85,16 @@
 				                                      data-role='name'></span>
 
 				                                <div class='row'>
-					                                				                                    <div class='col-1'></div>
 					                                <div class='col-md-1 ml-4 font-weight-bold'>Start:</div>
 					                                <span class='col-md-6'
 					                                      data-role='date_start'></span>
 				                                </div>
 				                                <div class='row'>
-					                                					                                <div class='col-1'></div>
 					                                <div class='col-md-1 ml-4 font-weight-bold'>End:</div>
 					                                <span class='col-md-6'
 					                                      data-role='date_end'></span>
 					                                <div class='col-md-3'></div>
 				                                </div>
-				                                {% if event.http_link %}
 					                                <div class='row'>
 						                                <div class='col-md-1 ml-4 font-weight-bold'>URL:</div>
 						                                <span class='col-md-6'
@@ -105,8 +102,7 @@
 								                                target='_blank'
 								                                href=''></a></span>
 					                                </div>
-				                                {% endif %}
-				                                <div class='row'>
+		                                        <div class='row'>
 					                                <button class='edit-campus-event align-self-end col-md-3 edu-button edu-button-blue mb-0'
 					                                        data-action='edit-event'>Edit
 					                                </button>
@@ -122,7 +118,6 @@
 				                                      data-role='name'>{{ event.name }}</span>
 
 				                                <div class='row'>
-					                                {#				                                    <div class='col-1'></div>#}
 					                                <div class='col-md-1 ml-4 font-weight-bold'>Start:</div>
 					                                <span class='col-md-6'
 					                                      data-role='date_start'>{{ event.date_start|date:"Y-m-d" }}</span>
