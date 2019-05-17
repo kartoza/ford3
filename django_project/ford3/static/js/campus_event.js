@@ -191,6 +191,8 @@ const populateEvent = (eventElement, eventData) => {
       span.innerHTML = value
     }
   })
+  setClickToDeleteButtons()
+  setClickToEditButtons()
 }
 
 const resetForm = () => {
