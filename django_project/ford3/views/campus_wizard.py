@@ -6,10 +6,10 @@ from django.conf import settings
 from django.urls import reverse
 from django.forms.models import model_to_dict
 from formtools.wizard.views import CookieWizardView
-from ford3.models import (
-    Campus,
-    Provider
-)
+from ford3.models.campus import Campus
+from ford3.models.campus_event import CampusEvent
+from ford3.models.provider import Provider
+from ford3.models.field_of_study import FieldOfStudy
 
 
 class CampusFormWizard(CookieWizardView):
@@ -42,6 +42,7 @@ class CampusFormWizard(CookieWizardView):
 
     def get_context_data(self, form, **kwargs):
         context = super().get_context_data(form, **kwargs)
+
         context['form_name_list'] = [
             'Details',
             'Location',
@@ -59,6 +60,8 @@ class CampusFormWizard(CookieWizardView):
         context['form_data'] = form_data
 
         context['multi_step_form'] = True
+        context['fos'] = FieldOfStudy.objects.all()
+
         if 'step' in self.request.GET:
             context['multi_step_form'] = False
 
