@@ -72,6 +72,15 @@ h5 {
     color:  darkred !important;
 }
 
+a.edu-button {
+    color: white;
+}
+
+a.edu-button:hover {
+    color: white;
+    text-decoration-line: unset;
+}
+
 .edu-button {
     height: 2.5rem;
     width: 100%;
@@ -96,8 +105,10 @@ h5 {
 }
 
 .edu-button-blue:hover {
+    color: white;
     background-image: none;
     background-color: var(--c-blue-d);
+    text-decoration: none;
 }
 
 .edu-button-blue:focus {
@@ -126,14 +137,20 @@ h5 {
     background-color: var(--c-smoke);
 }
 
+a.edu-button-grey {
+    color: black !important;
+}
+
 .edu-button-grey:hover {
     background-color: var(--c-grey-l);
     text-decoration: none;
+    color: black;
 }
 
 .edu-button-grey:focus {
     outline-color: var(--c-grey-l);
 }
+
 
 .edu-button-navy {
     color: var(--c-navy);
@@ -141,6 +158,17 @@ h5 {
 }
 
 .edu-button-navy:hover {
+    color: var(--c-navy);
+    background-color: var(--c-grey-l);
+    text-decoration: none;
+}
+
+a.edu-button-navy {
+    color: var(--c-navy);
+    background-color: var(--c-smoke);
+}
+
+a.edu-button-navy:hover {
     color: var(--c-navy);
     background-color: var(--c-grey-l);
     text-decoration: none;
@@ -688,7 +716,7 @@ input[type='email']:hover::placeholder {
 }
 
 .edu-underline {
-   border-bottom: 1px solid #d5d5d5
+   border-bottom: 1px solid var(--c-grey-l)
 }
 /* ----------------------------- ICONS ----------------------------- */
 
@@ -807,11 +835,6 @@ nav#sidebar ul li a:hover {
     background-color: #ffffff;
 }
 
-.noplr {
-    padding-left: 0;
-    padding-right: 0;
-}
-
 .body-wrapper {
     margin-top: 0.75rem;
     width: 100%;
@@ -819,7 +842,7 @@ nav#sidebar ul li a:hover {
 
 /* LANDING PAGE */
 .jumbotron {
-    background:  url('../images/landing-page/graduation-black_white.png');
+    background:  url('../images/landing-page/graduation-color.jpg');
     background-position: 30%;
     background-size: cover;
     margin-top: -0.75rem;
@@ -839,8 +862,6 @@ nav#sidebar ul li a:hover {
     font-weight: 300!important;
 }
 
-/* table-borderless doesn't work well for bootstrap 3.
-   see https://stackoverflow.com/questions/18075794/bootstrap-table-without-stripe-borders/24830641#24830641 */
 .table-borderless > tbody > tr > td,
 .table-borderless > tbody > tr > th,
 .table-borderless > tfoot > tr > td,
@@ -852,5 +873,9 @@ nav#sidebar ul li a:hover {
 
 .table-borderless > thead > tr > th {
     background-color: var(--c-smoke);
+}
+
+.input-invalid {
+    border: 1px solid red !important;
 }
 

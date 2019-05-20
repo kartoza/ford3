@@ -2,15 +2,13 @@ from datetime import datetime
 from django.shortcuts import redirect, Http404, get_object_or_404
 from django.urls import reverse
 from formtools.wizard.views import CookieWizardView
-from ford3.models import (
-    Qualification,
-    Requirement,
-    Subject,
-    QualificationEntranceRequirementSubject,
-    QualificationEvent,
-    Provider,
-    Campus
-)
+from ford3.models.qualification import Qualification
+from ford3.models.requirement import Requirement
+from ford3.models.subject import Subject
+from ford3.models.qualification_entrance_requirement_subject import QualificationEntranceRequirementSubject # noqa
+from ford3.models.qualification_event import QualificationEvent
+from ford3.models.provider import Provider
+from ford3.models.campus import Campus
 from ford3.forms.qualification import (
     QualificationDetailForm,
     QualificationDurationFeesForm,
@@ -185,14 +183,8 @@ class QualificationFormWizardDataProcess(object):
             self.qualification.interests.add(interest)
 
         # Update occupations
-        occupations = form_data['occupation_list']
-        for occupation in self.qualification.occupations.all():
-            self.qualification.occupations.remove(occupation)
-        for occupation in occupations:
-            self.qualification.occupations.add(occupation)
-
-        # Subjects
-        # self.add_subjects(form_data)
+        occupations = form_data['occupations_ids']
+        self.qualification.toggle_occupations(occupations)
 
         # Add requirements
         self.add_or_update_requirements(form_data)
@@ -271,9 +263,14 @@ class QualificationFormWizard(CookieWizardView):
         context['subjects_list'] = (
             self.qualification.entrance_req_subjects_list)
         context['events_list'] = self.qualification.qualification_events_list
+        context['occupations'] = self.qualification.occupations.all()
         return context
 
-
+    def get_form_initial(self, step):
+        if step == '3':
+            # interets and occupations step
+            occupations_ids = ' '.join(self.qualification.occupation_ids)
+            return {'occupations_ids': occupations_ids}
 
     def done(self, form_list, **kwargs):
         form_data = dict()
@@ -401,8 +398,8 @@ class QualificationFormWizard(CookieWizardView):
             pass
         try:
             self.initial_dict['3'] = ({
+                'occupations_ids': self.occupation_ids,
                 'interest_list': self.qualification.interest_id_list,
-                'occupation_list': self.qualification.occupation_id_list,
                 'critical_skill': self.qualification.critical_skill,
                 'green_occupation': self.qualification.green_occupation,
                 'high_demand_occupation':

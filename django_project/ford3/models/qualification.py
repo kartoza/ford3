@@ -1,11 +1,10 @@
-from django.db import models
 from typing import List
+from django.db import models
 from ford3.models.saqa_qualification import SAQAQualification
 from ford3.models.requirement import Requirement
 from ford3.models.interest import Interest
 from ford3.models.occupation import Occupation
-from ford3.models.qualification_entrance_requirement_subject import \
-    QualificationEntranceRequirementSubject
+from ford3.models.qualification_entrance_requirement_subject import QualificationEntranceRequirementSubject # noqa
 from ford3.models.qualification_event import QualificationEvent
 
 
@@ -131,22 +130,33 @@ class Qualification(models.Model):
 
     @property
     def interest_id_list(self) -> List[int]:
-        result = []
         interest_query = Interest.objects.filter(
             qualification__id=self.id).order_by('id').values('id')
         interest_query_list = list(interest_query)
-        for each_item in interest_query_list:
-            result.append(each_item['id'])
+        result = [each_item['id'] for each_item in interest_query_list]
         return result
 
     @property
-    def occupation_id_list(self) -> List[int]:
-        result = []
+    def interest_name_list(self) -> List[int]:
+        interest_query = Interest.objects.filter(
+            qualification__id=self.id).order_by('id').values('name')
+        interest_query_list = list(interest_query)
+        result = [each_item['name'] for each_item in interest_query_list]
+        return result
+
+    @property
+    def occupation_ids(self) -> List[str]:
+        return [
+            str(i['id']) for i
+            in list(self.occupations.all().values('id'))
+        ]
+
+    @property
+    def occupation_name_list(self) -> List[int]:
         occupation_query = Occupation.objects.filter(
-            qualification__id=self.id).order_by('id').values('id')
+            qualification__id=self.id).order_by('id').values('name')
         occupation_query_list = list(occupation_query)
-        for each_item in occupation_query_list:
-            result.append(each_item['id'])
+        result = [each_item['name'] for each_item in occupation_query_list]
         return result
 
     @property
@@ -170,3 +180,23 @@ class Qualification(models.Model):
         event_query = QualificationEvent.objects.filter(
             qualification__id=self.id).values()
         return list(event_query)
+
+    def set_saqa_qualification(self, saqa_id):
+        saqa_qualif = SAQAQualification.objects.get(id=saqa_id)
+        self.saqa_qualification = saqa_qualif
+
+    def toggle_occupations(self, occupations_ids):
+        # save new occupations
+        # symmetric difference
+        ids = set(self.occupation_ids) ^ set(occupations_ids.split(' '))
+        ids = [id for id in ids if len(id) > 0]
+        for occupation_id in ids:
+            occupation = Occupation.objects.get(pk=occupation_id)
+            self.occupations.add(occupation)
+
+        # remove occupations
+        ids = set(occupations_ids.split(' ')) ^ set(self.occupation_ids)
+        ids = [id for id in ids if len(id) > 0]
+        for occupation_id in ids:
+            occupation = Occupation.objects.get(pk=occupation_id)
+            self.occupations.remove(occupation)
