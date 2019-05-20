@@ -1,6 +1,7 @@
 from django.db import models
 from ford3.models.sub_field_of_study import SubFieldOfStudy
 from ford3.models.field_of_study import FieldOfStudy
+from ford3.models.provider import Provider
 from django.core.exceptions import ValidationError
 
 
@@ -8,7 +9,7 @@ class SAQAQualification(models.Model):
     field_of_study = models.ForeignKey(
         FieldOfStudy,
         null=True,
-        blank=True,
+        blank=False,
         on_delete=models.PROTECT)
 
     sub_field_of_study = models.ForeignKey(
@@ -56,19 +57,29 @@ class SAQAQualification(models.Model):
             'creator_provider_id': creator_provider_id
         }
 
-
     @classmethod
-    def create_non_accredited(self, name, creator_provider):
+    def create_non_accredited(self, data):
+        creator_provider = Provider.objects.get(
+            pk=data['provider_id'])
+
+        fos = FieldOfStudy.objects.get(
+            pk=data['fos_id'])
+
         saqa_qualif = SAQAQualification(
-            name=name,
+            name=data['name'],
             creator_provider=creator_provider,
             accredited=False,
-            saqa_id=0)
+            saqa_id=0,
+            field_of_study=fos)
+
+        if 'sfos_id' in data:
+            # sfos = SubFieldOfStudy.objects.get(pk=data['sfos_id'])
+            sfos = fos.subfieldofstudy_set.get(pk=data['sfos_id'])
+            saqa_qualif.sub_field_of_study = sfos
 
         saqa_qualif.save()
 
         return saqa_qualif
-
 
     @classmethod
     def create_accredited(self, name, saqa_id):
@@ -79,6 +90,15 @@ class SAQAQualification(models.Model):
         saqa_qualif.save()
 
         return saqa_qualif
+
+    @classmethod
+    def get_or_create_accredited(self, saqa_dict):
+        try:
+            return SAQAQualification.objects.get(saqa_id=saqa_dict['saqa_id'])
+        except SAQAQualification.DoesNotExist:
+            return self.create_accredited(
+                saqa_dict['name'],
+                saqa_dict['saqa_id'])
 
     def save(self, *args, **kwargs):
         if len(self.name) == 0:
@@ -91,11 +111,9 @@ class SAQAQualification(models.Model):
             # make sure creator_provider and name are unique
             if SAQAQualification.objects.filter(
                 creator_provider=self.creator_provider,
-                name=self.name
-                ).exists():
+                    name=self.name).exists():
                 raise ValidationError(
-                    {'saqa_qualification': 'Non-accredited SAQA qualification \
-                    name must be unique per provider.'})
+                    {'saqa_qualification': 'Non-accredited SAQA qualification name must be unique per provider.'}) # noqa
 
         super().save(*args, **kwargs)
 

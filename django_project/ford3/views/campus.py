@@ -7,10 +7,8 @@ from django.shortcuts import (
 from django.urls import reverse
 from django.core.exceptions import ValidationError
 from django.utils.datastructures import MultiValueDictKeyError
-from ford3.models import (
-    Campus,
-    Provider
-)
+from ford3.models.campus import Campus
+from ford3.models.provider import Provider
 
 
 @login_required
