@@ -2,7 +2,8 @@
 from django.urls import path
 from ford3.views import (
     views,
-    saqa_qualifications
+    saqa_qualifications,
+    campus_events
 )
 from django.conf.urls import url
 from ford3.forms.qualification import (
@@ -22,7 +23,9 @@ from ford3.forms.campus import (
 from ford3.views.campus_wizard import CampusFormWizard
 from ford3.views import (
     campus,
-    provider
+    provider,
+    sub_field_of_study,
+    occupations
 )
 
 
@@ -46,18 +49,18 @@ CAMPUS_FORMS = [
 campus_wizard = CampusFormWizard.as_view(CAMPUS_FORMS)
 
 urlpatterns = [
-    path('providers/<int:provider_id>',
+    path('providers/<int:provider_id>/',
          provider.show,
          name='show-provider'),
-    path('providers/<int:provider_id>/edit',
+    path('providers/<int:provider_id>/edit/',
          provider.edit,
          name='edit-provider'),
     path(
-        'providers/<int:provider_id>/campus/<int:campus_id>/edit',
+        'providers/<int:provider_id>/campus/<int:campus_id>/edit/',
         campus_wizard,
         name='edit-campus'),
     path(
-        'providers/<int:provider_id>/campus/<int:campus_id>',
+        'providers/<int:provider_id>/campus/<int:campus_id>/',
         campus.show,
         name='show-campus'),
     path(
@@ -65,6 +68,14 @@ urlpatterns = [
         campus.create,
         name='create-campus'),
 
+    path(
+        'campus/<int:campus_id>/events/',
+        campus_events.create_or_update,
+        name='create-or-update-campus-event'),
+    path(
+        'campus/events/delete/',
+        campus_events.delete,
+        name='delete-campus-event'),
     path(
         'saqa_qualifications/search/',
         saqa_qualifications.search,
@@ -78,15 +89,24 @@ urlpatterns = [
         '/'.join([
             'providers/<int:provider_id>',
             'campus/<int:campus_id>',
-            'qualifications/<int:qualification_id>/edit']),
+            'qualifications/<int:qualification_id>/edit/']),
         qualification_wizard,
         name='edit-qualification'),
     path(
         '/'.join([
             'providers/<int:provider_id>',
             'campus/<int:campus_id>',
-            'qualifications/<int:qualification_id>']),
+            'qualifications/<int:qualification_id>/']),
         views.show_qualification,
         name='show-qualification'),
+    path(
+        'sfos/<int:fos_id>/index/',
+        sub_field_of_study.index,
+        name='list-sfos'),
+    path(
+        'occupations/',
+        occupations.index,
+        name='list-occupations'),
+
     url(r'^test_widgets/$', views.widget_examples, name='test_widgets'),
 ]
