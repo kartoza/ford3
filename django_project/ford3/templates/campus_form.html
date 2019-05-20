@@ -23,23 +23,35 @@
             </div>
             {% if multi_step_form %}
             <div class='col-md-12'>
-                <ul class="nav-wizard-steps nav nav-pills nav-fill">
+                                <ul class="container nav-wizard-steps nav nav-pills nav-fill">
                     {% for form_name in form_name_list %}
                         <li class="nav-item">
-                            <a class="nav-link
+
+                        <a class="row nav-link {% if forloop.counter == 1 %}
+                                first
+                            {%  endif %}
                             {% if forloop.counter == wizard.steps.step1 %}
                                 active
-                            {% elif forloop.counter < wizard.steps.step1 %} done {% else %} disabled {% endif %}" href="#">
-                                <h4 class="list-group-item-heading
-                                {% if forloop.counter == wizard.steps.step1 %}
-                                    active
-                                {% elif forloop.counter < wizard.steps.step1 %} done {% else %} disabled {% endif %}">
-                                    Step {{ forloop.counter }}
-                                </h4>
-                                <p class="list-group-item-text">{{ form_name }}</p>
-                            </a>
+                            {% elif forloop.counter < wizard.steps.step1 %} done {% else %} disabled {% endif %}">
+
+<span class="nav-item-number">
+		                        <span class="nav-item-number-inner">{{ forloop.counter }}</span>
+                            </span>
+	                        <span class="col-md-11 nav-item-caption">{{ form_name }}</span>
+
+                        </a>
+                        <span class="nav-link-triangle
+                            {% if forloop.counter == 1 %}
+                                first
+                            {% endif %}
+                            {% if forloop.counter == wizard.steps.step1 %}
+                                active
+                            {% elif forloop.counter < wizard.steps.step1 %} done {% else %} disabled {% endif %}">
+                        </span>
+
                         </li>
                     {% endfor %}
+
                 </ul>
             </div>
             {% endif %}
