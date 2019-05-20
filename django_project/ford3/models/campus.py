@@ -227,7 +227,7 @@ class Campus(models.Model):
         ids = [saqa_id for saqa_id in ids if len(saqa_id) > 0]
 
         for saqa_id in ids:
-            qualif = self.qualification_set.filter(
+            self.qualification_set.filter(
                 saqa_qualification__id=saqa_id,
                 campus=self).update(deleted=True)
 

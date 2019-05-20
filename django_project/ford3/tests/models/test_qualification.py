@@ -31,10 +31,6 @@ class TestQualification(TestCase):
         self.assertTrue(self.new_campus)
         # It should delete all but the form data
         self.assertEqual(len(self.new_campus.qualifications), 2)
-        self.assertEqual(len(self.new_campus.qualifications), 1)
-        self.assertEqual(
-            str(self.qualification),
-            'SAQAQualification name')
 
 
 class TestQualificationOccupations(TestCase):
