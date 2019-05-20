@@ -25,7 +25,8 @@ from ford3.views.campus_wizard import CampusFormWizard
 from ford3.views import (
     campus,
     provider,
-    sub_field_of_study
+    sub_field_of_study,
+    occupations
 )
 from ford3.forms.custom_auth_form import CustomAuthForm
 
@@ -104,6 +105,11 @@ urlpatterns = [
         'sfos/<int:fos_id>/index/',
         sub_field_of_study.index,
         name='list-sfos'),
+    path(
+        'occupations/',
+        occupations.index,
+        name='list-occupations'),
+
     url(r'^test_widgets/$', views.widget_examples, name='test_widgets'),
     url(r'^accounts/login/$', auth_views.LoginView.as_view(authentication_form=CustomAuthForm), name='login'),
     url(r'^logout/$', auth_views.LogoutView.as_view(), {'next_page': '/'}, name='logout'),
