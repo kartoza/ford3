@@ -25,6 +25,7 @@ from ford3.views import (
     campus,
     provider
 )
+from ford3.forms.custom_auth_form import CustomAuthForm
 
 
 qualification_wizard = QualificationFormWizard.as_view(
@@ -90,6 +91,6 @@ urlpatterns = [
         views.show_qualification,
         name='show-qualification'),
     url(r'^test_widgets/$', views.widget_examples, name='test_widgets'),
-    url(r'^accounts/login/$', auth_views.LoginView.as_view(), name='login'),
+    url(r'^accounts/login/$', auth_views.LoginView.as_view(authentication_form=CustomAuthForm), name='login'),
     url(r'^logout/$', auth_views.LogoutView.as_view(), {'next_page': '/'}, name='logout'),
 ]
