@@ -30,3 +30,14 @@ class TestProvider(TestCase):
                     'provider_id': self.new_provider.id})
         response = self.client.get(url)
         self.assertTemplateUsed(response, 'provider_form.html')
+
+
+    def test_soft_delete_provider(self):
+        # the provider exists and active
+        self.assertTrue(self.new_provider)
+        self.assertFalse(self.new_provider.deleted)
+
+        self.new_provider.soft_delete()
+
+        # the provider in inactive mode
+        self.assertTrue(self.new_provider.deleted)

@@ -136,15 +136,3 @@ def show(request, provider_id):
         context['provider_logo'] = provider.provider_logo.url
 
     return render(request, 'provider.html', context)
-
-
-def remove(request, provider_id):
-    provider = get_object_or_404(
-        Provider,
-        id=provider_id
-    )
-    provider.soft_delete()
-    # TBD where to go after delete the provider?
-    redirect_url = reverse(
-        'home')
-    return redirect(redirect_url)

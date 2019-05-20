@@ -31,34 +31,3 @@ class TestProvider(TestCase):
 
         response = self.client.get(url)
         self.assertEquals(response.status_code, 404)
-
-    def test_provider_being_removed(self):
-        remove_url = reverse(
-            'remove-provider',
-            args=[
-                self.campus2.provider.id])
-        show_provider_url = reverse(
-            'show-provider',
-            args=[
-                self.campus2.provider.id])
-        edit_provider_url = reverse(
-            'edit-provider',
-            args=[
-                self.campus2.provider.id])
-
-        # check if the provider exist before delete
-        show_provider_response = self.client.get(show_provider_url)
-        self.assertEquals(show_provider_response.status_code, 200)
-
-        edit_provider_response = self.client.get(edit_provider_url)
-        self.assertEquals(edit_provider_response.status_code, 200)
-
-        # delete the provider
-        self.client.get(remove_url)
-
-        # check if the provider can't no longer be found
-        show_provider_response = self.client.get(show_provider_url)
-        self.assertEquals(show_provider_response.status_code, 404)
-
-        edit_provider_response = self.client.get(edit_provider_url)
-        self.assertEquals(edit_provider_response.status_code, 404)
