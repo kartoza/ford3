@@ -1,6 +1,7 @@
 import unittest
 from ford3.tests.functional.utils import SeleniumTestCase, selenium_flag_ready
 from ford3.tests.models.model_factories import ModelFactories
+from django.contrib.auth.models import User
 from django.urls import reverse
 
 
@@ -8,6 +9,11 @@ class TestProviderForm(SeleniumTestCase):
 
     def setUp(self):
         self.new_provider = ModelFactories.get_provider_test_object()
+        # logged in first to access any other urls
+        self.user = User.objects.create_user(
+            'bobby', 'bobby@kartoza.com', 'bob')
+        self.client.login(username="bobby", password="bob")
+
 
     @unittest.skipUnless(
         selenium_flag_ready(),

@@ -1,5 +1,6 @@
 import unittest
 from ford3.tests.functional.utils import SeleniumTestCase, selenium_flag_ready
+from django.contrib.auth.models import User
 from django.urls import reverse
 from ford3.tests.models.model_factories import ModelFactories
 from selenium.webdriver.common.by import By
@@ -67,6 +68,15 @@ class TestCampusForm(SeleniumTestCase):
     @unittest.skipUnless(
         selenium_flag_ready(),
         'Selenium test was not setup')
+    def setUp(self):
+        # logged in first to access any other urls
+        self.user = User.objects.create_user(
+            'bobby', 'bobby@kartoza.com', 'bob')
+        self.client.login(username="bobby", password="bob")
+
+    @unittest.skipUnless(
+        selenium_flag_ready(),
+        'Selenium test was not setup')
     def test_return_404(self):
         """ If provider_id or campus_id does not exist, it should return 404.
         """
@@ -95,6 +105,10 @@ class TestCampusFormDataBinding(SeleniumTestCase):
                 self.campus.id))
 
         self.campus_form_url = f'{self.live_server_url}{campus_form_url}'
+        # logged in first to access any other urls
+        self.user = User.objects.create_user(
+            'bobby', 'bobby@kartoza.com', 'bob')
+        self.client.login(username="bobby", password="bob")
 
     def test_form_details(self):
         """The form 'Step 1 - Details' should be populated with the correct values.
