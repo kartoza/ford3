@@ -50,8 +50,8 @@
                         {% if wizard.steps.step1 == 3 %}
                             <div class='row'>
                                 <div class='col-md-6'>
-                                    <input id='create-or-update-event-url' type='hidden' value='{% url "create-or-update-event" campus_id=campus.id %}' />
-                                    <input id='delete-campus-event-url' type='hidden' value='{% url "delete-campus-event" %}' />
+                                    <input id='create-or-update-event-url' type='hidden' value='{% url "create-or-update-event" owner_id=campus.id event_type='campus' %}' />
+                                    <input id='delete-event-url' type='hidden' value='{% url "delete-event" event_type='campus' %}' />
 
                                     <div id='form-event'>
                                         <label class="mt-1">Name*</label>
