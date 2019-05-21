@@ -34,7 +34,7 @@ const getUpdateEventButton = () => {
 
 const getCreateOrUpdateEventUrl = () => {
   return document.getElementById(
-      'create-or-update-campus-event-url').value
+      'create-or-update-event-url').value
 }
 
 const getDeleteEventUrl = () => {
@@ -275,7 +275,7 @@ const ajaxCreateEvent = (event) => {
         hideElement(getFormErrorAlertElem())
         // showElement(getFormSuccessAlertElem())
 
-        const eventData = data.campus_event
+        const eventData = data.event
         const eventElement = insertEvent(eventData)
 
         populateEvent(eventElement, eventData)
@@ -308,7 +308,7 @@ const ajaxUpdateEvent = (event, eventElement) => {
     if (request.status >= 200 && request.status < 400) {
       const data = JSON.parse(request.responseText)
       if (data.success) {
-        const eventData = data.campus_event
+        const eventData = data.event
         resetForm()
 
         reloadEvent(eventData)

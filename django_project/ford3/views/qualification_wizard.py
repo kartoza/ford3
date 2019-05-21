@@ -262,7 +262,7 @@ class QualificationFormWizard(LoginRequiredMixin, CookieWizardView):
             if self.qualification.campus.provider.provider_logo else ""
         context['subjects_list'] = (
             self.qualification.entrance_req_subjects_list)
-        context['events_list'] = self.qualification.qualification_events_list
+        context['events_list'] = self.qualification.events
         context['occupations'] = self.qualification.occupations.all()
         return context
 
