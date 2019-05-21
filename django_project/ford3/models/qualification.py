@@ -112,11 +112,7 @@ class Qualification(models.Model):
         auto_now_add=True)
     edited_at = models.DateTimeField(
         auto_now=True)
-
-
     deleted = models.BooleanField(
-        blank=False,
-        null=False,
         default=False,
         help_text="Qualification has been deleted")
 
