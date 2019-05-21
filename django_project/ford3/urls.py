@@ -7,6 +7,12 @@ from ford3.views import (
 )
 from django.conf.urls import url
 from django.contrib.auth import views as auth_views
+from django.contrib.auth.views import (
+    PasswordResetView,
+    PasswordResetDoneView,
+    PasswordResetConfirmView,
+    PasswordResetCompleteView
+)
 from ford3.forms.qualification import (
     QualificationDetailForm,
     QualificationDurationFeesForm,
@@ -119,4 +125,20 @@ urlpatterns = [
         r'^logout/$',
         auth_views.LogoutView.as_view(), {'next_page': '/'},
         name='logout'),
+    url(
+        r'^accounts/password/reset/$',
+        PasswordResetView.as_view(),
+        name='password_reset'),
+    url(
+        r'^accounts/password/reset/done$',
+        PasswordResetDoneView.as_view(),
+        name='password_reset_done'),
+    url(
+        r'^reset/(?P<uidb64>[0-9A-Za-z]+)-(?P<token>.+)/$',
+        PasswordResetConfirmView.as_view(),
+        name='password_reset_confirm'),
+    url(
+        r'^reset/done/',
+        PasswordResetCompleteView.as_view(),
+        name='password_reset_complete'),
 ]

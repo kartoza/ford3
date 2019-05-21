@@ -14,6 +14,10 @@
                     </p>
                 </div>
             </div>
+
+
+
+        {% block registration %}
             <div class="row">
                 <div class="col-md-12">
                     <div class="user-icon mx-auto">
@@ -34,10 +38,19 @@
                             </div>
                           </div>
                       {% endfor  %}
+                      <div class="row">
+                        <div class="col-md-12 py-2">
+                            <a href="{% url 'password_reset'%}">Forgot password</a>
+                        </div>
+                      </div>
+
                 <div class="row">
                     <button class="edu-button edu-button-orange mx-3 my-4" type="submit">Login</button>
                 </div>
               </form>
+
+        {% endblock %}
+
         </div>
     </div>
 </div>
