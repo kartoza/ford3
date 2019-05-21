@@ -33,8 +33,9 @@ class QualificationEvent(models.Model):
         blank=True,
         null=True,
         unique=False,
-        help_text="A link to a web page with additional details regarding this "
-                  "event",
+        help_text=(
+            "A link to a web page with additional details regarding this "
+            "event"),
         max_length=255)
 
     def save(self, *args, **kwargs):

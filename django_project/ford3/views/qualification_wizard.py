@@ -275,11 +275,11 @@ class QualificationFormWizard(LoginRequiredMixin, CookieWizardView):
     def done(self, form_list, **kwargs):
         form_data = dict()
         for form in form_list:
-            if form.prefix == '4':
-                context = self.get_context_data(form=form, **kwargs)
-                self.add_events(
-                    context['view'].storage.data['step_data']['4'])
-            elif form.prefix == '2':
+            # if form.prefix == '4':
+            #     context = self.get_context_data(form=form, **kwargs)
+            #     self.add_events(
+            #         context['view'].storage.data['step_data']['4'])
+            if form.prefix == '2':
                 context = self.get_context_data(form=form, **kwargs)
                 self.add_required_subjects(
                     context['view'].storage.data['step_data']['2'])

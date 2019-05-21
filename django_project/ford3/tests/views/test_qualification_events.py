@@ -32,8 +32,7 @@ class TestCreateQualificationEventView(TestCase):
 
     def test_create_event_empty_name(self):
         self.data['name'] = ''
-        response = self.client.post(self.url, self.data)
-        body = json.loads(response.content)
+        self.client.post(self.url, self.data)
         self.assertEqual(len(self.qualification.events), 0)
 
     def test_create_event_empty_date_start(self):
@@ -131,7 +130,8 @@ class TestDeleteQualificationEventView(TestCase):
         response = self.client.post(self.url, self.data)
         body = json.loads(response.content)
         self.assertTrue(body['success'])
-        self.qualification = Qualification.objects.get(pk=self.qualification.id)
+        self.qualification = Qualification.objects.get(
+            pk=self.qualification.id)
         self.assertEqual(len(self.qualification.events), 0)
 
     def test_delete_event_without_id(self):

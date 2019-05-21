@@ -4,11 +4,10 @@ from django.core.exceptions import ValidationError
 from ford3.models.campus_event import CampusEvent
 from ford3.models.campus import Campus
 from ford3.models.qualification_event import QualificationEvent
-from ford3.models.qualification import  Qualification
+from ford3.models.qualification import Qualification
 
 
 def create_or_update(request, owner_id, event_type):
-
     if 'id' in request.POST:
         return update(request, event_type)
     else:

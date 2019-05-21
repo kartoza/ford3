@@ -38,7 +38,7 @@ const getCreateOrUpdateEventUrl = () => {
 }
 
 const getDeleteEventUrl = () => {
-  return document.getElementById('delete-campus-event-url').value
+  return document.getElementById('delete-event-url').value
 }
 
 
