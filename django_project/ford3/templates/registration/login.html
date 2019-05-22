@@ -14,30 +14,38 @@
                     </p>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="user-icon mx-auto">
-                </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <h4 class="text-center text-white">Login</h4>
-                </div>
-            </div>
-              <form method="post">
-                {% csrf_token %}
-                      {% for field in form  %}
-                          <div class="row">
-                            <div class="col-md-12 py-2">
-                              {{ field }}
-                            </div>
-                          </div>
-                      {% endfor  %}
+            {% block registration %}
                 <div class="row">
-                    <button class="edu-button edu-button-orange mx-3 my-4" type="submit">Login</button>
+                    <div class="col-md-12">
+                        <div class="user-icon mx-auto">
+                    </div>
+                    </div>
                 </div>
-              </form>
+                <div class="row">
+                    <div class="col-md-12">
+                        <h4 class="text-center text-white">Login</h4>
+                    </div>
+                </div>
+                  <form method="post">
+                    {% csrf_token %}
+                          {% for field in form  %}
+                              <div class="row">
+                                <div class="col-md-12 py-2">
+                                  {{ field }}
+                                </div>
+                              </div>
+                          {% endfor  %}
+                    <div class="row">
+                        <button class="edu-button edu-button-orange mx-3 my-4" type="submit">Login</button>
+                    </div>
+                  </form>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <a href="{% url 'signup' %}">Sign Up</a>
+                    </div>
+                </div>
+            {% endblock %}
         </div>
     </div>
 </div>

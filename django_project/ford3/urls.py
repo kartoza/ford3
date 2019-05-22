@@ -29,6 +29,7 @@ from ford3.views import (
     occupations
 )
 from ford3.forms.custom_auth_form import CustomAuthForm
+from ford3.views import account_signup
 
 
 qualification_wizard = QualificationFormWizard.as_view(
@@ -119,4 +120,17 @@ urlpatterns = [
         r'^logout/$',
         auth_views.LogoutView.as_view(), {'next_page': '/'},
         name='logout'),
+    url(r'^signup/$', account_signup.signup, name='signup'),
+    url(r'^account_activation_sent/$',
+        account_signup.account_activation_sent,
+        name='account_activation_sent'),
+    url(r'^account_activation_succeed/$',
+        account_signup.account_activation_succeed,
+        name='account_activation_succeed'),
+    url(
+        r'^activate/'
+        r'(?P<uidb64>[0-9A-Za-z_\-]+)/'
+        r'(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
+        account_signup.activate,
+        name='activate'),
 ]
