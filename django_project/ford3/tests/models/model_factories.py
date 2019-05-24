@@ -1,6 +1,9 @@
 # coding=utf-8
 """Factory for building model instances for testing."""
 import datetime
+
+from django.contrib.auth import get_user_model
+from django.contrib.auth.models import Group, Permission
 from ford3.models.campus import Campus
 from ford3.models.field_of_study import FieldOfStudy
 from ford3.models.occupation import Occupation
@@ -14,6 +17,7 @@ from ford3.models.campus_event import CampusEvent
 from ford3.models.qualification_event import QualificationEvent
 from ford3.models.interest import Interest
 from ford3.models.saqa_qualification import SAQAQualification
+from ford3.models.province import Province
 
 
 class ModelFactories:
@@ -191,3 +195,24 @@ class ModelFactories:
         )
 
         return saqa_qualification_test_object
+
+    @staticmethod
+    def get_province_test_object():
+        province_test_object = Province.objects.create(
+            name='WesternCapeTest',
+            location='Not sure what this should be?',
+        )
+
+class UserFactories:
+
+    #
+    #
+    # @staticmethod
+    # def
+
+    @staticmethod
+    def get_province_user():
+
+        new_group, created = Group.objects.get_or_create(name='new_group')
+        proj_add_perm = Permission.objects.get(name='Can add project')
+        new_group.permissions.add(proj_add_perm)

@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %}
+	Providers • Dashboard
+{% endblock %}
+
+{% block body %}
+	<div id="provider-dashboard" class="container">
+		<div class="row">
+			<h1>Provider dashboard</h1>
+		</div>
+		{% for provider in providers %}
+			<div class="row">
+			<div class="card col-md-12 mb-3
+">
+				<div class="card-header">
+					<div class="col-md-12">{{ provider.name }}</div>
+				</div>
+				<div class="card-body">
+					{% for campus in provider.campus %}
+
+						<div class="col-md-4 card mb-5 border-0">
+							<h2>{{ campus.name }}</h2>
+						</div>
+{#							<div class="campus-card mx-auto text-center">#}
+{#								<div class="card-body h-100">#}
+{#									<h5 class="card-title"><a class="text-white"#}
+{#									                          href="/ford3/providers/18/campus/61/">Some Campus</a>#}
+{#									</h5>#}
+{##}
+{#									<ul class="list-inline mt-3 text-center">#}
+{#										<li class="list-inline-item">#}
+{#											Qualifications#}
+{#											<h3 class="text-white">1</h3>#}
+{#										</li>#}
+{##}
+{#										<li class="list-inline-item">#}
+{#											Events#}
+{#											<h3 class="text-white">1 </h3>#}
+{#										</li>#}
+{#									</ul>#}
+{#									<a class="edu-button edu-button-navy align-bottom mt-0"#}
+{#									   href="/ford3/providers/18/campus/61/edit/">Edit</a>#}
+{##}
+{#								</div>#}
+{#							</div>#}
+{#						</div>#}
+					{% endfor %}
+				</div>
+			</div>
+
+
+		{% endfor %}
+	</div>
+	</div>
+{% endblock %}
+
+
+{% block footer %}
+	<script type="text/javascript" src="{% static 'js/provider_dashboard.js' %}"></script>
+{% endblock %}
+

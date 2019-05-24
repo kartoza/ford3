@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth import get_user_model
 from ford3.models.campus import Campus
 
 
@@ -105,6 +106,9 @@ class Provider(models.Model):
         unique=False,
         help_text='',
         max_length=255)
+    users = models.ManyToManyField(
+        get_user_model(),
+        blank=True)
 
     pass
 
@@ -120,3 +124,4 @@ class Provider(models.Model):
     @property
     def is_new_provider(self):
         return len(self.campus) == 0
+
