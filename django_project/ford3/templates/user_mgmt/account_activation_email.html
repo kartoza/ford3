@@ -6,6 +6,8 @@
 
     {% if request.is_secure %}https{% else %}http{% endif %}://{{ domain }}{% url 'activate' uidb64=uid token=token %}
 
+    The link is valid within {{ settings.VALID_LINK_DAYS }} days.
+
     If you think this is a mistake, please ignore this email.
     We're sorry for any inconvenience
 

@@ -98,6 +98,8 @@ TEMPLATES = [
                 # `allauth` needs this from django
                 'django.template.context_processors.request',
                 'django.contrib.messages.context_processors.messages',
+                # enable access settings in template
+                'django_settings_export.settings_export',
             ],
         },
     },

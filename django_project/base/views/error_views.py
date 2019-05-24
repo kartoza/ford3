@@ -25,3 +25,26 @@ def custom_404(request, template_name='404.html', *args, **kwargs):
         },
         status=404)
     return response
+
+
+def custom_403(request, template_name='403.html', *args, **kwargs):
+    """Our custom 403 view
+
+    :param template_name: The template to render
+    :type template_name: str
+
+    :return: Response obj
+    :rtype: HttpResponse
+
+    """
+
+    capture_message("Not authorized!", level="error")
+
+    response = render(
+        request,
+        template_name,
+        context={
+            'request_path': request.path
+        },
+        status=403)
+    return response

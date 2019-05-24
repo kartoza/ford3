@@ -52,15 +52,38 @@
                                             <a href="#">Clone</a>
                                             <a href="{% url 'remove-usermgmt' um.user.id %}" onclick="return confirm('Are you sure want to delete {{ um.user.username }}?');">Delete</a>
                                         </td>
-
                                     </tr>
                                     {% endfor %}
                                 </table>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-4 mx-auto">
-                                <a href="{% url 'add-usermgmt' %}" class="edu-button edu-button-orange">Add a new user</a>
+                    <div class="row">
+                        <div class="col-md-12">
+                                <form action="/ford3/user_mgmt/add/" method="post">
+                            {% csrf_token %}
+                            {{ form.group }}
+                                    <div class="row">
+                                        <div class="col-md-12 my-3">
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    Email
+                                                </div>
+                                                <div class="col-md-5">
+                                                    {{ form.email}}
+                                                    {% if form.errors %}
+                                                        <p class="text-warning">{{ form.error_messages.invalid_email }}</p>
+                                                    {% endif %}
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <button class="edu-button edu-button-blue my-0"
+                                                                type="submit"
+                                                                value="submit">Add User
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -68,5 +91,4 @@
             </div>
         </div>
     </div>
-
 {% endblock %}
