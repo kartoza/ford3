@@ -1,0 +1,13 @@
+{% autoescape off %}
+	Hi {{ user.username }},
+
+	You've been given an access to OpenEdu.
+    Please click on the link below to confirm your account:
+
+    {% if request.is_secure %}https{% else %}http{% endif %}://{{ domain }}{% url 'activate' uidb64=uid token=token %}
+
+    If you think this is a mistake, please ignore this email.
+    We're sorry for any inconvenience
+
+    Thanks
+{% endautoescape %}

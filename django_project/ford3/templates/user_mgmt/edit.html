@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block parent-body %}
+	<div class="container-fluid">
+        <div class="row">
+            <div class='col-md-12 pt-5'>
+                <div class="row">
+                    <div class="col-md-4 mx-auto">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h4>Edit user</h4>
+                            </div>
+                        </div>
+                        <form action="/ford3/user_mgmt/update/{{ user_id }}/" method="post">
+                        {% csrf_token %}
+                            <div class="row">
+                                <!--div class="col-md-12">
+                                    <table class="mx-auto">
+                                    {{ form.as_table }}
+                                    </table>
+                                </div-->
+                                <div class="col-md-12 my-3">
+                                    <div class="row py-3">
+                                        <div class="col-md-4">
+                                            Email
+                                        </div>
+                                        <div class="col-md-8">
+                                            {{ form.email }}
+                                        </div>
+                                    </div>
+                                    <div class="row py-3">
+                                        <div class="col-md-4">
+                                            Group
+                                        </div>
+                                        <div class="col-md-8">
+                                            {{ form.group }}
+                                        </div>
+                                    </div>
+                                    <div class="row py-3">
+                                        <div class="col-md-4">
+                                            Email Confirmed
+                                        </div>
+                                        <div class="col-md-8">
+                                            {{ form.email_confirmed }}
+                                        </div>
+                                    </div>
+                                    <!--table>
+                                    {{ form.as_table }}
+                                    </table-->
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <!--a href="{% url 'update-usermgmt' user_id=user_id %}" class="edu-button edu-button-orange">Update</a-->
+                                    <button class="edu-button edu-button-blue"
+                                        type="submit"
+                                        value="submit">Update
+                                    </button>
+
+                                </div>
+                                <div class="col-md-6">
+                                    <a href="{% url 'show-usermgmt' %}" class="edu-button edu-button-orange">Back</a>
+                                </div>
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

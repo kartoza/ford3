@@ -1,4 +1,5 @@
 {% extends "index.html" %}
+{% load auth_util %}
 {% load static %}
 
 {# navbar  #}
@@ -7,7 +8,14 @@
         <div class="open-edu-logo col-md-2 text-center px-0"><span class='text-white'>Open</span><span class='text-blue'>Edu</span></div>
         <div class="col-md-8">
             <p class="text-right">
-        <a class='text-white pull-right mr-0' href='/site-admin'>Administration |</a>
+        {# Only non Campus groups can access the User Management #}
+        {% if not user|has_group:"Campus" %}
+            <a class='text-white pull-right mr-0' href="{% url 'show-usermgmt' %}">User Management |</a>
+        {% endif %}
+        {# Only admins can access the Admin page #}
+        {% if user.is_staff %}
+            <a class='text-white pull-right mr-0' href='/site-admin'>Administration |</a>
+        {% endif %}
 
         {% if user.is_authenticated %}
                 <b class="text-white">{{ user.username }}</b>

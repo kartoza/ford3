@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% load auth_util %}
+
+{% block parent-body %}
+	<div class="container-fluid">
+        <div class="row">
+            <div class='col-md-12 pt-5'>
+                <div class="row">
+                    <div class="col-md-8 mx-auto">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h4>User Management</h4>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <table class="table table-bordered">
+                                    <tr class="text-center">
+                                        <th class="m-5">User name</th>
+                                        <th>Group</th>
+                                        <th>E-mail address</th>
+                                        <th>Email verified</th>
+                                        <th>User active</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                    {% for um in user_management %}
+                                    <tr class="m-4">
+                                        <td>
+                                        {{ um.user.username }}
+                                        </td>
+                                        <td>
+                                        {{ um.group.name }}
+                                        </td>
+                                        <td>
+                                        {{ um.user.email }}
+                                        </td>
+                                        <td>
+                                        {{ um.email_confirmed}}
+                                        </td>
+                                        <td>
+                                        {{ um.user.is_active }}
+                                        </td>
+                                        <td>
+                                            <a href="{% url 'edit-usermgmt' um.user.id %}">Edit</a>
+                                            {% if user|has_group:"Provinces" %}
+                                                {% if um.user.is_active %}
+                                                    <a href="{% url 'disable-usermgmt' um.user.id %}">Disable</a>
+                                                {% else %}
+                                                    <a href="{% url 'enable-usermgmt' um.user.id %}">Enable</a>
+                                                {% endif %}
+                                            {% endif %}
+                                            <a href="#">Clone</a>
+                                            <a href="{% url 'remove-usermgmt' um.user.id %}" onclick="return confirm('Are you sure want to delete {{ um.user.username }}?');">Delete</a>
+                                        </td>
+
+                                    </tr>
+                                    {% endfor %}
+                                </table>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 mx-auto">
+                                <a href="{% url 'add-usermgmt' %}" class="edu-button edu-button-orange">Add a new user</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
