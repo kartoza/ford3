@@ -3,7 +3,8 @@ from django.urls import path
 from ford3.views import (
     views,
     saqa_qualifications,
-    events
+    events,
+    user_management
 )
 from django.conf.urls import url
 from django.contrib.auth import views as auth_views
