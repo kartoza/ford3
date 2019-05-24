@@ -35,6 +35,8 @@ from ford3.views import (
     occupations
 )
 from ford3.forms.custom_auth_form import CustomAuthForm
+from ford3.forms.password_reset_form import PasswordResetForm
+from ford3.forms.set_password_form import SetPasswordForm
 
 
 qualification_wizard = QualificationFormWizard.as_view(
@@ -127,7 +129,7 @@ urlpatterns = [
         name='logout'),
     url(
         r'^accounts/password/reset/$',
-        PasswordResetView.as_view(),
+        PasswordResetView.as_view(form_class=PasswordResetForm),
         name='password_reset'),
     url(
         r'^accounts/password/reset/done$',
@@ -135,7 +137,7 @@ urlpatterns = [
         name='password_reset_done'),
     url(
         r'^reset/(?P<uidb64>[0-9A-Za-z]+)-(?P<token>.+)/$',
-        PasswordResetConfirmView.as_view(),
+        PasswordResetConfirmView.as_view(form_class=SetPasswordForm),
         name='password_reset_confirm'),
     url(
         r'^reset/done/',

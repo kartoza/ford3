@@ -7,6 +7,7 @@
 <div class="container-fluid" id="login-page">
     <div class="row py-5">
         <div class="col-md-3 mx-auto rounded px-4" id="login-form">
+        {% block registration %}
             <div class="row">
                 <div class="col-md-12">
                     <p class="open-edu-logo-login text-center">
@@ -14,10 +15,6 @@
                     </p>
                 </div>
             </div>
-
-
-
-        {% block registration %}
             <div class="row">
                 <div class="col-md-12">
                     <div class="user-icon mx-auto">
