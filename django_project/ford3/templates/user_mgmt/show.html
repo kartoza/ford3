@@ -30,7 +30,8 @@
                                         {{ um.user.last_name }}
                                         </td>
                                         <td>
-                                        {{ um.group.name }}
+                                        {# a user always belongs to only one group, otherwise we would need torefactor this#}
+                                        {{ um.user.groups.all.0 }}
                                         </td>
                                         <td>
                                         {{ um.user.email }}
@@ -71,8 +72,8 @@
                                                 </div>
                                                 <div class="col-md-5">
                                                     {{ form.email}}
-                                                    {% if form.errors %}
-                                                        <p class="text-warning">{{ form.error_messages.invalid_email }}</p>
+                                                    {% if form.email.errors %}
+                                                        <p class="text-warning">{{ form.email.errors }}</p>
                                                     {% endif %}
                                                 </div>
                                                 <div class="col-md-4">

@@ -24,11 +24,11 @@ class UserManagementForm(forms.Form):
         return email
 
 
-class UserManagementPasswordResetForm(forms.Form):
+class UserManagementAccountActivationForm(forms.Form):
     first_name = forms.CharField(
         label='First Name',
         widget=forms.TextInput(
-            attrs={'placeholders': 'John'}
+            attrs={'placeholder': 'John'}
         ),
         required=False,
         max_length=50
@@ -36,7 +36,7 @@ class UserManagementPasswordResetForm(forms.Form):
     last_name = forms.CharField(
         label='Last Name',
         widget=forms.TextInput(
-            attrs={'placeholders': 'Doe'}
+            attrs={'placeholder': 'Doe'}
         ),
         required=False,
         max_length=50
@@ -44,7 +44,7 @@ class UserManagementPasswordResetForm(forms.Form):
     new_password1 = forms.CharField(
         label=_("New password"),
         widget=forms.PasswordInput(
-            attrs={'placeholders': 'Str0ng6OoDP45sword!@'}
+            attrs={'placeholder': 'New Password'}
         ),
         strip=False,
         help_text=password_validation.password_validators_help_text_html(),
@@ -53,7 +53,7 @@ class UserManagementPasswordResetForm(forms.Form):
         label=_("New password confirmation"),
         strip=False,
         widget=forms.PasswordInput(
-            attrs={'placeholders': 'Str0ng6OoDP45sword!@'}
+            attrs={'placeholder': 'Re-type new password'}
         ),
     )
     error_messages = {
@@ -62,7 +62,8 @@ class UserManagementPasswordResetForm(forms.Form):
 
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop('user', '')
-        super(UserManagementPasswordResetForm, self).__init__(*args, **kwargs)
+        super(UserManagementAccountActivationForm, self).__init__(
+            *args, **kwargs)
 
     def clean_new_password2(self):
         password1 = self.cleaned_data.get('new_password1')

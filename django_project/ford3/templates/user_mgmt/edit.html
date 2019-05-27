@@ -27,8 +27,8 @@
                                         </div>
                                         <div class="col-md-8">
                                             {{ form.email }}
-                                            {% if form.errors %}
-                                                <p class="text-warning">{{ form.error_messages.invalid_email }}</p>
+                                            {% if form.email.errors %}
+                                                <p class="text-warning">{{ form.email.errors }}</p>
                                             {% endif %}
                                         </div>
                                     </div>

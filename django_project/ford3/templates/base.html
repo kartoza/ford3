@@ -18,7 +18,7 @@
         {% endif %}
 
         {% if user.is_authenticated %}
-                <b class="text-white">{{ user.username }}</b>
+                <b class="text-white">{{ user.first_name }} {{ user.last_name }}</b>
                 <a href="{% url 'logout' %}?next=/accounts/login" class="text-white">Logout</a>
             </p>
         {% else %}

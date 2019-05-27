@@ -1,7 +1,7 @@
 from ford3.models.user_management import UserManagement
 from ford3.forms.user_management_form import (
     UserManagementForm,
-    UserManagementPasswordResetForm
+    UserManagementAccountActivationForm
 )
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.sites.shortcuts import get_current_site
@@ -16,8 +16,13 @@ import datetime
 from pytz import UTC
 from base.views.error_views import custom_403, custom_404
 from django.conf import settings
+from django.db.utils import IntegrityError
+
 
 VALID_LINK_DAYS = getattr(settings, 'VALID_LINK_DAYS', 1)
+GROUP_PROVINCES = 1
+GROUP_PROVIDERS = 3
+GROUP_CAMPUS = 2
 
 
 def show(request):
@@ -26,23 +31,22 @@ def show(request):
     if request.user.is_staff:
         user_mgmt = UserManagement.objects.all()
         # admin can add a user belongs to Provinces
-        allowed_group = 'Provinces'
+        allowed_group = GROUP_PROVINCES
     else:
         # for non-admins
         group_id = request.user.groups.all().first().id
-        if group_id == 1:
+        if group_id == GROUP_PROVINCES:
             user_mgmt = UserManagement.provider_objects.all()
-        elif group_id == 3:
+        elif group_id == GROUP_PROVIDERS:
             user_mgmt = UserManagement.campus_objects.all()
-        elif group_id == 2:
+        elif group_id == GROUP_CAMPUS:
             return custom_403(request)
         # prepare form for add new user
-        group_name = request.user.groups.all().first().name
         allowed_group = ''
-        if group_name == 'Provinces':
-            allowed_group = 'Providers'
-        elif group_name == 'Providers':
-            allowed_group = 'Campus'
+        if group_id == GROUP_PROVINCES:
+            allowed_group = GROUP_PROVIDERS
+        elif group_id == GROUP_PROVIDERS:
+            allowed_group = GROUP_CAMPUS
 
     data = {'group': allowed_group}
     form = UserManagementForm(initial=data)
@@ -59,15 +63,18 @@ def add(request):
     if request.method == "POST":
         if form.is_valid():
             email = form.cleaned_data['email']
-            group_name = form.cleaned_data['group']
+            group_id = form.cleaned_data['group']
             user = User.objects.create_user(username=email, email=email)
-            group = Group.objects.get(name=group_name)
+            group = Group.objects.get(id=group_id)
             user.groups.add(group)
             user.is_active = False
-            user.save()
-            user.is_active = False
+            try:
+                user.save()
+            except IntegrityError:
+                # user already exist
+                return custom_404(request)
 
-            um = UserManagement(user=user, group=group, email_confirmed=False)
+            um = UserManagement(user=user, email_confirmed=False)
             um.save()
 
             current_site = get_current_site(request)
@@ -83,13 +90,13 @@ def add(request):
             user.email_user(subject, message)
             return redirect("show-usermgmt")
         else:
-            # prepare to list user management
+            # prepare to list user management based on groups
             group_id = request.user.groups.all().first().id
-            if group_id == 1:
+            if group_id == GROUP_PROVINCES:
                 user_mgmt = UserManagement.provider_objects.all()
-            elif group_id == 3:
+            elif group_id == GROUP_PROVIDERS:
                 user_mgmt = UserManagement.campus_objects.all()
-            elif group_id == 2:
+            elif group_id == GROUP_CAMPUS:
                 return custom_403(request)
             # superuser
             else:
@@ -107,8 +114,8 @@ def edit(request, user_id):
     user_mgmt = get_object_or_404(UserManagement, user_id=user_id)
     data = {
         'email': user_mgmt.user.email,
-        'group': user_mgmt.group.name,
-        'email_confirmed': user_mgmt.email_confirmed
+        'email_confirmed': user_mgmt.email_confirmed,
+        'group': user_mgmt.user.groups.all()[0].id,
     }
     form = UserManagementForm(data)
 
@@ -164,6 +171,13 @@ def destroy(request, user_id):
 
 
 def activate(request, uidb64, token):
+    """
+    Confirm the user email, then redirect to set password
+    :param request:
+    :param uidb64:
+    :param token:
+    :return:
+    """
     try:
         uid = force_text(urlsafe_base64_decode(uidb64))
         user = get_object_or_404(User, pk=uid)
@@ -172,7 +186,6 @@ def activate(request, uidb64, token):
         user = None
 
     if user is not None and default_token_generator.check_token(user, token):
-        user.is_active = True
         user_mgmt.email_confirmed = True
         # check if the link still valid
         valid_date = user.date_joined + datetime.timedelta(
@@ -183,7 +196,6 @@ def activate(request, uidb64, token):
 
         if current_date > valid_date:
             return render(request, 'user_mgmt/account_activation_invalid.html')
-        user.save()
         user_mgmt.save()
         # go to account activation first, no to reset password
         password_reset = reverse(
@@ -198,32 +210,52 @@ def activate(request, uidb64, token):
 
 
 def password_reset(request, uidb64, token):
+    """
+    The email has confirmed, then set user details and password
+    :param request:
+    :param uidb64:
+    :param token:
+    :return:
+    """
     uid = force_text(urlsafe_base64_decode(uidb64))
     user = get_object_or_404(User, pk=uid)
     if user is None or not default_token_generator.check_token(user, token):
         return render(request, 'user_mgmt/account_activation_invalid.html')
 
+    # check if the link still valid
+    valid_date = user.date_joined + datetime.timedelta(
+        days=VALID_LINK_DAYS)
+    current_date = datetime.datetime.now()
+    valid_date = valid_date.replace(tzinfo=UTC)
+    current_date = current_date.replace(tzinfo=UTC)
+
+    if current_date > valid_date:
+        return render(request, 'user_mgmt/account_activation_invalid.html')
+
     if request.method == "POST":
-        form = UserManagementPasswordResetForm(data=request.POST, user=user)
+        form = UserManagementAccountActivationForm(
+            data=request.POST,
+            user=user)
         if form.is_valid():
             # update user's detail
             user.first_name = request.POST['first_name']
             user.last_name = request.POST['last_name']
+            user.is_active = True
             user.save()
             form.save()
             return redirect("active_then_set_password_done")
         else:
             return render(
                 request,
-                "user_mgmt/password_reset_confirm.html",
+                "user_mgmt/account_activate_confirm.html",
                 {'form': form})
     else:
-        form = UserManagementPasswordResetForm()
+        form = UserManagementAccountActivationForm()
         return render(
             request,
-            "user_mgmt/password_reset_confirm.html",
+            "user_mgmt/account_activate_confirm.html",
             {'form': form})
 
 
 def password_reset__done(request):
-    return render(request, "user_mgmt/password_reset_confirm_done.html")
+    return render(request, "user_mgmt/account_activate_confirm_done.html")
