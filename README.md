@@ -45,15 +45,19 @@ To run the project locally, there are four steps:
 3. Run the server
 4. Open browser
 
-Suppose the current directory is `/home/web`.
-
-Therefore, the project will be in the `/home/web/ford3` directory.
-
 ### 1. Build the images and set up the docker for the project
+
+Clone the repo
 ```
-cd /home/web
 git clone git://github.com/kartoza/ford3.git
-cd /home/web/ford3/deployment
+```
+
+- We will use Makefile script available under deployment folder.
+- Any `make` commands should be run under deployment folder.
+
+
+```
+cd ford3/deployment
 cp btsync-db.env.EXAMPLE btsync-db.env
 cp btsync-media.env.EXAMPLE btsync-media.env
 make build
@@ -70,14 +74,14 @@ Admin user is required to administer the site.
 To add admin:
 
 ```
-cd /home/web/ford3/deployment
+cd deployment
 make superuser
 # write your usename, email, and password
 ```
 
 #### Add initial data
 ```
-cd /home/web/ford3/deployment
+cd deployment
 make load-initial-data
 ```
 
@@ -85,7 +89,7 @@ make load-initial-data
 ### 3. Run the server
 #### A. From PyCharm Professional
 ```
-cd /home/web/ford3/deployment/ansible/development/group_vars
+cd deployment/ansible/development/group_vars
 cp all.sample.yml all.yml
 ```
 
@@ -95,7 +99,7 @@ cp all.sample.yml all.yml
   - *project_path* is equal to `/home/web/ford3`
 
 ```
-cd /home/web/ford3/deployment/ansible
+cd deployment/ansible
 mkdir tmp
 cd ..
 make setup-ansible
@@ -111,7 +115,7 @@ make setup-ansible
   - If the server doesn't run, try:
 
 ```
-cd /home/web/ford3/deployment
+cd deployment
 make down
 make up
 ```
@@ -119,7 +123,7 @@ make up
 
 #### B. From CLI
 ```
-cd /home/web/ford3/deployment
+cd deployment
 make migrate
 make shell
 python manage.py runserver 0.0.0.0:8080
@@ -139,7 +143,7 @@ These tools are suggested before developers make a pull request to the repo.
 **flake8** is used to make sure the code is aligned with coding style.
 
 ```
-cd /home/web/ford3/deployment
+cd deployment
 make flake8
 ```
 - Fix the code if the tool complaint about the coding
@@ -148,13 +152,13 @@ make flake8
 
  In order to run the selenium tests, double check the web server is not running.
  ```
- cd /home/web/ford3/deployment
+ cd deployment
  make selenium-up
  ```
 
  To run django test:
  ```
- cd /home/web/ford3/deployment
+ cd deployment
  make test
  ```
 
@@ -170,7 +174,7 @@ key on your production server and run one or more btsync clients
 with a read only key.
 
 ```
-cd /home/web/ford3/deployment
+cd deployment
 cp btsync-media.env.EXAMPLE btsync-media.env
 cp btsync-db.env.EXAMPLE btsync-db.env
 ```
