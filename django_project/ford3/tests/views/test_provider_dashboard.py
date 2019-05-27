@@ -41,6 +41,7 @@ class TestProviderDashboard(TestCase):
         self.campus_user_1 = (
             self.create_temp_campus_user(self.provider_user2,
                                          "temp_campus_1"))
+        self.temp_user = self.create_temp_groupless_user("temp_user")
 
         self.provider1.users.add(self.province_user)
         self.provider2.users.add(self.province_user)
@@ -63,6 +64,13 @@ class TestProviderDashboard(TestCase):
         self.provider4.save()
 
     def test_basic_authentication(self):
+        status_code = self.client.get(self.url).status_code
+        self.assertEqual(302, status_code)
+
+    def test_show_with_no_group(self):
+        login_result = self.client.login(
+            username=self.temp_user.username, password='temp')
+        self.assertTrue(login_result)
         status_code = self.client.get(self.url).status_code
         self.assertEqual(302, status_code)
 
@@ -137,6 +145,15 @@ class TestProviderDashboard(TestCase):
         user.save()
         ProviderUsersCampusUsers.objects.create(
             campus_user_id=user, provider_user_id=provider_user)
+        return user
+
+    def create_temp_groupless_user(self, username):
+        user = get_user_model().objects.create_user(
+            username,
+            'temp',
+            'temp3@temp.com')
+        user.set_password('temp')
+        user.save()
         return user
 
     def get_user_province(self, user):
