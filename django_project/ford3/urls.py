@@ -27,7 +27,6 @@ from ford3.views import (
     provider,
     sub_field_of_study,
     occupations,
-    users,
     dashboard
 )
 from ford3.forms.custom_auth_form import CustomAuthForm
@@ -112,10 +111,6 @@ urlpatterns = [
         'occupations/',
         occupations.index,
         name='list-occupations'),
-    path(
-        'users/provider/create',
-        users.create_provider_user,
-        name='create-provider-user'),
     path(
         'dashboard/',
         dashboard.show,
