@@ -1,5 +1,5 @@
 from django.urls import reverse
-from django.contrib.auth.models import User, Group
+from django.contrib.auth.models import User, Group, Permission
 from django.test import TestCase
 from django.core.management import call_command
 from django.contrib.auth import get_user_model
@@ -113,6 +113,8 @@ class TestProviderDashboard(TestCase):
             'temp',
             'temp@temp.com')
         user.set_password('temp')
+        permission = Permission.objects.filter(name='Is Province User').first()
+        user.user_permissions.add(permission)
         provinces_group: Group = Group.objects.get(pk=1)
         user.groups.add(provinces_group)
         user.save()
@@ -125,6 +127,8 @@ class TestProviderDashboard(TestCase):
             'temp',
             'temp2@temp.com')
         user.set_password('temp')
+        permission = Permission.objects.filter(name='Is Provider User').first()
+        user.user_permissions.add(permission)
         province = self.get_user_province(province_user)
         province.users.add(user)
         provider_group: Group = Group.objects.get(pk=3)
@@ -142,6 +146,8 @@ class TestProviderDashboard(TestCase):
         province.users.add(user)
         campus_group: Group = Group.objects.get(pk=2)
         user.groups.add(campus_group)
+        permission = Permission.objects.filter(name='Is Campus User').first()
+        user.user_permissions.add(permission)
         user.save()
         ProviderUsersCampusUsers.objects.create(
             campus_user_id=user, provider_user_id=provider_user)

@@ -135,3 +135,9 @@ class Provider(models.Model):
     def is_new_provider(self):
         return len(self.campus) == 0
 
+    class Meta:
+        permissions = [
+            ("province_user", "Is Province User"),
+            ("provider_user", "Is Provider User"),
+            ("campus_user", "Is Campus User"),
+        ]
