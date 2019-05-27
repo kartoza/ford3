@@ -1,7 +1,5 @@
 from django.shortcuts import render
-
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User, Group
 from ford3.models.provider import Provider
 from ford3.models.province import Province
 from ford3.models.provider_users_campus_users import ProviderUsersCampusUsers

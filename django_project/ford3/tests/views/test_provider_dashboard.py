@@ -1,14 +1,12 @@
-from django.shortcuts import render
 from django.urls import reverse
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User, Group
-from ford3.models.provider import Provider
 from django.test import TestCase
 from django.core.management import call_command
 from django.contrib.auth import get_user_model
-from ford3.views import dashboard
 from ford3.tests.models.model_factories import ModelFactories
 from ford3.models.province import Province
+from ford3.models.provider_users_campus_users import ProviderUsersCampusUsers
+
 
 class TestProviderDashboard(TestCase):
     def setUp(self):
@@ -92,13 +90,14 @@ class TestProviderDashboard(TestCase):
 
     def test_show_as_campus(self):
         login_result = self.client.login(
-            username=self.campus_user.username, password='temp')
+            username=self.campus_user_1.username, password='temp')
         self.assertTrue(login_result)
-
-    # def test_show_as_provider(self):
-    #     current_user = self.create_temp_provider_user()
-    #     self.client.login(username='temp_provider', password='temp')
-    #     response = self.client.get(self.url)
+        response = self.client.get(self.url)
+        body = str(response.content)
+        self.assertNotIn(self.provider1.name, body)
+        self.assertNotIn(self.provider2.name, body)
+        self.assertIn(self.provider3.name, body)
+        self.assertIn(self.provider4.name, body)
 
     def create_temp_province_user(self, province: Province, username):
         user: User = get_user_model().objects.create_user(
@@ -118,9 +117,8 @@ class TestProviderDashboard(TestCase):
             'temp',
             'temp2@temp.com')
         user.set_password('temp')
-        user_province: Province = (
-            Province.objects.filter(users__id=province_user.id).first())
-        user_province.users.add(user)
+        province = self.get_user_province(province_user)
+        province.users.add(user)
         provider_group: Group = Group.objects.get(pk=3)
         user.groups.add(provider_group)
         user.save()
@@ -131,9 +129,16 @@ class TestProviderDashboard(TestCase):
             username,
             'temp',
             'temp3@temp.com')
-
         user.set_password('temp')
+        province = self.get_user_province(provider_user)
+        province.users.add(user)
         campus_group: Group = Group.objects.get(pk=2)
         user.groups.add(campus_group)
         user.save()
+        ProviderUsersCampusUsers.objects.create(
+            campus_user_id=user, provider_user_id=provider_user)
         return user
+
+    def get_user_province(self, user):
+        province = Province.objects.filter(users__id=user.id).first()
+        return province
