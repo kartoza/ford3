@@ -26,6 +26,7 @@ def show(request):
     if user_group_id == 2:  # Campus user
         provider_user = ProviderUsersCampusUsers.objects.filter(
             campus_user_id=user_id).first()
+        provider_user = provider_user.provider_user_id
         providers = Provider.objects.filter(users__id=provider_user.id)
 
     context = {
