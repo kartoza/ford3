@@ -26,25 +26,35 @@ class UserManagementForm(forms.Form):
 
 class UserManagementPasswordResetForm(forms.Form):
     first_name = forms.CharField(
-        widget=forms.TextInput,
+        label='First Name',
+        widget=forms.TextInput(
+            attrs={'placeholders': 'John'}
+        ),
         required=False,
         max_length=50
     )
     last_name = forms.CharField(
-        widget=forms.TextInput,
+        label='Last Name',
+        widget=forms.TextInput(
+            attrs={'placeholders': 'Doe'}
+        ),
         required=False,
         max_length=50
     )
     new_password1 = forms.CharField(
         label=_("New password"),
-        widget=forms.PasswordInput,
+        widget=forms.PasswordInput(
+            attrs={'placeholders': 'Str0ng6OoDP45sword!@'}
+        ),
         strip=False,
         help_text=password_validation.password_validators_help_text_html(),
     )
     new_password2 = forms.CharField(
         label=_("New password confirmation"),
         strip=False,
-        widget=forms.PasswordInput,
+        widget=forms.PasswordInput(
+            attrs={'placeholders': 'Str0ng6OoDP45sword!@'}
+        ),
     )
     error_messages = {
         'password_mismatch': _("The two password fields didn't match."),
@@ -52,7 +62,7 @@ class UserManagementPasswordResetForm(forms.Form):
 
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop('user', '')
-        super().__init__(*args, **kwargs)
+        super(UserManagementPasswordResetForm, self).__init__(*args, **kwargs)
 
     def clean_new_password2(self):
         password1 = self.cleaned_data.get('new_password1')

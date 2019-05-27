@@ -26,7 +26,8 @@
                                     {% for um in user_management %}
                                     <tr class="m-4">
                                         <td>
-                                        {{ um.user.username }}
+                                        {{ um.user.first_name }}
+                                        {{ um.user.last_name }}
                                         </td>
                                         <td>
                                         {{ um.group.name }}

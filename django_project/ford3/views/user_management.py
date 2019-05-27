@@ -22,23 +22,27 @@ VALID_LINK_DAYS = getattr(settings, 'VALID_LINK_DAYS', 1)
 
 def show(request):
     # prepare to list user management
-    group_id = request.user.groups.all().first().id
-    if group_id == 1:
-        user_mgmt = UserManagement.provider_objects.all()
-    elif group_id == 3:
-        user_mgmt = UserManagement.campus_objects.all()
-    elif group_id == 2:
-        return custom_403(request)
-    # superuser
-    else:
+    # for admin
+    if request.user.is_staff:
         user_mgmt = UserManagement.objects.all()
-    # prepare form for add new user
-    group_name = request.user.groups.all().first().name
-    allowed_group = ''
-    if group_name == 'Provinces':
-        allowed_group = 'Providers'
-    elif group_name == 'Providers':
-        allowed_group = 'Campus'
+        # admin can add a user belongs to Provinces
+        allowed_group = 'Provinces'
+    else:
+        # for non-admins
+        group_id = request.user.groups.all().first().id
+        if group_id == 1:
+            user_mgmt = UserManagement.provider_objects.all()
+        elif group_id == 3:
+            user_mgmt = UserManagement.campus_objects.all()
+        elif group_id == 2:
+            return custom_403(request)
+        # prepare form for add new user
+        group_name = request.user.groups.all().first().name
+        allowed_group = ''
+        if group_name == 'Provinces':
+            allowed_group = 'Providers'
+        elif group_name == 'Providers':
+            allowed_group = 'Campus'
 
     data = {'group': allowed_group}
     form = UserManagementForm(initial=data)
@@ -202,7 +206,11 @@ def password_reset(request, uidb64, token):
     if request.method == "POST":
         form = UserManagementPasswordResetForm(data=request.POST, user=user)
         if form.is_valid():
-            user = form.save()
+            # update user's detail
+            user.first_name = request.POST['first_name']
+            user.last_name = request.POST['last_name']
+            user.save()
+            form.save()
             return redirect("active_then_set_password_done")
         else:
             return render(
