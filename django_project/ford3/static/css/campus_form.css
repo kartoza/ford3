@@ -84,8 +84,12 @@ input[data-action='create-qualif'] {
 }
 
 .qualif-saqa-id a {
-  color: darkred;
+  color: black;
   text-decoration: underline;
+}
+
+.selected .qualif-saqa-id a {
+  color: white;
 }
 
 .saqa-all-qualifications .nav-tabs {
@@ -111,44 +115,9 @@ input[data-action='create-qualif'] {
 }
 .saqa-all-qualifications .nav-link.active {
   background:  transparent !important;
+  text-decoration: underline;
 }
 
-
-/* --- */
-.remove-campus-event-button-inner {
-    line-height: 2.7rem;
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.remove-campus-event-button {
-    background-color: var(--c-orange);
-    border-radius: 50%;
-    width: 2.75rem;
-    height: 2.75rem;
-    text-align: center;
-    cursor: pointer;
-    position: relative;
-    top: -0.25rem;
-}
-
-.campus-event-list-item {
-    list-style-type: none;
-    position: relative;
-}
-
-.delete-campus-event {
-    position:absolute;
-    top: 1.5rem;
-    right: 0;
-    transform: scale(0.7);
-}
-
-.edit-campus-event {
-    position:absolute;
-    top: 0rem;
-    right: 0;
-    margin-top: 0;
-    transform: scale(0.7);
+.saqa-all-qualifications .nav-item {
+  height: 55px;
 }
