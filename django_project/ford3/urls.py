@@ -28,7 +28,7 @@ from ford3.views import (
     sub_field_of_study,
     occupations,
     users,
-    provider_dashboard
+    dashboard
 )
 from ford3.forms.custom_auth_form import CustomAuthForm
 
@@ -117,9 +117,9 @@ urlpatterns = [
         users.create_provider_user,
         name='create-provider-user'),
     path(
-        'providers/dashboard/',
-        provider_dashboard.show,
-        name='provider-dashboard'),
+        'dashboard/',
+        dashboard.show,
+        name='dashboard'),
     url(r'^test_widgets/$', views.widget_examples, name='test_widgets'),
     url(r'^accounts/login/$',
         auth_views.LoginView.as_view(authentication_form=CustomAuthForm),

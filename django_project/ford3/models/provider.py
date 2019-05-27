@@ -9,6 +9,19 @@ class Provider(models.Model):
         'University',
         'Private Tertiary College',)
 
+    users = models.ManyToManyField(
+        get_user_model(),
+        blank=True)
+    province = models.ForeignKey(
+        'ford3.province',
+        null=True,
+        on_delete=models.PROTECT)
+    creator = models.ForeignKey(
+        get_user_model(),
+        null=True,
+        on_delete=models.PROTECT,
+        related_name='creator',
+        )
     name = models.CharField(
         blank=True,
         null=False,
@@ -106,9 +119,6 @@ class Provider(models.Model):
         unique=False,
         help_text='',
         max_length=255)
-    users = models.ManyToManyField(
-        get_user_model(),
-        blank=True)
 
     pass
 

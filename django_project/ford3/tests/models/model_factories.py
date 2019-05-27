@@ -199,9 +199,10 @@ class ModelFactories:
     @staticmethod
     def get_province_test_object():
         province_test_object = Province.objects.create(
-            name='WesternCapeTest',
+            name='TestProvince',
             location='Not sure what this should be?',
         )
+        return province_test_object
 
 class UserFactories:
 

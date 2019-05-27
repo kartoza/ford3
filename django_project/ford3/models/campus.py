@@ -1,12 +1,18 @@
 from django.contrib.gis.db import models
 from django.core.exceptions import ValidationError
 from ford3.models.campus_event import CampusEvent
+from django.contrib.auth import get_user_model
 
 
 class Campus(models.Model):
     provider = models.ForeignKey(
         'ford3.provider',
         on_delete=models.CASCADE)
+    creator = models.ForeignKey(
+        get_user_model(),
+        null=True,
+        on_delete=models.PROTECT,
+        )
     name = models.CharField(
         blank=False,
         null=False,
