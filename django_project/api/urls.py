@@ -1,9 +1,9 @@
-from django.urls import path
+from django.conf.urls import url
 from api.viewsets.provider import ProviderViewSet
 
 
 urlpatterns = [
-    path(r'^(?P<version>(v1))/providers',
-         ProviderViewSet.as_view({'get': 'list'}),
-         name='show-providers-api')
+    url(r'^(?P<version>(v1))/providers',
+        ProviderViewSet.as_view({'get': 'list'}),
+        name='show-providers-api')
 ]
