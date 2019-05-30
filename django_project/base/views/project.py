@@ -5,13 +5,25 @@ import logging
 logger = logging.getLogger(__name__)
 
 from django.views.generic import TemplateView
-from django.shortcuts import render
+from django.shortcuts import render, reverse
 from ford3.forms.prospect_form import ProspectForm
 from ford3.models.prospect import Prospect
+from django.http import HttpResponse
+
 
 
 class Home(TemplateView):
     template_name = 'index.html'
+
+
+    def show(self, request):
+        if self.user.is_authenticated() and self.user.account_activated:
+            return HttpResponse(reverse('dashboard'))
+        else:
+            return HttpResponse('index.html')
+
+
+
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
