@@ -51,6 +51,7 @@ urlpatterns = [
         r'^logout/$',
         auth_views.LogoutView.as_view(), {'next_page': '/'},
         name='logout'),
+    url(r'^api-auth/', include('rest_framework.urls'))
     # url(r'^', include('ford3.urls')),
     # url(r'^accounts/', include('allauth.urls')),
 ]
