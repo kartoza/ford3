@@ -6,4 +6,3 @@ from api.serializers.campus import CampusSerializer
 class CampusViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Campus.objects.all()
     serializer_class = CampusSerializer
-
