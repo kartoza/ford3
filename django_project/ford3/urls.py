@@ -1,10 +1,5 @@
 # coding=utf-8
 from django.urls import path
-from ford3.views import (
-    views,
-    saqa_qualifications,
-    events
-)
 from django.conf.urls import url
 from django.contrib.auth import views as auth_views
 from ford3.forms.qualification import (
@@ -23,6 +18,9 @@ from ford3.forms.campus import (
 )
 from ford3.views.campus_wizard import CampusFormWizard
 from ford3.views import (
+    views,
+    saqa_qualifications,
+    events,
     campus,
     provider,
     sub_field_of_study,
