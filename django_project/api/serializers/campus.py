@@ -6,7 +6,7 @@ from api.serializers.qualification import QualificationSerializer
 
 class CampusSerializer(serializers.ModelSerializer):
     campus_events = CampusEventSerializer(many=True)
-    campus_qualifications = QualificationSerializer(many=True)
+    qualification_set = QualificationSerializer(many=True)
 
     class Meta:
         model = Campus

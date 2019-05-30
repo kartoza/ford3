@@ -20,7 +20,7 @@ class Qualification(models.Model):
     campus = models.ForeignKey(
         'ford3.campus',
         on_delete=models.CASCADE,
-        related_name='campus_qualifications')
+        related_name='qualification_set')
     saqa_qualification = models.ForeignKey(
         SAQAQualification,
         null=True,
