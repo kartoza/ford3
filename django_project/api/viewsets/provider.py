@@ -3,6 +3,6 @@ from ford3.models.provider import Provider
 from api.serializers.provider import ProviderSerializer
 
 
-class ProviderViewSet(viewsets.ModelViewSet):
+class ProvidersViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Provider.objects.all()
     serializer_class = ProviderSerializer
