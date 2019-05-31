@@ -19,7 +19,8 @@ class PasswordResetForm(forms.Form):
         widget=forms.EmailInput(attrs={'placeholder': 'email@example.com'}))
 
     def send_mail(self, subject_template_name, email_template_name,
-                  context, from_email, to_email, html_email_template_name=None):
+                  context, from_email, to_email,
+                  html_email_template_name=None):
         """
         Send a django.core.mail.EmailMultiAlternatives to `to_email`.
         """
@@ -28,9 +29,15 @@ class PasswordResetForm(forms.Form):
         subject = ''.join(subject.splitlines())
         body = loader.render_to_string(email_template_name, context)
 
-        email_message = EmailMultiAlternatives(subject, body, from_email, [to_email])
+        email_message = \
+            EmailMultiAlternatives(
+                subject,
+                body,
+                from_email,
+                [to_email])
         if html_email_template_name is not None:
-            html_email = loader.render_to_string(html_email_template_name, context)
+            html_email = loader.render_to_string(
+                html_email_template_name, context)
             email_message.attach_alternative(html_email, 'text/html')
 
         email_message.send()
@@ -76,6 +83,10 @@ class PasswordResetForm(forms.Form):
                 **(extra_email_context or {}),
             }
             self.send_mail(
-                subject_template_name, email_template_name, context, from_email,
-                email, html_email_template_name=html_email_template_name,
+                subject_template_name,
+                email_template_name,
+                context,
+                from_email,
+                email,
+                html_email_template_name=html_email_template_name,
             )

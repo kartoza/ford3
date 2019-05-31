@@ -14,13 +14,15 @@ class SetPasswordForm(forms.Form):
     }
     new_password1 = forms.CharField(
         label=_("New password"),
-        widget=forms.PasswordInput(attrs={'placeholder': 'Type new password here'}),
+        widget=forms.PasswordInput(
+            attrs={'placeholder': 'Type new password here'}),
         strip=False,
         help_text=password_validation.password_validators_help_text_html(),
     )
     new_password2 = forms.CharField(
         label=_("New password confirmation"),
-        widget=forms.PasswordInput(attrs={'placeholder': 'Re-type new password here'}),
+        widget=forms.PasswordInput(
+            attrs={'placeholder': 'Re-type new password here'}),
         strip=False,
     )
 
