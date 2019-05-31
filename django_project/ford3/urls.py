@@ -1,9 +1,20 @@
-# coding=utf-8
+from django.conf.urls import url
+from django.contrib.auth import views as auth_views
 from django.urls import path
 from ford3.views import (
     views,
     saqa_qualifications,
-    events
+    events,
+    account,
+    dashboard,
+    campus,
+    provider,
+    sub_field_of_study,
+    occupations
+)
+from ford3.views.users import (
+    UserList,
+    UserCreate
 )
 from django.conf.urls import url
 from django.contrib.auth import views as auth_views
@@ -28,12 +39,6 @@ from ford3.forms.campus import (
     CampusQualificationsForm
 )
 from ford3.views.campus_wizard import CampusFormWizard
-from ford3.views import (
-    campus,
-    provider,
-    sub_field_of_study,
-    occupations
-)
 from ford3.forms.custom_auth_form import CustomAuthForm
 from ford3.forms.password_reset_form import PasswordResetForm
 from ford3.forms.set_password_form import SetPasswordForm
@@ -59,12 +64,24 @@ CAMPUS_FORMS = [
 campus_wizard = CampusFormWizard.as_view(CAMPUS_FORMS)
 
 urlpatterns = [
-    path('providers/<int:provider_id>/',
-         provider.show,
-         name='show-provider'),
+    path('providers/new/',
+        provider.new,
+        name='new-provider'),
+    path('providers/',
+        provider.create,
+        name='create-provider'),
     path('providers/<int:provider_id>/edit/',
-         provider.edit,
-         name='edit-provider'),
+        provider.edit,
+        name='edit-provider'),
+    path('providers/<int:provider_id>/update/',
+        provider.update,
+        name='update-provider'),
+    path('providers/<int:provider_id>/',
+        provider.show,
+        name='show-provider'),
+    path('providers/<int:provider_id>/delete/',
+        provider.delete,
+        name='delete-provider'),
     path(
         'providers/<int:provider_id>/campus/<int:campus_id>/edit/',
         campus_wizard,
@@ -77,7 +94,10 @@ urlpatterns = [
         'providers/<int:provider_id>/campus/create/',
         campus.create,
         name='create-campus'),
-
+    path(
+        'providers/<int:provider_id>/campus/<int:campus_id>/delete/',
+        campus.delete,
+        name='delete-campus'),
     path(
         'events/create_or_update/<int:owner_id>/<str:event_type>',
         events.create_or_update,
@@ -111,6 +131,13 @@ urlpatterns = [
         views.show_qualification,
         name='show-qualification'),
     path(
+        '/'.join([
+            'providers/<int:provider_id>',
+            'campus/<int:campus_id>',
+            'qualifications/<int:qualification_id>/delete/']),
+        views.delete_qualification,
+        name='delete-qualification'),
+    path(
         'sfos/<int:fos_id>/index/',
         sub_field_of_study.index,
         name='list-sfos'),
@@ -118,7 +145,27 @@ urlpatterns = [
         'occupations/',
         occupations.index,
         name='list-occupations'),
-
+    url(
+        r'^activate/'
+        r'(?P<uidb64>[0-9A-Za-z_\-]+)/'
+        r'(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
+        account.activate,
+        name='activate'),
+    path(
+        'dashboard/',
+        dashboard.show,
+        name='dashboard'
+    ),
+    path(
+        'dashboard/users/',
+        UserList.as_view(),
+        name='dashboard-users'
+    ),
+    path(
+        'dashboard/users/add/',
+        UserCreate.as_view(),
+        name='dashboard-users-add'
+    ),
     url(r'^test_widgets/$', views.widget_examples, name='test_widgets'),
     url(
         r'^accounts/login/$',
