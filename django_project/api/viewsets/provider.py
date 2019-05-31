@@ -4,5 +4,5 @@ from api.serializers.provider import ProviderSerializer
 
 
 class ProvidersViewSet(viewsets.ReadOnlyModelViewSet):
-    queryset = Provider.objects.all()
+    queryset = Provider.active_objects.all()
     serializer_class = ProviderSerializer

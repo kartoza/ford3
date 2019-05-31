@@ -5,6 +5,8 @@ from api.serializers.subject import SubjectSerializer
 from api.serializers.saqa_qualification import SAQAQualificationSerializer
 from api.serializers.occupation import OccupationSerializer
 from api.serializers.interest import InterestSerializer
+from api.serializers.requirements import RequirementSerializer
+from api.serializers.utilities.common_excluded_fields import CommonExcludedFields  # noqa
 
 
 class QualificationSerializer(serializers.ModelSerializer):
@@ -13,7 +15,8 @@ class QualificationSerializer(serializers.ModelSerializer):
     saqa_qualification = SAQAQualificationSerializer()
     occupations = OccupationSerializer(many=True)
     interests = InterestSerializer(many=True)
+    requirement_set = RequirementSerializer(many=True)
 
     class Meta:
         model = Qualification
-        fields = '__all__'
+        exclude = CommonExcludedFields.user_details

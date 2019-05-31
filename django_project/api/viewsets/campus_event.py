@@ -4,5 +4,5 @@ from api.serializers.campus_event import CampusEventSerializer
 
 
 class CampusEventViewSet(viewsets.ReadOnlyModelViewSet):
-    queryset = CampusEvent.objects.all()
+    queryset = CampusEvent.active_objects.all()
     serializer_class = CampusEventSerializer

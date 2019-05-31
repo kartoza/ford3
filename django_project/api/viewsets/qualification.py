@@ -4,5 +4,5 @@ from api.serializers.qualification import QualificationSerializer
 
 
 class QualificationViewSet(viewsets.ReadOnlyModelViewSet):
-    queryset = Qualification.objects.all()
+    queryset = Qualification.active_objects.all()
     serializer_class = QualificationSerializer

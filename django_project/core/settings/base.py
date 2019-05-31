@@ -138,7 +138,7 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
     ],
-    'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.URLPathVersioning'
+    'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.URLPathVersioning',
 }
 
 # A sample logging configuration. The only tangible logging
