@@ -21,7 +21,8 @@ class CampusDetailForm(CampusForm):
 
     telephone = forms.CharField(
         label='Telephone number',
-        widget=forms.TextInput(attrs={'placeholder': '+271234567890 or 123456789012345'}),
+        widget=forms.TextInput(
+            attrs={'placeholder': '+271234567890 or 123456789012345'}),
         required=False)
 
     email = forms.EmailField(
