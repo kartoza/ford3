@@ -21,7 +21,8 @@ class CampusDetailForm(CampusForm):
 
     telephone = forms.CharField(
         label='Telephone number',
-        widget=forms.TextInput(attrs={'placeholder': '021 345 678'}),
+        widget=forms.TextInput(
+            attrs={'placeholder': '+271234567890 or 123456789012345'}),
         required=False)
 
     email = forms.EmailField(
@@ -32,7 +33,7 @@ class CampusDetailForm(CampusForm):
     max_students_per_year = forms.IntegerField(
         label='Annual student capacity',
         widget=forms.NumberInput(
-            attrs={'placeholder': '1000'}),
+            attrs={'placeholder': 'e.g: 1000'}),
         max_value=1000000,
         min_value=0,
         required=False)
