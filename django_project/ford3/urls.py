@@ -44,10 +44,10 @@ from ford3.forms.set_password_form import SetPasswordForm
 
 QUALIFICATION_FORMS = [
     ('qualification-details', QualificationDetailForm),
-    ('qualification-duration-fees', QualificationDurationFeesForm),
+    ('qualification-duration', QualificationDurationFeesForm),
     ('qualification-requirements', QualificationRequirementsForm),
-    ('qualification-interets-jobs', QualificationInterestsAndJobsForm),
-    ('qualification-dates', QualificationImportantDatesForm)
+    ('qualification-interests-jobs', QualificationInterestsAndJobsForm),
+    ('qualification-important-dates', QualificationImportantDatesForm),
 ]
 
 qualification_wizard = QualificationFormWizard.as_view(QUALIFICATION_FORMS)

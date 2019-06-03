@@ -116,7 +116,7 @@ class CampusFormWizard(LoginRequiredMixin, CookieWizardView):
         # get the form instance based on the data from the storage backend
         # (if available).
 
-        if 'step' in self.request.GET:
+        if 'step' in self.request.GET and 'multi-step' not in self.request.GET:
             return self.render_done(form, **kwargs)
         else:
             return super().render_next_step(form, **kwargs)
@@ -130,7 +130,7 @@ class CampusFormWizard(LoginRequiredMixin, CookieWizardView):
         """
         final_forms = OrderedDict()
 
-        if 'step' in self.request.GET:
+        if 'step' in self.request.GET and 'multi-step' not in self.request.GET:
             form_list = [self.request.GET['step']]
         else:
             form_list = self.get_form_list()
