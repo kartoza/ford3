@@ -55,7 +55,7 @@ qualification_wizard = QualificationFormWizard.as_view(
 CAMPUS_FORMS = [
     ('campus-details', CampusDetailForm),
     ('campus-location', CampusLocationForm),
-    ('campus-dates', CampusImportantDatesForm),
+    ('campus-events', CampusImportantDatesForm),
     ('campus-qualifications', CampusQualificationsForm)
 ]
 

@@ -62,7 +62,7 @@ class CampusFormWizard(LoginRequiredMixin, CookieWizardView):
         context['multi_step_form'] = True
         context['fos'] = FieldOfStudy.objects.all()
 
-        if 'step' in self.request.GET:
+        if 'step' in self.request.GET and 'multi-step' not in self.request.GET:
             context['multi_step_form'] = False
 
         return context
