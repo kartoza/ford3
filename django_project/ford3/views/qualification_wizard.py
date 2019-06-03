@@ -264,6 +264,10 @@ class QualificationFormWizard(LoginRequiredMixin, CookieWizardView):
             self.qualification.entrance_req_subjects_list)
         context['events_list'] = self.qualification.events
         context['occupations'] = self.qualification.occupations.all()
+        context['multi_step_form'] = True
+        if 'step' in self.request.GET and 'multi-step' not in self.request.GET:
+            context['multi_step_form'] = False
+
         return context
 
     def get_form_initial(self, step):
