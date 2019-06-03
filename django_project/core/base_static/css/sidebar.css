@@ -8,7 +8,7 @@
     background-color: var(--c-purple);
     color: #fff;
     transition: all 0.3s;
-    min-height: 100vh
+    min-height: 100vh;
     padding-bottom: 4rem;
 }
 
@@ -39,10 +39,7 @@
     height: 100%;
     line-height: 1.25rem;
     color: var(--c-grey-l);
-    padding-left: 1rem;
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
-    padding-right: 1rem;
+    padding: 0.5rem 1rem;
 }
 
 #sidebar ul li:hover {
