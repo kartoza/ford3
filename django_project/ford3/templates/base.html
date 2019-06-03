@@ -1,36 +1,60 @@
 {% extends "index.html" %}
 {% load static %}
 
+{% block head %}
+    <script src="https://getbootstrap.com/docs/4.3/examples/offcanvas/offcanvas.js"></script>
+{% endblock %}
+
 {# navbar  #}
 {% block navbar %}
-<nav class="navbar pl-0">
-    <div class="open-edu-logo col-md-2 text-center px-0">
-        <a href="{% url 'dashboard' %}" style='text-decoration: none;'>
+<nav class="navbar navbar-expand-lg fixed-top">
+    {% block dashboard_menu %}
+    {% endblock %}
+    {# logo for medium screens #}
+    <div class="open-edu-logo col-md-2 text-center d-none d-md-block">
+        <a href="{% url 'dashboard' %}" style='text-decoration: none;' class="navbar-brand">
             <span class='text-white'>Open</span><span class='text-blue'>Edu</span>
         </a>
     </div>
-    <div class="col-md-8">
-        <p class="text-right text-white">
-            <b>{{ user.first_name }} {{ user.last_name }}</b> |
-            <a href="{% url 'dashboard' %}" class="text-white">Dashboard</a> |
+    {# logo for smal screens #}
+    <a href="{% url 'dashboard' %}" style='text-decoration: none;' class="d-md-none navbar-brand">
+            <span class='text-white'>Open</span><span class='text-blue'>Edu</span>
+    </a>
+    {# end of logo #}
+    <button class="navbar-toggler p-0 border-0" type="button" data-toggle="offcanvas">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="navbar-collapse offcanvas-collapse">
+        <ul class="navbar-nav ml-md-auto text-right">
+            <li class="nav-item">
+                <p class="nav-link text-white">{{ user.first_name }} {{ user.last_name }}</p>
+            </li>
+            <li class="nav-item">
+            <a href="{% url 'dashboard' %}" class="nav-link text-white">Dashboard</a>
+            </li>
             {% if user.is_superuser %}
-                <a class='pull-right mr-0 text-white' href='/site-admin'>Administration</a> |
+                <li class="nav-item">
+                <a class='nav-link text-white' href='/site-admin'>Administration</a>
+                </li>
             {% endif %}
-            <a href="{% url 'logout' %}?next=/accounts/login" class="text-white">Logout</a>
-        </p>
+            <li class="nav-item">
+                <a href="{% url 'logout' %}?next=/accounts/login" class="nav-link text-white">Logout</a>
+            </li>
+        </ul>
     </div>
+{# end of menu for different screens #}
 </nav>
 {% endblock %}
 
 {% block parent-body %}
-	<div class="container-fluid">
+	<div class="container-fluid mt-5">
         <div class="row px-0">
 
 	{# sidebar #}
     {# we need this block to disable the block in provider_form.html #}
     {% block side_navbar %}
-    <nav id="sidebar" class="col-md-2 px-0">
-        <div class="container-fluid px-0 pb-3">
+    <nav id="sidebar" class="col-md-2 px-0 d-none d-sm-none d-lg-block">
+        <div class="container-fluid px-0">
             <div class="col-12">
                 <div id="provider-photo" class="provider-photo">
                     {% if provider_logo %}
@@ -57,16 +81,15 @@
             </div>
 	        {% include 'sidebar-footer.html' %}
     </div>
+		{% include 'main_sidebar.html' %}
 
     </nav>
     {# end of sidebar #}
     {% endblock %}
 
     {# content #}
-    <div class='container mt-3'>
+    <div class='container mt-3 col'>
         {% block body %}
         {% endblock %}
     </div>
-
-
 {% endblock %}
