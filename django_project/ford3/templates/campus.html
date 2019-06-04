@@ -17,7 +17,7 @@
 
             {% if perms.ford3.change_campus %}
             <div class='col-md-2'>
-                <a href="{% url 'edit-campus' provider_id=provider.id campus_id=campus.id  %}?step=campus-details" class='edu-button edu-button-orange p-0'>Edit</a>
+                <a href="{% url 'edit-campus' provider_id=provider.id campus_id=campus.id %}?step=campus-details" class='edu-button edu-button-orange p-0'>Edit</a>
             </div>
             {% endif %}
 

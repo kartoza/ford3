@@ -68,7 +68,7 @@ class QualificationFormWizardDataProcess(object):
                 qualification_fields[qualification_field] = (
                     form_data[qualification_field]
                 )
-            except AttributeError:
+            except (AttributeError, KeyError):
                 continue
         return qualification_fields
 
@@ -160,17 +160,21 @@ class QualificationFormWizardDataProcess(object):
         Process qualification form data then update qualification
         :param form_data: dict of form data
         """
+
         qualification_form_data = self.qualification_form_data(
             form_data
         )
         # Check duration
-        if form_data['duration']:
-            qualification_form_data['duration_in_months'] = (
-                self.duration_in_months(
-                    duration=form_data['duration'],
-                    duration_type=form_data['duration_type']
+        try:
+            if form_data['duration']:
+                qualification_form_data['duration_in_months'] = (
+                    self.duration_in_months(
+                        duration=form_data['duration'],
+                        duration_type=form_data['duration_type']
+                    )
                 )
-            )
+        except KeyError:
+            pass
 
         Qualification.objects.filter(
             id=self.qualification.id
@@ -178,20 +182,29 @@ class QualificationFormWizardDataProcess(object):
             **qualification_form_data,
             edited_by=self.edited_by
         )
+        try:
+            # Update interests
+            interests = form_data['interest_list']
+            for interest in self.qualification.interests.all():
+                self.qualification.interests.remove(interest)
+            for interest in interests:
+                self.qualification.interests.add(interest)
+        except KeyError:
+            pass
 
-        # Update interests
-        interests = form_data['interest_list']
-        for interest in self.qualification.interests.all():
-            self.qualification.interests.remove(interest)
-        for interest in interests:
-            self.qualification.interests.add(interest)
+        try:
+            # Update occupations
+            occupations = form_data['occupations_ids']
+            self.qualification.toggle_occupations(occupations)
+        except KeyError:
+            pass
 
-        # Update occupations
-        occupations = form_data['occupations_ids']
-        self.qualification.toggle_occupations(occupations)
+        try:
+            # Add requirements
+            self.add_or_update_requirements(form_data)
+        except KeyError:
+            pass
 
-        # Add requirements
-        self.add_or_update_requirements(form_data)
 
 
 class QualificationFormWizard(LoginRequiredMixin, CookieWizardView):
@@ -314,13 +327,14 @@ class QualificationFormWizard(LoginRequiredMixin, CookieWizardView):
     def done(self, form_list, **kwargs):
         form_data = dict()
         for form in form_list:
-            if form.prefix == 'qualification-requirements':
-                context = self.get_context_data(form=form, **kwargs)
-                self.add_required_subjects(
-                    context['view'].storage.data['step_data']['qualification-requirements']) # noqa
-                form_data.update(form.cleaned_data)
-            else:
-                form_data.update(form.cleaned_data)
+            if form.is_bound and form.prefix != 'qualification-important-dates':
+                if form.prefix == 'qualification-requirements':
+                    context = self.get_context_data(form=form, **kwargs)
+                    self.add_required_subjects(
+                        context['view'].storage.data['step_data']['qualification-requirements'])  # noqa
+                    form_data.update(form.cleaned_data)
+                else:
+                    form_data.update(form.cleaned_data)
 
         qualification_data_process = QualificationFormWizardDataProcess(
             self.qualification,
