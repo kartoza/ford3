@@ -9,7 +9,6 @@
     color: #fff;
     transition: all 0.3s;
     min-height: 100vh;
-    padding-bottom: 4rem;
 }
 
 #sidebar.active {
@@ -29,6 +28,7 @@
 #sidebar ul {
     width: 100%;
     padding: 0;
+    margin-bottom: 56px;
 }
 
 #sidebar ul li {

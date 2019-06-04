@@ -876,3 +876,17 @@ nav#sidebar ul li a:hover {
 .input-invalid {
     border: 1px solid red !important;
 }
+
+
+/* FOOTER BAR */
+
+#footer_bar {
+    background-color: white;
+    position: fixed;
+    bottom: 0;
+}
+
+.footer-padding {
+    /* This is the height of the bootstrap navbar at all widths + heights */
+    margin-bottom: 56px;
+}

@@ -30,7 +30,7 @@
     {# we need this block to disable the block in provider_form.html #}
     {% block side_navbar %}
     <nav id="sidebar" class="col-md-2 px-0">
-        <div class="container-fluid px-0 pb-3">
+        <div class="container-fluid px-0">
             <div class="col-12">
                 <div id="provider-photo" class="provider-photo">
                     {% if provider_logo %}
@@ -55,18 +55,18 @@
                     {% endfor %}
                 </ul>
             </div>
-
         </div>
-        <a href="http://www.kartoza.com" target="_blank"><div class="col-md-2 edu-icon-powered-by-kartoza side-bar-kartoza-icon"></div></a>
     </nav>
     {# end of sidebar #}
     {% endblock %}
 
     {# content #}
-    <div class='container mt-3'>
+    <div class='container mt-3 footer-padding'>
         {% block body %}
         {% endblock %}
     </div>
     
 
 {% endblock %}
+
+
