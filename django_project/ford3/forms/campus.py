@@ -17,8 +17,6 @@ class CampusForm(forms.Form):
 
 
 class CampusDetailForm(CampusForm):
-    # photo = forms.FileField(
-    #     required=False)
     phone_regex = RegexValidator(
         regex=r'^\+?1?\d{10,15}$',
         message=
