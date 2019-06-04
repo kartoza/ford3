@@ -19,7 +19,6 @@ from ford3.forms.qualification import (
 )
 
 
-
 class QualificationFormWizardDataProcess(object):
     new_qualification_events = []
 
@@ -273,14 +272,11 @@ class QualificationFormWizard(LoginRequiredMixin, CookieWizardView):
             'Interest & Jobs',
             'Important Dates',
         ]
-        context['form_identifier_list'] = {
-            'Details': 'qualification-details',
-            'Duration & Fees': 'qualification-duration',
-            'Requirements': 'qualification-requirements',
-            'Interest & Jobs': 'qualification-interests-jobs',
-            'Important Dates': 'qualification-important-dates',
 
-        }
+        form_ids = [key for key, _ in self.form_list.items()]
+        res = OrderedDict(zip(context['form_name_list'], form_ids))
+        result = {title: identifier for title, identifier in res.items()}
+        context['form_identifier_list'] = result
         context['qualification'] = self.qualification
         context['provider'] = self.provider
         # make sure logo has been uploaded before set the context
@@ -369,7 +365,9 @@ class QualificationFormWizard(LoginRequiredMixin, CookieWizardView):
         """
         final_forms = OrderedDict()
 
-        if 'step' in self.request.GET and 'multi-step' not in self.request.GET:
+        if ('step' in self.request.GET
+                and 'multi-step' not in self.request.GET
+                and self.request.method != 'POST'):
             form_list = [self.request.GET['step']]
         else:
             form_list = self.get_form_list()
@@ -381,11 +379,11 @@ class QualificationFormWizard(LoginRequiredMixin, CookieWizardView):
                 data=self.storage.get_step_data(form_key),
                 files=self.storage.get_step_files(form_key)
             )
-
-            if not form_obj.is_valid():
+            if not form_obj.is_valid() and form_obj.is_bound:
                 return self.render_revalidation_failure(
                     form_key, form_obj, **kwargs)
-            final_forms[form_key] = form_obj
+            if form_obj.is_valid and form_obj.is_bound:
+                final_forms[form_key] = form_obj
 
         # render the done view and reset the wizard before returning the
         # response. This is needed to prevent from rendering done with the

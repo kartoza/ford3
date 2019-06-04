@@ -26,7 +26,7 @@
 	            {% for form_name in form_name_list %}
 
 			            <li class="nav-item">
-				            <a href="{% url 'edit-campus' provider_id=provider.id campus_id=campus.id %}?step=campus-{{ form_name|lower }}&multi-step=true"  class="row nav-link
+				            <a href="{% url 'edit-campus' provider_id=provider.id campus_id=campus.id %}?step=campus-{{ form_identifier_list|get_dictionary_item:form_name }}&multi-step=true"  class="row nav-link
 						{% if forloop.counter == 1 %}
 	                        first
 	                    {% endif %}
@@ -383,11 +383,11 @@
                         <button class="edu-button edu-button-blue"
                                 type="submit"
                                 value="submit"
-                                id='my-next-button'>
+                                id='my-next-button'
                             {% if wizard.steps.next %}
-                                Next
+                                data-action='next-step'>Next
                             {% else %}
-                                Submit
+                                data-action='last-step'>Submit
                             {% endif %}
                         </button>
                     </div>

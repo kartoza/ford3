@@ -6,6 +6,7 @@ from django.core.files.storage import FileSystemStorage
 from django.conf import settings
 from django.urls import reverse
 from django.forms.models import model_to_dict
+from django.template.defaulttags import register
 from formtools.wizard.views import CookieWizardView
 from ford3.models.campus import Campus
 from ford3.models.provider import Provider
@@ -35,7 +36,7 @@ class CampusFormWizard(LoginRequiredMixin, CookieWizardView):
     def get(self, *args, **kwargs):
         if not self.campus or not self.provider:
             raise Http404()
-        if 'step' in self.request.GET:
+        if 'step' in self.request.GET and 'multi_step' not in self.request.GET:
             return super().render_goto_step(self.request.GET['step'], **kwargs)
         else:
             return super(CampusFormWizard, self).get(*args, **kwargs)
@@ -50,6 +51,10 @@ class CampusFormWizard(LoginRequiredMixin, CookieWizardView):
             'Qualifications'
         ]
 
+        form_ids = [key for key, _ in self.form_list.items()]
+        res = OrderedDict(zip(context['form_name_list'], form_ids))
+        result = {title: identifier for title, identifier in res.items()}
+        context['form_identifier_list'] = result
         context['campus'] = self.campus
         context['provider'] = self.provider
         context['provider_logo'] = self.provider.provider_logo.url \
@@ -130,7 +135,9 @@ class CampusFormWizard(LoginRequiredMixin, CookieWizardView):
         """
         final_forms = OrderedDict()
 
-        if 'step' in self.request.GET and 'multi-step' not in self.request.GET:
+        if ('step' in self.request.GET
+                and 'multi-step' not in self.request.GET
+                and self.request.method != 'POST'):
             form_list = [self.request.GET['step']]
         else:
             form_list = self.get_form_list()
@@ -143,10 +150,11 @@ class CampusFormWizard(LoginRequiredMixin, CookieWizardView):
                 files=self.storage.get_step_files(form_key)
             )
 
-            if not form_obj.is_valid():
+            if not form_obj.is_valid() and form_obj.is_bound:
                 return self.render_revalidation_failure(
                     form_key, form_obj, **kwargs)
-            final_forms[form_key] = form_obj
+            if form_obj.is_valid and form_obj.is_bound:
+                final_forms[form_key] = form_obj
 
         # render the done view and reset the wizard before returning the
         # response. This is needed to prevent from rendering done with the
@@ -156,3 +164,8 @@ class CampusFormWizard(LoginRequiredMixin, CookieWizardView):
         self.storage.reset()
 
         return done_response
+
+
+@register.filter
+def get_dictionary_item(dictionary, key):
+    return dictionary.get(key)
