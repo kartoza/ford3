@@ -8,6 +8,7 @@ from django.urls import reverse
 from django.forms.models import model_to_dict
 from django.template.defaulttags import register
 from formtools.wizard.views import CookieWizardView
+from ford3.forms.form_utlities import get_form_identifier_list_from_keys
 from ford3.models.campus import Campus
 from ford3.models.provider import Provider
 from ford3.models.field_of_study import FieldOfStudy
@@ -43,18 +44,16 @@ class CampusFormWizard(LoginRequiredMixin, CookieWizardView):
 
     def get_context_data(self, form, **kwargs):
         context = super().get_context_data(form, **kwargs)
-
         context['form_name_list'] = [
             'Details',
             'Location',
             'Events',
             'Qualifications'
         ]
+        context['form_identifier_list'] = (
+            get_form_identifier_list_from_keys(
+                self.form_list, context['form_name_list']))
 
-        form_ids = [key for key, _ in self.form_list.items()]
-        res = OrderedDict(zip(context['form_name_list'], form_ids))
-        result = {title: identifier for title, identifier in res.items()}
-        context['form_identifier_list'] = result
         context['campus'] = self.campus
         context['provider'] = self.provider
         context['provider_logo'] = self.provider.provider_logo.url \

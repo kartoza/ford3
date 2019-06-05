@@ -5,6 +5,7 @@ from django.urls import reverse
 from django.forms.models import model_to_dict
 from django.template.defaulttags import register
 from formtools.wizard.views import CookieWizardView
+from ford3.forms.form_utlities import get_form_identifier_list_from_keys
 from ford3.models.qualification import Qualification
 from ford3.models.requirement import Requirement
 from ford3.models.subject import Subject
@@ -275,13 +276,8 @@ class QualificationFormWizard(LoginRequiredMixin, CookieWizardView):
         else:
             return super().render_next_step(form, **kwargs)
 
-    def get_form_identifier_list_from_keys(self, form_ids, form_list):
-        form_ids = [key for key, _ in self.form_list.items()]
-        res = OrderedDict(zip(context['form_name_list'], form_ids))
-        return {title: identifier for title, identifier in res.items()}
 
     def get_context_data(self, form, **kwargs):
-
         context = super().get_context_data(form, **kwargs)
         context['form_name_list'] = [
             'Details',
@@ -290,9 +286,9 @@ class QualificationFormWizard(LoginRequiredMixin, CookieWizardView):
             'Interest & Jobs',
             'Important Dates',
         ]
-
-        form_identifier_list = get_form
-        context['form_identifier_list'] =
+        context['form_identifier_list'] = (
+            get_form_identifier_list_from_keys(
+                self.form_list, context['form_name_list']))
         context['qualification'] = self.qualification
         context['provider'] = self.provider
         # make sure logo has been uploaded before set the context
