@@ -52,20 +52,27 @@ class QualificationDetailForm(QualificationForm):
 
 class QualificationDurationFeesForm(QualificationForm):
     full_time = forms.TypedChoiceField(
-        label='Full-Time qualification',
+        label='Type of the qualification',
         coerce=lambda x: x == 'True',
+        choices=((True, 'Full-time'), (False, 'Part-time')),
         required=False,
-        choices=((True, 'Yes'), (False, 'No')),
         widget=forms.RadioSelect
     )
+    # full_time = forms.TypedChoiceField(
+    #     label='Full-Time qualification',
+    #     coerce=lambda x: x == 'True',
+    #     required=False,
+    #     choices=((True, 'Yes'), (False, 'No')),
+    #     widget=forms.RadioSelect
+    # )
 
-    part_time = forms.TypedChoiceField(
-        label='Part-time qualification',
-        coerce=lambda x: x == 'True',
-        required=False,
-        choices=((True, 'Yes'), (False, 'No')),
-        widget=forms.RadioSelect
-    )
+    # part_time = forms.TypedChoiceField(
+    #     label='Part-time qualification',
+    #     coerce=lambda x: x == 'True',
+    #     required=False,
+    #     choices=((True, 'Yes'), (False, 'No')),
+    #     widget=forms.RadioSelect
+    # )
 
     duration = forms.IntegerField(
         label='Duration of the qualification',
@@ -88,7 +95,7 @@ class QualificationDurationFeesForm(QualificationForm):
     )
 
     total_cost = forms.DecimalField(
-        label='Total cost of qualification',
+        label='Total cost of the qualification',
         required=False,
         widget=forms.TextInput(
             attrs={'placeholder': 'ZAR'}
@@ -225,33 +232,28 @@ class QualificationInterestsAndJobsForm(QualificationForm):
         widget=forms.HiddenInput(),
         required=False)
 
-    critical_skill = forms.TypedChoiceField(
+    critical_skill = forms.BooleanField(
         label=(
-            'Does the qualification prepare for a '
-            '<b>critical skills</b> occupation?'
+            'This qualification prepares a learner for a '
+            '<b>critical skills</b> occupation.'
         ),
         required=False,
-        choices=((True, 'Yes'), (False, 'No')),
-        widget=forms.RadioSelect
     )
 
-    green_occupation = forms.TypedChoiceField(
+    green_occupation = forms.BooleanField(
         label=(
-            'Does the qualification prepare for a <b>green</b> occupation?'
+            'This qualification prepares a learner for a <b>green</b> '
+            'occupation.'
         ),
         required=False,
-        choices=((True, 'Yes'), (False, 'No')),
-        widget=forms.RadioSelect
     )
 
-    high_demand_occupation = forms.TypedChoiceField(
+    high_demand_occupation = forms.BooleanField(
         label=(
-            'Does the qualification '
-            'prepare for a <b>high demand</b> occupation?'
+            'This qualification prepares a learner for a <b>high demand</b> '
+            'occupation.'
         ),
         required=False,
-        choices=((True, 'Yes'), (False, 'No')),
-        widget=forms.RadioSelect
     )
 
 
