@@ -8,7 +8,7 @@ from django.urls import reverse
 from django.forms.models import model_to_dict
 from django.template.defaulttags import register
 from formtools.wizard.views import CookieWizardView
-from ford3.forms.form_utlities import get_form_identifier_list_from_keys
+from ford3.views.wizard_utilities import get_form_identifier_list_from_keys
 from ford3.models.campus import Campus
 from ford3.models.provider import Provider
 from ford3.models.field_of_study import FieldOfStudy
