@@ -138,9 +138,8 @@ class CampusFormWizard(LoginRequiredMixin, CookieWizardView):
         """
         final_forms = OrderedDict()
 
-        if ('step' in self.request.GET
-                and 'multi-step' not in self.request.GET
-                and self.request.method != 'POST'):
+        if ('step' in self.request.GET and 'multi-step'
+                not in self.request.GET and self.request.method != 'POST'):
             form_list = [self.request.GET['step']]
         else:
             form_list = self.get_form_list()

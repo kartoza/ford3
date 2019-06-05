@@ -328,11 +328,14 @@ class QualificationFormWizard(LoginRequiredMixin, CookieWizardView):
     def done(self, form_list, **kwargs):
         form_data = dict()
         for form in form_list:
-            if form.is_bound and form.prefix != 'qualification-important-dates':
+            if form.is_bound and form.prefix != \
+                    'qualification-important-dates':
                 if form.prefix == 'qualification-requirements':
                     context = self.get_context_data(form=form, **kwargs)
                     self.add_required_subjects(
-                        context['view'].storage.data['step_data']['qualification-requirements'])  # noqa
+                        context['view'].storage.data
+                        ['step_data']
+                        ['qualification-requirements'])
                     form_data.update(form.cleaned_data)
                 else:
                     form_data.update(form.cleaned_data)
@@ -378,11 +381,10 @@ class QualificationFormWizard(LoginRequiredMixin, CookieWizardView):
         validate, `render_revalidation_failure` should get called.
         If everything is fine call `done`.
         """
-        final_forms = OrderedDict()
 
-        if ('step' in self.request.GET
-                and 'multi-step' not in self.request.GET
-                and self.request.method != 'POST'):
+        final_forms = OrderedDict()
+        if ('step' in self.request.GET and 'multi-step'
+                not in self.request.GET and self.request.method != 'POST'):
             form_list = [self.request.GET['step']]
         else:
             form_list = self.get_form_list()
