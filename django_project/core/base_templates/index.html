@@ -180,3 +180,18 @@
 </script>
 </html>
 
+{% block footer_bar %}
+	    <nav id="footer_bar" class="navbar navbar-default navbar-fixed-bottom center w-100 b-0"
+	         role="navigation">
+		    <p class="text-center pt-2 w-100">
+			    This application was created by <a href="http://kartoza.com">
+			    Kartoza (Pty) Ltd.
+			    <img src={% static 'images/kartoza_footer.png' %} alt="OpenEdu">
+		    </a>
+			    <a href="https://github.com/kartoza/ford3" target="_blank">
+				    Available on GitHub!
+			    </a>
+			    </span>
+		    </p>
+	    </nav>
+	{% endblock %}
