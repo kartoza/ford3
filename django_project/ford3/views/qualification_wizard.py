@@ -275,6 +275,11 @@ class QualificationFormWizard(LoginRequiredMixin, CookieWizardView):
         else:
             return super().render_next_step(form, **kwargs)
 
+    def get_form_identifier_list_from_keys(self, form_ids, form_list):
+        form_ids = [key for key, _ in self.form_list.items()]
+        res = OrderedDict(zip(context['form_name_list'], form_ids))
+        return {title: identifier for title, identifier in res.items()}
+
     def get_context_data(self, form, **kwargs):
 
         context = super().get_context_data(form, **kwargs)
@@ -286,10 +291,8 @@ class QualificationFormWizard(LoginRequiredMixin, CookieWizardView):
             'Important Dates',
         ]
 
-        form_ids = [key for key, _ in self.form_list.items()]
-        res = OrderedDict(zip(context['form_name_list'], form_ids))
-        result = {title: identifier for title, identifier in res.items()}
-        context['form_identifier_list'] = result
+        form_identifier_list = get_form
+        context['form_identifier_list'] =
         context['qualification'] = self.qualification
         context['provider'] = self.provider
         # make sure logo has been uploaded before set the context
