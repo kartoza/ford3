@@ -1,14 +1,13 @@
 from django import forms
 from django.conf import settings
 from django.contrib.auth import get_user_model
-from django.contrib.auth.tokens import default_token_generator
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import EmailMultiAlternatives
 from django.template import loader
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
 from django.utils.translation import gettext_lazy as _
-
+from ford3.tokens import account_activation_token
 
 UserModel = get_user_model()
 
@@ -58,7 +57,7 @@ class PasswordResetForm(forms.Form):
     def save(self, domain_override=None,
              subject_template_name='registration/password_reset_subject.txt',
              email_template_name='registration/password_reset_email.html',
-             use_https=False, token_generator=default_token_generator,
+             use_https=False, token_generator=account_activation_token,
              from_email=None, request=None, html_email_template_name=None,
              extra_email_context=None):
         """
