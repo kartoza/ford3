@@ -97,4 +97,3 @@ def delete(request, event_type):
             'error_msg': 'ID missing from request'
         })
     return HttpResponse(response)
-

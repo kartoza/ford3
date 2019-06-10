@@ -88,4 +88,3 @@ class ProviderForm(forms.models.ModelForm):
     def clean_website(self):
         http_link = self.cleaned_data.get('website', False)
         return add_http_to_link(http_link)
-
