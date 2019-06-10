@@ -24,7 +24,7 @@ def update(request, event_type):
         event_to_update.name = request.POST['name']
         event_to_update.date_start = request.POST['date_start']
         event_to_update.date_end = request.POST['date_end']
-        event_to_update.http_link = request.POST['http_link']
+        event_to_update.http_link = add_http_to_link(request.POST['http_link'])
         event_to_update.full_clean()
         event_to_update.save()
         event_to_update_dict = (
@@ -96,3 +96,10 @@ def delete(request, event_type):
             'error_msg': 'ID missing from request'
         })
     return HttpResponse(response)
+
+
+def add_http_to_link(http_link):
+    if http_link:
+        if http_link[:4] != 'http':
+            http_link = f'http://{http_link}'
+        return http_link

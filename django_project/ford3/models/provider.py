@@ -40,7 +40,7 @@ class Provider(models.Model):
         help_text="The provider's telephone number",
         validators=[phone_regex],
         max_length=16)
-    website = models.CharField(
+    website = models.URLField(
         blank=True,
         null=True,
         unique=False,
