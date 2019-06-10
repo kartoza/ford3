@@ -4,7 +4,7 @@ from ford3.models.provider import Provider
 from ford3.models.province import Province
 from ford3.views.wizard_utilities import add_http_to_link
 
-EMPTY_TEL_ERROR = 'Your telephone number is required.'
+EMPTY_TEL_ERROR = 'Your switchboard telephone number is required.'
 EMPTY_EMAIL_ERROR = 'Your email is required.'
 
 
@@ -62,7 +62,7 @@ class ProviderForm(forms.models.ModelForm):
             'physical_address_city': forms.fields.TextInput(
                 attrs={'placeholder': 'City'}),
             'physical_address_postal_code': forms.fields.TextInput(
-                attrs={'placeholder': 'Postal/ZIP Code'}),
+                attrs={'placeholder': 'Post Code'}),
             'postal_address_differs' : forms.fields.CheckboxInput(),
             'postal_address_line_1': forms.fields.TextInput(
                 attrs={'placeholder': 'Address Line 1'}),
@@ -71,7 +71,7 @@ class ProviderForm(forms.models.ModelForm):
             'postal_address_city': forms.fields.TextInput(
                 attrs={'placeholder': 'City'}),
             'postal_address_postal_code': forms.fields.TextInput(
-                attrs={'placeholder': 'Postal/ZIP Code'}),
+                attrs={'placeholder': 'Post Code'}),
         }
         error_messages = {
             'telephone': {'required': EMPTY_TEL_ERROR},
