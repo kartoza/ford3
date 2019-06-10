@@ -5,6 +5,7 @@ from ford3.models.campus_event import CampusEvent
 from ford3.models.campus import Campus
 from ford3.models.qualification_event import QualificationEvent
 from ford3.models.qualification import Qualification
+from ford3.views.wizard_utilities import add_http_to_link
 
 
 def create_or_update(request, owner_id, event_type):
@@ -97,9 +98,3 @@ def delete(request, event_type):
         })
     return HttpResponse(response)
 
-
-def add_http_to_link(http_link):
-    if http_link:
-        if http_link[:4] != 'http':
-            http_link = f'http://{http_link}'
-        return http_link

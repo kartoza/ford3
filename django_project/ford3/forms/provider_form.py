@@ -2,6 +2,7 @@ from django import forms
 from django.core.exceptions import ValidationError
 from ford3.models.provider import Provider
 from ford3.models.province import Province
+from ford3.views.wizard_utilities import add_http_to_link
 
 EMPTY_TEL_ERROR = 'Your telephone number is required.'
 EMPTY_EMAIL_ERROR = 'Your email is required.'
@@ -86,7 +87,5 @@ class ProviderForm(forms.models.ModelForm):
 
     def clean_website(self):
         http_link = self.cleaned_data.get('website', False)
-        if http_link:
-            if http_link[:4] != 'http':
-                http_link = f'http://{http_link}'
-            return http_link
+        return add_http_to_link(http_link)
+
