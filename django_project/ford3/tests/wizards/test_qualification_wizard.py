@@ -135,23 +135,23 @@ class TestQualificationWizard(TestCase):
                 wizard_form_data
             )
 
-    def test_add_subjects_to_qualification(self):
-        self.subject_1 = ModelFactories.get_subject_test_object()
-        self.subject_2 = ModelFactories.get_subject_test_object()
-        new_subject_list = '{subject1},{subject2}'.format(
-            subject1=self.subject_1.id,
-            subject2=self.subject_2.id)
-        self.wizard_form_data['subject_list'] = new_subject_list
-        self.qualification_data_process.add_subjects(
-            form_data=self.wizard_form_data
-        )
-        subjects = QualificationEntranceRequirementSubject.objects.filter(
-            qualification_id=self.qualification,
-        )
-        self.assertEqual(subjects.count(), 2)
-        self.assertTrue(QualificationEntranceRequirementSubject.objects.filter(
-            minimum_score=2
-        ).exists())
+    # def test_add_subjects_to_qualification(self):
+    #     self.subject_1 = ModelFactories.get_subject_test_object()
+    #     self.subject_2 = ModelFactories.get_subject_test_object()
+    #     new_subject_list = '{subject1},{subject2}'.format(
+    #         subject1=self.subject_1.id,
+    #         subject2=self.subject_2.id)
+    #     self.wizard_form_data['subject_list'] = new_subject_list
+    #     self.qualification_data_process.add_subjects(
+    #         form_data=self.wizard_form_data
+    #     )
+    #     subjects = QualificationEntranceRequirementSubject.objects.filter(
+    #         qualification_id=self.qualification,
+    #     )
+    #     self.assertEqual(subjects.count(), 2)
+    #     self.assertTrue(QualificationEntranceRequirementSubject.objects.filter(
+    #         minimum_score=2
+    #     ).exists())
 
     def test_add_requirements(self):
         requirement_form_data = {
