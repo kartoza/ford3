@@ -15,6 +15,7 @@
           href="{% static 'css/libs/jquery-ui-1.12.1-custom/jquery-ui.min.css' %}">
 {% endblock %}
 
+
 {% block body %}
 <div class="row">
     <div class="col-md-12">
@@ -22,9 +23,19 @@
     </div>
     {% if multi_step_form %}
         <div class='col-md-12'>
-            <ul class="container nav-wizard-steps nav nav-pills nav-fill">
-	            {% for form_name in form_name_list %}
+	        <ul class="d-md-none d-lg-none d-xl-none d-sm-block d-xs-block small-breadcrumbs w-100">
+		        {% for form_name in form_name_list %}
+			        {% if forloop.counter > 1 %}
+				        &nbsp;•&nbsp;
+			        {% endif %}
+			        <a href="{% url 'edit-campus' provider_id=provider.id campus_id=campus.id %}?step={{ form_identifier_list|get_dictionary_item:form_name }}&multi-step=true">
+				        <span class="col-xs-6 col-sm-3">{{ form_name }}</span>
+			        </a>
 
+		        {% endfor %}
+	        </ul>
+	        <ul class="container nav-wizard-steps nav nav-pills nav-fill d-none d-lg-flex d-xl-flex d-md-flex">
+	            {% for form_name in form_name_list %}
 			            <li class="nav-item">
 				            <a href="{% url 'edit-campus' provider_id=provider.id campus_id=campus.id %}?step={{ form_identifier_list|get_dictionary_item:form_name }}&multi-step=true"  class="row nav-link
 						{% if forloop.counter == 1 %}

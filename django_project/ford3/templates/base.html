@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block head %}
-    <script src="https://getbootstrap.com/docs/4.3/examples/offcanvas/offcanvas.js"></script>
+
 {% endblock %}
 
 {# navbar  #}
@@ -26,21 +26,28 @@
     </button>
     <div class="navbar-collapse offcanvas-collapse">
         <ul class="navbar-nav ml-md-auto text-right">
-            <li class="nav-item">
-                <p class="nav-link text-white">{{ user.first_name }} {{ user.last_name }}</p>
+            <li class="my-1">
+                <p class="text-white">{{ user.first_name }} {{ user.last_name }}</p>
             </li>
-            <li class="nav-item">
-            <a href="{% url 'dashboard' %}" class="nav-link text-white">Dashboard</a>
+            <li class="my-1">
+            <a href="{% url 'dashboard' %}" class="text-white">Dashboard</a>
             </li>
             {% if user.is_superuser %}
-                <li class="nav-item">
-                <a class='nav-link text-white' href='/site-admin'>Administration</a>
+
+            <li class="my-1">
+                <a class='text-white' href='/site-admin'>Administration</a>
                 </li>
             {% endif %}
-            <li class="nav-item">
-                <a href="{% url 'logout' %}?next=/accounts/login" class="nav-link text-white">Logout</a>
+            <li class="my-1">
+                <a href="{% url 'logout' %}?next=/accounts/login" class="text-white">Logout</a>
             </li>
         </ul>
+        <div class='w-100 d-lg-none d-md-block'>
+            <hr class='mt-1 border-white' />
+        </div>
+        <div class="d-lg-none d-md-block collapsed-sidebar-list">
+            {% include 'main_sidebar.html' %}
+	    </div>
     </div>
 {# end of menu for different screens #}
 </nav>
@@ -53,34 +60,7 @@
 	{# sidebar #}
     {# we need this block to disable the block in provider_form.html #}
     {% block side_navbar %}
-    <nav id="sidebar" class="col-md-2 px-0 d-none d-sm-none d-lg-block">
-        <div class="container-fluid px-0">
-            <div class="col-12">
-                <div id="provider-photo" class="provider-photo">
-                    {% if provider_logo %}
-                        <img src="{{ provider_logo }}" class="img-provider-photo"/>
-                    {% endif %}
-                </div>
-            </div>
-            <div class="col-12 side-bar-title" id="provider-name">
-                {% if provider %}
-                    <a href="{% url 'show-provider' provider.id %}">{{ provider.name }}</a>
-                {% endif %}
-            </div>
-            <div class='col-md-12 px-0'>
-                <ul>
-                    {% for campus in provider.campus %}
-                        <li>
-                            {% url 'show-campus' provider.id campus.id as show_campus %}
-                            {% if show_campus %}
-                                <a href="{{ show_campus }}">{{ campus.name }}</a>
-                            {% endif %}
-                        </li>
-                    {% endfor %}
-                </ul>
-            </div>
-	        {% include 'sidebar-footer.html' %}
-    </div>
+     <nav id="sidebar" class="col-md-3 col-lg-3 col-xl-2 px-0 d-none d-sm-none d-lg-block">
 		{% include 'main_sidebar.html' %}
 
     </nav>
