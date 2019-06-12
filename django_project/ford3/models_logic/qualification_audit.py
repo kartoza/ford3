@@ -15,7 +15,8 @@ class QualificationAudit(object):
         return method[0:5] == self.PREFIX
 
     def audit_short_description(self):
-        return self.qualification.short_description is not None
+        return self.qualification.short_description is not None \
+               and len(self.qualification.short_description) > 0
 
     def audit_distance_learning(self):
         return self.qualification.distance_learning is not None
@@ -29,7 +30,7 @@ class QualificationAudit(object):
     def audit_min_nqf_level(self):
         try:
             return self.qualification.requirement.min_nqf_level is not None
-        except AttributeError:
+        except AttributeError:  # Will be raised if there is no requirement
             return False
 
     def audit_required_subjects(self):

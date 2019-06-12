@@ -2,7 +2,6 @@
 """Factory for building model instances for testing."""
 import datetime
 from django.contrib.auth.models import Group
-
 from ford3.models.campus import Campus
 from ford3.models.field_of_study import FieldOfStudy
 from ford3.models.occupation import Occupation
@@ -19,6 +18,7 @@ from ford3.models.saqa_qualification import SAQAQualification
 from ford3.models.user import User
 from ford3.enums.open_edu_groups import OpenEduGroups
 from ford3.models.qualification_entrance_requirement_subject import QualificationEntranceRequirementSubject  # noqa
+
 
 class ModelFactories:
     @staticmethod

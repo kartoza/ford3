@@ -15,6 +15,13 @@ class TestQualificationAudit(TestCase):
         self.qa = QualificationAudit(self.qualification)
         self.empty_qa = QualificationAudit(self.empty_qualification)
 
+    def test_audit_short_description(self):
+        self.assertFalse(self.empty_qa.audit_short_description())
+        self.assertTrue(self.qa.audit_short_description())
+        self.qualification.short_description = ""
+        self.qualification.save()
+        self.assertFalse(self.qa.audit_short_description())
+
     def test_evaluate_audit_empty(self):
         self.assertFalse(self.empty_qa.evaluate_audit())
 
@@ -45,5 +52,11 @@ class TestQualificationAudit(TestCase):
 
     def test_save_qualification_runs_audit(self):
         self.assertFalse(self.qualification.ready_to_publish)
+        self.qualification.save()
+        self.assertTrue(self.qualification.ready_to_publish)
+        self.qualification.short_description = ""
+        self.qualification.save()
+        self.assertFalse(self.qualification.ready_to_publish)
+        self.qualification.short_description = "Something"
         self.qualification.save()
         self.assertTrue(self.qualification.ready_to_publish)
