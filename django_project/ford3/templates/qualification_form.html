@@ -213,89 +213,91 @@
 
             </div>
         {% endif %}
-    <form action="" method="post">{% csrf_token %}
-        <div class="form-group">
-            {{ wizard.management_form }}
-            {% if wizard.form.forms %}
-                {{ wizard.form.management_form }}
-                {% crispy wizard.form wizard.form.helper %}
-            {% else %}
-                {% crispy wizard.form wizard.form.helper %}
-            {% endif %}
-            {% if wizard.steps.step1 == 3 %}
-                <div>
-                    {% for each_subject in subjects_list %}
-                        <div id="div_id_2-subject"
-                                class="form-group row">
-                            <label for="id_2-subject"
-                                    class="col-form-label col-md-3">
-                                Subject {{ each_subject.index }}:
-                            </label>
-                            <div class="col-md-9 row">
-                                <select name="2-subject"
-                                        class="col-md-4 select form-control"
-                                        id="id_2-subject">
-                                    <option value="{{ each_subject.id }}"
-                                            selected="">{{ each_subject.name }}</option>
-                                </select>
-                                <div class="col-md-4">
-                                    <input type="number"
-                                            name="2-subject-minimum-score"
-                                            placeholder="Minimum Score"
-                                            class="textInput form-control subject-minimum-score"
-                                            value="{{ each_subject.minimum_score }}">
-                                </div>
-                                <div class="col-md-4">
-                                    <button type="button"
-                                            class="remove-subject-btn btn btn-default"
-                                            onclick="removeSubject(this)">Remove Subject
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    {% endfor %}
-                </div>
-            {% endif %}
-        </div>
 
-		<div class="row form-actions">
-			{% if multi_step_form %}
-				<div class="col-md-4">
-					{% if wizard.steps.prev %}
-						<button class="edu-button edu-button-blue"
-						        name="wizard_goto_step" type="submit"
-						        value="{{ wizard.steps.prev }}">Prev
-							step
-						</button>
-					{% endif %}
-				</div>
-				<div class="col-md-4">
-				</div>
-				<div class="col-md-4">
-					<button class="edu-button edu-button-blue"
-					        type="submit"
-					        value="submit"
-					        id="my-next-button">
-						{% if wizard.steps.next %}
-							Next
-						{% else %}
-							Submit
+		<form class="col-6 pl-0" action="" method="post">{% csrf_token %}
+			<div class="form-group">
+				{{ wizard.management_form }}
+				{% if wizard.form.forms %}
+					{{ wizard.form.management_form }}
+					{% crispy wizard.form wizard.form.helper %}
+				{% else %}
+					{% crispy wizard.form wizard.form.helper %}
+				{% endif %}
+				{% if wizard.steps.step1 == 3 %}
+					<div>
+						{% for each_subject in subjects_list %}
+							<div id="div_id_2-subject"
+							     class="form-group row">
+								<label for="id_2-subject"
+								       class="col-form-label col-md-3">
+									Subject {{ each_subject.index }}:
+								</label>
+								<div class="col-md-9 row">
+									<select name="2-subject"
+									        class="col-md-4 select form-control"
+									        id="id_2-subject">
+										<option value="{{ each_subject.id }}"
+										        selected="">{{ each_subject.name }}</option>
+									</select>
+									<div class="col-md-4">
+										<input type="number"
+										       name="2-subject-minimum-score"
+										       placeholder="Minimum Score"
+										       class="textInput form-control subject-minimum-score"
+										       value="{{ each_subject.minimum_score }}">
+									</div>
+									<div class="col-md-4">
+										<button type="button"
+										        class="remove-subject-btn btn btn-default"
+										        onclick="removeSubject(this)">Remove Subject
+										</button>
+									</div>
+								</div>
+							</div>
+						{% endfor %}
+					</div>
+				{% endif %}
+			</div>
+
+			<div class="row no-gutters form-actions">
+				{% if multi_step_form %}
+					<div class="col-md-4">
+						{% if wizard.steps.prev %}
+							<button class="edu-button edu-button-blue"
+							        name="wizard_goto_step" type="submit"
+							        value="{{ wizard.steps.prev }}">Prev
+								step
+							</button>
 						{% endif %}
-					</button>
-				</div>
-			{% else %}
-				<div class="col-md-4">
-					<button class="edu-button edu-button-blue"
-					        type="submit"
-					        value="submit"
-					        id='my-next-button'>Submit
-					</button>
-				</div>
-			{% endif %}
-		</div>
+					</div>
+					<div class="col-md-4">
+					</div>
+					<div class="col-md-4">
+						<button class="edu-button edu-button-blue"
+						        type="submit"
+						        value="submit"
+						        id="my-next-button">
+							{% if wizard.steps.next %}
+								Next
+							{% else %}
+								Submit
+							{% endif %}
+						</button>
+					</div>
+				{% else %}
+					<div class="col-md-4">
+						<button class="edu-button edu-button-blue"
+						        type="submit"
+						        value="submit"
+						        id='my-next-button'>Submit
+						</button>
+					</div>
+				{% endif %}
+			</div>
 
-    </form>
-</div>
+		</form>
+	</div>
+
 </div>
 
 {% endblock %}
