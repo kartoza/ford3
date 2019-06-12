@@ -114,13 +114,13 @@ class QualificationFormWizardDataProcess(object):
         :param form_data: dict of form data
         """
         # Check if there is already a requirements object
-        requirement_exists = True
-        existing_requirement: Requirement = self.qualification.requirement
-        try:
-            existing_requirement.qualification
-        except AttributeError:
+        if self.qualification.requirement is None:
             requirement_exists = False
+        else:
+            requirement_exists = True
+
         if requirement_exists:
+            existing_requirement = self.qualification.requirement
             existing_requirement.min_nqf_level = (
                 form_data['min_nqf_level'])
             existing_requirement.interview = (
