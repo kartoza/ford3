@@ -147,19 +147,19 @@
                         {% endfor %}
                     </div>
                 </div>
+
                 <div class="row pb-3">
-                    <div class="col-md-6">
-                        <b>This qualification does prepare the learner for a critical skill.</b>
+	                <div class="col-12"><b>This qualification prepares a learner for a</b></div>
+                    <div class="col-md-12">
+                        - Critical skill
                             {{ qualification.critical_skill|checked_or_crossed}}
                     </div>
-                    <div class="col-md-6">
-                        <b>This qualification does prepare the learner for a green occupation.</b>
+                    <div class="col-md-12">
+                        - Green occupation
                             {{ qualification.green_occupation|checked_or_crossed}}
                     </div>
-                </div>
-                <div class="row pb-3">
-                    <div class="col-md-6">
-                        <b>This qualification does prepare the learner for a high demand occupation.</b>
+	                 <div class="col-md-12">
+                        - High demand occupation
                             {{ qualification.high_demand_occupation|checked_or_crossed }}
                     </div>
                 </div>
