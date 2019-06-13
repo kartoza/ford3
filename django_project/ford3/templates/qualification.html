@@ -30,9 +30,6 @@
                 <p class="py-3">{{ qualification.long_description|is_none }}</p>
             </div>
             <div class='col-md-6 pb-3'>
-                <b>NQF Level</b> {{ qualification.saqa_qualification.nqf_level|is_none }}
-            </div>
-            <div class='col-md-6 pb-3'>
                 <b>Distance learning</b> {{ qualification.distance_learning|yesno:"YES,NO" }}
             </div>
         </div>
@@ -108,27 +105,26 @@
                     <div class="col-md-6">
                         <b>What does the portfolio require </b>{{ qualification.requirement.portfolio_comment }}
                     </div>
-	                {% endif %}
-
-
+				    {% endif %}
 	                {% if qualification.requirement.require_aps_score %}
 		                <div class="col-md-6">
 	                <b>APS calculator link </b>{{ qualification.requirement.aps_calculator_link }}
 		                </div>
 	                {% endif %}
-					</div>
-		            <div class="row pb-3">
-			            <div class="col-md-6">
-				            <b>Requires certain subjects </b>{{ qualification.requirement.require_certain_subjects|yesno:"YES,NO" }}
-			            </div>
-		            </div>
-                    <div class="row pb-3">
-                    {% for subject in qualification.entrance_req_subjects_list %}
-                        <div class="col-md-6">
-                            <b>Subject {{ forloop.counter }} </b>{{ subject.name }} - {{ subject.minimum_score }}
-                        </div>
-                    {% endfor %}
+                </div>
+                {% if qualification.requirement.require_certain_subjects %}
+                <div class="row pb-3">
+                    <div class="col-md-6">
+                        <b>Subjects</b><br />
+                        <ul>
+                        {% for subject in qualification.entrance_req_subjects_list %}
+                            <li>{{ subject.name }}: {{ subject.minimum_score }}%</li>
+                        {% endfor %}
+                        </ul>
+
                     </div>
+                </div>
+                {% endif %}
             </div>
         </div>
         <div class="row py-3 mx-0">
