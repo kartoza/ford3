@@ -18,4 +18,4 @@ class Notifier:
                     force_bytes(user.pk)).decode(),
                 'token': account_activation_token.make_token(user),
             })
-        user.email_user(subject, message, 'Tim@kartoza.com')
+        user.email_user(subject, message)
