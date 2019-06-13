@@ -2,8 +2,8 @@
 {% load static %}
 
 {% block head %}
-    <script src="https://getbootstrap.com/docs/4.3/examples/offcanvas/offcanvas.js"></script>
-    <script src="{% static 'js/ford3.js' %}"></script>
+
+
 {% endblock %}
 
 
@@ -12,7 +12,7 @@
 {% endblock %}
 
 {% block side_navbar %}
-{% include 'dashboard_sidebar.html' %}
+{% include 'dashboard/dashboard_sidebar.html' %}
 {% endblock %}
 
 {% block dashboard_menu %}
@@ -52,7 +52,7 @@
 	<div class='row'>
     <div class='col-12'>
             {% if providers %}
-            <table class="table">
+            <table class="table table-responsive-sm">
                 <thead>
                     <tr>
                     <th scope="col">Provider</th>

@@ -146,3 +146,8 @@
 .collapsed-sidebar-list a {
      color: white !important;
 }
+
+.navbar-collapse a {
+    color: white;
+}
+

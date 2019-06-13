@@ -7,69 +7,26 @@
 
 {# navbar  #}
 {% block navbar %}
-<nav class="navbar navbar-expand-lg fixed-top">
-    {% block dashboard_menu %}
-    {% endblock %}
-    {# logo for medium screens #}
-    <div class="open-edu-logo col-md-2 text-center d-none d-md-block">
-        <a href="{% url 'dashboard' %}" style='text-decoration: none;' class="navbar-brand">
-            <span class='text-white'>Open</span><span class='text-blue'>Edu</span>
-        </a>
-    </div>
-    {# logo for smal screens #}
-    <a href="{% url 'dashboard' %}" style='text-decoration: none;' class="d-md-none navbar-brand">
-            <span class='text-white'>Open</span><span class='text-blue'>Edu</span>
-    </a>
-    {# end of logo #}
-    <button class="navbar-toggler p-0 border-0" type="button" data-toggle="offcanvas">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="navbar-collapse offcanvas-collapse">
-        <ul class="navbar-nav ml-md-auto text-right">
-            <li class="my-1">
-                <p class="text-white">{{ user.first_name }} {{ user.last_name }}</p>
-            </li>
-            <li class="my-1">
-            <a href="{% url 'dashboard' %}" class="text-white">Dashboard</a>
-            </li>
-            {% if user.is_superuser %}
-
-            <li class="my-1">
-                <a class='text-white' href='/site-admin'>Administration</a>
-                </li>
-            {% endif %}
-            <li class="my-1">
-                <a href="{% url 'logout' %}?next=/accounts/login" class="text-white">Logout</a>
-            </li>
-        </ul>
-        <div class='w-100 d-lg-none d-md-block'>
-            <hr class='mt-1 border-white' />
-        </div>
-        <div class="d-lg-none d-md-block collapsed-sidebar-list">
-            {% include 'main_sidebar.html' %}
-	    </div>
-    </div>
-{# end of menu for different screens #}
-</nav>
+	{% include 'navbar.html' %}
 {% endblock %}
 
 {% block parent-body %}
 	<div class="container-fluid mt-5">
-        <div class="row px-0">
-
-	{# sidebar #}
-    {# we need this block to disable the block in provider_form.html #}
-    {% block side_navbar %}
-     <nav id="sidebar" class="col-md-3 col-lg-3 col-xl-2 px-0 d-none d-sm-none d-lg-block">
-		{% include 'main_sidebar.html' %}
-
-    </nav>
-    {# end of sidebar #}
-    {% endblock %}
-
-    {# content #}
-    <div class='container mt-3 col'>
-        {% block body %}
-        {% endblock %}
-    </div>
+		<div class="row px-0">
+			{# sidebar #}
+			{# we need this block to disable the block in provider_form.html #}
+			{% block side_navbar %}
+				<nav id="sidebar"
+				     class="col-md-3 col-lg-3 col-xl-2 px-0 d-none d-sm-none d-lg-block">
+					{% include 'main_sidebar.html' %}
+				</nav>
+				{# end of sidebar #}
+			{% endblock %}
+			{# content #}
+			<div class='container mt-3 col'>
+				{% block body %}
+				{% endblock %}
+			</div>
+		</div>
+	</div>
 {% endblock %}

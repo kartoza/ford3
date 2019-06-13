@@ -9,3 +9,14 @@ $(document).ready(function() {
         }
     });
 });
+
+$(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+})
+$(function () {
+    'use strict'
+
+    $('[data-toggle="offcanvas"]').on('click', function () {
+        $('.offcanvas-collapse').toggleClass('open')
+    })
+})

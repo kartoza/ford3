@@ -32,7 +32,8 @@
 		<link rel="stylesheet" type="text/css"
         href="{% static 'css/landing.css' %}">
 	{% endblock %}
-	<script src="https://getbootstrap.com/docs/4.3/examples/offcanvas/offcanvas.js"></script>
+    <script src="{% static 'js/ford3.js' %}"></script>
+
 </head>
 <body id="page-top">
     {% block navbar %}
@@ -187,8 +188,6 @@
 
 
 <script>
-	$(function () {
-		$('[data-toggle="tooltip"]').tooltip()
-	})
+
 </script>
 </html>
