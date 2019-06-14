@@ -29,5 +29,7 @@ class TestProvider(TestCase):
 class TestCreateUniqueProvider(TestCase):
     def test_create_duplicate_model(self):
         self.provider2 = ModelFactories.get_provider_test_object()
+        self.provider1 = ModelFactories.get_provider_test_object()
+        self.provider1.name = self.provider2.name
         with self.assertRaises(ValidationError):
-            self.provider1 = ModelFactories.get_provider_test_object()
+            self.provider1.save()
