@@ -137,6 +137,7 @@ class QualificationFormWizardDataProcess(object):
                 form_data['aps_calculator_link'])
             existing_requirement.require_certain_subjects = (
                 form_data['require_certain_subjects'])
+
             existing_requirement.save()
         else:
             requirement_fields = {}

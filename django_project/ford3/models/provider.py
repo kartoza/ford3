@@ -124,17 +124,7 @@ class Provider(models.Model):
         null=True,
         on_delete=models.CASCADE
     )
-    assessment = models.BooleanField(
-        blank=True,
-        null=True,
-        default=False,
-        help_text='')
-    assessment_requirements = models.CharField(
-        blank=True,
-        null=True,
-        unique=False,
-        help_text='',
-        max_length=255)
+
 
     created_at = models.DateTimeField(
         auto_now_add=True)

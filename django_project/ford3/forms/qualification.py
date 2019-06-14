@@ -168,7 +168,7 @@ class QualificationRequirementsForm(QualificationForm):
                 'data-field': 'assessment'
             }
         ),
-        max_length=255
+        max_length=120
     )
 
     require_aps_score = forms.TypedChoiceField(
