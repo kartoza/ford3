@@ -1,6 +1,10 @@
 from django.test import TestCase
 from ford3.tests.models.model_factories import ModelFactories
 from ford3.models.user import User
+from django.shortcuts import reverse
+from django.forms.models import model_to_dict
+from django.core.exceptions import ValidationError
+from ford3.models.provider import Provider
 
 
 class TestProvider(TestCase):
@@ -25,3 +29,10 @@ class TestProvider(TestCase):
         self.assertEqual(self.new_provider.id, campus.provider_id)
 
         self.assertFalse(self.new_provider.is_new_provider)
+
+
+class TestCreateUniqueProvider(TestCase):
+        def test_create_duplicate_model(self):
+            self.provider2 = ModelFactories.get_provider_test_object()
+            with self.assertRaises(ValidationError):
+                self.provider1 = ModelFactories.get_provider_test_object()
