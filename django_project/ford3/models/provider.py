@@ -215,9 +215,8 @@ class Provider(models.Model):
                 deleted=False)
         provider_with_name_count = provider_name_query.count()
         # If it exists and it is not my own name raise the error
-        if ((provider_with_name_count > 0 and
-                provider_name_query.first() != self)
-                or provider_with_name_count > 1):
+
+        if (provider_with_name_count > 1) or (provider_with_name_count > 0 and provider_name_query.first() != self):  # noqa
             raise ValidationError(
                 {'provider_name': 'That name is already taken.'})
         super().save(*args, **kwargs)
