@@ -4,9 +4,9 @@ $(document).ready(function () {
 })
 
 const setupMap = () => {
-    let hidden_location_x = document.querySelector('#id_campus-location-location_value_x').value
-    let hidden_location_y = document.querySelector('#id_campus-location-location_value_y').value
-    var current_location = [hidden_location_x, hidden_location_y]
+    let location_x = document.querySelector('#id_campus-location-location_value_x').value
+    let location_y = document.querySelector('#id_campus-location-location_value_y').value
+    var current_location = [location_x, location_y]
     // This code is adapted from the fiddle demo for: https://github.com/jonataswalker/ol-geocoder
     var olview = new ol.View({center: [0, 0], zoom: 17}),
         baseLayer = new ol.layer.Tile({source: new ol.source.OSM()}),
@@ -20,7 +20,36 @@ const setupMap = () => {
     var popup = new ol.Overlay.Popup();
     map.addOverlay(popup);
 
-    if (!((hidden_location_x == 0) && (hidden_location_y == 0))) {
+    addMarker(map, current_location);
+    //Instantiate with some options and add the Control
+    var geocoder = new Geocoder('nominatim', {
+        provider: 'osm',
+        lang: 'en',
+        placeholder: 'Search for ...',
+        limit: 5,
+        debug: false,
+        autoComplete: true,
+        keepOpen: true
+    });
+    map.addControl(geocoder);
+
+    //Listen when an address is chosen
+    geocoder.on('addresschosen', function (evt) {
+        setAddress(evt);
+        window.setTimeout(function () {
+            popup.show(evt.coordinate, evt.address.formatted);
+        }, 3000);
+    });
+
+    olview.animate({
+          center: current_location,
+          duration: 2000
+        });
+}
+
+const addMarker = (map, current_location) => {
+    // Location 0, 0 indicates no location has been saved
+    if (!((current_location[0] == 0) && (current_location[1] == 0))) {
         var marker = new ol.Feature({
             geometry: new ol.geom.Point(current_location),
         });
@@ -40,27 +69,6 @@ const setupMap = () => {
         });
         map.addLayer(markerVectorLayer);
     }
-
-//Instantiate with some options and add the Control
-    var geocoder = new Geocoder('nominatim', {
-        provider: 'osm',
-        lang: 'en',
-        placeholder: 'Search for ...',
-        limit: 5,
-        debug: true,
-        autoComplete: true,
-        keepOpen: true
-    });
-    map.addControl(geocoder);
-
-//Listen when an address is chosen
-    geocoder.on('addresschosen', function (evt) {
-        setAddress(evt);
-        window.setTimeout(function () {
-            popup.show(evt.coordinate, evt.address.formatted);
-        }, 3000);
-    });
-
 }
 
 const setAddress = (evt) => {
