@@ -7,7 +7,6 @@ from ford3.models.campus import Campus
 
 class ProviderSerializer(serializers.ModelSerializer):
     campus = serializers.SerializerMethodField()
-    # campus = CampusSerializer(many=True)
 
     def get_campus(self, obj):
         queryset = list(Campus.active_objects.filter(provider_id=obj.id).all())

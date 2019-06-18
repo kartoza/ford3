@@ -11,7 +11,6 @@ class CampusSerializer(serializers.ModelSerializer):
     This is the campus serializer
     """
     campus_events = CampusEventSerializer(many=True)
-    query = Qualification.published_objects.all()
     published_qualifications = serializers.SerializerMethodField()
 
     def get_published_qualifications(self, obj):
