@@ -114,6 +114,15 @@ class CampusLocationForm(CampusForm):
             }
         ))
 
+    location_value_x = forms.FloatField(
+        required=False,
+        widget=forms.HiddenInput()
+    )
+    location_value_y = forms.FloatField(
+        required=False,
+        widget=forms.HiddenInput()
+    )
+
 
 class CampusImportantDatesForm(CampusForm):
     event_ids = forms.CharField(
