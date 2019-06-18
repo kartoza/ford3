@@ -8,7 +8,6 @@ django-pure-pagination
 django-reversion
 django-formtools==2.1
 djangorestframework
-django-map-widgets==0.2.2
 
 easy-thumbnails
 django-widget-tweaks

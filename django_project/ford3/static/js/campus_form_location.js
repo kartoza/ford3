@@ -1,9 +1,3 @@
-// import {Draw, Modify, Snap} from 'ol/interaction.js';
-// import {Tile as TileLayer, Vector as VectorLayer} from 'ol/layer.js';
-// import {OSM, Vector as VectorSource} from 'ol/source.js';
-// import {Circle as CircleStyle, Fill, Stroke, Style} from 'ol/style.js';
-
-// import View from 'ol/View.js';
 
 $(document).ready(function () {
     setupMap()
@@ -14,9 +8,7 @@ const setupMap = () => {
     let hidden_location_y = document.querySelector('#id_campus-location-location_value_y').value
     var current_location = [hidden_location_x, hidden_location_y]
     // This code is adapted from the fiddle demo for: https://github.com/jonataswalker/ol-geocoder
-
-
-    var olview = new ol.View({center: current_location, zoom: 17}),
+    var olview = new ol.View({center: [0, 0], zoom: 17}),
         baseLayer = new ol.layer.Tile({source: new ol.source.OSM()}),
         map = new ol.Map({
             target: document.getElementById('address_map'),
@@ -31,8 +23,6 @@ const setupMap = () => {
     if (!((hidden_location_x == 0) && (hidden_location_y == 0))) {
         var marker = new ol.Feature({
             geometry: new ol.geom.Point(current_location),
-            // labelPoint: new ol.geom.Point(current_location),
-            name: 'Marked Location'
         });
         var vectorSource = new ol.source.Vector({
             features: [marker]
@@ -68,7 +58,7 @@ const setupMap = () => {
         setAddress(evt);
         window.setTimeout(function () {
             popup.show(evt.coordinate, evt.address.formatted);
-        }, 1000);
+        }, 3000);
     });
 
 }
@@ -97,21 +87,4 @@ const setAddress = (evt) => {
     input_code.value = post_code
     hidden_location_x.value = coord_x
     hidden_location_y.value = coord_y
-}
-
-const getAddress = () => {
-    let address = {
-        'Line 1': document.querySelector('#id_campus-location-physical_address_line_1').value,
-        'Line 2': document.querySelector('#id_campus-location-physical_address_line_2').value,
-        'City': document.querySelector('#id_campus-location-physical_address_city').value,
-        'Postal Code': document.querySelector('#id_campus-location-physical_address_postal_code').value
-    }
-    return address
-}
-
-const setLocation = (geocoder) => {
-    let hidden_location_x = document.querySelector('#id_campus-location-location_value_x')
-    let hidden_location_y = document.querySelector('#id_campus-location-location_value_y')
-
-
 }
