@@ -37,7 +37,7 @@ def create(request):
         try:
             provider.created_by = request.user
             provider.edited_by = request.user
-            provider.save_location_data(form.cleaned_data)
+            provider.save_location_data(request.POST)
             provider.save()
 
             provider.create_campus(
