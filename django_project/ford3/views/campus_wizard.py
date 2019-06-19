@@ -93,7 +93,7 @@ class CampusFormWizard(LoginRequiredMixin, CookieWizardView):
             initial_dict.update({
                 'location_value_x': self.campus.location.x,
                 'location_value_y': self.campus.location.y})
-        except IndexError:
+        except (IndexError, AttributeError):
             initial_dict.update({
                 'location_value_x': 0,
                 'location_value_y': 0})

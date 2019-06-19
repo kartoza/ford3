@@ -13,18 +13,6 @@
 	      href="{% static 'css/campus_form.css' %}">
 	<link rel="stylesheet" type="text/css"
 	      href="{% static 'css/libs/jquery-ui-1.12.1-custom/jquery-ui.min.css' %}">
-	<link rel="stylesheet"
-	      href="https://cdn.rawgit.com/openlayers/openlayers.github.io/master/en/v5.3.0/css/ol.css"
-	      type="text/css">
-
-
-	<link href="https://cdn.jsdelivr.net/npm/ol-geocoder@latest/dist/ol-geocoder.min.css" rel="stylesheet">
-
-
-
-	<link href="https://unpkg.com/ol-popup@2.0.0/src/ol-popup.css"
-	      rel="stylesheet">
-
 {% endblock %}
 
 {% block body %}
@@ -447,27 +435,37 @@
 {% endblock %}
 
 {% block footer %}
-<script type="text/javascript"
+	<script type="text/javascript"
         src="{% static 'js/libs/jquery-ui-1.12.1-custom/jquery-ui.min.js' %}"></script>
-	<script src="https://unpkg.com/openlayers@4.6.5/dist/ol.js"></script>
-	<script src="https://unpkg.com/ol-popup@2.0.0/src/ol-popup.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/ol-geocoder"></script>
 
 <script type="text/javascript">
-$(document).ready(function () {
-  $(window).keydown(function (event) {
-    if (event.keyCode === 13) {
-      event.preventDefault()
-      return false
-    }
-  })
-})
+    $(document).ready(function () {
+        $(window).keydown(function (event) {
+            if (event.keyCode === 13) {
+                event.preventDefault()
+                return false
+            }
+        })
+    })
 </script>
-{%  if wizard.steps.step1 == 2 %}
-	<link rel="stylesheet" type="text/css"
-	      href="{% static 'css/map.css' %}">
-	<script type="text/javascript" src="{% static 'js/campus.js' %}"></script>
+	{% if wizard.steps.step1 == 2 %}
+		<script src="https://unpkg.com/openlayers@4.6.5/dist/ol.js"></script>
+		<script src="https://unpkg.com/ol-popup@2.0.0/src/ol-popup.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/ol-geocoder"></script>
+
+		<script type="text/javascript"
+		        src="{% static 'js/campus.js' %}"></script>
+		<script src="{% static 'js/map.js' %}"></script>
 		<script src="{% static 'js/campus_form_location.js' %}"></script>
+		<link rel="stylesheet"
+		      href="https://cdn.rawgit.com/openlayers/openlayers.github.io/master/en/v5.3.0/css/ol.css"
+		      type="text/css">
+		<link href="https://cdn.jsdelivr.net/npm/ol-geocoder@latest/dist/ol-geocoder.min.css" rel="stylesheet">
+		<link href="https://unpkg.com/ol-popup@2.0.0/src/ol-popup.css"
+		      rel="stylesheet">
+		<link rel="stylesheet" type="text/css"
+		      href="{% static 'css/map.css' %}">
+
 {%  endif %}
 {% if wizard.steps.step1 == 3 %}
     <script type="text/javascript" src="{% static 'js/datepicker.js' %}"></script>

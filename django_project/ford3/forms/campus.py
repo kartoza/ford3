@@ -25,7 +25,7 @@ class CampusDetailForm(CampusForm):
 
     name = forms.CharField(
         label='Name',
-        required=True,
+        required=False,
         widget=forms.TextInput(
             attrs={'placeholder': 'Campus name'}
         ))

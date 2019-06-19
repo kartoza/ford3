@@ -1,7 +1,6 @@
 from django.contrib.gis.db import models
 from django.core.exceptions import ValidationError
-from django.contrib.gis.geos import Point
-from django.contrib.gis.geos import GEOSGeometry
+from django.contrib.gis.geos import Point, GEOSGeometry
 from ford3.models.campus_event import CampusEvent
 
 
