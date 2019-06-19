@@ -1,57 +1,66 @@
-
 const setupMap = (location_x, location_y) => {
-    var current_location = [location_x, location_y]
+    let map_container = document.getElementById('address_map')
+    map_container.innerHTML = ''
+    let current_location = [location_x, location_y]
     // This code is adapted from the fiddle demo for: https://github.com/jonataswalker/ol-geocoder
-    var olview = new ol.View({center: [0, 0], zoom: 17}),
-        baseLayer = new ol.layer.Tile({source: new ol.source.OSM()}),
+    let olsource = new ol.source.OSM()
+    let olview = new ol.View({center: [0, 0], zoom: 17}),
+        baseLayer = new ol.layer.Tile({source: olsource}),
         map = new ol.Map({
-            target: document.getElementById('address_map'),
+
+            target: map_container,
             view: olview,
             layers: [baseLayer]
         });
-
     // popup
-    var popup = new ol.Overlay.Popup();
+    let popup = new ol.Overlay.Popup();
     map.addOverlay(popup);
-
     addMarker(map, current_location);
     //Instantiate with some options and add the Control
-    var geocoder = new Geocoder('nominatim', {
+    let geocoder = new Geocoder('nominatim', {
         provider: 'osm',
         lang: 'en',
         placeholder: 'Search for ...',
         limit: 5,
-        debug: false,
+        debug: true,
         autoComplete: true,
-        keepOpen: true
+        keepOpen: false
     });
     map.addControl(geocoder);
-
     //Listen when an address is chosen
     geocoder.on('addresschosen', function (evt) {
+        setupMap(evt.coordinate[0], evt.coordinate[1])
         setAddress(evt);
-        window.setTimeout(function () {
-            popup.show(evt.coordinate, evt.address.formatted);
-        }, 3000);
+    });
+    olview.animate({
+        center: current_location,
+        duration: 2000
     });
 
-    olview.animate({
-          center: current_location,
-          duration: 2000
-        });
+    map.on("singleclick", function (evt) {
+        setLocation(evt)
+        addMarker(map, evt.coordinate)
+    })
 }
 
+const marker = null;
+const markerVectorLayer = null;
+const vectorSource = null;
+
 const addMarker = (map, current_location) => {
+    if (this.markerVectorLayer) {
+        this.vectorSource.clear()
+    }
     // Location 0, 0 indicates no location has been saved
     if (!((current_location[0] == 0) && (current_location[1] == 0))) {
-        var marker = new ol.Feature({
+        this.marker = new ol.Feature({
             geometry: new ol.geom.Point(current_location),
         });
-        var vectorSource = new ol.source.Vector({
-            features: [marker]
+        this.vectorSource = new ol.source.Vector({
+            features: [this.marker]
         });
-        var markerVectorLayer = new ol.layer.Vector({
-            source: vectorSource,
+        this.markerVectorLayer = new ol.layer.Vector({
+            source: this.vectorSource,
             style: new ol.style.Style({
                 image: new ol.style.Circle({
                     radius: 7,
@@ -61,6 +70,6 @@ const addMarker = (map, current_location) => {
                 })
             })
         });
-        map.addLayer(markerVectorLayer);
+        map.addLayer(this.markerVectorLayer);
     }
 }

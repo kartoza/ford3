@@ -22,11 +22,21 @@ const setAddress = (evt) => {
     let coord_x = evt['coordinate'][0]
     let coord_y = evt['coordinate'][1]
 
-
     input_line_1.value = line1
     input_line_2.value = line2
     input_city.value = city
     input_code.value = post_code
+    hidden_location_x.value = coord_x
+    hidden_location_y.value = coord_y
+}
+
+const setLocation = (evt) => {
+    let coord_x = evt['coordinate'][0]
+    let coord_y = evt['coordinate'][1]
+
+    let hidden_location_x = document.querySelector('#id_location_value_x')
+    let hidden_location_y = document.querySelector('#id_location_value_y')
+
     hidden_location_x.value = coord_x
     hidden_location_y.value = coord_y
 }
