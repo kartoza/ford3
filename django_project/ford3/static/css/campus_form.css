@@ -121,10 +121,3 @@ input[data-action='create-qualif'] {
 .saqa-all-qualifications .nav-item {
   height: 55px;
 }
-
-.ol-control button {
-    background-color: rgba(40, 40, 40, 0.8) !important;
-}
-.ol-control button:hover {
-    background-color: rgba(40, 40, 40, 1) !important;
-}

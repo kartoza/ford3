@@ -464,6 +464,8 @@ $(document).ready(function () {
 })
 </script>
 {%  if wizard.steps.step1 == 2 %}
+	<link rel="stylesheet" type="text/css"
+	      href="{% static 'css/map.css' %}">
 	<script type="text/javascript" src="{% static 'js/campus.js' %}"></script>
 		<script src="{% static 'js/campus_form_location.js' %}"></script>
 {%  endif %}
