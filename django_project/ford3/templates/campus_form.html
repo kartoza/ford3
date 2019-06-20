@@ -199,7 +199,12 @@
 
 				{% if wizard.steps.step1 == 2 %}
 		            <div class="row my-3">
-			            <div class="col-md-3"><b>Please select your location</b>
+			            <div class="col-md-3"> <label>Please select your location</label><br>
+			            Use the search function to find your address.<br>
+			            If your address is not present:<ul>
+			            <li>Use the search function to find the general area</li>
+			            <li>Click on the map to pinpoint the location.</li>
+			            <li>Update your physical address.</li></ul>
 			            </div>
 			            <div id="address_map" class="col rounded"
 			                 tabindex="0"></div>
