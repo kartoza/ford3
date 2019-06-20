@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block head %}
+	<style>
+		body {
+			background: var(--c-blue-l);
+		}
+	</style>
+{% endblock %}
+
+
+{% block side_navbar %}
+	{% include 'dashboard/dashboard_sidebar.html' %}
+	{# end of sidebar #}
+{% endblock %}
+
+{% block body %}
+	<div class="container-fluid" id="login-page">
+		<div class="row py-5">
+			<div class="col-md-3 mx-auto rounded px-4" id="login-form">
+
+				<form method="POST" action="{% url 'edit-profile' %}">
+					{% if data.message %}
+					<div class='alert alert-success mt-4'>
+						{{ data.message }}
+					</div>
+					{% endif %}
+					{% csrf_token %}
+					<div class="row mt-3">
+						<div class="col-md-12 py-2 text-white">
+							{{ form.as_p }}
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<a href="{% url 'password_reset' %}"
+							   class="edu-button edu-button-blue border-0"
+							>Reset Password</a>
+						</div>
+					</div>
+					<div class="row">
+
+						<div class="col-md-12 pb-4 pt-2">
+							<input type="submit"
+							       class="edu-button edu-button-orange border-0"
+							       value="Submit">
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+
