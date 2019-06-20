@@ -23,4 +23,3 @@ class ProfileForm(forms.Form):
         widget=forms.EmailInput(attrs={'placeholder': 'email@example.com'}),
         required=True
     )
-
