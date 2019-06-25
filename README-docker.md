@@ -36,7 +36,7 @@ make collectstatic
 #### Using make
 
 Using the make commands is probably simpler - the following make commands are
-provided for production (you can obtain this list by typing ``make help`. All commands
+provided for production (you can obtain this list by typing ``make help``. All commands
 should be run from in the ``deployment`` directory.
 
 
@@ -88,7 +88,7 @@ e.g.:
 docker exec foo_web_1 /usr/local/bin/python /home/web/django_project/manage.py --help
 ```
 
-**Note:** rm should not destroy any data since it only removes containers
+**Note:** ``rm`` should not destroy any data since it only removes containers
 and not host volumes for db and django. All commands should be non-destructive
 to existing data - though **smart people make backups before changing things**.
 
