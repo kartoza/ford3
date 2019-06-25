@@ -26,33 +26,27 @@
                 });
 
                 calendar.render();
-				getCampusEventsAjax();
+                getCampusEventsAjax()
             });
 
-            function getCampusEventsAjax() {
+            getCampusEventsAjax = () => {
+
                 const Http = new XMLHttpRequest();
                 const url = 'http://0.0.0.0/api/v1/campus/1/';
                 Http.open("GET", url);
                 Http.send();
-	            let campus_data = ''
-                const get_campus_data = new Promise(() => {
-                    Http.onreadystatechange = (e) => {
-					campus_data = Http.responseText
-                    return campus_data
-                }
-                });
-				get_campus_data
 
-	            promise.then((
+                Http.onreadystatechange = (e) => {
+                    getCampusEvents(JSON.parse(Http.responseText))
+                }
 
 
             }
 
             getCampusEvents = (campus_data) => {
-            let c_events = []
-	        let events = campus_data['campus_events']
-	                events.forEach(function getEvent(event) {
-                })
+
+                let events = campus_data['campus_events']
+                events.forEach(getEvent)
             }
 
             getEvent = (event, index) => {
@@ -62,7 +56,7 @@
                 let cal_event = {
                     'id': '11',
                     'title': 'My name',
-                    'start': '2019-06-25'
+                    'start': start
                 }
 
 
