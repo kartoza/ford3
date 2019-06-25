@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+	<head>
+		<meta charset='utf-8'/>
+
+		<link href='https://unpkg.com/@fullcalendar/core/main.css'
+		      rel='stylesheet'/>
+		<link href='https://unpkg.com/@fullcalendar/daygrid/main.css'
+		      rel='stylesheet'/>
+
+		<script src='https://unpkg.com/@fullcalendar/core/main.js'></script>
+		<script src='https://unpkg.com/@fullcalendar/daygrid/main.js'></script>
+
+		<script>
+			var calendar = ''
+
+            document.addEventListener('DOMContentLoaded', function () {
+                var calendarEl = document.getElementById('calendar');
+
+                calendar = new FullCalendar.Calendar(calendarEl, {
+                    plugins: ['dayGrid'],
+                });
+
+                calendar.render();
+				getCampusEventsAjax();
+            });
+
+            function getCampusEventsAjax() {
+                const Http = new XMLHttpRequest();
+                const url = 'http://0.0.0.0/api/v1/campus/1/';
+                Http.open("GET", url);
+                Http.send();
+	            let campus_data = ''
+                const get_campus_data = new Promise(() => {
+                    Http.onreadystatechange = (e) => {
+					campus_data = Http.responseText
+                    return campus_data
+                }
+                });
+				get_campus_data
+
+	            promise.then((
+
+
+            }
+
+            getCampusEvents = (campus_data) => {
+            let c_events = []
+	        let events = campus_data['campus_events']
+	                events.forEach(function getEvent(event) {
+                })
+            }
+
+            getEvent = (event, index) => {
+
+                let start = event['date_start']
+
+                let cal_event = {
+                    'id': '11',
+                    'title': 'My name',
+                    'start': '2019-06-25'
+                }
+
+
+                calendar.addEvent(cal_event)
+            }
+
+
+		</script>
+	</head>
+</head>
+
+<body>
+<div id='calendar'></div>
+</body>
+
+</html>
+
+<script>
+
+</script>
