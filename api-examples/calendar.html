@@ -52,13 +52,14 @@
             getEvent = (event, index) => {
 
                 let start = event['date_start']
-
+				let end = event['date_end']
                 let cal_event = {
-                    'id': '11',
-                    'title': 'My name',
-                    'start': start
+                    'id': event['id'],
+                    'title': event['name'],
+                    'start': start,
+	                'end': end,
+	                'url': event['http_link']
                 }
-
 
                 calendar.addEvent(cal_event)
             }
