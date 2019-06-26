@@ -43,7 +43,6 @@ const computeTitle = (resource, event, key) => {
         result
             .filter(data => data[`${key}_events`].length > 0)
             .forEach(resource => {
-                console.log(resource.name)
                 resource[`${key}_events`].forEach(event => {
                     calendar.addEvent({
                         'id': event['id'],
