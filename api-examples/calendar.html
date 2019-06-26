@@ -12,13 +12,14 @@
 </head>
 
 <body>
-    <div id='calendar'></div>
+    <h1>OpenEdu Campus & Qualifications events</h1>
+<div id='calendar'></div>
 <script type='text/javascript'>
 const computeTitle = (resource, event, key) => {
     return [
         event.name,
-        eval('resource.name'),
-        key === 'campus' ? 'Campus' : '',
+        resource.name,
+        key === 'qualification' ? resource.campus : '',
     ].filter(t => t).join(' ** ')
 }
 
@@ -30,6 +31,7 @@ const computeTitle = (resource, event, key) => {
     });
     calendar.render()
 
+    // OPENEDU_API_URL = 'localhost'
     OPENEDU_API_URL = 'http://ford3.kartoza.com/api'
     API_ENDPOINTS = {
         campus: `${OPENEDU_API_URL}/v1/campus/`,
@@ -41,6 +43,7 @@ const computeTitle = (resource, event, key) => {
         result
             .filter(data => data[`${key}_events`].length > 0)
             .forEach(resource => {
+                console.log(resource.name)
                 resource[`${key}_events`].forEach(event => {
                     calendar.addEvent({
                         'id': event['id'],
