@@ -24,7 +24,6 @@
                 calendar = new FullCalendar.Calendar(calendarEl, {
                     plugins: ['dayGrid'],
                 });
-
                 calendar.render();
                 getCampusEventsAjax()
             });
@@ -32,15 +31,16 @@
             getCampusEventsAjax = () => {
 
                 const Http = new XMLHttpRequest();
-                const url = 'http://0.0.0.0/api/v1/campus/1/';
+                const url = 'http://ford3.kartoza.com/api/v1/campus/1/';
                 Http.open("GET", url);
                 Http.send();
+				let promise = new Promise(
+                    function (resolve, reject) {
+                        Http.onreadystatechange = (e) => {
+                            resolve(JSON.parse(Http.responseText));
 
-                Http.onreadystatechange = (e) => {
-                    getCampusEvents(JSON.parse(Http.responseText))
-                }
-
-
+                        }});
+				promise.then(function(result){getCampusEvents(result)});
             }
 
             getCampusEvents = (campus_data) => {
