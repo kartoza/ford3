@@ -1,0 +1,150 @@
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" type="text/css"
+    href="{% static 'css/upload.css' %}">
+{% endblock %}
+
+<table id="main_result" class="table-responsive table table-striped tableFixHead">
+    <thead>
+        <tr></tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+{% csrf_token %}
+<script type='text/javascript'>
+    const class_delimiter = '__'
+    const mainTable = document.getElementById('main_result')
+
+    const getCSRFToken = () => {
+        return document.querySelector('input[name="csrfmiddlewaretoken"]').value
+    }
+
+    const processQualification = (providerId, data, columns) => {
+        url = '/providers/' + providerId + '/qualifications/import/'
+
+        const request = new XMLHttpRequest()
+        request.open('POST', url, true)
+        request.setRequestHeader('Content-Type', 'application/json')
+        request.setRequestHeader('X-CSRFToken', getCSRFToken());
+
+        request.onload = async function () {
+            if (request.status >= 200 && request.status < 400) {
+                const result = JSON.parse(request.responseText)
+
+                buildTableRow(columns, request.responseText)
+            }
+        }
+        request.send(JSON.stringify(data))
+    }
+
+    const buildTableHeader = (columns) => {
+        let header_arr = []
+
+        header_arr.push(`<th>Completion</th>`)
+
+        for (var column of columns) {
+            let columnName = column['name']
+            header_arr.push(`<th>${columnName}</th>`)
+        }
+
+        return header_arr.join('')
+    }
+
+    const getValue = (oldValue) => {
+        if (oldValue == undefined) return ''
+        if (oldValue.toString() == "false") {
+            return "No"
+        } else if (oldValue.toString() == "true") {
+            return "Yes"
+        } else return oldValue
+    }
+
+    const buildTableRow = (columns, rowReport) => {
+        let result_object = JSON.parse(rowReport)
+        let diffs = result_object['result']['diffs']
+        let completion = result_object['result']['completion']
+
+        let value_arr = []
+
+        let cell = document.createElement('td')
+        cell.appendChild(document.createTextNode(`
+            Completion rate: ${completion['completion_rate']}%
+        `))
+
+        if (completion['ready_to_publish']) {
+            let link = document.createElement('a')
+            link.href = completion['link']
+            link.classList.add('edu-button', 'edu-button-navy', 'edu-button-addon', 'mx-1')
+            link.appendChild(document.createTextNode('Publish'))
+            cell.appendChild(link)
+        }
+
+
+        value_arr.push(cell.outerHTML)
+
+        for (var column of columns) {
+            let columnKey = column['key']
+            let text
+            let cell = document.createElement('td')
+            if (columnKey in diffs) {
+
+                let old_value = getValue(diffs[columnKey]['old'])
+                let new_value = getValue(diffs[columnKey]['new'])
+
+                if (old_value == new_value) {
+                    cell.classList.add('value_same')
+                    let sameValueEl = document.createElement('span')
+                    sameValueEl.appendChild(document.createTextNode(new_value))
+                    cell.appendChild(sameValueEl)
+                } else {
+                    cell.classList.add('value_changed')
+                    let oldValueEl = document.createElement('span')
+                    let newValueEl = document.createElement('span')
+                    oldValueEl.classList.add('old_value')
+                    newValueEl.classList.add('new_value')
+                    oldValueEl.appendChild(document.createTextNode(old_value))
+                    newValueEl.appendChild(document.createTextNode(new_value))
+                    cell.appendChild(oldValueEl)
+                    cell.appendChild(newValueEl)
+                }
+
+                value_arr.push(cell.outerHTML)
+            }
+        }
+
+        qualifId = diffs['qualification__id']['old']
+
+        qualifTr = mainTable.querySelector(`tr.qualif-${qualifId}`)
+        qualifTr.innerHTML = value_arr.join('')
+    }
+
+    const main = () => {
+        const rawData = '{{data|escapejs|safe}}'
+        const rawColumns = '{{columns|escapejs|safe}}'
+        const data = JSON.parse(rawData)
+        const columns = JSON.parse(rawColumns)
+
+        const providerId = '{{ provider.id|safe }}'
+
+        tableHeader = buildTableHeader(columns)
+        mainTable.querySelector('thead tr').innerHTML = tableHeader
+
+
+        data.forEach((row, idx) => {
+            tr = document.createElement('tr')
+            tr.classList.add(`qualif-${row['qualification__id']}`)
+
+            mainTable.querySelector('tbody').appendChild(tr)
+
+            processQualification(providerId, row, columns)
+        })
+
+    }
+
+    main()
+
+
+</script>
+

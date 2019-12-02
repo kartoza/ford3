@@ -3,7 +3,10 @@ from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
 from django.contrib.gis.db.models import PointField
 from django.contrib.gis.geos import Point, GEOSGeometry
+
+# from django.core.exceptions import ObjectDoesNotExist
 from ford3.models.campus import Campus
+
 
 
 class ActiveProviderManager(models.Manager):
@@ -223,7 +226,7 @@ class Provider(models.Model):
 
         if (provider_with_name_count > 1) or (provider_with_name_count > 0 and provider_name_query.first() != self):  # noqa
             raise ValidationError(
-                {'provider_name': 'That name is already taken.'})
+                {'provider_name': 'This provider\'s name is already taken.'})
         super().save(*args, **kwargs)
 
     def save_location_data(self, data):
@@ -243,7 +246,7 @@ class Provider(models.Model):
                         'Invalid location. Please reselect the '
                         'location from the map and ensure your location '
                         'details are entered correctly'
-                 })
+                })
 
     def soft_delete(self):
         self.deleted = True
@@ -262,3 +265,9 @@ class Provider(models.Model):
                 'location_value_x': 0,
                 'location_value_y': 0})
         return result
+
+    @property
+    def count_qualifications(self):
+        from ford3.models.qualification import Qualification
+        return Qualification.active_objects.filter(
+            campus_id__in=[c.id for c in self.campus]).count()

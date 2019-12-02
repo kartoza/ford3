@@ -141,3 +141,11 @@ django_project/ford3/scraping/*.csv
 
 # media
 deployment/media/provider_logo/
+
+# ansible
+deployment/ansible/development/group_vars/all.yml
+
+# test xlsx
+hello.xlsx
+dummy_test.xlsx
+template.xlsx
