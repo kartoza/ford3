@@ -1,0 +1,20 @@
+name: Docker Image CI
+
+on: [push]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Build Django image
+      run: docker build -t kartoza/ford3_django production/docker/django
+    - name: Push Django image to DockerHub
+      run: docker push kartoza/ford3_django:latest
+    - name: Build nginx image
+      run: docker build -t kartoza/ford3_nginx_conf production/docker/nginx_conf
+    - name: Push nginx image to DockerHub
+      run: docker push kartoza/ford3_nginx_conf:latest
