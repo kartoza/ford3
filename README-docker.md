@@ -13,7 +13,7 @@ site has been deployed under docker. Three deployment modes are supported:
   this DJANGO_SETTINGS_MODULE is used when running in production mode. Please see
   README-dev.md for more information on setting up a developer environment.
 
-**Note:** We really recommend that you use docker 1.8 or greatr so that you
+**Note:** We really recommend that you use docker 1.8 or greater so that you
   can take advantage of the exec command as well as other newer features.
 
 ## Build your docker images and run them
@@ -36,7 +36,7 @@ make collectstatic
 #### Using make
 
 Using the make commands is probably simpler - the following make commands are
-provided for production (you can obtain this list by typing ``make help`. All commands
+provided for production (you can obtain this list by typing ``make help``. All commands
 should be run from in the ``deployment`` directory.
 
 
